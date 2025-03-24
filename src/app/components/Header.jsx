@@ -47,23 +47,23 @@ export default function Header() {
     setIsMegaMenuOpen(false)
   }
   
-  // Primary brand colors
-  const primaryBg = 'var(--chery-button)'
+  // Brand colors matching the image
+  const primaryBg = '#b29980'      // Tan/beige color for buttons
   const primaryText = 'white'
-  const primaryHover = 'var(--chery-button-hover)'
+  const primaryHover = '#a38a73'   // Darker tan for hover
 
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 flex justify-between items-center px-4 md:px-6 py-3 
-                   transition-all duration-300 z-50 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-white/90 backdrop-blur-sm'}`}
+        className={`fixed top-0 left-0 right-0 flex justify-between items-center px-6 py-4 
+                   transition-all duration-300 z-50 ${isScrolled ? 'bg-white shadow-md py-3' : 'bg-white'}`}
       >
         <div className="flex items-center">
           <Link href="/" className="block">
-            <div className="h-10 w-36 relative">
+            <div className="h-8 w-32 relative">
               <Image 
                 src="/logo.svg" 
-                alt="Chery Bangladesh" 
+                alt="Chery" 
                 fill
                 className="object-contain"
                 priority
@@ -83,48 +83,39 @@ export default function Header() {
         
         <nav className="hidden md:block">
           <ul className="flex list-none">
-            <li className="relative mx-1 lg:mx-3">
+            <li className="relative mx-2">
               <button 
-                className={`relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600 focus:outline-none
-                           after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 after:transition-all after:duration-300
-                           ${isMegaMenuOpen ? 'text-gray-600 after:w-full after:bg-[var(--chery-button)]' : ''}`}
+                className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none
+                           ${isMegaMenuOpen ? 'text-gray-600' : ''}`}
                 onClick={toggleMegaMenu}
                 aria-expanded={isMegaMenuOpen}
                 aria-controls="models-mega-menu"
               >
-                Models
+                MODELS
                 <span className="ml-1 text-xs inline-block transition-transform duration-300" 
                       style={{ transform: isMegaMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                   ▼
                 </span>
               </button>
             </li>
-            <li className="mx-1 lg:mx-3">
-              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
-                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
-                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
-                News
+            <li className="mx-2">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600">
+                NEWS
               </Link>
             </li>
-            <li className="mx-1 lg:mx-3">
-              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
-                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
-                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
-                About Chery
+            <li className="mx-2">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600">
+                ABOUT CHERY
               </Link>
             </li>
-            <li className="mx-1 lg:mx-3">
-              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
-                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
-                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
-                Contact Us
+            <li className="mx-2">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600">
+                CONTACT US
               </Link>
             </li>
-            <li className="mx-1 lg:mx-3">
-              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
-                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
-                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
-                Service
+            <li className="mx-2">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600">
+                SERVICE
               </Link>
             </li>
           </ul>
@@ -137,8 +128,16 @@ export default function Header() {
             </svg>
           </button>
           
-          <button className="bg-[var(--chery-button)] text-white px-5 py-2 rounded-md text-sm uppercase tracking-wide transition-colors hover:bg-[var(--chery-button-hover)]">
-            Book Test Drive
+          <button 
+            className="text-white px-5 py-2 rounded text-sm uppercase tracking-wide transition-colors"
+            style={{ 
+              backgroundColor: primaryBg,
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = primaryHover}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = primaryBg}
+          >
+            EXPLORE
           </button>
         </div>
       </header>
