@@ -8,7 +8,7 @@ export default function ModelsMegaMenu({
   isOpen, 
   onClose,
   primaryBg = '#b29980', // Updated to match image color scheme
-  primaryText = 'black',
+  primaryText = 'white',
   primaryHover = '#a38a73'
 }) {
   const [activeCategory, setActiveCategory] = useState('tiggo')
@@ -133,7 +133,7 @@ export default function ModelsMegaMenu({
     >
       <div className="flex">
         {/* Left sidebar - Categories */}
-        <div className="w-80 bg-neutral-700 text-white flex flex-col">
+        <div className="w-80 bg-gradient-to-b from-neutral-400 to-neutral-300 text-black flex flex-col">
           <div className="p-8">
             <h2 className="text-4xl font-light tracking-wide uppercase">
               {activeCategory}
@@ -144,13 +144,13 @@ export default function ModelsMegaMenu({
             {/* Main categories */}
             <div className="w-full">
               <div 
-                className={`px-8 py-4 cursor-pointer hover:bg-neutral-600 transition-colors ${activeCategory === 'tiggo' ? 'bg-neutral-600' : ''}`}
+                className={`px-8 py-4 cursor-pointer hover:bg-neutral-400/50 transition-colors ${activeCategory === 'tiggo' ? 'bg-neutral-400/50' : ''}`}
                 onClick={() => handleCategoryClick('tiggo')}
               >
                 <h3 className="text-2xl font-light tracking-wide uppercase">Tiggo</h3>
               </div>
               <div 
-                className={`px-8 py-4 cursor-pointer hover:bg-neutral-600 transition-colors ${activeCategory === 'arrizo' ? 'bg-neutral-600' : ''}`}
+                className={`px-8 py-4 cursor-pointer hover:bg-neutral-400/50 transition-colors ${activeCategory === 'arrizo' ? 'bg-neutral-400/50' : ''}`}
                 onClick={() => handleCategoryClick('arrizo')}
               >
                 <h3 className="text-2xl font-light tracking-wide uppercase">Arrizo</h3>
@@ -160,12 +160,12 @@ export default function ModelsMegaMenu({
         </div>
         
         {/* Middle section - Series and Models */}
-        <div className="w-72 bg-neutral-200 overflow-y-auto">
+        <div className="w-72 bg-primary-700 overflow-y-auto">
           {getSeriesData().map((series) => (
             <div key={series.id} className="border-b border-gray-300">
               <div 
-                className={`p-4 flex justify-between items-center cursor-pointer hover:bg-neutral-300 transition-colors
-                          ${activeModel === series.id || (series.models.length > 0 && series.models.includes(activeModel)) ? 'bg-neutral-300' : ''}`}
+                className={`p-4 flex justify-between items-center cursor-pointer hover:bg-primary-900 transition-colors
+                          ${activeModel === series.id || (series.models.length > 0 && series.models.includes(activeModel)) ? 'bg-primary-900' : ''}`}
                 onClick={() => {
                   if (series.models.length > 0) {
                     toggleSeries(series.id)
