@@ -41,6 +41,18 @@ body {
     background-color: var(--color-primary) !important;
   }
 
+  .bg-primary-700 {
+    background-color: var(--color-primary-700) !important;
+  }
+
+  .bg-primary-800 {
+    background-color: var(--color-primary-800) !important;
+  }
+
+  .bg-primary-900 {
+    background-color: var(--color-primary-900) !important;
+  }
+
   .text-primary {
     color: var(--color-primary) !important;
   }
@@ -59,6 +71,18 @@ body {
 
   .bg-secondary {
     background-color: var(--color-secondary) !important;
+  }
+
+  .bg-secondary-700 {
+    background-color: var(--color-secondary-700) !important;
+  }
+
+  .bg-secondary-800 {
+    background-color: var(--color-secondary-800) !important;
+  }
+
+  .bg-secondary-900 {
+    background-color: var(--color-secondary-900) !important;
   }
 
   .text-secondary {

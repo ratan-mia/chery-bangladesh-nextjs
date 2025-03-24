@@ -198,11 +198,11 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                 {/* Models submenu */}
                 {activeSubmenu === 'models' && (
                   <div className="transition-all duration-300 ease-in-out">
-                    <div className="bg-amber-700 text-white">
+                    <div className="bg-primary-700 text-white">
                       <ul className="list-none flex">
                         <li 
                           className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
-                            activeModelCategory === 'tiggo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                            activeModelCategory === 'tiggo' ? 'bg-primary bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                           }`}
                           onClick={() => handleCategoryClick('tiggo')}
                         >
@@ -210,7 +210,7 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                         </li>
                         <li 
                           className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
-                            activeModelCategory === 'arrizo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                            activeModelCategory === 'arrizo' ? 'bg-primary bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                           }`}
                           onClick={() => handleCategoryClick('arrizo')}
                         >
@@ -219,7 +219,7 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                       </ul>
                     </div>
                     
-                    <div className="bg-amber-800 overflow-hidden transition-all duration-300">
+                    <div className="bg-primary-800 overflow-hidden transition-all duration-300">
                       <ul className="list-none">
                         {getModelList().map((model) => (
                           <div key={model.id}>
@@ -239,7 +239,7 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                             
                             {model.hasSubmenu && (
                               <ul 
-                                className={`list-none bg-amber-900 transition-all duration-300 ${
+                                className={`list-none bg-primary-900 transition-all duration-300 ${
                                   openModelSubmenus[model.id] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
                                 }`}
                               >
@@ -247,7 +247,7 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                                   <li 
                                     key={subItem.id}
                                     className={`py-3 pl-8 sm:pl-12 pr-5 sm:pr-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 transition-colors ${
-                                      activeModel === subItem.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                                      activeModel === subItem.id ? 'bg-primary-700 active:bg-primary-900 bg-opacity-20' : 'hover:bg-primary-700 hover:bg-opacity-10'
                                     }`}
                                     onClick={() => handleModelClick(subItem.id)}
                                   >
@@ -303,7 +303,7 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                       </div>
                       
                       <Link href={`/models/${activeModel}`}>
-                        <button className="bg-amber-700 text-white border-none py-2 sm:py-3 px-6 sm:px-8 text-sm uppercase cursor-pointer hover:bg-amber-800 active:bg-amber-900 transition-colors mt-4 sm:mt-6 rounded shadow-sm">
+                        <button className="bg-primary-700 text-white border-none py-2 sm:py-3 px-6 sm:px-8 text-sm uppercase cursor-pointer hover:bg-primary-800 active:bg-primary-900 transition-colors mt-4 sm:mt-6 rounded shadow-sm">
                           Explore
                         </button>
                       </Link>
