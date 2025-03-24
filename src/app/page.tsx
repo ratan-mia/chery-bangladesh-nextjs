@@ -4,6 +4,7 @@ import CheryTiggoSection from "./components/CheryTiggoSection";
 import Header from "./components/Header";
 import HeroSlider from "./components/HeroSlider";
 import MasonryImageSlider from "./components/MasonryImageSlider";
+import NewsSection from "./components/NewsSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroSlider />
       <CheryTiggoSection />
       <MasonryImageSlider />
+      <NewsSection />
       <footer className="bg-gray-800 text-white py-8 mt-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between">
