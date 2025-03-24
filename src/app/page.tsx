@@ -1,8 +1,9 @@
-'use client'
+"use client";
 
-import CheryTiggoSection from './components/CheryTiggoSection'
-import Header from './components/Header'
-import HeroSlider from './components/HeroSlider'
+import CheryTiggoSection from "./components/CheryTiggoSection";
+import Header from "./components/Header";
+import HeroSlider from "./components/HeroSlider";
+import MasonryImageSlider from "./components/MasonryImageSlider";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Header />
       <HeroSlider />
       <CheryTiggoSection />
+      <MasonryImageSlider />
       <footer className="bg-gray-800 text-white py-8 mt-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between">
@@ -23,20 +25,43 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-bold mb-3">Quick Links</h4>
               <ul>
-                <li className="mb-2"><a href="#" className="hover:text-gray-300">Models</a></li>
-                <li className="mb-2"><a href="#" className="hover:text-gray-300">News</a></li>
-                <li className="mb-2"><a href="#" className="hover:text-gray-300">About Us</a></li>
-                <li className="mb-2"><a href="#" className="hover:text-gray-300">Contact</a></li>
-                <li className="mb-2"><a href="#" className="hover:text-gray-300">Service</a></li>
+                <li className="mb-2">
+                  <a href="#" className="hover:text-gray-300">
+                    Models
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:text-gray-300">
+                    News
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:text-gray-300">
+                    About Us
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:text-gray-300">
+                    Contact
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a href="#" className="hover:text-gray-300">
+                    Service
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
 
           <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-            <p>&copy; {new Date().getFullYear()} Chery Bangladesh. All Rights Reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} Chery Bangladesh. All Rights
+              Reserved.
+            </p>
           </div>
         </div>
       </footer>
     </main>
-  )
+  );
 }
