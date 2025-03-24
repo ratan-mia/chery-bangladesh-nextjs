@@ -129,7 +129,7 @@ export default function ModelsMegaMenu({
     <div 
       id={id}
       ref={menuRef}
-      className="fixed top-16 left-0 w-full bg-white z-40 hidden md:block shadow-lg"
+      className="fixed top-16 left-0 w-full bg-primary z-40 hidden md:block shadow-lg"
     >
       <div className="flex">
         {/* Left sidebar - Categories */}
@@ -160,12 +160,12 @@ export default function ModelsMegaMenu({
         </div>
         
         {/* Middle section - Series and Models */}
-        <div className="w-72 bg-primary-700 overflow-y-auto">
+        <div className="w-72 bg-secondary overflow-y-auto">
           {getSeriesData().map((series) => (
             <div key={series.id} className="border-b border-gray-300">
               <div 
-                className={`p-4 flex justify-between items-center cursor-pointer hover:bg-primary-900 transition-colors
-                          ${activeModel === series.id || (series.models.length > 0 && series.models.includes(activeModel)) ? 'bg-primary-900' : ''}`}
+                className={`p-4 flex justify-between items-center cursor-pointer hover:bg-primary transition-colors
+                          ${activeModel === series.id || (series.models.length > 0 && series.models.includes(activeModel)) ? 'bg-primary' : ''}`}
                 onClick={() => {
                   if (series.models.length > 0) {
                     toggleSeries(series.id)
@@ -184,12 +184,12 @@ export default function ModelsMegaMenu({
               
               {/* Submenu for series with multiple models */}
               {expandedSeries[series.id] && series.models.length > 0 && (
-                <div className="bg-white">
+                <div className="bg-primary">
                   {series.models.map((model) => (
                     <div 
                       key={model}
-                      className={`p-4 pl-10 cursor-pointer hover:bg-neutral-100 transition-colors
-                                ${activeModel === model ? 'bg-neutral-100' : ''}`}
+                      className={`p-4 pl-10 cursor-pointer hover:bg-secondary transition-colors
+                                ${activeModel === model ? 'bg-secondary' : ''}`}
                       onClick={() => handleModelClick(model)}
                     >
                       {formatModelName(model)}
@@ -202,7 +202,7 @@ export default function ModelsMegaMenu({
         </div>
         
         {/* Right section - Model Display */}
-        <div className="flex-1 bg-neutral-100 relative">
+        <div className="flex-1 bg-secondary relative">
           {/* Background text watermark */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
             <h1 className="text-9xl font-bold text-neutral-200 opacity-40 select-none">
@@ -234,7 +234,7 @@ export default function ModelsMegaMenu({
             </div>
             
             {/* Specs section at bottom */}
-            <div className="p-8 bg-neutral-100 border-t border-neutral-200">
+            <div className="p-8 bg-secondary border-t border-neutral-200">
               <div className="flex space-x-16">
                 {/* Engine */}
                 <div>
