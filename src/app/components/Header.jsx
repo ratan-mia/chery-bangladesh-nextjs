@@ -2,13 +2,28 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MobileMenu from './MobileMenu'
 import ModelsMegaMenu from './ModelsMegaMenu'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  
+  // Handle scroll event for header styling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -31,12 +46,20 @@ export default function Header() {
   const closeMegaMenu = () => {
     setIsMegaMenuOpen(false)
   }
+  
+  // Primary brand colors
+  const primaryBg = 'var(--chery-button)'
+  const primaryText = 'white'
+  const primaryHover = 'var(--chery-button-hover)'
 
   return (
     <>
-      <header className="flex justify-between items-center px-4 md:px-5 py-2 bg-white shadow-md relative z-50">
+      <header 
+        className={`fixed top-0 left-0 right-0 flex justify-between items-center px-4 md:px-6 py-3 
+                   transition-all duration-300 z-50 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-white/90 backdrop-blur-sm'}`}
+      >
         <div className="flex items-center">
-          <Link href="/">
+          <Link href="/" className="block">
             <div className="h-10 w-36 relative">
               <Image 
                 src="/logo.svg" 
@@ -58,53 +81,93 @@ export default function Header() {
           <span className={`block h-0.5 w-full bg-gray-800 rounded-sm transition-all duration-300 ${isMobileMenuOpen ? 'transform -translate-y-2 -rotate-45' : ''}`}></span>
         </div>
         
-        <ul className="hidden md:flex list-none">
-          <li className="mx-4 relative">
-            <button 
-              className={`text-gray-800 text-sm font-medium uppercase py-4 block hover:text-gray-500 focus:outline-none ${isMegaMenuOpen ? 'text-gray-500' : ''}`}
-              onClick={toggleMegaMenu}
-            >
-              Models
-              <span className="ml-1">{isMegaMenuOpen ? '▲' : '▼'}</span>
-            </button>
-          </li>
-          <li className="mx-4">
-            <Link href="#" className="text-gray-800 text-sm font-medium uppercase py-4 block hover:text-gray-500">
-              News
-            </Link>
-          </li>
-          <li className="mx-4">
-            <Link href="#" className="text-gray-800 text-sm font-medium uppercase py-4 block hover:text-gray-500">
-              About Chery
-            </Link>
-          </li>
-          <li className="mx-4">
-            <Link href="#" className="text-gray-800 text-sm font-medium uppercase py-4 block hover:text-gray-500">
-              Contact Us
-            </Link>
-          </li>
-          <li className="mx-4">
-            <Link href="#" className="text-gray-800 text-sm font-medium uppercase py-4 block hover:text-gray-500">
-              Service
-            </Link>
-          </li>
-        </ul>
+        <nav className="hidden md:block">
+          <ul className="flex list-none">
+            <li className="relative mx-1 lg:mx-3">
+              <button 
+                className={`relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600 focus:outline-none
+                           after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 after:transition-all after:duration-300
+                           ${isMegaMenuOpen ? 'text-gray-600 after:w-full after:bg-[var(--chery-button)]' : ''}`}
+                onClick={toggleMegaMenu}
+                aria-expanded={isMegaMenuOpen}
+                aria-controls="models-mega-menu"
+              >
+                Models
+                <span className="ml-1 text-xs inline-block transition-transform duration-300" 
+                      style={{ transform: isMegaMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                  ▼
+                </span>
+              </button>
+            </li>
+            <li className="mx-1 lg:mx-3">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
+                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
+                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
+                News
+              </Link>
+            </li>
+            <li className="mx-1 lg:mx-3">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
+                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
+                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
+                About Chery
+              </Link>
+            </li>
+            <li className="mx-1 lg:mx-3">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
+                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
+                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
+                Contact Us
+              </Link>
+            </li>
+            <li className="mx-1 lg:mx-3">
+              <Link href="#" className="relative text-gray-800 text-sm font-medium uppercase py-4 px-3 block hover:text-gray-600
+                                        after:content-[''] after:absolute after:h-[3px] after:w-0 after:left-0 after:bottom-3 
+                                        after:bg-[var(--chery-button)] hover:after:w-full after:transition-all after:duration-300">
+                Service
+              </Link>
+            </li>
+          </ul>
+        </nav>
         
-        <div className="hidden md:flex items-center">
-          <Link href="#" className="ml-5 text-gray-800 text-xl">🔍</Link>
-          <Link href="#" className="ml-5 text-gray-800 text-xl">🌐</Link>
+        <div className="hidden md:flex items-center space-x-4">
+          <button className="p-2 rounded-full transition-colors hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+          
+          <button className="bg-[var(--chery-button)] text-white px-5 py-2 rounded-md text-sm uppercase tracking-wide transition-colors hover:bg-[var(--chery-button-hover)]">
+            Book Test Drive
+          </button>
         </div>
       </header>
       
-      {/* Mega Menu */}
+      <div className="h-16"></div> {/* Spacer for fixed header */}
+      
+      {/* Mega Menu Backdrop */}
       {isMegaMenuOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={closeMegaMenu}></div>
       )}
       
-      <ModelsMegaMenu isOpen={isMegaMenuOpen} onClose={closeMegaMenu} />
+      {/* Models Mega Menu */}
+      <ModelsMegaMenu 
+        id="models-mega-menu"
+        isOpen={isMegaMenuOpen} 
+        onClose={closeMegaMenu} 
+        primaryBg={primaryBg}
+        primaryText={primaryText}
+        primaryHover={primaryHover}
+      />
       
       {/* Mobile Menu */}
-      <MobileMenu isOpen={isMobileMenuOpen} closeMenu={() => setIsMobileMenuOpen(false)} />
+      <MobileMenu 
+        isOpen={isMobileMenuOpen} 
+        closeMenu={() => setIsMobileMenuOpen(false)}
+        primaryBg={primaryBg}
+        primaryText={primaryText}
+        primaryHover={primaryHover}
+      />
     </>
   )
 }
