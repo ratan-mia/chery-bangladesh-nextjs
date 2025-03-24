@@ -3,6 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-bg: #f5f5f5;
+  --secondary-bg: #9a9287;
+  --dropdown-bg: #666666;
+  --chery-submenu: #777777;
+  --chery-button: #b7a99a;
+  --chery-button-hover: #a3958a;
 }
 
 @theme inline {

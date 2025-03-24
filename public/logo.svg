@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="40" viewBox="0 0 150 40">
+  <path fill="#333" d="M20,20c0,11.046-8.954,20-20,20s-20-8.954-20-20s8.954-20,20-20s20,8.954,20,20z
+  m-3,1.5c0-9.39-7.61-17-17-17s-17,7.61-17,17s7.61,17,17,17s17-7.61,17-17z"/>
+  <text x="30" y="28" fill="#333" font-family="Arial" font-size="20" font-weight="bold">CHERY3</text>
+</svg>
