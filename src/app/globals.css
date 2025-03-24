@@ -4,7 +4,13 @@
   --background: #ffffff;
   --foreground: #171717;
   --color-primary: #ac9176;
+  --color-primary-700: #8c735d;
+  --color-primary-800: #6e5a48;
+  --color-primary-900: #524336;
   --color-secondary: #9e9e9e;
+  --color-secondary-700: #7f7f7f;
+  --color-secondary-800: #616161;
+  --color-secondary-900: #424242;
   --color-dark-gray: #1f2937;
   --color-light-gray: #f3f4f6;
 }
