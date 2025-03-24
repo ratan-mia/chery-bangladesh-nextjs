@@ -1,18 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function MobileMenu({ isOpen, closeMenu }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null)
   const [activeModelCategory, setActiveModelCategory] = useState('tiggo')
   const [activeModel, setActiveModel] = useState('tiggo9')
   const [openModelSubmenus, setOpenModelSubmenus] = useState({})
+  const menuRef = useRef(null)
   
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (isOpen && !e.target.closest('.mobile-menu-container') && !e.target.closest('.menu-toggle')) {
+      if (isOpen && menuRef.current && !menuRef.current.contains(e.target) && !e.target.closest('.menu-toggle')) {
         closeMenu()
       }
     }
@@ -20,6 +21,19 @@ export default function MobileMenu({ isOpen, closeMenu }) {
     document.addEventListener('click', handleOutsideClick)
     return () => document.removeEventListener('click', handleOutsideClick)
   }, [isOpen, closeMenu])
+  
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
   
   const toggleMainSubmenu = (submenu) => {
     setActiveSubmenu(activeSubmenu === submenu ? null : submenu)
@@ -142,153 +156,224 @@ export default function MobileMenu({ isOpen, closeMenu }) {
   const carColor = getCarColor(activeModel)
   
   return (
-    <div 
-      className={`fixed top-0 left-0 w-full h-full bg-white z-30 overflow-y-auto transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} pt-16 md:hidden`}
-    >
-      <div className="mobile-menu-container">
-        <nav className="mb-5">
-          <ul className="list-none border-b border-gray-200">
-            <li className="border-b border-gray-100">
-              <button 
-                className="text-gray-800 w-full text-left text-base px-5 py-4 block uppercase flex justify-between items-center"
-                onClick={() => toggleMainSubmenu('models')}
-              >
-                Models
-                <span>{activeSubmenu === 'models' ? '−' : '+'}</span>
-              </button>
-              
-              {/* Models submenu */}
-              {activeSubmenu === 'models' && (
-                <div>
-                  <div className="bg-cherySidebar text-white">
-                    <ul className="list-none flex">
-                      <li 
-                        className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center ${activeModelCategory === 'tiggo' ? 'bg-white bg-opacity-20' : ''}`}
-                        onClick={() => handleCategoryClick('tiggo')}
-                      >
-                        Tiggo
-                      </li>
-                      <li 
-                        className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center ${activeModelCategory === 'arrizo' ? 'bg-white bg-opacity-20' : ''}`}
-                        onClick={() => handleCategoryClick('arrizo')}
-                      >
-                        Arrizo
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-cheryDropdown overflow-hidden transition-all duration-300 max-h-full">
-                    <ul className="list-none">
-                      {getModelList().map((model) => (
-                        <div key={model.id}>
-                          <li 
-                            className={`py-3 px-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 ${activeModel === model.id ? 'bg-white bg-opacity-20' : ''}`}
-                            onClick={() => model.hasSubmenu ? toggleModelSubmenu(model.id) : handleModelClick(model.id)}
-                          >
-                            {model.name}
+    <>
+      {/* Backdrop overlay */}
+      <div 
+        className={`fixed inset-0 bg-black bg-opacity-50 z-20 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeMenu}
+      />
+      
+      {/* Mobile menu */}
+      <div 
+        ref={menuRef}
+        className={`fixed top-0 right-0 w-full sm:w-4/5 md:w-3/5 h-full bg-white z-30 overflow-y-auto transition-transform duration-300 transform ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        } pt-16 max-h-screen`}
+      >
+        <div className="mobile-menu-container h-full flex flex-col">
+          {/* Close button */}
+          <button 
+            className="absolute top-4 right-4 text-gray-800 w-8 h-8 flex items-center justify-center"
+            onClick={closeMenu}
+            aria-label="Close menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <nav className="mb-5 flex-grow">
+            <ul className="list-none border-b border-gray-200">
+              <li className="border-b border-gray-100">
+                <button 
+                  className="text-gray-800 w-full text-left text-base px-5 py-4 block uppercase flex justify-between items-center"
+                  onClick={() => toggleMainSubmenu('models')}
+                >
+                  Models
+                  <span className="text-2xl">{activeSubmenu === 'models' ? '−' : '+'}</span>
+                </button>
+                
+                {/* Models submenu */}
+                {activeSubmenu === 'models' && (
+                  <div className="transition-all duration-300 ease-in-out">
+                    <div className="bg-amber-700 text-white">
+                      <ul className="list-none flex">
+                        <li 
+                          className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
+                            activeModelCategory === 'tiggo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                          }`}
+                          onClick={() => handleCategoryClick('tiggo')}
+                        >
+                          Tiggo
+                        </li>
+                        <li 
+                          className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
+                            activeModelCategory === 'arrizo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                          }`}
+                          onClick={() => handleCategoryClick('arrizo')}
+                        >
+                          Arrizo
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-amber-800 overflow-hidden transition-all duration-300">
+                      <ul className="list-none">
+                        {getModelList().map((model) => (
+                          <div key={model.id}>
+                            <li 
+                              className={`py-3 px-5 sm:px-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 transition-colors ${
+                                activeModel === model.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                              }`}
+                              onClick={() => model.hasSubmenu ? toggleModelSubmenu(model.id) : handleModelClick(model.id)}
+                            >
+                              {model.name}
+                              {model.hasSubmenu && (
+                                <span className="text-xl px-2">
+                                  {openModelSubmenus[model.id] ? '−' : '+'}
+                                </span>
+                              )}
+                            </li>
+                            
                             {model.hasSubmenu && (
-                              <span className="text-2xl cursor-pointer">
-                                {openModelSubmenus[model.id] ? '−' : '+'}
-                              </span>
+                              <ul 
+                                className={`list-none bg-amber-900 transition-all duration-300 ${
+                                  openModelSubmenus[model.id] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+                                }`}
+                              >
+                                {getSubmenuItems(model.id).map((subItem) => (
+                                  <li 
+                                    key={subItem.id}
+                                    className={`py-3 pl-8 sm:pl-12 pr-5 sm:pr-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 transition-colors ${
+                                      activeModel === subItem.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                                    }`}
+                                    onClick={() => handleModelClick(subItem.id)}
+                                  >
+                                    {subItem.name}
+                                  </li>
+                                ))}
+                              </ul>
                             )}
-                          </li>
-                          
-                          {model.hasSubmenu && openModelSubmenus[model.id] && (
-                            <ul className="list-none bg-cherySubmenu overflow-hidden transition-all duration-300">
-                              {getSubmenuItems(model.id).map((subItem) => (
-                                <li 
-                                  key={subItem.id}
-                                  className={`py-3 pl-12 pr-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 ${activeModel === subItem.id ? 'bg-white bg-opacity-20' : ''}`}
-                                  onClick={() => handleModelClick(subItem.id)}
-                                >
-                                  {subItem.name}
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {/* Car display for selected model */}
-                  <div className="p-5 text-center bg-white">
-                    <div className="w-full h-40 relative mb-5">
-                      <div style={{ 
-                        backgroundColor: carColor, 
-                        width: '100%', 
-                        height: '100%', 
-                        position: 'relative',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center' 
-                      }}>
-                        <div className="text-white text-2xl font-bold">
-                          {formatModelName(activeModel)}
-                        </div>
-                      </div>
+                          </div>
+                        ))}
+                      </ul>
                     </div>
                     
-                    <div className="flex justify-around flex-wrap">
-                      <div className="text-center p-2">
-                        <div className="text-sm text-gray-600 mb-2">Engine</div>
-                        <div className="text-3xl text-gray-800 font-bold">
-                          {specs.engine}<span className="text-sm text-gray-500 align-super">T</span>
+                    {/* Car display for selected model */}
+                    <div className="p-5 text-center bg-white">
+                      <div className="w-full h-32 sm:h-40 relative mb-5 rounded overflow-hidden shadow-md">
+                        <div style={{ 
+                          backgroundColor: carColor, 
+                          width: '100%', 
+                          height: '100%', 
+                          position: 'relative',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center' 
+                        }}>
+                          <div className="text-white text-2xl font-bold">
+                            {formatModelName(activeModel)}
+                          </div>
                         </div>
                       </div>
                       
-                      <div className="text-center p-2">
-                        <div className="text-sm text-gray-600 mb-2">Length</div>
-                        <div className="text-3xl text-gray-800 font-bold">
-                          {specs.length}<span className="text-sm text-gray-500 align-super">mm</span>
+                      <div className="flex justify-around flex-wrap">
+                        <div className="text-center p-2">
+                          <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Engine</div>
+                          <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
+                            {specs.engine}<span className="text-xs sm:text-sm text-gray-500 align-super">T</span>
+                          </div>
+                        </div>
+                        
+                        <div className="text-center p-2">
+                          <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Length</div>
+                          <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
+                            {specs.length}<span className="text-xs sm:text-sm text-gray-500 align-super">mm</span>
+                          </div>
+                        </div>
+                        
+                        <div className="text-center p-2">
+                          <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Wheelbase</div>
+                          <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
+                            {specs.wheelbase}<span className="text-xs sm:text-sm text-gray-500 align-super">mm</span>
+                          </div>
                         </div>
                       </div>
                       
-                      <div className="text-center p-2">
-                        <div className="text-sm text-gray-600 mb-2">Wheelbase</div>
-                        <div className="text-3xl text-gray-800 font-bold">
-                          {specs.wheelbase}<span className="text-sm text-gray-500 align-super">mm</span>
-                        </div>
-                      </div>
+                      <Link href={`/models/${activeModel}`}>
+                        <button className="bg-amber-700 text-white border-none py-2 sm:py-3 px-6 sm:px-8 text-sm uppercase cursor-pointer hover:bg-amber-800 active:bg-amber-900 transition-colors mt-4 sm:mt-6 rounded shadow-sm">
+                          Explore
+                        </button>
+                      </Link>
                     </div>
-                    
-                    <Link href={`/models/${activeModel}`}>
-                      <button className="bg-cheryButton text-white border-none py-3 px-8 text-sm uppercase cursor-pointer hover:bg-cheryButtonHover transition-colors mt-6">
-                        Explore
-                      </button>
-                    </Link>
                   </div>
-                </div>
-              )}
-            </li>
-            <li className="border-b border-gray-100">
-              <Link href="#" className="text-gray-800 no-underline text-base px-5 py-4 block uppercase" onClick={closeMenu}>
-                News
-              </Link>
-            </li>
-            <li className="border-b border-gray-100">
-              <Link href="#" className="text-gray-800 no-underline text-base px-5 py-4 block uppercase" onClick={closeMenu}>
-                About Chery
-              </Link>
-            </li>
-            <li className="border-b border-gray-100">
-              <Link href="#" className="text-gray-800 no-underline text-base px-5 py-4 block uppercase" onClick={closeMenu}>
-                Contact Us
-              </Link>
-            </li>
-            <li className="border-b border-gray-100">
-              <Link href="#" className="text-gray-800 no-underline text-base px-5 py-4 block uppercase" onClick={closeMenu}>
-                Service
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        
-        <div className="flex justify-between px-5 py-4">
-          <Link href="#" className="text-gray-800 text-xl" onClick={closeMenu}>🔍</Link>
-          <Link href="#" className="text-gray-800 text-xl" onClick={closeMenu}>🌐</Link>
+                )}
+              </li>
+              <li className="border-b border-gray-100">
+                <Link 
+                  href="#" 
+                  className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
+                  onClick={closeMenu}
+                >
+                  News
+                </Link>
+              </li>
+              <li className="border-b border-gray-100">
+                <Link 
+                  href="#" 
+                  className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
+                  onClick={closeMenu}
+                >
+                  About Chery
+                </Link>
+              </li>
+              <li className="border-b border-gray-100">
+                <Link 
+                  href="#" 
+                  className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
+                  onClick={closeMenu}
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li className="border-b border-gray-100">
+                <Link 
+                  href="#" 
+                  className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
+                  onClick={closeMenu}
+                >
+                  Service
+                </Link>
+              </li>
+            </ul>
+          </nav>
+          
+          <div className="flex justify-between items-center px-5 py-4 border-t border-gray-200 mt-auto">
+            <Link 
+              href="#" 
+              className="text-gray-800 hover:text-amber-700 transition-colors" 
+              onClick={closeMenu}
+              aria-label="Search"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </Link>
+            <Link 
+              href="#" 
+              className="text-gray-800 hover:text-amber-700 transition-colors" 
+              onClick={closeMenu}
+              aria-label="Language"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
