@@ -62,7 +62,7 @@ export default function Header() {
           <Link href="/" className="block">
             <div className="h-8 w-32 relative">
               <Image 
-                src="/logo.svg" 
+                src="/logo.png" 
                 alt="Chery" 
                 fill
                 className="object-contain"

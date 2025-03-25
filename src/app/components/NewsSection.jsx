@@ -11,7 +11,7 @@ const newsData = [
     title: "The Fashion Code of Global Success: Decoding the Aesthetic DNA Behind Chery's Design",
     summary: "How innovative design philosophy is shaping Chery's global appeal",
     date: "Mar 19, 2025",
-    image: "/news-1.jpg",
+    image: "/images/news/1.jpg",
     slug: "fashion-code-global-success",
     isNew: false
   },
@@ -20,7 +20,7 @@ const newsData = [
     title: "The Secret to Milestones: TIGGO 4's Path to Global Trust via Safety Standards",
     summary: "TIGGO 4 achieves remarkable safety ratings across international markets",
     date: "Mar 14, 2025",
-    image: "/news-2.jpg",
+    image: "/images/news/2.jpg",
     slug: "tiggo4-global-trust-safety",
     isNew: true
   },
@@ -29,7 +29,7 @@ const newsData = [
     title: "Allianz Partners and Chery International sign Strategic Cooperation Agreement",
     summary: "Partnership aims to enhance global warranty and service offerings",
     date: "Mar 04, 2025",
-    image: "/news-3.jpg",
+    image: "/images/news/3.jpg",
     slug: "allianz-partners-agreement",
     isNew: false
   }

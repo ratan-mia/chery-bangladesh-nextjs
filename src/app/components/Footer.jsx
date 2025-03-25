@@ -103,7 +103,7 @@ export default function Footer() {
             <div className="mt-8 md:mt-0">
               <Link href="/" className="inline-block">
                 <Image 
-                  src="/logo.svg" 
+                  src="/logo.png" 
                   alt="Chery" 
                   width={120} 
                   height={40}
