@@ -173,14 +173,14 @@ export default function CheryTiggoSection() {
                 dominantBaseline="middle" 
                 fontSize="24" 
                 fontWeight="bold"
-                fill="currentColor"
-                className="text-primary-800"
+                fill="#6e5a48"
+                className="text-gray-50"
               >
                 Tiggo
               </text>
             </motion.svg>
             <motion.div 
-              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary-600"
+              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-amber-700"
               initial={{ width: 0 }}
               animate={isInView ? { width: 128 } : { width: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -213,7 +213,7 @@ export default function CheryTiggoSection() {
                   whileTap={{ scale: 0.98 }}
                   className={`py-3 px-4 text-center whitespace-nowrap text-sm md:text-base transition-all duration-300
                               ${activeTabIndex === index 
-                                ? 'text-primary-700 border-b-2 border-primary-700 font-medium' 
+                                ? 'text-amber-700 border-b-2 border-amber-700 font-medium' 
                                 : 'text-gray-600 hover:text-gray-800 hover:border-b-2 hover:border-gray-300'}`}
                   onClick={() => handleTabClick(index)}
                 >
@@ -253,7 +253,8 @@ export default function CheryTiggoSection() {
               <SwiperSlide key={index} className="bg-white">
                 <div className="relative">
                   {/* Main car image */}
-                  <div className="h-[300px] md:h-[400px] lg:h-[500px] relative bg-primary-50" >
+                  <div className="h-[300px] md:h-[400px] lg:h-[500px] relative bg-white" 
+                       style={{ backgroundColor: `${model.color}10` }}>
                     <motion.div
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -277,7 +278,7 @@ export default function CheryTiggoSection() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3, duration: 0.5 }}
                     >
-                      <h3 className="text-lg font-medium text-primary-700">{model.name}</h3>
+                      <h3 className="text-lg font-medium" style={{ color: model.color }}>{model.name}</h3>
                       <p className="text-xs text-gray-500">{model.subtitle}</p>
                     </motion.div>
                   </div>
@@ -364,7 +365,7 @@ export default function CheryTiggoSection() {
                 onClick={() => handleTabClick(index)}
                 className={`w-6 h-1 transition-all duration-300 ${
                   activeTabIndex === index 
-                    ? 'bg-primary-600' 
+                    ? 'bg-amber-700' 
                     : 'bg-gray-300'
                 }`}
                 whileHover={{ scaleX: 1.2 }}
@@ -388,7 +389,7 @@ export default function CheryTiggoSection() {
           >
             <Link 
               href={models[activeTabIndex]?.link || '#'}
-              className="inline-flex items-center bg-primary-700 text-white px-8 py-3 border-0 hover:bg-primary-800 transition-colors"
+              className="inline-flex items-center bg-amber-700 text-white px-8 py-3 border-0 hover:bg-amber-800 transition-colors"
             >
               <span>EXPLORE {models[activeTabIndex]?.name.toUpperCase()}</span>
               <motion.svg 
@@ -419,7 +420,7 @@ export default function CheryTiggoSection() {
             animate={isInView ? "visible" : "hidden"}
           >
             <motion.button 
-              className="text-gray-600 hover:text-primary-700 text-sm flex items-center transition-colors"
+              className="text-gray-600 hover:text-amber-700 text-sm flex items-center transition-colors"
               variants={itemVariants}
               whileHover={{ y: -2, color: "#B45309" }}
               whileTap={{ scale: 0.95 }}
@@ -430,7 +431,7 @@ export default function CheryTiggoSection() {
               Download Brochure
             </motion.button>
             <motion.button 
-              className="text-gray-600 hover:text-primary-700 text-sm flex items-center transition-colors"
+              className="text-gray-600 hover:text-amber-700 text-sm flex items-center transition-colors"
               variants={itemVariants}
               whileHover={{ y: -2, color: "#B45309" }}
               whileTap={{ scale: 0.95 }}
@@ -441,7 +442,7 @@ export default function CheryTiggoSection() {
               Compare Models
             </motion.button>
             <motion.button 
-              className="text-gray-600 hover:text-primary-700 text-sm flex items-center transition-colors"
+              className="text-gray-600 hover:text-amber-700 text-sm flex items-center transition-colors"
               variants={itemVariants}
               whileHover={{ y: -2, color: "#B45309" }}
               whileTap={{ scale: 0.95 }}
