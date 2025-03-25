@@ -23,7 +23,8 @@ const CarFeaturesSlider = ({
   autoplaySpeed = 5000,
   showHeading = true,
   heading = "Car Features",
-  subtitle = "Explore what makes our vehicles special"
+  subtitle = "Explore what makes our vehicles special",
+  showLearnMore = false
 }) => {
   // Default features if none are provided
   const defaultFeatures = [
@@ -143,11 +144,11 @@ const CarFeaturesSlider = ({
   };
 
   return (
-    <div className={`w-full py-10 ${backgroundColor}`}>
+    <div className={`w-full ${backgroundColor}`}>
       {/* Header - Simplified */}
       {showHeading && (
         <div className="relative w-full">
-          <div className="max-w-7xl mx-auto  px-6 lg:px-8 pt-8 pb-4">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-8 pb-4">
             <div className="flex flex-col md:flex-row md:items-end justify-between">
               <div>
                 <div className={`${accentColor} h-1 w-12 mb-3`}></div>
@@ -211,7 +212,7 @@ const CarFeaturesSlider = ({
                 >
                   <div className="group h-full bg-white border border-gray-300 overflow-hidden">
                     {/* Image */}
-                    <div className="relative w-full aspect-[16/9] overflow-hidden">
+                    <div className="relative w-full aspect-[4/3] overflow-hidden">
                       <Image 
                         src={feature.image}
                         alt={feature.title || ''}
@@ -230,14 +231,16 @@ const CarFeaturesSlider = ({
                       <p className="text-gray-600 text-sm">
                         {feature.text}
                       </p>
-                      <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
-                        <span className={`${accentTextColor} text-sm font-medium`}>Learn more</span>
-                        <div className={`w-6 h-6 ${accentColor} flex items-center justify-center`}>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                          </svg>
+                      {showLearnMore && (
+                        <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
+                          <span className={`${accentTextColor} text-sm font-medium`}>Learn more</span>
+                          <div className={`w-6 h-6 ${accentColor} flex items-center justify-center`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                              <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
