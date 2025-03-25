@@ -26,6 +26,18 @@ export default function Home() {
       title: "Matrix Diamond Front Grille",
       text: "Cutting-edge heads-up display technology",
     },
+    {
+      id: 4,
+      image: "/images/tiggo8pro/features/pic01_03.jpg",
+      title: "Matrix Diamond Front Grille",
+      text: "Cutting-edge heads-up display technology",
+    },
+    {
+      id: 5,
+      image: "/images/tiggo8pro/features/pic01_01.jpg",
+      title: "Dynamic lighting combination+Concierge lights",
+      text: "Advanced camera system for complete visibility",
+    },
   ];
 
 
@@ -65,6 +77,8 @@ export default function Home() {
         title="Premium Exterior Features"
         subtitle="Discover our range of elegant design elements that enhance both style and performance"
         features={myFeatures}
+        accentColor="bg-primary-700"
+        backgroundColor="bg-gray-200"
       />
 
     </main>
