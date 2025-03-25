@@ -143,11 +143,11 @@ const CarFeaturesSlider = ({
   };
 
   return (
-    <div className={`w-full py-10 ${backgroundColor}`}>
+    <div className={`w-full ${backgroundColor}`}>
       {/* Header - Simplified */}
       {showHeading && (
         <div className="relative w-full">
-          <div className="max-w-7xl mx-auto  px-6 lg:px-8 pt-8 pb-4">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-8 pb-4">
             <div className="flex flex-col md:flex-row md:items-end justify-between">
               <div>
                 <div className={`${accentColor} h-1 w-12 mb-3`}></div>
@@ -163,7 +163,7 @@ const CarFeaturesSlider = ({
               <div className="flex items-center mt-4 md:mt-0">
                 <button 
                   onClick={prevSlide}
-                  className={`w-10 h-10 border border-gray-300 flex items-center justify-center mr-2 focus:outline-none ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
+                  className={`w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center mr-2 focus:outline-none ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
                   aria-label="Previous slide"
                   disabled={currentIndex === 0}
                 >
@@ -174,7 +174,7 @@ const CarFeaturesSlider = ({
                 
                 <button 
                   onClick={nextSlide}
-                  className={`w-10 h-10 border border-gray-300 flex items-center justify-center focus:outline-none ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
+                  className={`w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center focus:outline-none ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
                   aria-label="Next slide"
                   disabled={currentIndex === maxIndex}
                 >
@@ -209,7 +209,7 @@ const CarFeaturesSlider = ({
                   className="flex-none pr-4"
                   style={{ width: `${100 / visibleItems}%` }}
                 >
-                  <div className="group h-full bg-white border border-gray-300 overflow-hidden">
+                  <div className="group h-full bg-white rounded-lg shadow-sm overflow-hidden">
                     {/* Image */}
                     <div className="relative w-full aspect-[16/9] overflow-hidden">
                       <Image 
@@ -232,7 +232,7 @@ const CarFeaturesSlider = ({
                       </p>
                       <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
                         <span className={`${accentTextColor} text-sm font-medium`}>Learn more</span>
-                        <div className={`w-6 h-6 ${accentColor} flex items-center justify-center`}>
+                        <div className={`w-6 h-6 ${accentColor} rounded-full flex items-center justify-center`}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                             <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
@@ -275,9 +275,9 @@ const CarFeaturesSlider = ({
           </div>
           
           <div className="flex-1 mx-4">
-            <div className="h-1 bg-gray-300 w-full">
-                              <div 
-                className={`h-full ${accentColor} transition-all duration-300`}
+            <div className="h-1 bg-gray-300 w-full rounded-full">
+              <div 
+                className={`h-full ${accentColor} rounded-full transition-all duration-300`}
                 style={{ width: `${((currentIndex) / (maxIndex)) * 100}%` }}
               />
             </div>
@@ -285,10 +285,10 @@ const CarFeaturesSlider = ({
           
           <div className="flex">
             {Array.from({ length: Math.min(5, maxIndex + 1) }).map((_, index) => (
-                              <button
+              <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-6 h-2 mx-1 transition-colors ${currentIndex === index ? accentColor : 'bg-gray-300'}`}
+                className={`w-2 h-2 mx-1 rounded-full transition-colors ${currentIndex === index ? accentColor : 'bg-gray-300'}`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
