@@ -1,21 +1,18 @@
 'use client'
 
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 const CarFeaturesSlider = ({ 
   // Content props
-  title = "Vehicle Features",
-  subtitle = "Explore our premium vehicle features",
   features,
   
   // Styling props
-  backgroundColor = "bg-gray-50",
-  titleColor = "text-brown-700",
-  headingColor = "text-brown-800",
-  subtitleColor = "text-brown-600",
-  indicatorActiveColor = "bg-brown-600",
-  indicatorColor = "bg-brown-300",
+  backgroundColor = "bg-white",
+  textColor = "text-gray-700",
+  accentColor = "bg-primary-700",
+  accentTextColor = "text-blue-600",
   
   // Layout & behavior props
   slidesPerView = { 
@@ -23,29 +20,44 @@ const CarFeaturesSlider = ({
     tablet: 2,
     desktop: 3
   },
-  height = "h-64",
-  autoplay = false,
-  autoplaySpeed = 5000,
-  showDots = true,
-  showArrows = true,
-  showHeading = true
+  aspectRatio = "aspect-video", // 16:9 aspect ratio
+  autoplay = true,
+  autoplaySpeed = 4000,
+  showHeading = true,
+  heading = "Vehicle Features",
+  subtitle = "Experience premium design and functionality"
 }) => {
   // Default features if none are provided
   const defaultFeatures = [
     {
       id: 1,
-      image: "/images/dynamic-lighting.jpg",
-      title: "Dynamic lighting combination+Concierge lights"
+      image: "/images/tiggo8pro/features/pic01_01.jpg",
+      title: "Dynamic LED Lighting",
+      text: "Adaptive lighting system that automatically adjusts to driving conditions"
     },
     {
       id: 2,
-      image: "/images/sport-hub.jpg",
-      title: "19 'glossy sport hub"
+      image: "/images/tiggo8pro/features/pic01_02.jpg",
+      title: "Premium Alloy Wheels",
+      text: "Lightweight aerodynamic design enhancing performance and efficiency"
     },
     {
       id: 3,
-      image: "/images/grille.jpg",
-      title: "Matrix Diamond Front Grille"
+      image: "/images/tiggo8pro/features/pic01_03.jpg",
+      title: "Signature Front Grille",
+      text: "Distinctive design with premium finish for unmistakable presence"
+    },
+    {
+      id: 4,
+      image: "/images/tiggo8pro/features/pic01_01.jpg",
+      title: "Panoramic Sunroof",
+      text: "Full-length glass roof providing an enhanced sense of space and light"
+    },
+    {
+      id: 5,
+      image: "/images/tiggo8pro/features/pic01_02.jpg",
+      title: "Advanced Infotainment",
+      text: "Seamless connectivity with intuitive controls and premium audio"
     }
   ];
 
@@ -56,7 +68,9 @@ const CarFeaturesSlider = ({
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [visibleItems, setVisibleItems] = useState(slidesPerView.desktop);
+  const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef(null);
+  const autoplayTimerRef = useRef(null);
   
   // Responsive behavior
   useEffect(() => {
@@ -75,40 +89,46 @@ const CarFeaturesSlider = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [slidesPerView]);
 
+  // Calculate max index based on visible items
+  const maxIndex = Math.max(0, totalItems - visibleItems);
+
   // Autoplay functionality
   useEffect(() => {
-    let interval;
-    if (autoplay) {
-      interval = setInterval(() => {
-        nextSlide();
+    if (autoplay && !isPaused) {
+      autoplayTimerRef.current = setInterval(() => {
+        setCurrentIndex(prevIndex => 
+          prevIndex < maxIndex ? prevIndex + 1 : 0
+        );
       }, autoplaySpeed);
     }
-    return () => clearInterval(interval);
-  }, [autoplay, autoplaySpeed, currentIndex]);
+    
+    return () => {
+      if (autoplayTimerRef.current) {
+        clearInterval(autoplayTimerRef.current);
+      }
+    };
+  }, [autoplay, autoplaySpeed, isPaused, maxIndex]);
 
   const nextSlide = () => {
-    if (currentIndex < totalItems - visibleItems) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0);
-    }
+    setCurrentIndex(prevIndex => 
+      prevIndex < maxIndex ? prevIndex + 1 : 0
+    );
   };
 
   const prevSlide = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else {
-      setCurrentIndex(totalItems - visibleItems);
-    }
+    setCurrentIndex(prevIndex => 
+      prevIndex > 0 ? prevIndex - 1 : maxIndex
+    );
   };
 
   const goToSlide = (index) => {
-    setCurrentIndex(index);
+    setCurrentIndex(Math.min(Math.max(0, index), maxIndex));
   };
 
-  // Touch events for mobile swiping
+  // Touch handlers
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
+    setIsPaused(true);
   };
 
   const handleTouchMove = (e) => {
@@ -116,107 +136,202 @@ const CarFeaturesSlider = ({
   };
 
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
+    if (touchStart - touchEnd > 70) {
       nextSlide();
     }
-    if (touchEnd - touchStart > 50) {
+    if (touchEnd - touchStart > 70) {
       prevSlide();
+    }
+    setIsPaused(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
+
+  // Animation variants
+  const sliderVariants = {
+    animate: {
+      x: `calc(-${currentIndex * (100 / visibleItems)}%)`,
+      transition: {
+        x: { type: "tween", ease: "easeInOut", duration: 0.6 }
+      }
     }
   };
 
+  // Simplified card animation for flat design
+  const cardVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, transition: { duration: 0.3 } }
+  };
+
   return (
-    <div className={`relative max-w-7xl mx-auto px-4 py-12 ${backgroundColor}`}>
-      {/* Heading section */}
+    <div className={`w-full ${backgroundColor} py-12 px-4 md:px-8 lg:px-16 overflow-hidden`}>
+      {/* Header section */}
       {showHeading && (
-        <div className="text-center mb-10">
-          <h2 className={`text-3xl font-bold ${headingColor} mb-3`}>{title}</h2>
-          <p className={`${subtitleColor} max-w-3xl mx-auto`}>{subtitle}</p>
+        <div className="max-w-7xl mx-auto mb-10">
+          <motion.div 
+            className="mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className={`text-2xl md:text-3xl font-semibold ${textColor} mb-2`}>
+              {heading}
+            </h2>
+            <p className="text-gray-500 max-w-2xl">
+              {subtitle}
+            </p>
+            <div className={`${accentColor} h-1 w-16 mt-4`}></div>
+          </motion.div>
         </div>
       )}
       
-      {/* Navigation Buttons */}
-      {showArrows && (
-        <>
-          <button 
-            onClick={prevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-md transition-all focus:outline-none"
-            aria-label="Previous slide"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={titleColor}>
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
+      {/* Main slider container */}
+      <div className="max-w-7xl mx-auto relative">
+        {/* Top slider controls */}
+        <div className="flex justify-between items-center mb-6">
+          {/* Slide count indicator */}
+          <div className="text-sm font-medium text-gray-500">
+            <span className={accentTextColor}>{currentIndex + 1}</span>
+            <span className="mx-1">/</span>
+            <span>{maxIndex + 1}</span>
+          </div>
           
-          <button 
-            onClick={nextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-md transition-all focus:outline-none"
-            aria-label="Next slide"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={titleColor}>
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </>
-      )}
-      
-      {/* Slider Container */}
-      <div 
-        className="overflow-hidden"
-        ref={sliderRef}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        <div 
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${currentIndex * (100 / visibleItems)}%)` }}
-        >
-          {items.map((feature, index) => (
-            <div 
-              key={feature.id || index} 
-              className="flex-none px-2"
-              style={{ width: `${100 / visibleItems}%` }}
+          {/* Navigation controls */}
+          <div className="flex items-center gap-1">
+            <motion.button 
+              onClick={() => setIsPaused(!isPaused)}
+              className="p-2 focus:outline-none"
+              whileTap={{ scale: 0.95 }}
+              aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
             >
-              <div className="bg-white rounded-md overflow-hidden shadow">
-                <div className={`relative w-full ${height}`}>
-                  <Image 
-                    src={feature.image}
-                    alt={feature.title || ''}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover"
-                    priority={index < 3}
-                  />
-                </div>
-                {feature.title && (
-                  <div className="p-4">
-                    <h3 className={`${titleColor} text-lg font-medium`}>{feature.title}</h3>
-                    {feature.description && (
-                      <p className="text-gray-500 mt-1 text-sm">{feature.description}</p>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+              {isPaused ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+              )}
+            </motion.button>
+            
+            <motion.button 
+              onClick={prevSlide}
+              className="p-2 focus:outline-none"
+              whileTap={{ scale: 0.95 }}
+              aria-label="Previous slide"
+              disabled={currentIndex === 0}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentIndex === 0 ? "text-gray-300" : "text-gray-600"}>
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </motion.button>
+            
+            <motion.button 
+              onClick={nextSlide}
+              className="p-2 focus:outline-none"
+              whileTap={{ scale: 0.95 }}
+              aria-label="Next slide"
+              disabled={currentIndex === maxIndex}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentIndex === maxIndex ? "text-gray-300" : "text-gray-600"}>
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </motion.button>
+          </div>
         </div>
-      </div>
       
-      {/* Indicator Dots */}
-      {showDots && totalItems > visibleItems && (
-        <div className="flex justify-center mt-6 gap-2">
-          {Array.from({ length: totalItems - visibleItems + 1 }).map((_, index) => (
-            <button
+        {/* Progress bar */}
+        <div className="h-0.5 bg-gray-100 w-full mb-6 relative">
+          <motion.div 
+            className={`h-full ${accentColor} absolute left-0 top-0`}
+            initial={{ width: "0%" }}
+            animate={{ 
+              width: `${((currentIndex) / (maxIndex)) * 100}%` 
+            }}
+            transition={{ duration: 0.3 }}
+          />
+        </div>
+        
+        {/* Slider container */}
+        <div 
+          className="overflow-hidden"
+          ref={sliderRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <motion.div 
+            className="flex gap-6"
+            variants={sliderVariants}
+            animate="animate"
+          >
+            {items.map((feature, index) => (
+              <AnimatePresence key={feature.id || index}>
+                <motion.div 
+                  className="flex-none"
+                  style={{ width: `calc(${100 / visibleItems}% - ${(6 * (visibleItems - 1)) / visibleItems}rem)` }}
+                  variants={cardVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <div className="h-full">
+                    {/* Image container */}
+                    <div className={`relative w-full ${aspectRatio} mb-4 overflow-hidden`}>
+                      <Image 
+                        src={feature.image}
+                        alt={feature.title || ''}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-300 hover:scale-105"
+                        priority={index < 3}
+                      />
+                    </div>
+                    
+                    {/* Text content */}
+                    <div>
+                      {feature.title && (
+                        <h3 className={`${textColor} text-lg font-medium mb-2`}>
+                          {feature.title}
+                        </h3>
+                      )}
+                      {feature.text && (
+                        <p className="text-gray-500 text-sm leading-relaxed">
+                          {feature.text}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            ))}
+          </motion.div>
+        </div>
+        
+        {/* Slide indicator dots */}
+        <div className="flex justify-center mt-8 gap-1.5">
+          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+            <motion.button
               key={index}
-              className={`h-3 rounded-full transition-all focus:outline-none ${
-                currentIndex === index ? `${indicatorActiveColor} w-6` : `${indicatorColor} w-3`
-              }`}
               onClick={() => goToSlide(index)}
+              className={`w-8 h-1 rounded-none transition-colors duration-300 ${currentIndex === index ? accentColor : 'bg-gray-200'}`}
+              whileTap={{ scale: 0.95 }}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
