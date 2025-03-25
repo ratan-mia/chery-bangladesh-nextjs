@@ -9,10 +9,10 @@ const CarFeaturesSlider = ({
   features,
   
   // Styling props
-  backgroundColor = "bg-white",
-  textColor = "text-gray-700",
-  accentColor = "bg-primary-700",
-  accentTextColor = "text-blue-600",
+  backgroundColor = "bg-slate-100", // Changed to lighter background
+  textColor = "text-gray-800",
+  accentColor = "bg-blue-500", // Flatter, more vibrant accent
+  accentTextColor = "text-blue-500",
   
   // Layout & behavior props
   slidesPerView = { 
@@ -20,7 +20,7 @@ const CarFeaturesSlider = ({
     tablet: 2,
     desktop: 3
   },
-  aspectRatio = "aspect-video", // 16:9 aspect ratio
+  aspectRatio = "aspect-[16/9]", // Explicit aspect ratio
   autoplay = true,
   autoplaySpeed = 4000,
   showHeading = true,
@@ -153,12 +153,12 @@ const CarFeaturesSlider = ({
     setIsPaused(false);
   };
 
-  // Animation variants
+  // Animation variants - simplified for flat design
   const sliderVariants = {
     animate: {
       x: `calc(-${currentIndex * (100 / visibleItems)}%)`,
       transition: {
-        x: { type: "tween", ease: "easeInOut", duration: 0.6 }
+        x: { type: "tween", ease: "easeInOut", duration: 0.5 }
       }
     }
   };
@@ -166,36 +166,36 @@ const CarFeaturesSlider = ({
   // Simplified card animation for flat design
   const cardVariants = {
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, transition: { duration: 0.3 } }
+    animate: { opacity: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.2 } }
   };
 
   return (
-    <div className={`w-full ${backgroundColor} py-12 px-4 md:px-8 lg:px-16 overflow-hidden`}>
-      {/* Header section */}
+    <div className={`w-full ${backgroundColor} py-12 overflow-hidden`}>
+      {/* Header section - Full width with contained content */}
       {showHeading && (
-        <div className="max-w-7xl mx-auto mb-10">
+        <div className="w-full px-4 md:px-8 lg:px-0 lg:max-w-7xl lg:mx-auto mb-10">
           <motion.div 
             className="mb-8"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
-            <h2 className={`text-2xl md:text-3xl font-semibold ${textColor} mb-2`}>
+            <h2 className={`text-2xl md:text-3xl font-bold ${textColor} mb-3`}>
               {heading}
             </h2>
             <p className="text-gray-500 max-w-2xl">
               {subtitle}
             </p>
-            <div className={`${accentColor} h-1 w-16 mt-4`}></div>
+            <div className={`${accentColor} h-1 w-24 mt-4`}></div>
           </motion.div>
         </div>
       )}
       
-      {/* Main slider container */}
-      <div className="max-w-7xl mx-auto relative">
+      {/* Full width container for slider controls */}
+      <div className="w-full px-4 md:px-8 lg:px-0 lg:max-w-7xl lg:mx-auto relative mb-6">
         {/* Top slider controls */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-4">
           {/* Slide count indicator */}
           <div className="text-sm font-medium text-gray-500">
             <span className={accentTextColor}>{currentIndex + 1}</span>
@@ -204,19 +204,19 @@ const CarFeaturesSlider = ({
           </div>
           
           {/* Navigation controls */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <motion.button 
               onClick={() => setIsPaused(!isPaused)}
               className="p-2 focus:outline-none"
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.9 }}
               aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
             >
               {isPaused ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700">
                   <rect x="6" y="4" width="4" height="16"></rect>
                   <rect x="14" y="4" width="4" height="16"></rect>
                 </svg>
@@ -225,32 +225,32 @@ const CarFeaturesSlider = ({
             
             <motion.button 
               onClick={prevSlide}
-              className="p-2 focus:outline-none"
-              whileTap={{ scale: 0.95 }}
+              className="p-2 focus:outline-none rounded"
+              whileTap={{ scale: 0.9 }}
               aria-label="Previous slide"
               disabled={currentIndex === 0}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentIndex === 0 ? "text-gray-300" : "text-gray-600"}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentIndex === 0 ? "text-gray-300" : "text-gray-700"}>
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </motion.button>
             
             <motion.button 
               onClick={nextSlide}
-              className="p-2 focus:outline-none"
-              whileTap={{ scale: 0.95 }}
+              className="p-2 focus:outline-none rounded"
+              whileTap={{ scale: 0.9 }}
               aria-label="Next slide"
               disabled={currentIndex === maxIndex}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentIndex === maxIndex ? "text-gray-300" : "text-gray-600"}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentIndex === maxIndex ? "text-gray-300" : "text-gray-700"}>
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </motion.button>
           </div>
         </div>
       
-        {/* Progress bar */}
-        <div className="h-0.5 bg-gray-100 w-full mb-6 relative">
+        {/* Progress bar - flatter design with higher contrast */}
+        <div className="h-1 bg-gray-200 w-full mb-6 relative">
           <motion.div 
             className={`h-full ${accentColor} absolute left-0 top-0`}
             initial={{ width: "0%" }}
@@ -260,46 +260,48 @@ const CarFeaturesSlider = ({
             transition={{ duration: 0.3 }}
           />
         </div>
+      </div>
         
-        {/* Slider container */}
-        <div 
-          className="overflow-hidden"
-          ref={sliderRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+      {/* Full width slider container with no padding for true edge-to-edge */}
+      <div 
+        className="w-full overflow-hidden"
+        ref={sliderRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="max-w-7xl mx-auto">
           <motion.div 
-            className="flex gap-6"
+            className="flex"
             variants={sliderVariants}
             animate="animate"
           >
             {items.map((feature, index) => (
               <AnimatePresence key={feature.id || index}>
                 <motion.div 
-                  className="flex-none"
-                  style={{ width: `calc(${100 / visibleItems}% - ${(6 * (visibleItems - 1)) / visibleItems}rem)` }}
+                  className="flex-none px-4 md:px-3"
+                  style={{ width: `calc(${100 / visibleItems}%)` }}
                   variants={cardVariants}
                   initial="initial"
                   animate="animate"
                   exit="exit"
                 >
                   <div className="h-full">
-                    {/* Image container */}
+                    {/* Image container - flatter design with less corner radius */}
                     <div className={`relative w-full ${aspectRatio} mb-4 overflow-hidden`}>
                       <Image 
                         src={feature.image}
                         alt={feature.title || ''}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-300 hover:scale-105"
+                        className="object-cover transition-transform duration-300 hover:scale-102"
                         priority={index < 3}
                       />
                     </div>
                     
-                    {/* Text content */}
+                    {/* Text content - flatter design with less spacing */}
                     <div>
                       {feature.title && (
                         <h3 className={`${textColor} text-lg font-medium mb-2`}>
@@ -318,14 +320,17 @@ const CarFeaturesSlider = ({
             ))}
           </motion.div>
         </div>
-        
-        {/* Slide indicator dots */}
+      </div>
+      
+      {/* Full width container for slide indicators */}
+      <div className="w-full px-4 md:px-8 lg:px-0 lg:max-w-7xl lg:mx-auto">
+        {/* Slide indicator dots - flatter, more rectangular design */}
         <div className="flex justify-center mt-8 gap-1.5">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <motion.button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-8 h-1 rounded-none transition-colors duration-300 ${currentIndex === index ? accentColor : 'bg-gray-200'}`}
+              className={`w-10 h-1 rounded-none transition-colors duration-200 ${currentIndex === index ? accentColor : 'bg-gray-200'}`}
               whileTap={{ scale: 0.95 }}
               aria-label={`Go to slide ${index + 1}`}
             />
