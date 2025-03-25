@@ -2,6 +2,7 @@
 
 import CheryBanner from "./components/CheryBanner";
 import CheryTiggoSection from "./components/CheryTiggoSection";
+import ContactSection from "./components/ContactSection";
 import GlobalPresenceBanner from "./components/GlobalPresenceBanner";
 import Header from "./components/Header";
 import HeroSlider from "./components/HeroSlider";
@@ -18,6 +19,7 @@ export default function Home() {
       <CheryBanner />
       <MasonryImageSlider />
       <NewsSection />
+      <ContactSection />
     </main>
   );
 }
