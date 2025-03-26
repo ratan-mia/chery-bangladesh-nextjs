@@ -290,8 +290,8 @@ export default function CheryTiggoSection() {
                     transition={{ delay: 0.4, duration: 0.5 }}
                   >
                     <div className="md:order-1 w-full md:w-auto text-center md:text-left mb-3 md:mb-0">
-                      <h3 className="text-xl font-medium">{model.name}</h3>
-                      <p className="text-sm text-gray-500">{model.subtitle}</p>
+                      <h3 className="text-xl text-gray-500 font-medium">{model.name}</h3>
+                      <p className="text-sm text-gray-800">{model.subtitle}</p>
                     </div>
                     
                     <div className="flex justify-center md:justify-end space-x-8 md:order-2 w-full md:w-auto">
@@ -304,7 +304,7 @@ export default function CheryTiggoSection() {
                           transition={{ delay: 0.5 + (i * 0.1), duration: 0.4 }}
                         >
                           <p className="text-xs text-gray-500 uppercase">{key}</p>
-                          <p className="text-sm md:text-base">{value}</p>
+                          <p className="text-sm text-gray-800 md:text-base">{value}</p>
                         </motion.div>
                       ))}
                     </div>
