@@ -88,7 +88,7 @@ const CarShowcaseSlider = ({
   if (!slides || slides.length === 0) {
     return (
       <motion.div 
-        className={`p-8 text-center ${primaryColorClass} ${textColorClass} min-h-[300px] flex items-center justify-center`}
+        className={`p-8 text-center ${primaryColorClass} ${textColorClass} ${heightClass} flex items-center justify-center`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
