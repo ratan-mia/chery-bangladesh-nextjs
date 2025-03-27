@@ -2,7 +2,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,139 +13,21 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Separate animation variants into constants outside the component
-const contentAnimations = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.4,
-      staggerChildren: 0.1
-    }
-  },
-  exit: { 
-    opacity: 0, 
-    y: -20, 
-    transition: { 
-      duration: 0.3,
-      staggerChildren: 0.05,
-      staggerDirection: -1
-    }
-  }
-};
-
-const itemAnimations = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 }
-};
-
-const buttonVariants = {
-  initial: { scale: 1 },
-  hover: { scale: 1.02, transition: { duration: 0.2 } },
-  tap: { scale: 0.98, transition: { duration: 0.1 } }
-};
-
-// Extract PlayPauseButton into a separate component for better organization
-const PlayPauseButton = memo(({ isPlaying, toggleAutoplay, flatDesign }) => (
-  <motion.div 
-    className="autoplay-control" 
-    onClick={toggleAutoplay}
-    aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
-    whileHover={{ scale: flatDesign ? 1.05 : 1.1 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    {isPlaying ? (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-        <rect x="6" y="4" width="4" height="16" />
-        <rect x="14" y="4" width="4" height="16" />
-      </svg>
-    ) : (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-        <polygon points="5,3 19,12 5,21" />
-      </svg>
-    )}
-  </motion.div>
-));
-
-PlayPauseButton.displayName = 'PlayPauseButton';
-
-// Extract slide counter as a separate component
-const SlideCounter = memo(({ activeIndex, totalSlides, textColorClass }) => (
-  <div className="absolute bottom-0 left-0 bg-black/60 py-2 px-4 z-20">
-    <p className={`${textColorClass} text-sm font-medium`}>
-      <span>{activeIndex + 1}</span>
-      <span className="mx-1">/</span>
-      <span>{totalSlides}</span>
-    </p>
-  </div>
-));
-
-SlideCounter.displayName = 'SlideCounter';
-
-// Create a separate component for slide specs
-const SlideSpecs = memo(({ specs, textColorClass, activeIndex, flatDesign }) => {
-  if (!specs) return null;
-  
-  return flatDesign ? (
-    <div className="absolute top-0 right-0 z-30">
-      <motion.div 
-        className="bg-black/60 py-2 px-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`specs-${activeIndex}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="flex flex-row flex-wrap gap-x-6 gap-y-1 justify-end"
-          >
-            {Object.entries(specs).map(([key, value]) => (
-              <div key={key} className="flex items-center gap-2">
-                <span className={`${textColorClass} opacity-70 text-xs uppercase`}>{key}</span>
-                <span className={`${textColorClass} text-sm font-medium`}>{value}</span>
-              </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-    </div>
-  ) : (
-    <AnimatePresence>
-      <motion.div 
-        className="absolute bottom-8 right-8 z-30 bg-black/30 backdrop-blur-md rounded-lg p-4 max-w-xs"
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: 50, opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h3 className={`text-lg font-semibold ${textColorClass} mb-2`}>
-          Specifications
-        </h3>
-        <ul className={`${textColorClass} text-sm space-y-1`}>
-          {Object.entries(specs).map(([key, value]) => (
-            <li key={key} className="flex justify-between">
-              <span className="opacity-75">{key}</span>
-              <span className="font-medium">{value}</span>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
-    </AnimatePresence>
-  );
-});
-
-SlideSpecs.displayName = 'SlideSpecs';
-
-// Create a custom hook for Swiper initialization and control
-function useSwiperControl(autoplaySpeed) {
+const CarShowcaseSlider = ({ 
+  slides = [], 
+  primaryColorClass = "bg-gray-900", 
+  secondaryColorClass = "bg-blue-500", 
+  textColorClass = "text-white", 
+  autoplaySpeed = 5000, 
+  showPagination = true,
+  showNavigation = true,
+  height = { mobile: "500px", tablet: "600px", desktop: "700px" },
+  flatDesign = true
+}) => {
   const [mounted, setMounted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
   const swiperRef = useRef(null);
 
   // Only render client-side to prevent hydration issues with Swiper
@@ -158,61 +40,6 @@ function useSwiperControl(autoplaySpeed) {
     };
   }, []);
 
-  // Handle slide change
-  const handleSlideChange = useCallback((swiper) => {
-    setActiveIndex(swiper.realIndex);
-  }, []);
-
-  // Toggle autoplay
-  const toggleAutoplay = useCallback(() => {
-    setIsPlaying(prev => {
-      const newPlayState = !prev;
-      
-      if (swiperRef.current && swiperRef.current.swiper) {
-        if (prev) {
-          swiperRef.current.swiper.autoplay.stop();
-        } else {
-          swiperRef.current.swiper.autoplay.start();
-        }
-      }
-      
-      return newPlayState;
-    });
-  }, []);
-
-  return {
-    mounted,
-    isPlaying,
-    activeIndex,
-    swiperRef,
-    handleSlideChange,
-    toggleAutoplay
-  };
-}
-
-// Main component
-const CarShowcaseSlider = ({ 
-  slides = [], 
-  primaryColorClass = "bg-gray-900", 
-  secondaryColorClass = "bg-blue-500", 
-  textColorClass = "text-white", 
-  autoplaySpeed = 5000, 
-  showPagination = true,
-  showNavigation = true,
-  height = { mobile: "500px", tablet: "600px", desktop: "700px" },
-  flatDesign = true
-}) => {
-  const { 
-    mounted, 
-    isPlaying, 
-    activeIndex, 
-    swiperRef, 
-    handleSlideChange, 
-    toggleAutoplay 
-  } = useSwiperControl(autoplaySpeed);
-  
-  const [isHovering, setIsHovering] = useState(false);
-
   // Memoize pagination config to prevent unnecessary re-renders
   const paginationConfig = useCallback(() => ({
     clickable: true,
@@ -222,6 +49,41 @@ const CarShowcaseSlider = ({
     bulletActiveClass: 'opacity-100 !w-14'
   }), [secondaryColorClass]);
 
+  // Animation variants - flat and minimal
+  const contentAnimations = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.4,
+        staggerChildren: 0.1
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -20, 
+      transition: { 
+        duration: 0.3,
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    }
+  };
+
+  const itemAnimations = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 }
+  };
+
+  // Button animation variants - simplified for flat design
+  const buttonVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.02, transition: { duration: 0.2 } },
+    tap: { scale: 0.98, transition: { duration: 0.1 } }
+  };
+
   // Empty state handling with proper feedback
   if (!slides || slides.length === 0) {
     return (
@@ -230,7 +92,6 @@ const CarShowcaseSlider = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        role="alert"
       >
         <p>No slides available to display</p>
       </motion.div>
@@ -238,21 +99,30 @@ const CarShowcaseSlider = ({
   }
 
   // Handle media loading errors
-  const handleMediaError = useCallback((e) => {
+  const handleMediaError = (e) => {
     console.error("Media loading error:", e);
     e.target.src = "/fallback-image.jpg"; // Provide a fallback image
-  }, []);
+  };
 
-  // Dynamic class for height based on screen size
-  const heightClass = `h-[${height.mobile}] md:h-[${height.tablet}] lg:h-[${height.desktop}]`;
+  // Handle slide change
+  const handleSlideChange = (swiper) => {
+    setActiveIndex(swiper.realIndex);
+  };
 
-  // Model indicator style based on flat design preference
-  const modelIndicatorStyle = flatDesign 
-    ? "absolute top-0 left-0 bg-black/60 py-3 px-6 z-30"
-    : "absolute top-8 left-8 bg-black/40 backdrop-blur-sm rounded-lg py-2 px-4 z-30";
+  // Toggle autoplay
+  const toggleAutoplay = () => {
+    setIsPlaying(prev => !prev);
+    if (swiperRef.current && swiperRef.current.swiper) {
+      if (isPlaying) {
+        swiperRef.current.swiper.autoplay.stop();
+      } else {
+        swiperRef.current.swiper.autoplay.start();
+      }
+    }
+  };
 
-  // Define Swiper CSS as a template literal outside the component
-  const swiperStyles = `
+  // Flat design styles
+  const flatDesignStyles = `
     .swiper-pagination {
       bottom: 30px !important;
     }
@@ -328,6 +198,14 @@ const CarShowcaseSlider = ({
     }
   `;
 
+  // Dynamic class for height based on screen size
+  const heightClass = `h-[${height.mobile}] md:h-[${height.tablet}] lg:h-[${height.desktop}]`;
+
+  // Model indicator style based on flat design preference
+  const modelIndicatorStyle = flatDesign 
+    ? "absolute top-0 left-0 bg-black/60 py-3 px-6 z-30"
+    : "absolute top-8 left-8 bg-black/40 backdrop-blur-sm rounded-lg py-2 px-4 z-30";
+
   return (
     <motion.section 
       className={`relative w-full overflow-hidden ${primaryColorClass}`} 
@@ -339,7 +217,7 @@ const CarShowcaseSlider = ({
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* Custom CSS styles for Swiper */}
-      <style jsx global>{swiperStyles}</style>
+      <style jsx global>{flatDesignStyles}</style>
 
       {/* Model indicator that always shows current model */}
       <motion.div 
@@ -605,20 +483,81 @@ const CarShowcaseSlider = ({
             </SwiperSlide>
           ))}
 
-          {/* Car specifications */}
-          <SlideSpecs 
-            specs={slides[activeIndex]?.specs} 
-            textColorClass={textColorClass} 
-            activeIndex={activeIndex} 
-            flatDesign={flatDesign} 
-          />
+          {/* Floating car specifications for non-flat design */}
+          {!flatDesign && (
+            <AnimatePresence>
+              {slides[activeIndex]?.specs && (
+                <motion.div 
+                  className="absolute bottom-8 right-8 z-30 bg-black/30 backdrop-blur-md rounded-lg p-4 max-w-xs"
+                  initial={{ x: 100, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: 50, opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h3 className={`text-lg font-semibold ${textColorClass} mb-2`}>
+                    Specifications
+                  </h3>
+                  <ul className={`${textColorClass} text-sm space-y-1`}>
+                    {Object.entries(slides[activeIndex]?.specs || {}).map(([key, value]) => (
+                      <li key={key} className="flex justify-between">
+                        <span className="opacity-75">{key}</span>
+                        <span className="font-medium">{value}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
+
+          {/* Car specifications for flat design */}
+          {flatDesign && slides[activeIndex]?.specs && (
+            <div className="absolute top-0 right-0 z-30">
+              <motion.div 
+                className="bg-black/60 py-2 px-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`specs-${activeIndex}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-row flex-wrap gap-x-6 gap-y-1 justify-end"
+                  >
+                    {Object.entries(slides[activeIndex]?.specs || {}).map(([key, value]) => (
+                      <div key={key} className="flex items-center gap-2">
+                        <span className={`${textColorClass} opacity-70 text-xs uppercase`}>{key}</span>
+                        <span className={`${textColorClass} text-sm font-medium`}>{value}</span>
+                      </div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
 
           {/* Autoplay control button */}
-          <PlayPauseButton 
-            isPlaying={isPlaying} 
-            toggleAutoplay={toggleAutoplay} 
-            flatDesign={flatDesign} 
-          />
+          <motion.div 
+            className="autoplay-control" 
+            onClick={toggleAutoplay}
+            aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
+            whileHover={{ scale: flatDesign ? 1.05 : 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isPlaying ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <rect x="6" y="4" width="4" height="16" />
+                <rect x="14" y="4" width="4" height="16" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            )}
+          </motion.div>
           
           {/* Progress indicator */}
           {isPlaying && (
@@ -626,22 +565,24 @@ const CarShowcaseSlider = ({
               className={`absolute bottom-0 left-0 h-1 ${secondaryColorClass} z-10`}
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
-              key={`progress-${activeIndex}`}
               transition={{ 
                 duration: autoplaySpeed / 1000, 
                 ease: "linear",
-                repeat: 0
+                repeat: Infinity,
+                repeatType: "loop"
               }}
             />
           )}
 
           {/* Slide counter */}
           {flatDesign && (
-            <SlideCounter 
-              activeIndex={activeIndex} 
-              totalSlides={slides.length} 
-              textColorClass={textColorClass} 
-            />
+            <div className="absolute bottom-0 left-0 bg-black/60 py-2 px-4 z-20">
+              <p className={`${textColorClass} text-sm font-medium`}>
+                <span>{activeIndex + 1}</span>
+                <span className="mx-1">/</span>
+                <span>{slides.length}</span>
+              </p>
+            </div>
           )}
         </Swiper>
       )}
@@ -649,4 +590,4 @@ const CarShowcaseSlider = ({
   );
 };
 
-export default memo(CarShowcaseSlider);
+export default CarShowcaseSlider;
