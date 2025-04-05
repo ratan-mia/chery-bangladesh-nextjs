@@ -51,65 +51,78 @@ export default function Home() {
     },
   ];
 
+
+
   const carSlides = [
     {
-      type: "image",
-      src: "/images/tiggocross/hero/1.webp",
-      modelName: "TIGGO CROSS",
-      tagline: "DESIGNED FOR EVERY JOURNEY",
-      brochureLink: "/brochure-tiggo",
-      testDriveLink: "/test-drive-tiggo",
-      logoSrc: "/images/tiggocross/logo.webp",
-      featureHighlight: {
-        title: "Bold and Dynamic Design",
-        description: "Experience elegance and power in every detail."
-      }
-    },
-    {
-      type: "image",
+      modelName: "Model X",
+      tagline: "The Ultimate Electric SUV",
+      description: "Experience unparalleled performance with our flagship electric SUV featuring advanced autopilot capabilities and up to 360 miles of range.",
       src: "/images/tiggocross/hero/2.webp",
-      modelName: "TIGGO CROSS",
-      tagline: "DESIGNED FOR EVERY JOURNEY",
-      brochureLink: "/brochure-tiggo",
-      testDriveLink: "/test-drive-tiggo",
-      logoSrc: "/images/tiggocross/logo.webp",
+      logoSrc: "/images/brand-logo.svg",
+      brochureLink: "/brochures/model-x",
+      testDriveLink: "/test-drive/model-x",
+      specs: {
+        "Range": "360 miles",
+        "0-60": "2.5s",
+        "Top Speed": "155 mph",
+        "Power": "1,020 hp"
+      },
       featureHighlight: {
-        title: "Bold and Dynamic Design",
-        description: "Experience elegance and power in every detail."
+        title: "Falcon Wing Doors",
+        description: "Unique upward-opening doors that provide easier access to second and third row seats, even in tight parking spaces."
       }
     },
-    // {
-    //   type: "video",
-    //   src: "/videos/tiggo-cross-driving.mp4",
-    //   modelName: "TIGGO CROSS",
-    //   tagline: "EXPERIENCE THE JOURNEY",
-    //   brochureLink: "/brochure-tiggo",
-    //   testDriveLink: "/test-drive-tiggo",
-    // },
     {
-      type: "image",
-      src: "/images/tiggocross/hero/3.webp",
-      modelName: "ARRIZO 5",
-      tagline: "EMBRACE YOUR DRIVE",
-      brochureLink: "/brochure-arrizo",
-      testDriveLink: "/test-drive-arrizo",
-      logoSrc: "/images/tiggocross/logo.webp",
+      modelName: "Model S",
+      tagline: "Beyond Ludicrous",
+      description: "Our high-performance sedan redefines electric luxury with best-in-class acceleration, range, and safety features.",
+      src: "/images/tiggocross/hero/1.webp",
+      logoSrc: "/images/brand-logo.svg", 
+      brochureLink: "/brochures/model-s",
+      testDriveLink: "/test-drive/model-s",
+      specs: {
+        "Range": "405 miles",
+        "0-60": "1.99s",
+        "Top Speed": "200 mph",
+        "Power": "1,100 hp"
+      },
       featureHighlight: {
-        title: "Sophisticated and Energetic Style",
-        description: "Unleash your ambition with a sleek design."
+        title: "Performance Mode",
+        description: "Unleash the full potential with our track-optimized performance mode that delivers maximum acceleration and responsiveness."
       }
-    },
+    }
+    // {
+    //   modelName: "Roadster",
+    //   tagline: "The Future of Hypercars",
+    //   description: "The quickest car in the world, with record-setting acceleration, range, and performance.",
+    //   type: "video",
+    //   src: "/videos/roadster.mp4",
+    //   logoSrc: "/images/brand-logo.svg",
+    //   brochureLink: "/brochures/roadster",
+    //   testDriveLink: "/test-drive/roadster",
+    //   specs: {
+    //     "Range": "620 miles",
+    //     "0-60": "1.9s",
+    //     "Top Speed": "250+ mph",
+    //     "Torque": "10,000 Nm"
+    //   },
+    //   featureHighlight: {
+    //     title: "SpaceX Package",
+    //     description: "Cold air thrusters dramatically improve acceleration, top speed, braking and cornering."
+    //   }
+    // }
   ];
+
 
   return (
     <main>
-      <CarShowcaseSlider
-        slides={carSlides}
-        primaryColorClass="bg-primary"
-        secondaryColorClass="bg-secondary"
-        textColorClass="text-white"
-        autoplaySpeed={5000}
-      />
+        <CarShowcaseSlider 
+          slides={carSlides} 
+          primaryColorClass="bg-gray-900"
+          secondaryColorClass="bg-blue-600"
+          autoplaySpeed={6000}
+        />
 
       <CarColorSwitcher />
       <VehicleSpecs
