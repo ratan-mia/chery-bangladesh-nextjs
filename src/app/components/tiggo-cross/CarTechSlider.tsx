@@ -1,10 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { type Swiper as SwiperType } from 'swiper';
 import { A11y, Autoplay, EffectCoverflow, EffectFade, Grid, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { SwiperModule } from 'swiper/types';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -15,7 +16,7 @@ import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Define TypeScript interfaces for props
+// TypeScript Interfaces
 interface Slide {
   id: string;
   title: string;
@@ -37,9 +38,33 @@ interface CarTechSliderProps {
   showCaptions?: boolean;
 }
 
+interface VideoPlayerProps {
+  src: string;
+  poster?: string;
+  theme?: string;
+}
+
+interface NavigationButtonsProps {
+  onPrev: () => void;
+  onNext: () => void;
+  theme: 'modern' | 'classic' | 'minimal' | 'tech';
+  layout: string;
+}
+
+interface PaginationIndicatorProps {
+  activeIndex: number;
+  totalSlides: number;
+  onDotClick: (index: number) => void;
+  theme: 'modern' | 'classic' | 'minimal' | 'tech';
+}
+
+interface ThemeComponentProps {
+  theme?: string;
+}
+
 // Media placeholder components
-const ImagePlaceholder = ({ theme = 'modern' }: { theme?: string }) => {
-  const getThemeClasses = () => {
+const ImagePlaceholder: React.FC<ThemeComponentProps> = ({ theme = 'modern' }) => {
+  const getThemeClasses = (): string => {
     switch (theme) {
       case 'classic':
         return "bg-amber-50 border border-amber-200";
@@ -47,7 +72,7 @@ const ImagePlaceholder = ({ theme = 'modern' }: { theme?: string }) => {
         return "bg-zinc-900 border border-zinc-700";
       case 'minimal':
         return "bg-gray-50";
-      default: // modern
+      default:
         return "bg-gradient-to-br from-blue-50 to-indigo-100";
     }
   };
@@ -63,8 +88,8 @@ const ImagePlaceholder = ({ theme = 'modern' }: { theme?: string }) => {
   );
 };
 
-const VideoPlaceholder = ({ theme = 'modern' }: { theme?: string }) => {
-  const getThemeClasses = () => {
+const VideoPlaceholder: React.FC<ThemeComponentProps> = ({ theme = 'modern' }) => {
+  const getThemeClasses = (): string => {
     switch (theme) {
       case 'classic':
         return "bg-amber-50 border border-amber-200";
@@ -72,7 +97,7 @@ const VideoPlaceholder = ({ theme = 'modern' }: { theme?: string }) => {
         return "bg-zinc-900 border border-zinc-700";
       case 'minimal':
         return "bg-gray-50";
-      default: // modern
+      default:
         return "bg-gradient-to-br from-blue-50 to-indigo-100";
     }
   };
@@ -87,10 +112,10 @@ const VideoPlaceholder = ({ theme = 'modern' }: { theme?: string }) => {
 };
 
 // Video player component
-const VideoPlayer = ({ src, poster, theme = 'modern' }: { src: string; poster?: string; theme?: string }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster, theme = 'modern' }) => {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -107,12 +132,10 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }: { src: string; poster?: 
       observer.observe(videoRef.current);
     }
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
-  const togglePlay = () => {
+  const togglePlay = (): void => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.play();
@@ -124,8 +147,7 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }: { src: string; poster?: 
     }
   };
 
-  // Themed play button
-  const getPlayButtonClasses = () => {
+  const getPlayButtonClasses = (): string => {
     switch (theme) {
       case 'classic':
         return "bg-amber-800/80 hover:bg-amber-800";
@@ -133,7 +155,7 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }: { src: string; poster?: 
         return "bg-cyan-500/80 hover:bg-cyan-500 backdrop-blur";
       case 'minimal':
         return "bg-black/50 hover:bg-black/70";
-      default: // modern
+      default:
         return "bg-primary hover:bg-indigo-600 backdrop-blur";
     }
   };
@@ -146,7 +168,7 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }: { src: string; poster?: 
         muted
         loop
         playsInline
-        poster={poster || ''}
+        poster={poster}
         aria-label="Feature demonstration video"
       >
         {isVisible && <source src={src} type="video/mp4" />}
@@ -173,72 +195,50 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }: { src: string; poster?: 
   );
 };
 
-// Navigation components based on theme
-const NavigationButtons = ({
+// Navigation components
+const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   onPrev,
   onNext,
   theme = 'modern',
   layout = 'grid'
-}: {
-  onPrev: () => void;
-  onNext: () => void;
-  theme?: 'modern' | 'classic' | 'minimal' | 'tech';
-  layout?: string;
 }) => {
-  // Get button styles based on theme
-  const getButtonClasses = () => {
+  const getButtonClasses = (): string => {
     const baseClasses = "flex items-center justify-center transition-all duration-200";
 
     switch (theme) {
       case 'classic':
-        return `${baseClasses} w-12 h-12 bg-amber-50 border border-amber-300 text-amber-800 
-          hover:bg-amber-100`;
+        return `${baseClasses} w-12 h-12 bg-amber-50 border border-amber-300 text-amber-800 hover:bg-amber-100`;
       case 'tech':
-        return `${baseClasses} w-10 h-10 bg-zinc-800 text-cyan-400 border border-zinc-700
-          hover:bg-zinc-700 hover:border-cyan-400`;
+        return `${baseClasses} w-10 h-10 bg-zinc-800 text-cyan-400 border border-zinc-700 hover:bg-zinc-700 hover:border-cyan-400`;
       case 'minimal':
-        return `${baseClasses} w-10 h-10 bg-transparent border border-gray-300 text-gray-700 
-          hover:bg-gray-100`;
-      default: // modern
-        return `${baseClasses} w-12 h-12 bg-primary text-white rounded-full 
-          hover:bg-indigo-700 shadow-md hover:shadow-lg`;
+        return `${baseClasses} w-10 h-10 bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-100`;
+      default:
+        return `${baseClasses} w-12 h-12 bg-primary text-white rounded-full hover:bg-indigo-700 shadow-md hover:shadow-lg`;
     }
   };
 
-  // Different button shapes/styles for different layouts
-  const getButtonStyle = () => {
+  const getButtonStyle = (): string => {
     if (layout === 'showcase') {
       return "absolute top-1/2 -translate-y-1/2 z-10";
     }
-
     if (layout === 'filmstrip') {
       return "mt-4";
     }
-
     return "";
   };
 
   const prevBtnClasses = `${getButtonClasses()} ${getButtonStyle()} ${layout === 'showcase' ? 'left-4' : ''}`;
   const nextBtnClasses = `${getButtonClasses()} ${getButtonStyle()} ${layout === 'showcase' ? 'right-4' : ''}`;
 
-  // If showcase layout, render as separate component
   if (layout === 'showcase') {
     return (
       <>
-        <button
-          onClick={onPrev}
-          className={prevBtnClasses}
-          aria-label="Previous slide"
-        >
+        <button onClick={onPrev} className={prevBtnClasses} aria-label="Previous slide">
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <button
-          onClick={onNext}
-          className={nextBtnClasses}
-          aria-label="Next slide"
-        >
+        <button onClick={onNext} className={nextBtnClasses} aria-label="Next slide">
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -247,23 +247,14 @@ const NavigationButtons = ({
     );
   }
 
-  // Other layouts
   return (
     <div className="flex justify-center space-x-4">
-      <button
-        onClick={onPrev}
-        className={prevBtnClasses}
-        aria-label="Previous slide"
-      >
+      <button onClick={onPrev} className={prevBtnClasses} aria-label="Previous slide">
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-      <button
-        onClick={onNext}
-        className={nextBtnClasses}
-        aria-label="Next slide"
-      >
+      <button onClick={onNext} className={nextBtnClasses} aria-label="Next slide">
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -272,23 +263,16 @@ const NavigationButtons = ({
   );
 };
 
-// Themed pagination indicators
-const PaginationIndicator = ({
+// Pagination component
+const PaginationIndicator: React.FC<PaginationIndicatorProps> = ({
   activeIndex,
   totalSlides,
   onDotClick,
-  theme = 'modern'
-}: {
-  activeIndex: number;
-  totalSlides: number;
-  onDotClick: (index: number) => void;
-  theme: 'modern' | 'classic' | 'minimal' | 'tech';
+  theme
 }) => {
-  // Generate array of slide indices
   const slideIndices = Array.from({ length: totalSlides }, (_, i) => i);
 
-  // Get theme-specific styles
-  const getContainerClasses = () => {
+  const getContainerClasses = (): string => {
     switch (theme) {
       case 'classic':
         return "space-x-3";
@@ -296,31 +280,23 @@ const PaginationIndicator = ({
         return "space-x-1";
       case 'minimal':
         return "space-x-2";
-      default: // modern
+      default:
         return "space-x-2";
     }
   };
 
-  const getDotClasses = (isActive: boolean) => {
+  const getDotClasses = (isActive: boolean): string => {
     const baseClasses = "transition-all duration-300 cursor-pointer";
 
     switch (theme) {
       case 'classic':
-        return `${baseClasses} w-3 h-3 rounded-full ${isActive
-          ? 'bg-amber-800 scale-110'
-          : 'bg-amber-200 hover:bg-amber-300'}`;
+        return `${baseClasses} w-3 h-3 rounded-full ${isActive ? 'bg-amber-800 scale-110' : 'bg-amber-200 hover:bg-amber-300'}`;
       case 'tech':
-        return `${baseClasses} w-8 h-1 ${isActive
-          ? 'bg-cyan-400'
-          : 'bg-zinc-700 hover:bg-zinc-600'}`;
+        return `${baseClasses} w-8 h-1 ${isActive ? 'bg-cyan-400' : 'bg-zinc-700 hover:bg-zinc-600'}`;
       case 'minimal':
-        return `${baseClasses} w-2.5 h-2.5 rounded-full border ${isActive
-          ? 'bg-black border-black'
-          : 'bg-white border-gray-300 hover:border-gray-400'}`;
-      default: // modern
-        return `${baseClasses} w-2.5 h-2.5 rounded-full ${isActive
-          ? 'bg-indigo-600 scale-110'
-          : 'bg-indigo-200 hover:bg-indigo-300'}`;
+        return `${baseClasses} w-2.5 h-2.5 rounded-full border ${isActive ? 'bg-black border-black' : 'bg-white border-gray-300 hover:border-gray-400'}`;
+      default:
+        return `${baseClasses} w-2.5 h-2.5 rounded-full ${isActive ? 'bg-indigo-600 scale-110' : 'bg-indigo-200 hover:bg-indigo-300'}`;
     }
   };
 
@@ -340,7 +316,7 @@ const PaginationIndicator = ({
 };
 
 // Main component
-const CarTechSlider = ({
+const CarTechSlider: React.FC<CarTechSliderProps> = ({
   slides = [],
   className = "",
   title = "Featured Technology",
@@ -349,144 +325,61 @@ const CarTechSlider = ({
   autoplay = false,
   autoplaySpeed = 5000,
   showCaptions = true
-}: CarTechSliderProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const swiperRef = useRef<SwiperType | null>(null);
+}) => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
-  // Calculate effective number of slides for pagination based on layout
-  const getEffectiveTotalSlides = () => {
+  const getEffectiveTotalSlides = (): number => {
     if (layout === 'showcase' || layout === 'cards') {
       return slides.length;
     }
     if (layout === 'filmstrip') {
-      return Math.ceil(slides.length / 4); // Assuming 4 slides visible at max
+      return Math.ceil(slides.length / 4);
     }
-    // For grid layout (now horizontal)
-    return Math.ceil(slides.length / 3); // Assuming 3 slides per row max
+    return Math.ceil(slides.length / 3);
   };
 
   const effectiveTotalSlides = getEffectiveTotalSlides();
 
-  // Memoize slide navigation functions
-  const handlePrev = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev();
-    }
-  }, []);
+  const handlePrev = useCallback((): void => {
+    swiperInstance?.slidePrev();
+  }, [swiperInstance]);
 
-  const handleNext = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
-    }
-  }, []);
+  const handleNext = useCallback((): void => {
+    swiperInstance?.slideNext();
+  }, [swiperInstance]);
 
-  // Handle slide change event
-  const handleSlideChange = useCallback((swiper: SwiperType) => {
+  const handleSlideChange = useCallback((swiper: SwiperType): void => {
     setActiveIndex(swiper.realIndex);
   }, []);
 
-  // Handle direct navigation via dots
-  const handleDotClick = useCallback((index: number) => {
-    if (swiperRef.current) {
-      swiperRef.current.slideTo(index);
-    }
-  }, []);
+  const handleDotClick = useCallback((index: number): void => {
+    swiperInstance?.slideTo(index);
+  }, [swiperInstance]);
 
-  // Auto-play/pause controls based on hover state
   useEffect(() => {
-    if (swiperRef.current && autoplay) {
+    if (swiperInstance && autoplay) {
       if (isHovering) {
-        swiperRef.current.autoplay?.stop();
+        swiperInstance.autoplay?.stop();
       } else {
-        swiperRef.current.autoplay?.start();
+        swiperInstance.autoplay?.start();
       }
     }
-  }, [isHovering, autoplay]);
+  }, [isHovering, autoplay, swiperInstance]);
 
-  // Early return for empty slides
   if (!slides.length) {
     return null;
   }
 
-  // Theme-specific container styles
-  const getContainerClasses = () => {
-    switch (theme) {
-      case 'classic':
-        return 'bg-amber-100/50 border-y border-amber-200';
-      case 'tech':
-        return 'bg-zinc-900 text-white';
-      case 'minimal':
-        return 'bg-white';
-      default: // modern
-        return 'bg-white';
-    }
-  };
-
-  // Get slide component classes based on layout and theme
-  const getSlideComponentClasses = () => {
-    // Base classes with theme variations
-    const baseClasses = "h-full flex flex-col";
-
-    // Layout-specific modifiers
-    switch (layout) {
-      case 'cards':
-        return `${baseClasses} ${theme === 'classic'
-          ? 'bg-amber-50 border border-amber-200 p-3 shadow-sm rounded'
-          : theme === 'tech'
-            ? 'bg-zinc-800 border border-zinc-700 p-3 rounded-sm'
-            : theme === 'minimal'
-              ? 'bg-white border border-gray-200 p-3'
-              : 'bg-white p-3 shadow-md rounded-lg'}`;
-      case 'showcase':
-        return `${baseClasses} relative`;
-      case 'filmstrip':
-        return `${baseClasses} px-2`;
-      default: // grid
-        return `${baseClasses} ${theme === 'minimal' ? 'p-2' : 'p-3'}`;
-    }
-  };
-
-  // Get slide media container classes based on layout and theme
-  const getMediaContainerClasses = () => {
-    // Base classes with theme variations
-    const baseClasses = "relative overflow-hidden flex-grow";
-
-    // Layout-specific modifiers
-    switch (layout) {
-      case 'cards':
-        return `${baseClasses} aspect-[3/2] mb-3 ${theme !== 'minimal' ? 'rounded-t-lg overflow-hidden' : ''}`;
-      case 'showcase':
-        return `${baseClasses} aspect-[16/9] ${theme === 'modern' ? 'rounded-lg overflow-hidden shadow-lg' : ''}`;
-      case 'filmstrip':
-        return `${baseClasses} aspect-square ${theme === 'modern' ? 'rounded-lg overflow-hidden' : theme === 'tech' ? 'border border-zinc-700' : ''}`;
-      default: // grid
-        return `${baseClasses} aspect-[4/3] mb-2 ${theme === 'modern' ? 'rounded-lg overflow-hidden shadow-sm' : theme === 'tech' ? 'border border-zinc-700' : ''}`;
-    }
-  };
-
-  // Get slide content classes based on layout and theme
-  const getContentClasses = () => {
-    switch (layout) {
-      case 'showcase':
-        return "absolute bottom-0 left-0 right-0 p-6 pt-16 bg-gradient-to-t from-black/80 to-transparent text-white";
-      case 'cards':
-        return "px-1 flex-grow";
-      default:
-        return "mt-2";
-    }
-  };
-
-  // Configure swiper options based on layout for responsive design - all horizontal
   const getSwiperOptions = () => {
-    // Base options for all layouts - ensuring horizontal orientation
     const baseOptions = {
       loop: slides.length > 1,
       autoplay: autoplay ? {
         delay: autoplaySpeed,
         disableOnInteraction: false
       } : false,
-      direction: 'horizontal', // Explicitly set horizontal direction
+      direction: 'horizontal' as const,
     };
 
     switch (layout) {
@@ -496,7 +389,7 @@ const CarTechSlider = ({
           slidesPerView: 1,
           spaceBetween: 0,
           centeredSlides: true,
-          effect: 'fade',
+          effect: 'fade' as const,
           fadeEffect: {
             crossFade: true
           }
@@ -520,7 +413,7 @@ const CarTechSlider = ({
           slidesPerView: 1.2,
           spaceBetween: 16,
           centeredSlides: true,
-          effect: 'coverflow',
+          effect: 'coverflow' as const,
           coverflowEffect: {
             rotate: 0,
             stretch: 0,
@@ -534,7 +427,7 @@ const CarTechSlider = ({
           }
         };
 
-      default: // grid - now horizontal instead of grid
+      default:
         return {
           ...baseOptions,
           slidesPerView: 1,
@@ -548,23 +441,11 @@ const CarTechSlider = ({
     }
   };
 
-  // Get theme-specific title classes
-  const getTitleClasses = () => {
-    switch (theme) {
-      case 'classic':
-        return "text-2xl md:text-3xl font-serif text-amber-900 mb-8";
-      case 'tech':
-        return "text-xl md:text-2xl uppercase tracking-wider text-cyan-400 mb-6";
-      case 'minimal':
-        return "text-xl md:text-2xl font-normal text-gray-900 mb-6";
-      default: // modern
-        return "text-2xl md:text-3xl font-bold text-primary-900 mb-8";
-    }
-  };
-
   return (
     <section
-      className={`w-full py-8 md:py-12 ${getContainerClasses()} ${className}`}
+      className={`w-full py-8 md:py-12 ${theme === 'classic' ? 'bg-amber-100/50 border-y border-amber-200' :
+        theme === 'tech' ? 'bg-zinc-900 text-white' :
+          'bg-white'} ${className}`}
       aria-labelledby="car-tech-slider-title"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -573,14 +454,16 @@ const CarTechSlider = ({
         {title && (
           <h2
             id="car-tech-slider-title"
-            className={`${getTitleClasses()} text-center`}
+            className={`${theme === 'classic' ? 'text-2xl md:text-3xl font-serif text-amber-900' :
+              theme === 'tech' ? 'text-xl md:text-2xl uppercase tracking-wider text-cyan-400' :
+                theme === 'minimal' ? 'text-xl md:text-2xl font-normal text-gray-900' :
+                  'text-2xl md:text-3xl font-bold text-primary-900'} mb-8 text-center`}
           >
             {title}
           </h2>
         )}
 
         <div className="relative mx-auto">
-          {/* Overlaid navigation buttons for showcase layout */}
           {layout === 'showcase' && slides.length > 1 && (
             <NavigationButtons
               onPrev={handlePrev}
@@ -591,10 +474,8 @@ const CarTechSlider = ({
           )}
 
           <Swiper
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
-            }}
-            modules={[Navigation, Pagination, Grid, A11y, Autoplay, EffectFade, EffectCoverflow]}
+            onSwiper={(swiper) => setSwiperInstance(swiper)}
+            modules={[Navigation, Pagination, Grid, A11y, Autoplay, EffectFade, EffectCoverflow] as SwiperModule[]}
             {...getSwiperOptions()}
             onSlideChange={handleSlideChange}
             navigation={{
@@ -610,56 +491,56 @@ const CarTechSlider = ({
             }}
           >
             {slides.map((slide, index) => (
-              <SwiperSlide key={slide.id || index} className="h-auto">
-                <div className={getSlideComponentClasses()}>
-                  <div className={getMediaContainerClasses()}>
+              <SwiperSlide key={slide.id} className="h-auto">
+                {/* Slide content */}
+                <div className={`h-full flex flex-col ${layout === 'cards' ? 'bg-white p-3 shadow-md rounded-lg' : ''}`}>
+                  <div className={`relative overflow-hidden flex-grow ${layout === 'showcase' ? 'aspect-[16/9]' :
+                      layout === 'filmstrip' ? 'aspect-square' :
+                        'aspect-[4/3]'
+                    }`}>
                     {slide.mediaType === 'image' ? (
                       slide.image ? (
                         <div className="relative w-full h-full">
                           <Image
                             src={slide.image}
-                            alt={slide.title || 'Car technology feature'}
-                            className="object-cover w-full h-full"
+                            alt={slide.title}
+                            className="object-cover"
                             fill
                             priority={index < 3}
-                            sizes={`${layout === 'showcase' ? '100vw' : '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw'}`}
-                            loading={index < 3 ? "eager" : "lazy"}
+                            sizes={layout === 'showcase' ? '100vw' : '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw'}
                           />
                         </div>
                       ) : (
                         <ImagePlaceholder theme={theme} />
                       )
-                    ) : slide.mediaType === 'video' ? (
+                    ) : (
                       slide.videoUrl ? (
-                        <VideoPlayer src={slide.videoUrl} poster={slide.videoPoster} theme={theme} />
+                        <VideoPlayer
+                          src={slide.videoUrl}
+                          poster={slide.videoPoster}
+                          theme={theme}
+                        />
                       ) : (
                         <VideoPlaceholder theme={theme} />
                       )
-                    ) : null}
+                    )}
                   </div>
 
                   {showCaptions && (
-                    <div className={getContentClasses()}>
-                      <h3 className={`${theme === 'classic'
-                        ? 'text-lg font-serif text-amber-900'
-                        : theme === 'tech'
-                          ? 'text-base uppercase tracking-wider text-cyan-400'
-                          : theme === 'minimal'
-                            ? 'text-base font-medium text-gray-900'
-                            : 'text-lg font-semibold text-primary-900'
-                        } ${layout === 'showcase' ? 'text-white' : ''} mb-1`}>
+                    <div className={layout === 'showcase' ?
+                      'absolute bottom-0 left-0 right-0 p-6 pt-16 bg-gradient-to-t from-black/80 to-transparent text-white' :
+                      'mt-4 px-2'
+                    }>
+                      <h3 className={`text-lg font-semibold mb-2 ${layout === 'showcase' ? 'text-white' :
+                          theme === 'tech' ? 'text-cyan-400' :
+                            'text-gray-900'
+                        }`}>
                         {slide.title}
                       </h3>
                       {slide.description && (
-                        <p className={`text-sm ${layout === 'showcase'
-                          ? 'text-gray-200'
-                          : theme === 'classic'
-                            ? 'text-amber-800'
-                            : theme === 'tech'
-                              ? 'text-gray-400'
-                              : theme === 'minimal'
-                                ? 'text-gray-600'
-                                : 'text-primary-700'
+                        <p className={`text-sm ${layout === 'showcase' ? 'text-gray-200' :
+                            theme === 'tech' ? 'text-gray-400' :
+                              'text-gray-600'
                           } line-clamp-2`}>
                           {slide.description}
                         </p>
@@ -671,10 +552,8 @@ const CarTechSlider = ({
             ))}
           </Swiper>
 
-          {/* Navigation controls */}
           {slides.length > 1 && (
             <div className="flex flex-col items-center space-y-4">
-              {/* Pagination dots */}
               <PaginationIndicator
                 activeIndex={activeIndex}
                 totalSlides={effectiveTotalSlides}
@@ -682,7 +561,6 @@ const CarTechSlider = ({
                 theme={theme}
               />
 
-              {/* Navigation buttons for non-showcase layouts */}
               {layout !== 'showcase' && (
                 <NavigationButtons
                   onPrev={handlePrev}
@@ -694,13 +572,35 @@ const CarTechSlider = ({
             </div>
           )}
 
-          {/* Hidden buttons for Swiper's built-in navigation */}
+          {/* Hidden navigation buttons for Swiper */}
           <div className="hidden">
             <button className="car-tech-prev" aria-hidden="true" />
             <button className="car-tech-next" aria-hidden="true" />
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        @keyframes progressAnim {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+        
+        .swiper-slide-active .animate-in {
+          animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };
