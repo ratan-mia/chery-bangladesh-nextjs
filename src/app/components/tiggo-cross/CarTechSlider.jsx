@@ -1,11 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
-import { type Swiper as SwiperType } from 'swiper';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { A11y, Autoplay, EffectCoverflow, EffectFade, Grid, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import type { SwiperModule } from 'swiper/types';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -16,55 +14,9 @@ import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// TypeScript Interfaces
-interface Slide {
-  id: string;
-  title: string;
-  description?: string;
-  mediaType: 'image' | 'video';
-  image?: string;
-  videoUrl?: string;
-  videoPoster?: string;
-}
-
-interface CarTechSliderProps {
-  slides?: Slide[];
-  className?: string;
-  title?: string;
-  theme?: 'modern' | 'classic' | 'minimal' | 'tech';
-  layout?: 'standard' | 'filmstrip' | 'showcase' | 'cards';
-  autoplay?: boolean;
-  autoplaySpeed?: number;
-  showCaptions?: boolean;
-}
-
-interface VideoPlayerProps {
-  src: string;
-  poster?: string;
-  theme?: string;
-}
-
-interface NavigationButtonsProps {
-  onPrev: () => void;
-  onNext: () => void;
-  theme: 'modern' | 'classic' | 'minimal' | 'tech';
-  layout: string;
-}
-
-interface PaginationIndicatorProps {
-  activeIndex: number;
-  totalSlides: number;
-  onDotClick: (index: number) => void;
-  theme: 'modern' | 'classic' | 'minimal' | 'tech';
-}
-
-interface ThemeComponentProps {
-  theme?: string;
-}
-
 // Media placeholder components
-const ImagePlaceholder: React.FC<ThemeComponentProps> = ({ theme = 'modern' }) => {
-  const getThemeClasses = (): string => {
+const ImagePlaceholder = ({ theme = 'modern' }) => {
+  const getThemeClasses = () => {
     switch (theme) {
       case 'classic':
         return "bg-amber-50 border border-amber-200";
@@ -88,8 +40,8 @@ const ImagePlaceholder: React.FC<ThemeComponentProps> = ({ theme = 'modern' }) =
   );
 };
 
-const VideoPlaceholder: React.FC<ThemeComponentProps> = ({ theme = 'modern' }) => {
-  const getThemeClasses = (): string => {
+const VideoPlaceholder = ({ theme = 'modern' }) => {
+  const getThemeClasses = () => {
     switch (theme) {
       case 'classic':
         return "bg-amber-50 border border-amber-200";
@@ -112,10 +64,10 @@ const VideoPlaceholder: React.FC<ThemeComponentProps> = ({ theme = 'modern' }) =
 };
 
 // Video player component
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster, theme = 'modern' }) => {
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+const VideoPlayer = ({ src, poster, theme = 'modern' }) => {
+  const videoRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -135,7 +87,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster, theme = 'modern'
     return () => observer.disconnect();
   }, []);
 
-  const togglePlay = (): void => {
+  const togglePlay = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.play();
@@ -147,7 +99,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster, theme = 'modern'
     }
   };
 
-  const getPlayButtonClasses = (): string => {
+  const getPlayButtonClasses = () => {
     switch (theme) {
       case 'classic':
         return "bg-amber-800/80 hover:bg-amber-800";
@@ -195,14 +147,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster, theme = 'modern'
   );
 };
 
-// Navigation components
-const NavigationButtons: React.FC<NavigationButtonsProps> = ({
-  onPrev,
-  onNext,
-  theme = 'modern',
-  layout = 'grid'
-}) => {
-  const getButtonClasses = (): string => {
+// Navigation buttons component
+const NavigationButtons = ({ onPrev, onNext, theme = 'modern', layout = 'grid' }) => {
+  const getButtonClasses = () => {
     const baseClasses = "flex items-center justify-center transition-all duration-200";
 
     switch (theme) {
@@ -217,7 +164,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
     }
   };
 
-  const getButtonStyle = (): string => {
+  const getButtonStyle = () => {
     if (layout === 'showcase') {
       return "absolute top-1/2 -translate-y-1/2 z-10";
     }
@@ -264,15 +211,10 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
 };
 
 // Pagination component
-const PaginationIndicator: React.FC<PaginationIndicatorProps> = ({
-  activeIndex,
-  totalSlides,
-  onDotClick,
-  theme
-}) => {
+const PaginationIndicator = ({ activeIndex, totalSlides, onDotClick, theme }) => {
   const slideIndices = Array.from({ length: totalSlides }, (_, i) => i);
 
-  const getContainerClasses = (): string => {
+  const getContainerClasses = () => {
     switch (theme) {
       case 'classic':
         return "space-x-3";
@@ -285,7 +227,7 @@ const PaginationIndicator: React.FC<PaginationIndicatorProps> = ({
     }
   };
 
-  const getDotClasses = (isActive: boolean): string => {
+  const getDotClasses = (isActive) => {
     const baseClasses = "transition-all duration-300 cursor-pointer";
 
     switch (theme) {
@@ -316,7 +258,7 @@ const PaginationIndicator: React.FC<PaginationIndicatorProps> = ({
 };
 
 // Main component
-const CarTechSlider: React.FC<CarTechSliderProps> = ({
+const CarTechSlider = ({
   slides = [],
   className = "",
   title = "Featured Technology",
@@ -326,11 +268,11 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
   autoplaySpeed = 5000,
   showCaptions = true
 }) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isHovering, setIsHovering] = useState<boolean>(false);
-  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [swiperInstance, setSwiperInstance] = useState(null);
 
-  const getEffectiveTotalSlides = (): number => {
+  const getEffectiveTotalSlides = () => {
     if (layout === 'showcase' || layout === 'cards') {
       return slides.length;
     }
@@ -342,19 +284,19 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
 
   const effectiveTotalSlides = getEffectiveTotalSlides();
 
-  const handlePrev = useCallback((): void => {
+  const handlePrev = useCallback(() => {
     swiperInstance?.slidePrev();
   }, [swiperInstance]);
 
-  const handleNext = useCallback((): void => {
+  const handleNext = useCallback(() => {
     swiperInstance?.slideNext();
   }, [swiperInstance]);
 
-  const handleSlideChange = useCallback((swiper: SwiperType): void => {
+  const handleSlideChange = useCallback((swiper) => {
     setActiveIndex(swiper.realIndex);
   }, []);
 
-  const handleDotClick = useCallback((index: number): void => {
+  const handleDotClick = useCallback((index) => {
     swiperInstance?.slideTo(index);
   }, [swiperInstance]);
 
@@ -379,7 +321,7 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
         delay: autoplaySpeed,
         disableOnInteraction: false
       } : false,
-      direction: 'horizontal' as const,
+      direction: 'horizontal',
     };
 
     switch (layout) {
@@ -389,7 +331,7 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
           slidesPerView: 1,
           spaceBetween: 0,
           centeredSlides: true,
-          effect: 'fade' as const,
+          effect: 'fade',
           fadeEffect: {
             crossFade: true
           }
@@ -402,8 +344,14 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
           spaceBetween: 16,
           centeredSlides: false,
           breakpoints: {
-            640: { slidesPerView: 3.5, spaceBetween: 20 },
-            1024: { slidesPerView: 4.5, spaceBetween: 24 }
+            '640': {
+              slidesPerView: 3.5,
+              spaceBetween: 20
+            },
+            '1024': {
+              slidesPerView: 4.5,
+              spaceBetween: 24
+            }
           }
         };
 
@@ -413,7 +361,7 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
           slidesPerView: 1.2,
           spaceBetween: 16,
           centeredSlides: true,
-          effect: 'coverflow' as const,
+          effect: 'coverflow',
           coverflowEffect: {
             rotate: 0,
             stretch: 0,
@@ -422,8 +370,12 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
             slideShadows: false
           },
           breakpoints: {
-            640: { slidesPerView: 2.2 },
-            1024: { slidesPerView: 3.2 }
+            '640': {
+              slidesPerView: 2.2
+            },
+            '1024': {
+              slidesPerView: 3.2
+            }
           }
         };
 
@@ -433,9 +385,18 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
           slidesPerView: 1,
           spaceBetween: 16,
           breakpoints: {
-            480: { slidesPerView: 1.5, spaceBetween: 16 },
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 24 }
+            '480': {
+              slidesPerView: 1.5,
+              spaceBetween: 16
+            },
+            '640': {
+              slidesPerView: 2,
+              spaceBetween: 20
+            },
+            '1024': {
+              slidesPerView: 3,
+              spaceBetween: 24
+            }
           }
         };
     }
@@ -474,8 +435,8 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
           )}
 
           <Swiper
-            onSwiper={(swiper) => setSwiperInstance(swiper)}
-            modules={[Navigation, Pagination, Grid, A11y, Autoplay, EffectFade, EffectCoverflow] as SwiperModule[]}
+            onSwiper={setSwiperInstance}
+            modules={[Navigation, Pagination, Grid, A11y, Autoplay, EffectFade, EffectCoverflow]}
             {...getSwiperOptions()}
             onSlideChange={handleSlideChange}
             navigation={{
@@ -492,7 +453,6 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={slide.id} className="h-auto">
-                {/* Slide content */}
                 <div className={`h-full flex flex-col ${layout === 'cards' ? 'bg-white p-3 shadow-md rounded-lg' : ''}`}>
                   <div className={`relative overflow-hidden flex-grow ${layout === 'showcase' ? 'aspect-[16/9]' :
                       layout === 'filmstrip' ? 'aspect-square' :
@@ -572,7 +532,6 @@ const CarTechSlider: React.FC<CarTechSliderProps> = ({
             </div>
           )}
 
-          {/* Hidden navigation buttons for Swiper */}
           <div className="hidden">
             <button className="car-tech-prev" aria-hidden="true" />
             <button className="car-tech-next" aria-hidden="true" />
