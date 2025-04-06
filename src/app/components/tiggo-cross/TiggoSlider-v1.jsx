@@ -1,7 +1,6 @@
 'use client';
 
 import gsap from 'gsap';
-import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -42,20 +41,20 @@ const TiggoSlider = () => {
           gsap.fromTo(
             contentElements, 
             { 
-              y: 20, 
+              y: 40, 
               opacity: 0 
             },
             { 
               y: 0, 
               opacity: 1, 
-              duration: 0.5, 
-              stagger: 0.08,
-              ease: 'power1.out',
+              duration: 0.7, 
+              stagger: 0.1,
+              ease: 'power2.out',
               delay: 0.2
             }
           );
         }
-      }, 400);
+      }, 500);
       
       return () => clearTimeout(animationDelay);
     }
@@ -206,7 +205,7 @@ const TiggoSlider = () => {
 
   return (
     <div 
-      className="relative w-full h-screen overflow-hidden bg-brown-50 dark:bg-brown-950"
+      className="relative w-full h-screen overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -228,9 +227,9 @@ const TiggoSlider = () => {
             clickable: true,
             type: 'bullets',
             renderBullet: function (index, className) {
-              return `<span class="${className} w-12 h-1 rounded-none bg-brown-200 mx-1.5 block transition-all duration-300"></span>`;
+              return `<span class="${className} w-8 h-1 rounded-none bg-brown-200/60 hover:bg-brown-200/90 mx-1 block transition-all duration-300"></span>`;
             },
-            bulletActiveClass: '!bg-brown-500 !w-16'
+            bulletActiveClass: '!bg-brown-400'
           }}
           autoplay={{
             delay: 6000,
@@ -250,102 +249,107 @@ const TiggoSlider = () => {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={slide.id} className="relative w-full h-full">
-              {/* Background image without zoom effect for flat design */}
-              <div className="absolute inset-0 bg-cover bg-center z-0">
-                <Image
-                  src={slide.bgImage}
-                  alt={`${slide.modelName} ${slide.tagline}`}
-                  fill
-                  priority={index === 0}
-                  className="object-cover"
-                />
-                
-                {/* Simple flat overlay */}
-                <div className="absolute inset-0 bg-black/40 z-5"></div>
-              </div>
+              {/* Background image with parallax effect */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-10000 ease-out will-change-transform"
+                style={{ 
+                  backgroundImage: `url(${slide.bgImage})`,
+                  transform: `scale(${activeIndex === index ? '1.05' : '1'})`,
+                  transition: 'transform 6s ease-out'
+                }}
+              />
+              
+              {/* Enhanced overlay with gradient */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 z-5"></div>
               
               {/* Content container */}
               <div className="relative z-10 w-full h-full flex flex-col">
-                {/* Top badge area with flat design */}
+                {/* Top badge area with improved animation */}
                 {slide.badge && (
                   <div className="absolute top-8 left-8 md:left-16 z-20">
-                    <div className={`animate-content inline-block bg-brown-500 text-brown-50 px-4 py-2 uppercase text-sm tracking-wider ${
+                    <div className={`animate-content inline-block bg-gradient-to-r from-brown-500 to-brown-400 text-brown-50 px-4 py-2 uppercase text-sm tracking-wider shadow-lg ${
                       showFeature ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
-                    } transition-all duration-500 delay-300`}>
+                    } transition-all duration-700 delay-300`}>
                       {slide.badge}
                     </div>
                   </div>
                 )}
 
-                {/* Main content area with flat design */}
+                {/* Main content area */}
                 <div className="absolute bottom-0 left-0 right-0 pb-28 pt-40 z-20">
-                  {/* Flat gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-0"></div>
+                  {/* Enhanced gradient for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-0"></div>
                   
                   <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-16">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                      {/* Left content - Text and buttons with flat design */}
-                      <div className="max-w-xl animate-content"
+                    <div className="flex flex-col md:flex-row justify-between items-end md:items-center">
+                      {/* Left content - Text and buttons with improved animation */}
+                      <div className="max-w-2xl animate-content"
                            style={{ 
                              opacity: showFeature ? 1 : 0,
                              transform: showFeature ? 'translateY(0)' : 'translateY(20px)'
                            }}>
-                        <h2 className="text-brown-50 text-4xl md:text-6xl font-light tracking-wide leading-tight mb-4">
+                        <h2 className="text-brown-50 text-4xl md:text-6xl font-extralight tracking-widest leading-tight mb-2">
                           {slide.modelName}
                         </h2>
-                        <div className="w-16 h-1 bg-brown-400 mb-6"></div>
-                        <p className="text-brown-50 text-lg md:text-2xl font-light tracking-wide uppercase mb-8 md:mb-10">
+                        <div className="w-20 h-1 bg-brown-400 mb-6"></div>
+                        <p className="text-brown-50 text-lg md:text-2xl font-light tracking-widest uppercase mb-8 md:mb-12">
                           {slide.tagline}
                         </p>
                         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                           <a 
                             href="#brochure" 
-                            className="bg-brown-500 hover:bg-brown-600 transition-colors duration-300 text-brown-50 px-8 py-3 text-center"
+                            className="group bg-brown-700 hover:bg-brown-600 transition-all duration-300 text-brown-50 px-8 py-3 text-center transform hover:scale-105 hover:shadow-xl relative overflow-hidden"
                           >
-                            View Brochure
+                            <span className="relative z-10">View Brochure</span>
+                            <span className="absolute inset-0 bg-brown-50/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
                           </a>
                           <a 
                             href="#test-drive" 
-                            className="bg-transparent border-2 border-brown-50/60 hover:border-brown-50 transition-colors duration-300 text-brown-50 px-8 py-3 text-center"
+                            className="group bg-brown-50/10 backdrop-blur-sm hover:bg-brown-50/20 border border-brown-50/30 transition-all duration-300 text-brown-50 px-8 py-3 text-center transform hover:scale-105 hover:shadow-xl"
                           >
                             Test Drive
                           </a>
                         </div>
                       </div>
                       
-                      {/* Right content - Flat design specifications */}
+                      {/* Right content - Enhanced Specifications with features tab */}
                       {slide.specs && (
                         <div className="mt-8 md:mt-0 hidden md:block animate-content"
                              style={{ 
                                 opacity: showFeature ? 1 : 0,
-                                transform: showFeature ? 'translateX(0)' : 'translateX(20px)'
+                                transform: showFeature ? 'translateX(0)' : 'translateX(40px)'
                               }}>
-                          <div className="bg-brown-900/60 p-6 border-l-4 border-brown-400">
-                            {/* Clean tab interface */}
-                            <div className="mb-4">
-                              <h3 className="text-brown-50 text-lg uppercase tracking-wide">
-                                Specifications
+                          <div className="bg-black/40 backdrop-blur-md p-6 rounded-sm border-l-2 border-brown-400 shadow-2xl">
+                            {/* Tabbed interface */}
+                            <div className="flex mb-4 space-x-2">
+                              <h3 className="text-brown-50 text-lg font-medium flex items-center">
+                                <svg className="w-5 h-5 mr-2 text-brown-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                SPECIFICATIONS
                               </h3>
                             </div>
                             
-                            <div className="mb-6 min-w-[280px]">
+                            <div className="mb-4 min-w-[280px]">
                               {slide.specs.map((spec, i) => (
-                                <div key={i} className="flex justify-between border-b border-brown-50/10 py-2 group">
-                                  <span className="text-brown-50/70 text-sm uppercase">{spec.label}</span>
-                                  <span className="text-brown-50 font-medium">{spec.value}</span>
+                                <div key={i} className="flex justify-between border-b border-brown-50/10 pb-2 group mb-2">
+                                  <span className="text-brown-50/70 text-sm uppercase group-hover:text-brown-400 transition-colors">{spec.label}</span>
+                                  <span className="text-brown-50 font-medium group-hover:text-brown-300 transition-colors">{spec.value}</span>
                                 </div>
                               ))}
                             </div>
                             
-                            {/* Features list with flat design */}
-                            <div>
-                              <h4 className="text-brown-50/90 text-sm uppercase mb-3 border-b border-brown-50/10 pb-1">
+                            {/* Features list */}
+                            <div className="mt-4">
+                              <h4 className="text-brown-50/80 text-sm uppercase mb-2 border-b border-brown-50/10 pb-1">
                                 Key Features
                               </h4>
                               <ul className="grid grid-cols-2 gap-2">
                                 {slide.features.map((feature, i) => (
-                                  <li key={i} className="flex items-start text-brown-50/90 text-sm py-1">
-                                    <span className="inline-block w-2 h-2 mt-1 mr-2 bg-brown-400"></span>
+                                  <li key={i} className="flex items-center text-brown-50/90 text-sm">
+                                    <svg className="w-4 h-4 mr-2 text-brown-400" viewBox="0 0 20 20" fill="currentColor">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
                                     {feature}
                                   </li>
                                 ))}
@@ -363,49 +367,52 @@ const TiggoSlider = () => {
         </Swiper>
       )}
       
-      {/* Flat design progress bar */}
-      <div className="absolute bottom-16 left-8 md:left-16 right-8 md:right-16 z-30 h-1 bg-brown-200 dark:bg-brown-800 overflow-hidden">
+      {/* Enhanced progress bar with GSAP animation */}
+      <div className="absolute bottom-16 left-8 md:left-16 right-8 md:right-16 z-30 h-1 bg-brown-50/20 rounded-full overflow-hidden">
         <div 
           ref={progressBarRef}
-          className="h-full bg-brown-500 origin-left"
-          style={{ transform: 'scaleX(0)' }}
+          className="h-full bg-gradient-to-r from-brown-500 to-brown-400 origin-left rounded-full"
+          style={{ 
+            transform: 'scaleX(0)',
+            boxShadow: '0 0 8px rgba(245, 158, 11, 0.5)'
+          }}
         ></div>
       </div>
       
-      {/* Flat design navigation arrows */}
+      {/* Improved navigation arrows */}
       <button 
-        className="slider-button-prev absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-30 w-12 h-12 flex items-center justify-center bg-brown-50 cursor-pointer hover:bg-brown-200 transition-colors duration-300 focus:outline-none"
+        className="slider-button-prev absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-sm cursor-pointer hover:bg-brown-700 transition-all duration-300 border border-brown-50/10 group focus:outline-none focus:ring-2 focus:ring-brown-400"
         aria-label="Previous slide"
       >
-        <svg className="w-6 h-6 text-brown-900" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6 text-brown-50 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
       
       <button 
-        className="slider-button-next absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-30 w-12 h-12 flex items-center justify-center bg-brown-50 cursor-pointer hover:bg-brown-200 transition-colors duration-300 focus:outline-none"
+        className="slider-button-next absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-sm cursor-pointer hover:bg-brown-700 transition-all duration-300 border border-brown-50/10 group focus:outline-none focus:ring-2 focus:ring-brown-400"
         aria-label="Next slide"
       >
-        <svg className="w-6 h-6 text-brown-900" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6 text-brown-50 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
       
-      {/* Flat design pagination */}
+      {/* Enhanced pagination */}
       <div className="swiper-pagination absolute bottom-8 left-0 right-0 z-20 flex justify-center space-x-2"></div>
       
-      {/* Flat design color selector */}
-      <div className="absolute bottom-8 right-8 md:right-16 z-30 flex items-center bg-brown-900/60 px-4 py-2">
-        <span className="text-brown-50/90 text-xs mr-3 uppercase tracking-wider">Color</span>
+      {/* Enhanced color selector with keyboard accessibility */}
+      <div className="absolute bottom-8 right-8 md:right-16 z-30 flex items-center bg-black/20 backdrop-blur-sm px-3 py-2 rounded-full">
+        <span className="text-brown-50/70 text-xs mr-2 uppercase tracking-wider">Color</span>
         {slides.map((slide, index) => (
           <button
             key={slide.id}
             onClick={() => swiperRef.current?.swiper.slideTo(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className={`w-8 h-8 mx-1 transition-all duration-300 ${slide.colorCode} ${
+            className={`w-6 h-6 rounded-full ${slide.colorCode} mx-1 transition-all duration-300 ${
               activeIndex === index 
-                ? 'ring-2 ring-brown-50 ring-offset-2 ring-offset-brown-900/60' 
-                : 'opacity-70 hover:opacity-100'
+                ? 'ring-2 ring-brown-50 ring-offset-1 ring-offset-black/50 scale-110' 
+                : 'opacity-70 hover:opacity-100 hover:scale-105'
             }`}
             aria-label={`View ${slide.id} slide`}
             tabIndex={0}
@@ -413,20 +420,20 @@ const TiggoSlider = () => {
         ))}
       </div>
       
-      {/* Flat design model info */}
+      {/* Enhanced model info at top right */}
       <div className="absolute top-8 right-8 md:right-16 z-30">
-        <div className={`bg-brown-900/60 px-4 py-2 transform transition-all duration-500 animate-content ${
+        <div className={`bg-black/30 backdrop-blur-sm px-4 py-2 rounded-sm border-r-2 border-brown-400 transform transition-all duration-700 animate-content ${
           showFeature ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
         }`}>
-          <span className="text-brown-50/80 text-sm uppercase tracking-wide">TIGGO SERIES</span>
+          <span className="text-brown-50/80 text-sm font-light">TIGGO SERIES</span>
           <span className="block text-brown-50 text-lg font-medium">MODEL {activeIndex + 1}/3</span>
         </div>
       </div>
       
-      {/* Mobile specs button with flat design */}
+      {/* Mobile specs button that appears on small screens */}
       <div className="md:hidden absolute bottom-24 right-8 z-30">
         <button 
-          className="bg-brown-500 text-brown-50 p-3 hover:bg-brown-600 transition-colors duration-300"
+          className="bg-brown-400 text-brown-50 rounded-full p-3 shadow-lg hover:bg-brown-500 transition-all duration-300"
           aria-label="Show specifications"
           onClick={() => {
             // Could implement a modal for mobile specs
@@ -439,16 +446,24 @@ const TiggoSlider = () => {
         </button>
       </div>
       
-      {/* Custom CSS for flat design styling */}
+      {/* Custom CSS for animations and styling overrides */}
       <style jsx global>{`
+        @keyframes progress {
+          0% { transform: scaleX(0); }
+          100% { transform: scaleX(1); }
+        }
+        
         .swiper-pagination-bullet {
           transition: all 0.3s ease;
-          border-radius: 0;
-          opacity: 1;
         }
         
         .swiper-pagination-bullet-active {
-          transform: scaleX(1.25);
+          transform: scaleX(1.5);
+        }
+        
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
         }
         
         /* Smooth page scrolling */

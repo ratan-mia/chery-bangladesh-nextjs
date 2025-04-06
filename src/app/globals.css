@@ -52,6 +52,34 @@ body {
     background-color: var(--color-primary) !important;
   }
 
+  .bg-primary-50 {
+    background-color: rgba(172, 145, 118, 0.05) !important;
+  }
+
+  .bg-primary-100 {
+    background-color: rgba(172, 145, 118, 0.1) !important;
+  }
+
+  .bg-primary-200 {
+    background-color: rgba(172, 145, 118, 0.2) !important;
+  }
+
+  .bg-primary-300 {
+    background-color: rgba(172, 145, 118, 0.3) !important;
+  }
+
+  .bg-primary-400 {
+    background-color: rgba(172, 145, 118, 0.4) !important;
+  }
+
+  .bg-primary-500 {
+    background-color: var(--color-primary) !important;
+  }
+
+  .bg-primary-600 {
+    background-color: var(--color-primary-700) !important;
+  }
+
   .bg-primary-700 {
     background-color: var(--color-primary-700) !important;
   }

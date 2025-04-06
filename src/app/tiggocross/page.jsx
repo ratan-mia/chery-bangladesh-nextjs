@@ -2,6 +2,7 @@
 
 import CarFeaturesSlider from "../components/CarFeaturesSlider";
 import SimpleBanner from "../components/SimpleBanner";
+import CarTechSlider from "../components/tiggo-cross/CarTechSlider";
 import TiggoSlider from "../components/tiggo-cross/TiggoSlider";
 import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
 import VehicleSpecs from "../components/VehicleSpecs";
@@ -120,10 +121,62 @@ export default function Home() {
     },
   ];
 
+  const techSlides = [
+ 
+    // {
+    //   mediaType: "image",
+    //   image: "/images/tech/surround-airbags.jpg",
+    //   title: "Surround Airbags",
+    //   description:
+    //     "Complete protection with strategically placed airbags that shield passengers from all angles.",
+    // },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider1/sunroof.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/sunroof.jpg",
+      title: "Lane Keep Assist",
+      description:
+        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+    },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider1/wheels.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/wheels.jpg",
+      title: "Lane Keep Assist",
+      description:
+        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+    },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider1/headlights.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/headlights.jpg",
+      title: "Adaptive Cruise Control",
+      description:
+        "Smart speed management that automatically adjusts to maintain safe distance from vehicles ahead.",
+    },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider1/sunroof.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/sunroof.jpg",
+      title: "Lane Keep Assist",
+      description:
+        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+    },
+  ];
+
   return (
     <main>
-      <TiggoSlider/>
- 
+      <TiggoSlider />
+      <section className="py-12 bg-brown-50 dark:bg-brown-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-brown-900 dark:text-brown-50 mb-10">
+            Advanced Safety Technology
+          </h2>
+
+          <CarTechSlider slides={techSlides} />
+        </div>
+      </section>
+
       <CarColorSwitcher />
       <VehicleSpecs
         category="Appearance"
