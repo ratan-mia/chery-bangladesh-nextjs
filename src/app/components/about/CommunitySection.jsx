@@ -52,7 +52,7 @@ const CommunitySection = () => {
         </h2>
         <p className="text-base lg:text-lg text-white/90 leading-relaxed">
           Chery has been expanding globally for over 20 years, with operations in over 60 countries and regions worldwide.
-          Practicing social responsibility is an essential part of Chery’s global strategy. We actively contribute to public welfare in green development,
+          Practicing social responsibility is an essential part of Chery's global strategy. We actively contribute to public welfare in green development,
           environmental protection, social welfare, and talent development.
         </p>
       </motion.div>

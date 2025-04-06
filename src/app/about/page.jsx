@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main>
       {/* <ParallaxHeroSection /> */}
-      <VisionMissionSection />;
+      <VisionMissionSection />
       <BrandCoreGrid />
       <CommunitySection />
       <AwardsSection/>
