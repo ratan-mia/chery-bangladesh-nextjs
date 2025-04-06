@@ -4,15 +4,17 @@ const ParallaxHeroSection = () => {
   const [activeSection, setActiveSection] = useState(0);
   const heroRef = useRef(null);
   const requestRef = useRef(null);
-
+  const sections = [0, 1]; // Section indices
+  
+  // Improved scroll handler with requestAnimationFrame
   const handleScroll = useCallback(() => {
     requestRef.current = window.requestAnimationFrame(() => {
       if (!heroRef.current) return;
-
+      
       const scrollPosition = window.pageYOffset;
       const viewportHeight = window.innerHeight;
       const triggerPoint = viewportHeight * 0.3; // Trigger at 30% of viewport height
-
+      
       // Determine active section based on scroll position
       if (scrollPosition < triggerPoint) {
         setActiveSection(0);
@@ -25,10 +27,10 @@ const ParallaxHeroSection = () => {
   useEffect(() => {
     // Initial check
     handleScroll();
-
+    
     // Add event listener with passive option for performance
     window.addEventListener('scroll', handleScroll, { passive: true });
-
+    
     // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -47,11 +49,13 @@ const ParallaxHeroSection = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden" ref={heroRef}>
       {/* First Section with slide-up transition */}
-      <div
+      <div 
         className={`
-          fixed top-0 left-0 w-full h-full
+          fixed top-0 left-0 w-full h-screen 
           transition-all duration-1000 ease-out
-          ${activeSection === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-16 pointer-events-none'}
+          ${activeSection === 0 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 -translate-y-16 pointer-events-none'}
         `}
         style={{
           backgroundImage: "url('/images/about/hero.jpg')",
@@ -76,11 +80,13 @@ const ParallaxHeroSection = () => {
       </div>
 
       {/* Second Section with fade-in and scale transition */}
-      <div
+      <div 
         className={`
-          fixed top-0 left-0 w-full h-screen
+          fixed top-0 left-0 w-full h-screen 
           transition-all duration-1000 ease-out
-          ${activeSection === 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'}
+          ${activeSection === 1 
+            ? 'opacity-100 scale-100' 
+            : 'opacity-0 scale-105 pointer-events-none'}
         `}
         style={{
           backgroundImage: "url('/images/about/hero.jpg')",
@@ -91,16 +97,16 @@ const ParallaxHeroSection = () => {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
           <div className="max-w-4xl mx-auto space-y-6">
-            <h2
+            <h2 
               className={`
-                text-3xl md:text-4xl font-semibold text-white mb-4
+                text-3xl md:text-4xl font-semibold text-white mb-4 
                 transition-all duration-700 delay-100
                 ${activeSection === 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
               `}
             >
               Established in 1997,
             </h2>
-            <p
+            <p 
               className={`
                 text-xl md:text-2xl text-white
                 transition-all duration-700 delay-200
@@ -109,7 +115,7 @@ const ParallaxHeroSection = () => {
             >
               Chery Group has made significant strides in the automotive industry.
             </p>
-            <p
+            <p 
               className={`
                 text-lg md:text-xl text-white
                 transition-all duration-700 delay-300
@@ -118,7 +124,7 @@ const ParallaxHeroSection = () => {
             >
               Its subsidiary, Chery Automobile, holds the distinction of being the first Chinese automobile brand to exceed one million domestic sales. Additionally Chery Automobile has been a trailblazer in expanding into international markets.
             </p>
-            <div
+            <div 
               className={`
                 pt-4
                 transition-all duration-700 delay-400
@@ -136,14 +142,16 @@ const ParallaxHeroSection = () => {
       {/* Section indicators with animation */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-10">
         <div className="flex flex-col space-y-3">
-          {[0, 1].map((index) => (
+          {sections.map((index) => (
             <button
               key={index}
               aria-label={`Go to section ${index + 1}`}
               className={`
-                w-3 h-3 rounded-full
+                w-3 h-3 rounded-full 
                 transition-all duration-300 ease-in-out
-                ${activeSection === index ? 'bg-primary scale-125' : 'bg-white/50 hover:bg-white/70'}
+                ${activeSection === index 
+                  ? 'bg-primary scale-125' 
+                  : 'bg-white/50 hover:bg-white/70'}
               `}
               onClick={() => scrollToSection(index)}
             />
@@ -152,11 +160,13 @@ const ParallaxHeroSection = () => {
       </div>
 
       {/* Scroll indicator with enhanced animation */}
-      <div
+      <div 
         className={`
-          fixed bottom-8 left-1/2 transform -translate-x-1/2
+          fixed bottom-8 left-1/2 transform -translate-x-1/2 
           transition-all duration-500 ease-in-out
-          ${activeSection === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
+          ${activeSection === 0 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4 pointer-events-none'}
           z-10
         `}
       >
@@ -169,7 +179,7 @@ const ParallaxHeroSection = () => {
       </div>
 
       {/* Spacer div to enable scrolling */}
-      {/* <div style={{ height: '200vh' }} aria-hidden="true" /> */}
+      <div style={{ height: '200vh' }} aria-hidden="true" />
     </div>
   );
 };
