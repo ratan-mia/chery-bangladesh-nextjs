@@ -2,8 +2,8 @@
 
 import CarFeaturesSlider from "../components/CarFeaturesSlider";
 import SimpleBanner from "../components/SimpleBanner";
+import CarShowcaseSlider from "../components/tiggo-cross/CarShowcaseSlider";
 import CarTechSlider from "../components/tiggo-cross/CarTechSlider";
-import TiggoSlider from "../components/tiggo-cross/TiggoSlider";
 import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
 import VehicleSpecs from "../components/VehicleSpecs";
 
@@ -121,6 +121,8 @@ export default function Home() {
     },
   ];
 
+  
+
   const techSlides = [
  
     // {
@@ -166,7 +168,7 @@ export default function Home() {
 
   return (
     <main>
-      <TiggoSlider />
+      <CarShowcaseSlider />
       <section className="py-12 bg-brown-50 dark:bg-brown-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-brown-900 dark:text-brown-50 mb-10">
