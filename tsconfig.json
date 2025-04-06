@@ -27,6 +27,13 @@
       "@/components/*": ["/app/components/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/components/tiggo-cross/CarTechSlider.jsx",
+    "src/app/components/tiggo-cross/CarTechSlider-v1.jsx"
+  ],
   "exclude": ["node_modules"]
 }
