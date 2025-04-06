@@ -2,7 +2,7 @@
 
 import CarFeaturesSlider from "../components/CarFeaturesSlider";
 import SimpleBanner from "../components/SimpleBanner";
-import CarShowcaseSlider from "../components/tiggo-cross/CarShowcaseSlider";
+import TiggoSlider from "../components/tiggo-cross/TiggoSlider";
 import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
 import VehicleSpecs from "../components/VehicleSpecs";
 
@@ -51,79 +51,79 @@ export default function Home() {
     },
   ];
 
-
-
-  const carSlides = [
+  const cheryVehicles = [
     {
-      modelName: "Model X",
-      tagline: "The Ultimate Electric SUV",
-      description: "Experience unparalleled performance with our flagship electric SUV featuring advanced autopilot capabilities and up to 360 miles of range.",
-      src: "/images/tiggocross/hero/2.webp",
-      logoSrc: "/images/brand-logo.svg",
-      brochureLink: "/brochures/model-x",
-      testDriveLink: "/test-drive/model-x",
+      modelName: "Chery",
+      tagline: "Tiggo Cross",
+      description:
+        "The perfect blend of dynamic styling and advanced technology. The Tiggo Cross delivers a premium driving experience with versatile capabilities for both urban commuting and weekend adventures.",
+      src: "/images/tiggocross/hero/1.webp", // Using the provided URL
+      logoSrc: "/images/chery-logo.png",
+      type: "image",
       specs: {
-        "Range": "360 miles",
-        "0-60": "2.5s",
-        "Top Speed": "155 mph",
-        "Power": "1,020 hp"
+        ENGINE: "1.5L Turbo",
+        POWER: "145 HP",
+        TORQUE: "210 Nm",
+        TRANSMISSION: "CVT",
       },
       featureHighlight: {
-        title: "Falcon Wing Doors",
-        description: "Unique upward-opening doors that provide easier access to second and third row seats, even in tight parking spaces."
-      }
+        title: "Smart Voice Control",
+        description:
+          "Advanced voice recognition system lets you control vehicle functions with natural language commands.",
+      },
+      brochureLink: "/vehicles/chery/tiggo-cross",
+      testDriveLink: "/test-drive/chery/tiggo-cross",
     },
     {
-      modelName: "Model S",
-      tagline: "Beyond Ludicrous",
-      description: "Our high-performance sedan redefines electric luxury with best-in-class acceleration, range, and safety features.",
-      src: "/images/tiggocross/hero/1.webp",
-      logoSrc: "/images/brand-logo.svg", 
-      brochureLink: "/brochures/model-s",
-      testDriveLink: "/test-drive/model-s",
+      modelName: "Chery",
+      tagline: "Tiggo 7 Pro",
+      description:
+        "A perfect combination of modern design, intelligent technology and superior comfort. The Tiggo 7 Pro is designed to exceed expectations with its premium features and engaging driving dynamics.",
+      src: "/images/tiggocross/hero/2.webp", // Using the provided URL
+      logoSrc: "/images/chery-logo.png",
+      type: "image",
       specs: {
-        "Range": "405 miles",
-        "0-60": "1.99s",
-        "Top Speed": "200 mph",
-        "Power": "1,100 hp"
+        ENGINE: "1.6T GDI",
+        POWER: "197 HP",
+        TORQUE: "290 Nm",
+        DRIVE: "AWD",
       },
       featureHighlight: {
-        title: "Performance Mode",
-        description: "Unleash the full potential with our track-optimized performance mode that delivers maximum acceleration and responsiveness."
-      }
-    }
-    // {
-    //   modelName: "Roadster",
-    //   tagline: "The Future of Hypercars",
-    //   description: "The quickest car in the world, with record-setting acceleration, range, and performance.",
-    //   type: "video",
-    //   src: "/videos/roadster.mp4",
-    //   logoSrc: "/images/brand-logo.svg",
-    //   brochureLink: "/brochures/roadster",
-    //   testDriveLink: "/test-drive/roadster",
-    //   specs: {
-    //     "Range": "620 miles",
-    //     "0-60": "1.9s",
-    //     "Top Speed": "250+ mph",
-    //     "Torque": "10,000 Nm"
-    //   },
-    //   featureHighlight: {
-    //     title: "SpaceX Package",
-    //     description: "Cold air thrusters dramatically improve acceleration, top speed, braking and cornering."
-    //   }
-    // }
+        title: "Panoramic Sunroof",
+        description:
+          "Expansive glass roof that creates an open, airy cabin experience with one-touch controls.",
+      },
+      brochureLink: "/vehicles/chery/tiggo-7-pro",
+      testDriveLink: "/test-drive/chery/tiggo-7-pro",
+    },
+    {
+      modelName: "Chery",
+      tagline: "Arrizo 8",
+      description:
+        "The flagship sedan that combines elegant styling with cutting-edge technology. The Arrizo 8 represents Chery's commitment to premium quality and sophisticated design.",
+      src: "/images/chery-arrizo8.jpg",
+      logoSrc: "/images/chery-logo.png",
+      type: "image",
+      specs: {
+        ENGINE: "2.0T TGDI",
+        POWER: "254 HP",
+        ACCELERATION: "7.5s (0-100km/h)",
+        "FUEL ECONOMY": "6.8L/100km",
+      },
+      featureHighlight: {
+        title: "ADAS System",
+        description:
+          "Comprehensive suite of driver assistance features including adaptive cruise control and lane keeping assist.",
+      },
+      brochureLink: "/vehicles/chery/arrizo-8",
+      testDriveLink: "/test-drive/chery/arrizo-8",
+    },
   ];
-
 
   return (
     <main>
-        <CarShowcaseSlider 
-          slides={carSlides} 
-          primaryColorClass="bg-gray-900"
-          secondaryColorClass="bg-blue-600"
-          autoplaySpeed={6000}
-        />
-
+      <TiggoSlider/>
+ 
       <CarColorSwitcher />
       <VehicleSpecs
         category="Appearance"
