@@ -169,7 +169,7 @@ const ParallaxHeroSection = () => {
       </div>
 
       {/* Spacer div to enable scrolling */}
-      {/* <div style={{ height: '200vh' }} aria-hidden="true" /> */}
+      <div style={{ height: '200vh' }} aria-hidden="true" />
     </div>
   );
 };

@@ -14,6 +14,7 @@ export default function Home() {
       <BrandCoreGrid />
       <CommunitySection />
       <AwardsSection/>
+      
     </main>
   );
 }
