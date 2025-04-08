@@ -112,7 +112,7 @@ export default function HeroBanner() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image 
-          src="/images/banners/video_pc.jpg" 
+          src="/images/hero-bg.jpg" 
           alt="Chery Brand Background"
           fill
           priority
@@ -157,11 +157,11 @@ export default function HeroBanner() {
           >
             <button 
               onClick={openVideo}
-              className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 transition-colors px-6 py-3  text-white font-medium"
+              className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 transition-colors px-6 py-3 rounded-full text-white font-medium"
             >
               <div className="relative">
                 <div className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 24 24" fill="currentColor" className="text-primary-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" className="text-primary-500">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
@@ -172,7 +172,7 @@ export default function HeroBanner() {
             
             <a
               href="#explore"
-              className="px-6 py-3  border border-white/30 text-white font-medium hover:bg-white/10 transition-colors"
+              className="px-6 py-3 rounded-full border border-white/30 text-white font-medium hover:bg-white/10 transition-colors"
             >
               Explore Models
             </a>

@@ -1,5 +1,7 @@
+'use client'
+
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const VisionMissionSection = ({ 
   backgroundImage = '/images/about/mountain-landscape.jpg', 
@@ -28,9 +30,33 @@ const VisionMissionSection = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef(null);
+  
+  // Detect when section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden" ref={sectionRef}>
       {/* Background Image with hover animation */}
       <motion.div 
         className="w-full min-h-screen bg-cover bg-center relative"
@@ -44,23 +70,37 @@ const VisionMissionSection = ({
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
       >
-        {/* Optional title and description */}
+        {/* Improved semi-transparent overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70"></div>
+        
+        {/* Optional title and description - enhanced animation */}
         {(title || description) && (
-          <div className="absolute top-0 left-0 w-full py-12 px-4 text-center z-10">
-            {title && <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>}
-            {description && <p className="text-xl text-white/80 max-w-3xl mx-auto">{description}</p>}
-          </div>
+          <motion.div 
+            className="absolute top-0 left-0 w-full py-16 px-4 text-center z-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {title && (
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
+            )}
+            {description && (
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">{description}</p>
+            )}
+          </motion.div>
         )}
         
-        {/* Decorative element - sun rays */}
+        {/* Decorative element - sun rays with improved animation */}
         {hasDecorativeSun && (
           <motion.div 
             className="absolute top-1/4 right-1/4 pointer-events-none z-10"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ 
+              opacity: isInView ? 1 : 0,
               rotate: isHovered ? 45 : 0,
               scale: isHovered ? 1.1 : 1
             }}
-            transition={{ duration: 3, ease: "easeInOut" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
           >
             <div className="relative w-16 h-16">
               <motion.div 
@@ -90,28 +130,24 @@ const VisionMissionSection = ({
           </motion.div>
         )}
         
-        {/* Dark semi-transparent overlay at the bottom - just a thin strip */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-black/30 backdrop-blur-sm z-0" />
-        
-        {/* Content container */}
-        <div className="absolute bottom-16 left-0 right-0 z-20">
-          <div className="container mx-auto px-4 md:px-8">
+        {/* Improved bottom container with fixed height */}
+        <div className="absolute bottom-0 left-0 right-0 z-20">
+          <div className="container mx-auto px-4 md:px-8 pb-16 pt-40">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
               
               {sections.map((section, index) => (
                 <motion.div 
                   key={index} 
                   className="relative"
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.2, duration: 0.5 }}
-                  viewport={{ once: true }}
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                  transition={{ delay: index * 0.2, duration: 0.7 }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                 >
-                  {/* Individual gradient background - not full width */}
+                  {/* Individual gradient background - preserved but improved */}
                   <motion.div 
-                    className="absolute inset-0 rounded-lg"
+                    className="absolute inset-0 rounded-none"
                     style={{ 
                       background: index === 0 
                         ? 'linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(30,55,45,0.95))' 
@@ -128,10 +164,25 @@ const VisionMissionSection = ({
                     transition={{ duration: 0.3 }}
                   />
                   
-                  {/* Content */}
+                  {/* Top accent bar - new addition */}
+                  <motion.div
+                    className="absolute top-0 left-0 right-0 h-1 z-20"
+                    style={{ 
+                      background: index === 0 
+                        ? '#4ade80'  // green for vision 
+                        : index === 1 
+                          ? '#3b82f6'  // blue for mission
+                          : '#a78bfa'  // purple for values
+                    }}
+                    initial={{ width: '0%' }}
+                    animate={hoveredIndex === index ? { width: '100%' } : { width: '30%' }}
+                    transition={{ duration: 0.4 }}
+                  />
+                  
+                  {/* Content with improved spacing */}
                   <div className="relative z-10 p-6 md:p-8">
                     <motion.h2 
-                      className="text-3xl md:text-4xl font-bold text-white tracking-wider mb-6"
+                      className="text-2xl md:text-3xl font-bold text-white tracking-wider mb-6"
                       initial={{ x: 0 }}
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
@@ -140,18 +191,17 @@ const VisionMissionSection = ({
                     </motion.h2>
                     
                     {Array.isArray(section.content) ? (
-                      <ul className="text-white/80 text-lg space-y-2">
+                      <ul className="text-white/80 text-lg space-y-4">
                         {section.content.map((item, i) => (
                           <motion.li 
                             key={i}
                             initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3 + (i * 0.1), duration: 0.4 }}
-                            viewport={{ once: true }}
+                            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                            transition={{ delay: 0.5 + (i * 0.1), duration: 0.4 }}
                             className="flex items-start"
                           >
                             <motion.span 
-                              className="inline-block w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-2"
+                              className="inline-block w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3"
                               initial={{ scale: 0.8 }}
                               animate={{ scale: hoveredIndex === index ? [0.8, 1.2, 0.8] : 0.8 }}
                               transition={{ 
@@ -160,36 +210,67 @@ const VisionMissionSection = ({
                                 repeatType: "reverse" 
                               }}
                             />
-                            {item}
+                            <span>{item}</span>
                           </motion.li>
                         ))}
                       </ul>
                     ) : (
                       <motion.p 
-                        className="text-white/80 text-lg"
+                        className="text-white/80 text-lg leading-relaxed"
                         initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
-                        viewport={{ once: true }}
+                        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
                       >
                         {section.content}
                       </motion.p>
                     )}
                     
-                    {section.cta && (
-                      <motion.div 
-                        className="pt-6"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <button 
-                          onClick={section.cta.onClick} 
-                          className="bg-primary hover:bg-primary-focus text-primary-content px-6 py-2 rounded-md transition-all duration-300"
+                    {/* New footer element */}
+                    <motion.div
+                      className="mt-8 pt-4 border-t border-white/10 flex justify-between items-center"
+                      initial={{ opacity: 0 }}
+                      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                      transition={{ delay: 0.7, duration: 0.5 }}
+                    >
+                      <div className="text-white/50 text-sm">
+                        {index === 0 ? "Our future" : index === 1 ? "Our purpose" : "Our principles"}
+                      </div>
+                      
+                      {section.cta ? (
+                        <motion.button
+                          onClick={section.cta.onClick}
+                          className="text-white/80 hover:text-white text-sm flex items-center"
+                          whileHover={{ x: 3 }}
                         >
                           {section.cta.label}
-                        </button>
-                      </motion.div>
-                    )}
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className="h-4 w-4 ml-1" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </motion.button>
+                      ) : (
+                        <motion.div
+                          className="text-white/80 text-sm"
+                          whileHover={{ x: 3 }}
+                        >
+                          Learn more
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className="h-4 w-4 ml-1 inline-block" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </motion.div>
+                      )}
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
