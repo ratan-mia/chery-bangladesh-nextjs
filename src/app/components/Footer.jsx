@@ -5,149 +5,253 @@ import Link from 'next/link'
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear()
+  
   return (
-    <footer className="bg-gray-100 py-12 relative w-full h-full overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
+    <footer className="bg-white border-t border-gray-100 pt-16 pb-8 relative w-full">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8">
+          {/* Brand and Social Media - Desktop (Left) */}
+          <div className="hidden lg:flex lg:flex-col lg:col-span-3 pr-8 border-r border-gray-100">
+            <Link href="/" className="inline-block mb-6">
+              <Image 
+                src="/logo.png" 
+                alt="Chery" 
+                width={140} 
+                height={48}
+                className="object-contain"
+              />
+            </Link>
+            
+            <p className="text-gray-600 text-sm mb-6">
+              Chery International is a leading global automobile manufacturer committed to innovation, quality, and customer satisfaction.
+            </p>
+            
+            {/* Social Media */}
+            <div className="flex space-x-4 mt-auto">
+              {[
+                { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
+                { icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
+                { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
+                { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" }
+              ].map((social, index) => (
+                <Link 
+                  key={index}
+                  href={social.href} 
+                  className="w-10 h-10 flex items-center justify-center border border-gray-200 text-gray-600 hover:text-primary hover:border-primary transition-colors duration-200" 
+                  aria-label={social.label}
+                >
+                  <social.icon size={16} />
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Column 1 - Models */}
-          <div>
-            <h4 className="text-gray-800 font-medium mb-4">Models</h4>
+          <div className="col-span-1 md:col-span-1 lg:col-span-2">
+            <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">Models</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/models/tiggo" className="text-gray-600 hover:text-primary transition-colors">
-                  TIGGO
+                <Link href="/models/tiggo" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  TIGGO Series
                 </Link>
               </li>
               <li>
-                <Link href="/models/arrizo" className="text-gray-600 hover:text-primary transition-colors">
-                  ARRIZO
+                <Link href="/models/arrizo" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  ARRIZO Series
+                </Link>
+              </li>
+              <li>
+                <Link href="/models/eq" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  EQ Series
+                </Link>
+              </li>
+              <li>
+                <Link href="/models/overview" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Model Overview
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2 - News */}
-          <div>
-            <h4 className="text-gray-800 font-medium mb-4">News</h4>
+          {/* Column 2 - News & Media */}
+          <div className="col-span-1 md:col-span-1 lg:col-span-2">
+            <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">News & Media</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/news" className="text-gray-600 hover:text-primary transition-colors">
-                  NEWS
+                <Link href="/news" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Latest News
+                </Link>
+              </li>
+              <li>
+                <Link href="/media/press" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Press Releases
+                </Link>
+              </li>
+              <li>
+                <Link href="/media/awards" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Awards
+                </Link>
+              </li>
+              <li>
+                <Link href="/media/downloads" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Downloads
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Column 3 - About Chery */}
-          <div>
-            <h4 className="text-gray-800 font-medium mb-4">About Chery</h4>
+          <div className="col-span-1 md:col-span-1 lg:col-span-2">
+            <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">About Chery</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/about/ceo" className="text-gray-600 hover:text-primary transition-colors">
-                  FROM CEO
+                <Link href="/about/introduction" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Introduction
                 </Link>
               </li>
               <li>
-                <Link href="/about/honors" className="text-gray-600 hover:text-primary transition-colors">
-                  HONORS
+                <Link href="/about/ceo" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  From CEO
                 </Link>
               </li>
               <li>
-                <Link href="/about/introduction" className="text-gray-600 hover:text-primary transition-colors">
-                  INTRODUCTION
+                <Link href="/about/honors" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Honors
                 </Link>
               </li>
               <li>
-                <Link href="/about/environmental" className="text-gray-600 hover:text-primary transition-colors">
-                  ENVIRONMENTAL INITIATIVES
+                <Link href="/about/environmental" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Environmental
                 </Link>
               </li>
               <li>
-                <Link href="/about/social" className="text-gray-600 hover:text-primary transition-colors">
-                  SOCIAL RESPONSIBILITY
-                </Link>
-              </li>
-              <li>
-                <Link href="/about/operations" className="text-gray-600 hover:text-primary transition-colors">
-                  EXCELLENT OPERATIONS
+                <Link href="/about/social" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Social Responsibility
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4 - Contact Us */}
-          <div>
-            <h4 className="text-gray-800 font-medium mb-4">Contact Us</h4>
+          {/* Column 4 - Services */}
+          <div className="col-span-1 md:col-span-1 lg:col-span-2">
+            <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">Services</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-primary transition-colors">
-                  Contact Us
+                <Link href="/services/maintenance" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Maintenance
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/warranty" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Warranty
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/roadside" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Roadside Assistance
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/owners" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Owner Resources
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 5 - Service & Logo */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <h4 className="text-gray-800 font-medium mb-4">Service</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/service" className="text-gray-600 hover:text-primary transition-colors">
-                    Service
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* Contact Section */}
+          <div className="col-span-2 md:col-span-4 lg:col-span-3 lg:pl-8 lg:border-l lg:border-gray-100">
+            <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">Contact Us</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <div className="text-primary mr-3 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div className="text-sm text-gray-600">
+                  8 Changchun Road, Wuhu Economic and Technological Development Zone, Anhui Province, P.R.China
+                </div>
+              </li>
+              <li className="flex items-start">
+                <div className="text-primary mr-3 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div className="text-sm text-gray-600">
+                  <a href="mailto:info@chery.com" className="hover:text-primary transition-colors">info@chery.com</a>
+                </div>
+              </li>
+              <li className="flex items-start">
+                <div className="text-primary mr-3 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div className="text-sm text-gray-600">
+                  <a href="tel:+86-555-1234567" className="hover:text-primary transition-colors">+86-555-1234567</a>
+                </div>
+              </li>
+            </ul>
             
-            <div className="mt-8 md:mt-0">
-              <Link href="/" className="inline-block">
-                <Image 
-                  src="/logo.png" 
-                  alt="Chery" 
-                  width={120} 
-                  height={40}
-                  className="object-contain"
-                />
-              </Link>
-              
-              {/* Social Media */}
-              <div className="flex space-x-4 mt-4">
-                <Link href="https://facebook.com" className="text-gray-700 hover:text-primary transition-colors" aria-label="Facebook">
-                  <FaFacebookF size={18} />
+            {/* Newsletter Subscription - can be added if needed */}
+          </div>
+          
+          {/* Mobile Brand and Social */}
+          <div className="col-span-2 lg:hidden pt-4 border-t border-gray-100 mt-4">
+            <Link href="/" className="inline-block mb-4">
+              <Image 
+                src="/logo.png" 
+                alt="Chery" 
+                width={120} 
+                height={40}
+                className="object-contain"
+              />
+            </Link>
+            
+            {/* Social Media */}
+            <div className="flex space-x-3 mt-4">
+              {[
+                { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
+                { icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
+                { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
+                { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" }
+              ].map((social, index) => (
+                <Link 
+                  key={index}
+                  href={social.href} 
+                  className="w-9 h-9 flex items-center justify-center border border-gray-200 text-gray-600 hover:text-primary hover:border-primary transition-colors duration-200" 
+                  aria-label={social.label}
+                >
+                  <social.icon size={14} />
                 </Link>
-                <Link href="https://twitter.com" className="text-gray-700 hover:text-primary transition-colors" aria-label="Twitter">
-                  <FaTwitter size={18} />
-                </Link>
-                <Link href="https://instagram.com" className="text-gray-700 hover:text-primary transition-colors" aria-label="Instagram">
-                  <FaInstagram size={18} />
-                </Link>
-                <Link href="https://youtube.com" className="text-gray-700 hover:text-primary transition-colors" aria-label="YouTube">
-                  <FaYoutube size={18} />
-                </Link>
-              </div>
+              ))}
             </div>
           </div>
         </div>
         
         {/* Bottom Legal Section */}
-        <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-sm text-gray-500 mb-4 md:mb-0">
-            © Copyright 2025 Chery All Right Reserved.  
-            <span className="ml-2">皖ICP备05009427号-1</span>
+        <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center">
+          <div className="text-sm text-gray-500 mb-4 md:mb-0 text-center md:text-left">
+            © Copyright {currentYear} Chery International. All Rights Reserved.  
+            <span className="ml-2 text-gray-400">皖ICP备05009427号-1</span>
           </div>
           
-          <div className="flex text-sm text-gray-500">
+          <div className="flex flex-wrap justify-center md:justify-end text-sm text-gray-500 gap-x-6">
             <Link href="/legal" className="hover:text-primary transition-colors">
-              Legal
+              Legal Notice
             </Link>
-            <span className="mx-4">|</span>
             <Link href="/privacy" className="hover:text-primary transition-colors">
               Privacy Statement
             </Link>
-            <span className="mx-4">|</span>
             <Link href="/cookies" className="hover:text-primary transition-colors">
               Cookies Policy
+            </Link>
+            <Link href="/sitemap" className="hover:text-primary transition-colors">
+              Sitemap
             </Link>
           </div>
         </div>
