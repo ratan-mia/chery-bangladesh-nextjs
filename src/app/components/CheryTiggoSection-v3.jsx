@@ -17,7 +17,6 @@ export default function CheryTiggoSection() {
   const [isInView, setIsInView] = useState(false)
   const swiperRef = useRef(null)
   const sectionRef = useRef(null)
-  const [isInitialized, setIsInitialized] = useState(false)
 
   // Models data
   const models = [
@@ -106,35 +105,12 @@ export default function CheryTiggoSection() {
     }
   }, [])
 
-  // Initialize swiper on first render and handle tab changes
+  // Move swiper when tab changes
   useEffect(() => {
-    // Prevent infinite loop by checking if this is a user-initiated change
     if (swiperRef.current && swiperRef.current.swiper) {
-      // Only update if the slide index doesn't match the tab index
-      if (swiperRef.current.swiper.activeIndex !== activeTabIndex) {
-        swiperRef.current.swiper.slideTo(activeTabIndex)
-      }
+      swiperRef.current.swiper.slideTo(activeTabIndex)
     }
-    
-    // Mark as initialized after first render
-    if (!isInitialized) {
-      setIsInitialized(true)
-    }
-  }, [activeTabIndex, isInitialized])
-
-  // Handle tab click
-  const handleTabClick = (index) => {
-    if (index !== activeTabIndex) {
-      setActiveTabIndex(index)
-    }
-  }
-
-  // Handle slider change
-  const handleSlideChange = (swiper) => {
-    if (swiper.activeIndex !== activeTabIndex) {
-      setActiveTabIndex(swiper.activeIndex)
-    }
-  }
+  }, [activeTabIndex])
 
   return (
     <section 
@@ -143,8 +119,8 @@ export default function CheryTiggoSection() {
     >
       {/* Flat design background element */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary opacity-5 -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary opacity-5 translate-y-1/2 -translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary opacity-5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary opacity-5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
       </div>
 
       <div className="container mx-auto px-4">
@@ -162,53 +138,30 @@ export default function CheryTiggoSection() {
           </p>
         </motion.div>
 
-        {/* Improved Tabs navigation */}
+        {/* Tabs navigation */}
         <motion.div 
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-8 space-x-2 md:space-x-4"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {/* Mobile tab dropdown for smaller screens */}
-          <div className="md:hidden w-full max-w-xs">
-            <select 
-              value={activeTabIndex} 
-              onChange={(e) => handleTabClick(Number(e.target.value))}
-              className="w-full p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-primary"
+          {models.map((model, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveTabIndex(index)}
+              className={`px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-200 ${
+                activeTabIndex === index 
+                  ? 'bg-primary text-white' 
+                  : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
+              }`}
             >
-              {models.map((model, index) => (
-                <option key={index} value={index}>{model.name}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Desktop tabs */}
-          <div className="hidden md:flex border border-gray-200 dark:border-gray-700">
-            {models.map((model, index) => (
-              <button
-                key={index}
-                onClick={() => handleTabClick(index)}
-                className={`
-                  relative px-6 py-3 font-medium transition-all duration-200 border-b-2
-                  ${index < models.length - 1 ? 'border-r border-gray-200 dark:border-gray-700' : ''}
-                  ${activeTabIndex === index 
-                    ? 'bg-primary text-white border-b-primary' 
-                    : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 border-b-transparent'
-                  }
-                `}
-                aria-selected={activeTabIndex === index}
-                role="tab"
-                aria-controls={`tab-panel-${index}`}
-                id={`tab-${index}`}
-              >
-                {model.name}
-              </button>
-            ))}
-          </div>
+              {model.name}
+            </button>
+          ))}
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Vehicle image with Swiper */}
+          {/* Vehicle image */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
@@ -220,70 +173,28 @@ export default function CheryTiggoSection() {
               effect="fade"
               fadeEffect={{ crossFade: true }}
               speed={500}
-              allowTouchMove={true} // Allow touch interaction for mobile
+              allowTouchMove={false}
               modules={[EffectFade, Navigation, Autoplay]}
-              onSlideChange={handleSlideChange}
+              onSlideChange={(swiper) => setActiveTabIndex(swiper.activeIndex)}
               className="w-full"
-              initialSlide={activeTabIndex} // Set initial slide
             >
               {models.map((model, index) => (
-                <SwiperSlide 
-                  key={index} 
-                  className="flex justify-center items-center"
-                  role="tabpanel"
-                  aria-labelledby={`tab-${index}`}
-                  id={`tab-panel-${index}`}
-                >
+                <SwiperSlide key={index} className="flex justify-center items-center">
                   <div className="relative w-full h-72 md:h-96">
-                    {/* Flat platform beneath the car */}
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-4 bg-gray-200 dark:bg-gray-700"></div>
+                    {/* Platform beneath the car */}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-4 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
                     
-                    {/* Updated Image component for newer Next.js versions */}
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={model.image || "https://placehold.co/800x400/png"}
-                        alt={model.name}
-                        fill
-                        style={{ objectFit: "contain" }}
-                        priority={index === 0} // Priority loading for first image
-                      />
-                    </div>
+                    <Image
+                      src={model.image || "https://placehold.co/800x400/png"}
+                      alt={model.name}
+                      layout="fill"
+                      objectFit="contain"
+                      className="drop-shadow-md"
+                    />
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-            
-            {/* Added navigation buttons for better usability */}
-            <div className="flex justify-between mt-4">
-              <button 
-                onClick={() => {
-                  if (activeTabIndex > 0) {
-                    handleTabClick(activeTabIndex - 1)
-                  }
-                }}
-                disabled={activeTabIndex === 0}
-                className={`p-2 ${activeTabIndex === 0 ? 'text-gray-400 cursor-not-allowed' : 'text-primary hover:bg-gray-100 dark:hover:bg-gray-700'}`}
-                aria-label="Previous model"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button 
-                onClick={() => {
-                  if (activeTabIndex < models.length - 1) {
-                    handleTabClick(activeTabIndex + 1)
-                  }
-                }}
-                disabled={activeTabIndex === models.length - 1}
-                className={`p-2 ${activeTabIndex === models.length - 1 ? 'text-gray-400 cursor-not-allowed' : 'text-primary hover:bg-gray-100 dark:hover:bg-gray-700'}`}
-                aria-label="Next model"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
           </motion.div>
 
           {/* Vehicle info */}
@@ -299,7 +210,7 @@ export default function CheryTiggoSection() {
             </motion.div>
 
             <motion.div variants={animations.item} className="mb-6">
-              <div className="bg-white dark:bg-gray-800 p-5 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-sm">
                 <h4 className="text-lg font-medium text-gray-800 dark:text-white mb-4">Key Specs</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -336,7 +247,7 @@ export default function CheryTiggoSection() {
 
             <motion.div variants={animations.item}>
               <Link href={models[activeTabIndex]?.link || "#"}>
-                <span className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium transition-colors duration-200">
+                <span className="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-colors duration-200">
                   Explore {models[activeTabIndex]?.name}
                 </span>
               </Link>
@@ -344,16 +255,15 @@ export default function CheryTiggoSection() {
           </motion.div>
         </div>
 
-        {/* Feature highlights with flat design */}
+        {/* Feature highlights */}
         <motion.div 
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {/* Feature cards */}
-          <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700">
-            <div className="w-12 h-12 bg-primary-light flex items-center justify-center mb-3">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+            <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
               </svg>
@@ -362,8 +272,8 @@ export default function CheryTiggoSection() {
             <p className="text-sm text-gray-500 dark:text-gray-400">Powerful and efficient engines</p>
           </div>
           
-          <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700">
-            <div className="w-12 h-12 bg-primary-light flex items-center justify-center mb-3">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+            <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
@@ -372,8 +282,8 @@ export default function CheryTiggoSection() {
             <p className="text-sm text-gray-500 dark:text-gray-400">Advanced driver assistance</p>
           </div>
           
-          <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700">
-            <div className="w-12 h-12 bg-primary-light flex items-center justify-center mb-3">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+            <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
               </svg>
@@ -382,8 +292,8 @@ export default function CheryTiggoSection() {
             <p className="text-sm text-gray-500 dark:text-gray-400">Advanced infotainment</p>
           </div>
           
-          <div className="bg-white dark:bg-gray-800 p-4 border border-gray-200 dark:border-gray-700">
-            <div className="w-12 h-12 bg-primary-light flex items-center justify-center mb-3">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+            <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
