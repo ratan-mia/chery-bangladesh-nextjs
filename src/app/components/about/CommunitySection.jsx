@@ -248,7 +248,7 @@ const CommunitySection = () => {
           </div>
 
           {/* Enhanced pagination indicator */}
-          <div className="absolute bottom-24 left-6 sm:left-8 flex items-center gap-2 z-10">
+          <div className="absolute bottom-35 left-6 sm:left-8 flex items-center gap-2 z-10">
             {communityData.map((_, index) => (
               <button
                 key={index}

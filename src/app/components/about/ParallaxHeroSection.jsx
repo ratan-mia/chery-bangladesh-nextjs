@@ -68,7 +68,7 @@ const ParallaxHeroSection = () => {
             COMMITTED TO BEING A DIVERSIFIED ENTERPRISE WITH GLOBAL INFLUENCE AND COMPETITIVENESS
           </p>
           <div className="mt-8 transition-all duration-700 delay-300">
-            <button className="bg-primary hover:bg-primary-focus text-white px-6 py-2 rounded-md transition-colors duration-300">
+            <button className="bg-primary hover:bg-primary-focus text-white px-6 py-2 transition-colors duration-300">
               Discover More
             </button>
           </div>
@@ -125,7 +125,7 @@ const ParallaxHeroSection = () => {
                 ${activeSection === 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
               `}
             >
-              <button className="border-2 border-primary hover:bg-primary text-white hover:text-white px-6 py-2 rounded-md transition-all duration-300">
+              <button className="border-2 border-primary hover:bg-primary text-white hover:text-white px-6 py-2 transition-all duration-300">
                 Our Journey
               </button>
             </div>
@@ -133,7 +133,7 @@ const ParallaxHeroSection = () => {
         </div>
       </div>
 
-      {/* Section indicators with animation */}
+      {/* Section indicators with flat design */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-10">
         <div className="flex flex-col space-y-3">
           {[0, 1].map((index) => (
@@ -141,9 +141,9 @@ const ParallaxHeroSection = () => {
               key={index}
               aria-label={`Go to section ${index + 1}`}
               className={`
-                w-3 h-3 rounded-full
+                w-4 h-4
                 transition-all duration-300 ease-in-out
-                ${activeSection === index ? 'bg-primary scale-125' : 'bg-white/50 hover:bg-white/70'}
+                ${activeSection === index ? 'bg-primary scale-110' : 'bg-white/50 hover:bg-white/70'}
               `}
               onClick={() => scrollToSection(index)}
             />
@@ -151,7 +151,7 @@ const ParallaxHeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator with enhanced animation */}
+      {/* Scroll indicator with flat design */}
       <div
         className={`
           fixed bottom-8 left-1/2 transform -translate-x-1/2
@@ -162,8 +162,8 @@ const ParallaxHeroSection = () => {
       >
         <div className="flex flex-col items-center cursor-pointer" onClick={() => scrollToSection(1)}>
           <p className="text-white text-sm mb-2">Scroll down</p>
-          <div className="w-6 h-10 rounded-full border-2 border-white flex justify-center items-start">
-            <div className="w-1.5 h-3 rounded-full mt-1.5 bg-primary animate-bounce" />
+          <div className="w-6 h-10 border-2 border-white flex justify-center items-start">
+            <div className="w-1.5 h-3 mt-1.5 bg-primary animate-bounce" />
           </div>
         </div>
       </div>
