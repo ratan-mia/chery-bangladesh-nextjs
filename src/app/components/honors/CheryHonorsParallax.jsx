@@ -1,10 +1,12 @@
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 
 const CheryHonorsParallax = () => {
   const sectionRef = useRef(null);
   const [windowHeight, setWindowHeight] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [activeHonor, setActiveHonor] = useState(0);
   
@@ -14,15 +16,16 @@ const CheryHonorsParallax = () => {
     offset: ["start end", "end start"]
   });
   
-  // Refined parallax effects
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-  const contentY = useTransform(scrollYProgress, [0, 0.5, 1], ['3%', '0%', '-5%']);
+  // Refined parallax effects with gentler values for better readability
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const contentY = useTransform(scrollYProgress, [0, 0.5, 1], ['2%', '0%', '-3%']);
   const opacityContent = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   
-  // Window height calculation for responsive design
+  // Window size calculation for responsive design
   useEffect(() => {
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
+      setWindowWidth(window.innerWidth);
     };
     
     // Delayed visibility for entrance animation
@@ -36,14 +39,14 @@ const CheryHonorsParallax = () => {
     };
   }, []);
 
-  // Auto-rotate through honors
+  // Auto-rotate through honors with responsive timing (slower on mobile)
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveHonor((prev) => (prev + 1) % honors.length);
-    }, 5000);
+    }, windowWidth < 768 ? 8000 : 6000); // Longer delay on mobile for better readability
     
     return () => clearInterval(interval);
-  }, []);
+  }, [windowWidth]);
   
   // Honors data
   const honors = [
@@ -51,19 +54,22 @@ const CheryHonorsParallax = () => {
       id: 1,
       title: "FORTUNE GLOBAL 500",
       year: "2024",
-      description: "Chery Group achieves first-time entry into Fortune Global 500, ranking 385th"
+      description: "Chery Group achieves first-time entry into Fortune Global 500, ranking 385th",
+      link: "/honors/fortune-500"
     },
     {
       id: 2,
       title: "BRANDZ RECOGNITION",
       year: "2024",
-      description: "Awarded as the sole winner in the automotive industry for pioneering Chinese global brand"
+      description: "Awarded as the sole winner in the automotive industry for pioneering Chinese global brand",
+      link: "/honors/brandz"
     },
     {
       id: 3,
       title: "GLOBAL EXPANSION",
       year: "2023",
-      description: "Expanded to over 80 countries, affirming Chery's growing international market presence"
+      description: "Expanded to over 80 countries, affirming Chery's growing international market presence",
+      link: "/honors/global-expansion"
     }
   ];
   
@@ -79,7 +85,6 @@ const CheryHonorsParallax = () => {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-brown-950"
       style={{ 
-        height: `${Math.max(windowHeight, 600)}px`,
         minHeight: '100vh'
       }}
     >
@@ -107,141 +112,204 @@ const CheryHonorsParallax = () => {
             className="transition-all duration-700 ease-in-out"
           />
           
-          {/* Overlay with more dramatic gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brown-950/95 via-brown-900/85 to-brown-950/70 z-10"></div>
+          {/* Background gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-brown-950/90 via-brown-900/75 to-brown-900/60 z-10"></div>
           
           {/* Subtle pattern overlay */}
-          <div className="absolute inset-0 bg-[url('/images/pattern-dot.png')] opacity-15 mix-blend-soft-light z-10"></div>
+          <div className="absolute inset-0 bg-[url('/images/pattern-dot.png')] opacity-10 mix-blend-soft-light z-10"></div>
         </div>
       </motion.div>
       
-      {/* Content Layout */}
+      {/* Content Layout with responsive padding */}
       <AnimatePresence>
         {isVisible && (
           <motion.div 
-            className="relative z-20 h-full w-full flex items-center"
+            className="relative z-20 min-h-screen w-full flex items-center py-16 md:py-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="container mx-auto px-6 md:px-8">
+            <div className="container mx-auto px-4 sm:px-6 md:px-8">
               <motion.div
-                className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center"
+                className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12 items-center"
                 style={{ y: contentY, opacity: opacityContent }}
               >
-                {/* Left Column - Title and Stats */}
-                <div className="lg:col-span-2 lg:pr-8">
+                {/* Left Column - Title and Stats (Full width on mobile, 5 cols on desktop) */}
+                <div className="lg:col-span-5 lg:pr-4 order-1">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
+                    className="bg-black/75 backdrop-blur-sm p-6 sm:p-8 rounded-md shadow-xl"
                   >
-                    <div className="w-16 h-1 bg-primary mb-6"></div>
+                    <div className="w-12 sm:w-16 h-1 bg-primary mb-4 sm:mb-6"></div>
                     
-                    <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
-                      <span className="block">Chery</span>
-                      <span className="block text-primary mt-1">Honors</span>
+                    <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
+                      <span className="block text-shadow">Chery</span>
+                      <span className="block text-primary mt-1 text-shadow">Honors</span>
                     </h2>
                     
-                    <p className="text-brown-200 text-lg mb-10 max-w-lg">
+                    <p className="text-white text-base sm:text-lg mb-6 sm:mb-8 max-w-lg leading-relaxed">
                       Since 1997, Chery has been recognized globally for innovation, quality, 
                       and excellence in the automotive industry.
                     </p>
                     
-                    {/* Stats row */}
-                    <div className="grid grid-cols-3 gap-4 mb-8">
+                    {/* Stats row with responsive grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
                       {stats.map((stat, index) => (
                         <motion.div 
                           key={stat.label}
-                          className="text-center p-4"
+                          className="text-center p-3 sm:p-4 bg-black/40 rounded-md border-t-2 border-primary/40"
                           initial={{ opacity: 0, y: 15 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: 0.4 + (index * 0.1) }}
+                          whileHover={{ scale: 1.03, borderTopColor: "rgba(172, 145, 118, 0.8)" }}
                         >
-                          <span className="block text-primary text-3xl font-bold">{stat.value}</span>
-                          <span className="text-brown-300 text-sm">{stat.label}</span>
+                          <span className="block text-primary text-2xl sm:text-3xl font-bold">{stat.value}</span>
+                          <span className="text-white text-xs sm:text-sm font-medium">{stat.label}</span>
                         </motion.div>
                       ))}
                     </div>
                     
                     <motion.div 
-                      className="flex flex-wrap gap-4"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.6 }}
+                      className="flex justify-center sm:justify-start"
                     >
-                      <button className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-sm font-medium transition-colors flex items-center">
-                        <span>View All Achievements</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
-                          <path d="M5 12h14"></path>
-                          <path d="M12 5l7 7-7 7"></path>
-                        </svg>
-                      </button>
+                      <Link href="/achievements" legacyBehavior>
+                        <a className="bg-primary hover:bg-primary-dark text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-md font-medium transition-colors inline-flex items-center group text-sm sm:text-base">
+                          <span>View All Achievements</span>
+                          <motion.svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="16" 
+                            height="16" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                          >
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5l7 7-7 7"></path>
+                          </motion.svg>
+                        </a>
+                      </Link>
                     </motion.div>
                   </motion.div>
                 </div>
                 
-                {/* Right Column - Honors Cards */}
-                <div className="lg:col-span-3 relative">
-                  {/* Vertical line decorator */}
-                  <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 hidden lg:block"></div>
-                  
-                  {/* Honors showcase */}
-                  <div className="relative min-h-[320px] lg:min-h-[380px] lg:pl-10">
-                    {honors.map((honor, index) => (
-                      <motion.div
-                        key={honor.id}
-                        className="absolute inset-0"
-                        initial={{ opacity: 0, x: 40 }}
-                        animate={{ 
-                          opacity: activeHonor === index ? 1 : 0,
-                          x: activeHonor === index ? 0 : 40,
-                          pointerEvents: activeHonor === index ? 'auto' : 'none'
-                        }}
-                        transition={{ duration: 0.7, ease: "easeOut" }}
-                      >
-                        <div className="bg-brown-900/50 backdrop-blur-sm border border-brown-700/50 p-8 rounded-sm">
-                          <div className="flex items-center mb-6">
-                            <span className="bg-primary/20 text-primary-light text-sm py-1 px-3 rounded-sm">
-                              {honor.year}
-                            </span>
-                            <span className="ml-4 text-brown-400 text-sm">Achievement {index + 1} of {honors.length}</span>
-                          </div>
-                          
-                          <h3 className="text-white text-2xl md:text-3xl font-bold mb-4">
-                            {honor.title}
-                          </h3>
-                          
-                          <p className="text-brown-200 mb-8">
-                            {honor.description}
-                          </p>
-                          
-                          <div className="flex justify-between items-center">
-                            <a href="#" className="text-primary hover:text-primary-light flex items-center transition-colors">
-                              <span>Read more</span>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
+                {/* Right Column - Honors Cards (Full width on mobile, 7 cols on desktop) */}
+                <div className="lg:col-span-7 relative order-2 min-h-[350px] sm:min-h-[380px]">
+                  {/* Honors showcase with improved visibility */}
+                  {honors.map((honor, index) => (
+                    <motion.div
+                      key={honor.id}
+                      className="absolute inset-0"
+                      initial={{ opacity: 0, x: 40 }}
+                      animate={{ 
+                        opacity: activeHonor === index ? 1 : 0,
+                        x: activeHonor === index ? 0 : 40,
+                        pointerEvents: activeHonor === index ? 'auto' : 'none'
+                      }}
+                      transition={{ duration: 0.7, ease: "easeOut" }}
+                    >
+                      <div className="bg-black/75 backdrop-blur-md p-5 sm:p-6 md:p-8 rounded-md shadow-xl border-l-4 border-primary h-full">
+                        <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+                          <span className="bg-primary text-white text-xs sm:text-sm py-1 sm:py-1.5 px-3 sm:px-4 rounded-md font-medium inline-block">
+                            {honor.year}
+                          </span>
+                          <span className="bg-white/10 text-white text-xs sm:text-sm py-1 sm:py-1.5 px-3 sm:px-4 rounded-md inline-block">
+                            {index + 1} of {honors.length}
+                          </span>
+                        </div>
+                        
+                        <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-shadow-sm">
+                          {honor.title}
+                        </h3>
+                        
+                        <p className="text-white text-sm sm:text-base md:text-lg mb-6 sm:mb-8 leading-relaxed">
+                          {honor.description}
+                        </p>
+                        
+                        <div className="flex flex-wrap justify-between items-center gap-3 sm:gap-4 mt-auto">
+                          <Link href={honor.link || "#"} legacyBehavior>
+                            <a className="text-primary hover:text-primary-light flex items-center transition-colors group bg-black/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-sm sm:text-base">
+                              <span className="font-medium">Read more</span>
+                              <motion.svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                width="16" 
+                                height="16" 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                              >
                                 <path d="M5 12h14"></path>
                                 <path d="M12 5l7 7-7 7"></path>
-                              </svg>
+                              </motion.svg>
                             </a>
-                            
-                            {/* Dots indicators */}
-                            <div className="flex space-x-2">
-                              {honors.map((_, idx) => (
-                                <button
-                                  key={idx}
-                                  onClick={() => setActiveHonor(idx)}
-                                  className={`w-2 h-2 rounded-full transition-all ${
-                                    activeHonor === idx ? 'bg-primary w-5' : 'bg-brown-700'
-                                  }`}
-                                  aria-label={`View honor ${idx + 1}`}
-                                />
-                              ))}
-                            </div>
+                          </Link>
+                          
+                          {/* Line indicators - responsive size */}
+                          <div className="flex gap-1.5 sm:gap-2">
+                            {honors.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => setActiveHonor(idx)}
+                                className={`h-1 sm:h-1.5 rounded-none transition-all duration-300 ${
+                                  activeHonor === idx ? 'w-6 sm:w-10 bg-primary' : 'w-3 sm:w-5 bg-white/30'
+                                }`}
+                                aria-label={`View honor ${idx + 1}`}
+                              />
+                            ))}
                           </div>
                         </div>
-                      </motion.div>
-                    ))}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Mobile navigation controls - only visible on smaller screens */}
+                <div className="order-3 w-full flex justify-center lg:hidden mt-4">
+                  <div className="flex gap-3 items-center">
+                    <button
+                      onClick={() => setActiveHonor((prev) => (prev > 0 ? prev - 1 : honors.length - 1))}
+                      className="bg-black/40 rounded-full p-2 text-white"
+                      aria-label="Previous honor"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                      </svg>
+                    </button>
+                    
+                    <div className="flex gap-1.5">
+                      {honors.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveHonor(idx)}
+                          className={`h-1.5 rounded-none transition-all duration-300 ${
+                            activeHonor === idx ? 'w-8 bg-primary' : 'w-4 bg-white/30'
+                          }`}
+                          aria-label={`View honor ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                    
+                    <button
+                      onClick={() => setActiveHonor((prev) => (prev < honors.length - 1 ? prev + 1 : 0))}
+                      className="bg-black/40 rounded-full p-2 text-white"
+                      aria-label="Next honor"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 18l6-6-6-6" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </motion.div>
