@@ -140,7 +140,7 @@ const CheryHonorsParallax = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="bg-black/75 backdrop-blur-sm p-6 sm:p-8 rounded-md shadow-xl"
+                    className="bg-black/55 backdrop-blur-sm p-6 sm:p-8 rounded-md shadow-xl"
                   >
                     <div className="w-12 sm:w-16 h-1 bg-primary mb-4 sm:mb-6"></div>
                     
@@ -216,7 +216,7 @@ const CheryHonorsParallax = () => {
                       }}
                       transition={{ duration: 0.7, ease: "easeOut" }}
                     >
-                      <div className="bg-black/75 backdrop-blur-md p-5 sm:p-6 md:p-8 rounded-md shadow-xl border-l-4 border-primary h-full">
+                      <div className="bg-black/50 backdrop-blur-md p-5 sm:p-6 md:p-8 rounded-md shadow-xl border-l-4 border-primary h-full">
                         <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
                           <span className="bg-primary text-white text-xs sm:text-sm py-1 sm:py-1.5 px-3 sm:px-4 rounded-md font-medium inline-block">
                             {honor.year}
