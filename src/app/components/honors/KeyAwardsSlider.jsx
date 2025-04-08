@@ -37,23 +37,53 @@ const KeyAwardsSlider = () => {
     },
     {
       id: 3,
-      year: "2024",
-      title: "CHERY RANKED",
-      subtitle: "THE BEST PERFORMING GLOBAL BRAND IN CHINA",
-      image: "/images/awards/china-brand.jpg",
-      additionalText: "CHINESE GLOBAL BRAND TOP 14",
+      year: "2023",
+      title: "CHERY WAS",
+      subtitle: "THE BEST CHINESE GLOBAL BRAND BUILDER IN CARS",
+      image: "/images/honors/awards/the-best chinese.png",
+      additionalText: "CHINESE GLOBAL BRAND BUILDERS TOP 14.",
       organization: "KANTAR BRANDZ",
-      link: "/awards/brandz-china"
+      link: "/awards/brandz-chery-ranked"
     },
     {
       id: 4,
       year: "2023",
-      title: "CHERY TIGGO 7 PRO MAX",
+      title: "CHERY RANKED",
+      subtitle: "THE BEST PERFORMING GLOBAL BRAND IN CHINA",
+      image: "/images/honors/awards/chery-ranked.png",
+      additionalText: "CHINESE GLOBAL BRAND TOP 14",
+      organization: "KANTAR BRANDZ",
+      link: "/awards/brandz-chery-ranked"
+    },
+    {
+      id: 5,
+      year: "2023",
+      title: "CHERY TIGGO 7 PRO",
       subtitle: "AWARDED BEST COMPACT SUV",
-      image: "/images/awards/tiggo-award.jpg",
-      additionalText: "MIDDLE EAST CAR OF THE YEAR AWARDS",
+      image: "/images/honors/awards/tiggo-7-pro.png",
+      additionalText: "BEST COMPACT SUV",
       organization: "MECOTY",
-      link: "/awards/mecoty"
+      link: "/awards/mecoty-tiggo-7-pro"
+    },
+    {
+      id: 6,
+      year: "2021",
+      title: "2.0T GDI ENGINE",
+      subtitle: "WON THE TITLE OF 'CHINA HEART OF 2021",
+      image: "/images/honors/awards/engine.png",
+      additionalText: "CHINA HEART 2021",
+      organization: "MECOTY",
+      link: "/awards/mecoty-engine"
+    },
+    {
+      id: 7,
+      year: "1997",
+      title: "IN MARCH 1997",
+      subtitle: "CHERY AUTOMOBILE COMPANY WAS ESTABLISHED",
+      image: "/images/honors/awards/the-birth-of-first-chery.png",
+      additionalText: "CHERY AUTOMOBILE COMPANY WAS ESTABLISHED",
+      organization: "CHERY",
+      link: "/awards/chery-establishment"
     }
   ];
 
