@@ -2,6 +2,7 @@
 
 import ClimateChangeSection from "../components/environment/ClimateChangeSection";
 import EnvironmentalParallax from "../components/environment/EnvironmentalParallax";
+import EnvironmentNewsSection from "../components/environment/EnvironmentNewsSection";
 
 
 export default function Environment() {
@@ -125,6 +126,7 @@ export default function Environment() {
         accentColor="bg-primary"
         stats={climateStats}
       />
+      <EnvironmentNewsSection/>
     </main>
   );
 }

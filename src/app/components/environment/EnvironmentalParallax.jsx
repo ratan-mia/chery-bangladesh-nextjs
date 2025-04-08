@@ -104,7 +104,7 @@ const EnvironmentalParallax = () => {
                             src={images.midground}
                             alt=""
                             fill
-                            className="object-contain object-bottom"
+                            className="object-cover object-bottom"
                             aria-hidden="true"
                             sizes="100vw"
                         />
@@ -125,7 +125,7 @@ const EnvironmentalParallax = () => {
                         src={images.foreground}
                         alt=""
                         fill
-                        className="object-cover fill object-bottom"
+                        className="object-cover object-bottom"
                         aria-hidden="true"
                         sizes="100vw"
                     />
