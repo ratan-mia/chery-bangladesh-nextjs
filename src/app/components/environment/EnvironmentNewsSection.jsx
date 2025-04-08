@@ -229,18 +229,6 @@ const SustainabilityNewsGrid = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div 
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:block transition-opacity duration-700 ${isInView ? 'opacity-100' : 'opacity-0'}`}
-      >
-        <div className="flex flex-col items-center">
-          <span className="text-white/70 text-xs uppercase tracking-wider mb-2">Scroll</span>
-          <div className="w-5 h-10 border border-white/30 rounded-full flex justify-center">
-            <div 
-              className="w-1.5 h-1.5 bg-white rounded-full mt-2 animate-scroll"
-            />
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
