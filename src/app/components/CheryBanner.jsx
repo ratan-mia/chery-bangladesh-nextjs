@@ -16,7 +16,8 @@ export default function HeroBanner() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true)
-          observer.disconnect()
+        } else {
+          setIsInView(false)
         }
       },
       { threshold: 0.2 }
@@ -64,51 +65,38 @@ export default function HeroBanner() {
     }
   }, [])
 
-  // Animation variants
-  const titleVariants = {
-    hidden: { opacity: 0, y: -30 },
+  // Animation variants - simplified for cleaner transitions
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: "easeOut" 
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
   }
   
   const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      scale: 1,
       transition: { 
-        duration: 0.6, 
+        duration: 0.5, 
         ease: "easeOut",
-        delay: 0.6
-      }
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    },
-    tap: {
-      scale: 0.95
-    }
-  }
-  
-  const carsVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { 
-        duration: 1.2, 
-        ease: "easeOut",
-        delay: 0.3
+        delay: 0.5
       }
     }
   }
@@ -128,13 +116,13 @@ export default function HeroBanner() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full h-screen min-h-[600px] flex flex-col justify-center items-center overflow-hidden"
+      className="relative w-full h-screen min-h-[600px] max-h-[900px] overflow-hidden"
     >
-      {/* Background overlay with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-gray-900/40 to-gray-800/20 z-10"></div>
+      {/* Background overlay - flat, clean design */}
+      <div className="absolute inset-0 bg-primary/30 backdrop-filter backdrop-blur-[2px] z-10"></div>
       
       {/* Background image */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full bg-gray-900">
         <Image 
           src="/images/banners/video_pc.jpg" 
           alt="Mountain landscape" 
@@ -142,115 +130,133 @@ export default function HeroBanner() {
           className="object-cover"
           priority
           sizes="100vw"
-          quality={95}
+          quality={90}
         />
       </div>
       
-      {/* Content container */}
-      <div className="relative z-20 text-center max-w-6xl mx-auto px-4 flex flex-col items-center">
-        {/* Heading */}
-        <motion.div
-          className="mb-12 md:mb-16 lg:mb-20"
-          variants={titleVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <h1 className="font-sans text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wide uppercase">
-            Conquer with you
-          </h1>
-          <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wide uppercase mt-2">
-            Guard for love
-          </h2>
-        </motion.div>
+      {/* Content container - better positioning */}
+      <div className="relative z-20 h-full flex flex-col justify-center">
+        <div className="container mx-auto px-4 md:px-8">
+          <motion.div
+            className="max-w-4xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            {/* Top accent line - consistent with other sections */}
+            <motion.div 
+              className="w-12 h-1 bg-white mb-8"
+              variants={itemVariants}
+            ></motion.div>
+            
+            {/* Heading - improved typography */}
+            <motion.h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight mb-4"
+              variants={itemVariants}
+            >
+              Conquer with you,<br />
+              Guard for love
+            </motion.h1>
+            
+            {/* Added subtitle for better content hierarchy */}
+            <motion.p
+              className="text-xl md:text-2xl text-white/90 font-light mb-8 max-w-2xl"
+              variants={itemVariants}
+            >
+              Experience exceptional luxury and performance that transcends expectations
+            </motion.p>
+            
+            {/* Play button - cleaner, flat design */}
+            <motion.div
+              variants={buttonVariants}
+              className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-6"
+            >
+              <button
+                onClick={openVideo}
+                aria-label="Play video"
+                className="group flex items-center gap-4 focus:outline-none"
+              >
+                <div className="relative">
+                  <div className="w-14 h-14 bg-white flex items-center justify-center group-hover:scale-95 transition-transform duration-300">
+                    <span className="text-primary flex items-center justify-center translate-x-0.5">
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path d="M8 5.14v14l11-7-11-7z" />
+                      </svg>
+                    </span>
+                  </div>
+                  
+                  {/* Pulsing animation */}
+                  <div className="absolute top-0 left-0 w-14 h-14 -z-10">
+                    <div 
+                      className="absolute inset-0 bg-white/40 animate-ping-slow opacity-0"
+                    />
+                  </div>
+                </div>
+                <span className="text-white text-base font-medium">
+                  Watch Brand Video
+                </span>
+              </button>
+              
+              {/* Added secondary action button */}
+              <a 
+                href="/models" 
+                className="px-6 py-3 bg-white text-primary hover:bg-white/90 transition-colors duration-300"
+              >
+                Explore Models
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
         
-        {/* Play button - cleaner design */}
-        <motion.button
-          variants={buttonVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          whileHover="hover"
-          whileTap="tap"
-          className="mb-10 md:mb-16 relative group"
-          onClick={openVideo}
-          aria-label="Play video"
+        {/* Scroll indicator */}
+        <motion.div 
+          className="absolute bottom-8 right-8 z-30 flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
         >
-          <div className="flex items-center">
-            <div className="w-16 h-16 md:w-18 md:h-18 bg-white rounded-full flex items-center justify-center shadow-lg relative z-10">
-              <span className="text-gray-800 flex items-center justify-center translate-x-0.5">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor"
-                  className="w-7 h-7"
-                >
-                  <path d="M8 5.14v14l11-7-11-7z" />
-                </svg>
-              </span>
-            </div>
-            <span className="ml-4 text-white text-base md:text-lg font-medium">
-              View more
-            </span>
+          <div className="h-20 w-[1px] bg-white/30"></div>
+          <div className="transform -rotate-90 mt-4 text-white/70 text-xs uppercase tracking-widest">
+            Scroll
           </div>
-          
-          {/* Pulsing animation */}
-          <div className="absolute top-0 left-0 w-16 h-16 md:w-18 md:h-18 rounded-full -z-10">
-            <motion.div 
-              className="absolute inset-0 rounded-full bg-white/40"
-              animate={{ 
-                scale: [1, 1.5],
-                opacity: [0.4, 0]
-              }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity,
-                ease: "easeOut"
-              }}
-            />
-            <motion.div 
-              className="absolute inset-0 rounded-full bg-white/40"
-              animate={{ 
-                scale: [1, 1.5],
-                opacity: [0.4, 0]
-              }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity,
-                ease: "easeOut",
-                delay: 0.5
-              }}
-            />
-          </div>
-        </motion.button>
+        </motion.div>
       </div>
       
-      {/* Ground shadow overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-
-      {/* Full screen video modal */}
+      {/* Full screen video modal - improved design */}
       <AnimatePresence>
         {isVideoOpen && (
           <motion.div 
-            className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            onClick={closeVideo}
           >
             {/* Video container */}
-            <div className="w-full h-full relative">
-              <video
-                ref={videoRef}
-                className="w-full h-full object-cover"
-                autoPlay
-                playsInline
-                controls
-                controlsList="nodownload"
-                src="/videos/popup-video.mp4"
-              />
+            <div className="w-full h-full max-w-7xl max-h-[80vh] p-4 md:p-8 relative" onClick={(e) => e.stopPropagation()}>
+              <div className="w-full h-full bg-black">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-contain"
+                  autoPlay
+                  playsInline
+                  controls
+                  controlsList="nodownload"
+                  src="/videos/popup-video.mp4"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
               
-              {/* Close button - improved position and styling */}
+              {/* Close button - flat design */}
               <button
-                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 z-10"
+                className="absolute -top-12 right-4 w-10 h-10 text-white hover:text-white/70 transition-colors duration-300 z-10 flex items-center justify-center"
                 onClick={closeVideo}
                 aria-label="Close video"
               >
@@ -270,9 +276,36 @@ export default function HeroBanner() {
                 </svg>
               </button>
             </div>
+            
+            {/* Video caption */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/80 text-center">
+              <h3 className="text-lg font-medium">Chery Brand Film</h3>
+              <p className="text-sm text-white/60">Experience the next generation of automotive excellence</p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Custom animation for ping effect */}
+      <style jsx global>{`
+        @keyframes ping-slow {
+          0% {
+            transform: scale(1);
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.4;
+          }
+          100% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+        }
+        
+        .animate-ping-slow {
+          animation: ping-slow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+      `}</style>
     </section>
   )
 }
