@@ -226,25 +226,6 @@ const ClimateChangeSection = ({
           )}
         </div>
       </div>
-      
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:block"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isInView ? 1 : 0 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-      >
-        <div className="flex flex-col items-center">
-          <span className="text-white/70 text-xs uppercase tracking-wider mb-2">Scroll</span>
-          <div className="w-5 h-10 border border-white/30 rounded-full flex justify-center">
-            <motion.div 
-              className="w-1.5 h-1.5 bg-white rounded-full mt-2"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
-            />
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 };
