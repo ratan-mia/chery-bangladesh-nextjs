@@ -173,7 +173,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <div className="text-sm text-gray-600">
-                <span class="text-1xl font-bold">Asian Motorspex Limited </span><br/>
+                <span className="text-1xl font-bold">Asian Motorspex Limited </span><br/>
                 206/1-207/1 Bir Uttam Mir Shawkat Sarak
                 Tejgaon Gulshan Link Road, Dhaka
                 </div>
