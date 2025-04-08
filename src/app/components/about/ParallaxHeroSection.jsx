@@ -151,19 +151,21 @@ const ParallaxHeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator with flat design */}
-      <div
+       {/* Scroll indicator with enhanced animation */}
+       <div 
         className={`
-          fixed bottom-8 left-1/2 transform -translate-x-1/2
+          fixed bottom-8 left-1/2 transform -translate-x-1/2 
           transition-all duration-500 ease-in-out
-          ${activeSection === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
+          ${activeSection === 0 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4 pointer-events-none'}
           z-10
         `}
       >
         <div className="flex flex-col items-center cursor-pointer" onClick={() => scrollToSection(1)}>
           <p className="text-white text-sm mb-2">Scroll down</p>
-          <div className="w-6 h-10 border-2 border-white flex justify-center items-start">
-            <div className="w-1.5 h-3 mt-1.5 bg-primary animate-bounce" />
+          <div className="w-6 h-10 rounded-full border-2 border-white flex justify-center items-start">
+            <div className="w-1.5 h-3 rounded-full mt-1.5 bg-primary animate-bounce" />
           </div>
         </div>
       </div>
