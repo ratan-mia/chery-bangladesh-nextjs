@@ -2,6 +2,7 @@
 
 import CarFeaturesSlider from "../components/CarFeaturesSlider";
 import SimpleBanner from "../components/SimpleBanner";
+import CarSafetySection from "../components/tiggo-cross/CarSafetySection";
 import CarShowcaseSlider from "../components/tiggo-cross/CarShowcaseSlider";
 import CarTechSlider from "../components/tiggo-cross/CarTechSlider";
 import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
@@ -178,6 +179,7 @@ export default function Home() {
           <CarTechSlider slides={techSlides} />
         </div>
       </section>
+      <CarSafetySection/>
 
       <CarColorSwitcher />
       <VehicleSpecs

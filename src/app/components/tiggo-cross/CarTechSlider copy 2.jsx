@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { A11y, Autoplay, EffectCoverflow, EffectFade, Navigation, Pagination } from 'swiper/modules';
+import { A11y, Autoplay, EffectCoverflow, EffectFade, Grid, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -10,21 +10,28 @@ import 'swiper/css';
 import 'swiper/css/a11y';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/effect-fade';
+import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 // Media placeholder components
 const ImagePlaceholder = ({ theme = 'modern' }) => {
-  const themeClasses = {
-    classic: "bg-amber-50 border border-amber-200",
-    tech: "bg-zinc-900 border border-zinc-700",
-    minimal: "bg-gray-50 border border-gray-200",
-    modern: "bg-gradient-to-br from-blue-50 to-indigo-100"
+  const getThemeClasses = () => {
+    switch (theme) {
+      case 'classic':
+        return "bg-amber-50 border border-amber-200";
+      case 'tech':
+        return "bg-zinc-900 border border-zinc-700";
+      case 'minimal':
+        return "bg-gray-50";
+      default:
+        return "bg-gradient-to-br from-blue-50 to-indigo-100";
+    }
   };
 
   return (
-    <div className={`w-full h-full flex items-center justify-center ${themeClasses[theme] || themeClasses.modern}`}>
-      <svg className="w-10 h-10 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <div className={`w-full h-full flex items-center justify-center ${getThemeClasses()}`}>
+      <svg className="w-12 h-12 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
         <circle cx="8.5" cy="8.5" r="1.5"></circle>
         <polyline points="21 15 16 10 5 21"></polyline>
@@ -34,16 +41,22 @@ const ImagePlaceholder = ({ theme = 'modern' }) => {
 };
 
 const VideoPlaceholder = ({ theme = 'modern' }) => {
-  const themeClasses = {
-    classic: "bg-amber-50 border border-amber-200",
-    tech: "bg-zinc-900 border border-zinc-700",
-    minimal: "bg-gray-50 border border-gray-200",
-    modern: "bg-gradient-to-br from-blue-50 to-indigo-100"
+  const getThemeClasses = () => {
+    switch (theme) {
+      case 'classic':
+        return "bg-amber-50 border border-amber-200";
+      case 'tech':
+        return "bg-zinc-900 border border-zinc-700";
+      case 'minimal':
+        return "bg-gray-50";
+      default:
+        return "bg-gradient-to-br from-blue-50 to-indigo-100";
+    }
   };
 
   return (
-    <div className={`w-full h-full flex items-center justify-center ${themeClasses[theme] || themeClasses.modern}`}>
-      <svg className="w-10 h-10 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <div className={`w-full h-full flex items-center justify-center ${getThemeClasses()}`}>
+      <svg className="w-12 h-12 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
       </svg>
     </div>
@@ -86,11 +99,17 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }) => {
     }
   };
 
-  const playButtonClasses = {
-    classic: "bg-amber-800/80 hover:bg-amber-800",
-    tech: "bg-cyan-500/80 hover:bg-cyan-500 backdrop-blur",
-    minimal: "bg-black/50 hover:bg-black/70",
-    modern: "bg-indigo-600/90 hover:bg-indigo-600 backdrop-blur"
+  const getPlayButtonClasses = () => {
+    switch (theme) {
+      case 'classic':
+        return "bg-amber-800/80 hover:bg-amber-800";
+      case 'tech':
+        return "bg-cyan-500/80 hover:bg-cyan-500 backdrop-blur";
+      case 'minimal':
+        return "bg-black/50 hover:bg-black/70";
+      default:
+        return "bg-primary hover:bg-indigo-600 backdrop-blur";
+    }
   };
 
   return (
@@ -111,14 +130,14 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }) => {
       <div
         onClick={togglePlay}
         className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 
-          ${playButtonClasses[theme] || playButtonClasses.modern} flex items-center justify-center 
-          rounded-full cursor-pointer transition-all duration-300 
-          opacity-90 group-hover:opacity-100 group-hover:scale-105`}
+          ${getPlayButtonClasses()} flex items-center justify-center 
+          cursor-pointer transition-all duration-300 
+          group-hover:scale-110`}
         aria-hidden="true"
       >
         <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
           {isPlaying ? (
-            <rect x="6" y="4" width="4" height="16" fill="currentColor" />
+            <rect x="6" y="5" width="4" height="14" fill="currentColor" />
           ) : (
             <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
           )}
@@ -129,36 +148,45 @@ const VideoPlayer = ({ src, poster, theme = 'modern' }) => {
 };
 
 // Navigation buttons component
-const NavigationButtons = ({ onPrev, onNext, theme = 'modern', layout = 'standard' }) => {
-  const baseButtonClasses = "flex items-center justify-center transition-all duration-200";
-  
-  const buttonThemeClasses = {
-    classic: `${baseButtonClasses} w-10 h-10 bg-amber-50 border border-amber-300 text-amber-800 hover:bg-amber-100 rounded`,
-    tech: `${baseButtonClasses} w-10 h-10 bg-zinc-800 text-cyan-400 border border-zinc-700 hover:bg-zinc-700 hover:border-cyan-400`,
-    minimal: `${baseButtonClasses} w-9 h-9 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 rounded-full shadow-sm`,
-    modern: `${baseButtonClasses} w-10 h-10 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 shadow-sm hover:shadow`
+const NavigationButtons = ({ onPrev, onNext, theme = 'modern', layout = 'grid' }) => {
+  const getButtonClasses = () => {
+    const baseClasses = "flex items-center justify-center transition-all duration-200";
+
+    switch (theme) {
+      case 'classic':
+        return `${baseClasses} w-12 h-12 bg-amber-50 border border-amber-300 text-amber-800 hover:bg-amber-100`;
+      case 'tech':
+        return `${baseClasses} w-10 h-10 bg-zinc-800 text-cyan-400 border border-zinc-700 hover:bg-zinc-700 hover:border-cyan-400`;
+      case 'minimal':
+        return `${baseClasses} w-10 h-10 bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-100`;
+      default:
+        return `${baseClasses} w-12 h-12 bg-primary text-white rounded-full hover:bg-indigo-700 shadow-md hover:shadow-lg`;
+    }
   };
 
-  const buttonStyleClasses = {
-    showcase: "absolute top-1/2 -translate-y-1/2 z-10",
-    filmstrip: "mt-4",
-    cards: "",
-    standard: ""
+  const getButtonStyle = () => {
+    if (layout === 'showcase') {
+      return "absolute top-1/2 -translate-y-1/2 z-10";
+    }
+    if (layout === 'filmstrip') {
+      return "mt-4";
+    }
+    return "";
   };
 
-  const prevBtnClasses = `${buttonThemeClasses[theme] || buttonThemeClasses.modern} ${buttonStyleClasses[layout] || ""} ${layout === 'showcase' ? 'left-4' : ''}`;
-  const nextBtnClasses = `${buttonThemeClasses[theme] || buttonThemeClasses.modern} ${buttonStyleClasses[layout] || ""} ${layout === 'showcase' ? 'right-4' : ''}`;
+  const prevBtnClasses = `${getButtonClasses()} ${getButtonStyle()} ${layout === 'showcase' ? 'left-4' : ''}`;
+  const nextBtnClasses = `${getButtonClasses()} ${getButtonStyle()} ${layout === 'showcase' ? 'right-4' : ''}`;
 
   if (layout === 'showcase') {
     return (
       <>
         <button onClick={onPrev} className={prevBtnClasses} aria-label="Previous slide">
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
         <button onClick={onNext} className={nextBtnClasses} aria-label="Next slide">
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
@@ -167,14 +195,14 @@ const NavigationButtons = ({ onPrev, onNext, theme = 'modern', layout = 'standar
   }
 
   return (
-    <div className="flex justify-center space-x-3">
+    <div className="flex justify-center space-x-4">
       <button onClick={onPrev} className={prevBtnClasses} aria-label="Previous slide">
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
       <button onClick={onNext} className={nextBtnClasses} aria-label="Next slide">
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
@@ -186,28 +214,36 @@ const NavigationButtons = ({ onPrev, onNext, theme = 'modern', layout = 'standar
 const PaginationIndicator = ({ activeIndex, totalSlides, onDotClick, theme }) => {
   const slideIndices = Array.from({ length: totalSlides }, (_, i) => i);
 
-  const containerClasses = {
-    classic: "space-x-2",
-    tech: "space-x-1",
-    minimal: "space-x-2",
-    modern: "space-x-2"
+  const getContainerClasses = () => {
+    switch (theme) {
+      case 'classic':
+        return "space-x-3";
+      case 'tech':
+        return "space-x-1";
+      case 'minimal':
+        return "space-x-2";
+      default:
+        return "space-x-2";
+    }
   };
 
   const getDotClasses = (isActive) => {
     const baseClasses = "transition-all duration-300 cursor-pointer";
 
-    const dotThemeClasses = {
-      classic: `${baseClasses} w-2.5 h-2.5 rounded-full ${isActive ? 'bg-amber-800 scale-110' : 'bg-amber-200 hover:bg-amber-300'}`,
-      tech: `${baseClasses} w-6 h-1 ${isActive ? 'bg-cyan-400' : 'bg-zinc-700 hover:bg-zinc-600'}`,
-      minimal: `${baseClasses} w-2 h-2 rounded-full border ${isActive ? 'bg-gray-900 border-gray-900' : 'bg-white border-gray-300 hover:border-gray-400'}`,
-      modern: `${baseClasses} w-2.5 h-2.5 rounded-full ${isActive ? 'bg-indigo-600 scale-110' : 'bg-indigo-200 hover:bg-indigo-300'}`
-    };
-
-    return dotThemeClasses[theme] || dotThemeClasses.modern;
+    switch (theme) {
+      case 'classic':
+        return `${baseClasses} w-3 h-3 rounded-full ${isActive ? 'bg-amber-800 scale-110' : 'bg-amber-200 hover:bg-amber-300'}`;
+      case 'tech':
+        return `${baseClasses} w-8 h-1 ${isActive ? 'bg-cyan-400' : 'bg-zinc-700 hover:bg-zinc-600'}`;
+      case 'minimal':
+        return `${baseClasses} w-2.5 h-2.5 rounded-full border ${isActive ? 'bg-black border-black' : 'bg-white border-gray-300 hover:border-gray-400'}`;
+      default:
+        return `${baseClasses} w-2.5 h-2.5 rounded-full ${isActive ? 'bg-indigo-600 scale-110' : 'bg-indigo-200 hover:bg-indigo-300'}`;
+    }
   };
 
   return (
-    <div className={`flex items-center justify-center ${containerClasses[theme] || containerClasses.modern} py-2`}>
+    <div className={`flex items-center justify-center ${getContainerClasses()} py-3`}>
       {slideIndices.map((index) => (
         <button
           key={index}
@@ -286,7 +322,6 @@ const CarTechSlider = ({
         disableOnInteraction: false
       } : false,
       direction: 'horizontal',
-      watchSlidesProgress: true,
     };
 
     switch (layout) {
@@ -305,14 +340,10 @@ const CarTechSlider = ({
       case 'filmstrip':
         return {
           ...baseOptions,
-          slidesPerView: 1.5,
-          spaceBetween: 12,
+          slidesPerView: 2.5,
+          spaceBetween: 16,
           centeredSlides: false,
           breakpoints: {
-            '480': {
-              slidesPerView: 2.5,
-              spaceBetween: 16
-            },
             '640': {
               slidesPerView: 3.5,
               spaceBetween: 20
@@ -339,9 +370,6 @@ const CarTechSlider = ({
             slideShadows: false
           },
           breakpoints: {
-            '480': {
-              slidesPerView: 1.5
-            },
             '640': {
               slidesPerView: 2.2
             },
@@ -374,34 +402,23 @@ const CarTechSlider = ({
     }
   };
 
-  // Theme-based background classes
-  const sectionBgClasses = {
-    classic: "bg-amber-50 border-y border-amber-200",
-    tech: "bg-zinc-900 text-white",
-    minimal: "bg-white border-y border-gray-100",
-    modern: "bg-gradient-to-br from-white to-indigo-50/30"
-  };
-
-  // Title styling based on theme
-  const titleClasses = {
-    classic: "text-2xl md:text-3xl font-serif text-amber-900",
-    tech: "text-xl md:text-2xl uppercase tracking-wider text-cyan-400 font-medium",
-    minimal: "text-xl md:text-2xl font-normal text-gray-900",
-    modern: "text-2xl md:text-3xl font-bold text-indigo-600"
-  };
-
   return (
     <section
-      className={`w-full py-8 md:py-12 ${sectionBgClasses[theme] || sectionBgClasses.modern} ${className}`}
+      className={`w-full py-8 md:py-12 ${theme === 'classic' ? 'bg-amber-100/50 border-y border-amber-200' :
+        theme === 'tech' ? 'bg-zinc-900 text-white' :
+          'bg-white'} ${className}`}
       aria-labelledby="car-tech-slider-title"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div className={`mx-auto px-4 sm:px-6 ${layout === 'filmstrip' ? 'max-w-full' : 'max-w-7xl'}`}>
+      <div className={`mx-auto px-4 ${layout === 'filmstrip' ? 'max-w-full' : 'max-w-7xl'}`}>
         {title && (
           <h2
             id="car-tech-slider-title"
-            className={`${titleClasses[theme] || titleClasses.modern} mb-8 text-center`}
+            className={`${theme === 'classic' ? 'text-2xl md:text-3xl font-serif text-amber-900' :
+              theme === 'tech' ? 'text-xl md:text-2xl uppercase tracking-wider text-cyan-400' :
+                theme === 'minimal' ? 'text-xl md:text-2xl font-normal text-gray-900' :
+                  'text-2xl md:text-3xl font-bold text-primary-900'} mb-8 text-center`}
           >
             {title}
           </h2>
@@ -419,14 +436,14 @@ const CarTechSlider = ({
 
           <Swiper
             onSwiper={setSwiperInstance}
-            modules={[Navigation, Pagination, A11y, Autoplay, EffectFade, EffectCoverflow]}
+            modules={[Navigation, Pagination, Grid, A11y, Autoplay, EffectFade, EffectCoverflow]}
             {...getSwiperOptions()}
             onSlideChange={handleSlideChange}
             navigation={{
               nextEl: '.car-tech-next',
               prevEl: '.car-tech-prev',
             }}
-            className={`mb-6 ${layout === 'cards' ? 'py-6' : ''}`}
+            className={`mb-6 ${layout === 'cards' ? 'py-8' : ''}`}
             a11y={{
               prevSlideMessage: 'Previous slide',
               nextSlideMessage: 'Next slide',
@@ -435,34 +452,19 @@ const CarTechSlider = ({
             }}
           >
             {slides.map((slide, index) => (
-              <SwiperSlide key={slide.id || index} className="h-auto">
-                <div 
-                  className={`h-full flex flex-col ${
-                    layout === 'cards' 
-                      ? theme === 'tech' 
-                        ? 'bg-zinc-800 p-3 border border-zinc-700 rounded-lg' 
-                        : theme === 'minimal'
-                          ? 'bg-white p-3 border border-gray-200 rounded-lg'
-                          : theme === 'classic'
-                            ? 'bg-white p-3 border border-amber-200 rounded-lg'
-                            : 'bg-white p-3 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg'
-                      : ''
-                  }`}
-                >
-                  <div className={`relative overflow-hidden flex-grow ${
-                    layout === 'showcase' 
-                      ? 'aspect-[16/9]' 
-                      : layout === 'filmstrip' 
-                        ? 'aspect-square' 
-                        : 'aspect-[4/3]'
-                  }`}>
+              <SwiperSlide key={slide.id} className="h-auto">
+                <div className={`h-full flex flex-col ${layout === 'cards' ? 'bg-white p-3 shadow-md rounded-lg' : ''}`}>
+                  <div className={`relative overflow-hidden flex-grow ${layout === 'showcase' ? 'aspect-[16/9]' :
+                      layout === 'filmstrip' ? 'aspect-square' :
+                        'aspect-[4/3]'
+                    }`}>
                     {slide.mediaType === 'image' ? (
                       slide.image ? (
                         <div className="relative w-full h-full">
                           <Image
                             src={slide.image}
-                            alt={slide.title || 'Feature image'}
-                            className={`object-cover ${theme === 'minimal' ? '' : 'rounded-sm'}`}
+                            alt={slide.title}
+                            className="object-cover"
                             fill
                             priority={index < 3}
                             sizes={layout === 'showcase' ? '100vw' : '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw'}
@@ -485,29 +487,21 @@ const CarTechSlider = ({
                   </div>
 
                   {showCaptions && (
-                    <div className={layout === 'showcase' 
-                      ? 'absolute bottom-0 left-0 right-0 p-6 pt-16 bg-gradient-to-t from-black/80 to-transparent text-white' 
-                      : 'mt-4 px-1'
+                    <div className={layout === 'showcase' ?
+                      'absolute bottom-0 left-0 right-0 p-6 pt-16 bg-gradient-to-t from-black/80 to-transparent text-white' :
+                      'mt-4 px-2'
                     }>
-                      <h3 className={`text-lg font-semibold mb-2 ${
-                        layout === 'showcase' 
-                          ? 'text-white' 
-                          : theme === 'tech' 
-                            ? 'text-cyan-400' 
-                            : theme === 'classic'
-                              ? 'text-amber-900'
-                              : 'text-gray-900'
-                      }`}>
+                      <h3 className={`text-lg font-semibold mb-2 ${layout === 'showcase' ? 'text-white' :
+                          theme === 'tech' ? 'text-cyan-400' :
+                            'text-gray-900'
+                        }`}>
                         {slide.title}
                       </h3>
                       {slide.description && (
-                        <p className={`text-sm ${
-                          layout === 'showcase' 
-                            ? 'text-gray-200' 
-                            : theme === 'tech' 
-                              ? 'text-gray-400' 
-                              : 'text-gray-600'
-                        } line-clamp-2`}>
+                        <p className={`text-sm ${layout === 'showcase' ? 'text-gray-200' :
+                            theme === 'tech' ? 'text-gray-400' :
+                              'text-gray-600'
+                          } line-clamp-2`}>
                           {slide.description}
                         </p>
                       )}
@@ -552,7 +546,7 @@ const CarTechSlider = ({
         }
         
         .swiper-slide-active .animate-in {
-          animation: fadeInUp 0.5s ease forwards;
+          animation: fadeInUp 0.8s ease forwards;
         }
         
         @keyframes fadeInUp {
@@ -564,18 +558,6 @@ const CarTechSlider = ({
             opacity: 1;
             transform: translateY(0);
           }
-        }
-        
-        .swiper-pagination-bullet {
-          background: #d1d5db;
-          opacity: 1;
-        }
-        
-        .swiper-pagination-bullet-active {
-          background: ${theme === 'tech' ? '#22d3ee' : 
-                     theme === 'classic' ? '#92400e' : 
-                     theme === 'minimal' ? '#171717' : 
-                     '#4f46e5'};
         }
       `}</style>
     </section>
