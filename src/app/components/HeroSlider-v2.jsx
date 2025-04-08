@@ -17,6 +17,7 @@ export default function HeroSlider() {
   const [slideProgress, setSlideProgress] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const swiperRef = useRef(null)
+  const progressRef = useRef(null)
   const progressIntervalRef = useRef(null)
 
   // Hero slides data
@@ -105,7 +106,7 @@ export default function HeroSlider() {
   }, [])
   
   return (
-    <div className="relative w-full h-[calc(100vh-64px)]">
+    <div className="relative w-full h-screen overflow-hidden">
       {/* Main Slider */}
       <Swiper
         ref={swiperRef}
@@ -142,8 +143,8 @@ export default function HeroSlider() {
               />
             </div>
             
-            {/* Content - positioned to ensure it doesn't overlap with bottom bar */}
-            <div className="absolute inset-0 flex flex-col justify-end z-20 p-8 md:p-16 lg:p-20 pb-24">
+            {/* Content - cleaner typography and layout */}
+            <div className="absolute inset-0 flex flex-col justify-end z-20 p-8 md:p-16 lg:p-20">
               <div className="max-w-xl">
                 {/* Model name with top accent line */}
                 <div className="mb-4">
@@ -184,13 +185,13 @@ export default function HeroSlider() {
         ))}
       </Swiper>
       
-      {/* Fixed bottom controls bar */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 flex justify-between items-center border-t border-white/10 bg-black/20 backdrop-blur-sm h-16">
+      {/* Clean minimal controls panel */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 flex justify-between items-center border-t border-white/10 bg-black/20 backdrop-blur-sm">
         {/* Progress indicators */}
-        <div className="flex-1 px-8 h-full">
-          <div className="flex items-center space-x-6 h-full">
+        <div className="flex-1 px-8 py-4">
+          <div className="flex items-center space-x-6">
             {/* Slide indicators */}
-            <div className="flex space-x-3 h-full items-center">
+            <div className="flex space-x-3">
               {heroSlides.map((_, index) => {
                 const realIndex = index % heroSlides.length
                 const isCurrent = realIndex === activeIndex % heroSlides.length
@@ -199,7 +200,7 @@ export default function HeroSlider() {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className="group relative h-full flex items-center cursor-pointer"
+                    className="group relative h-10 flex items-center cursor-pointer"
                     aria-label={`Go to slide ${index + 1}`}
                   >
                     <span 
@@ -211,7 +212,7 @@ export default function HeroSlider() {
                     {/* Progress overlay for current slide */}
                     {isCurrent && (
                       <span 
-                        className="absolute left-0 top-0 h-full flex items-center pointer-events-none"
+                        className="absolute left-0 top-0 h-10 flex items-center pointer-events-none"
                         style={{
                           width: `${slideProgress}%`,
                           maxWidth: '100%'
@@ -248,9 +249,9 @@ export default function HeroSlider() {
         </div>
         
         {/* Navigation and counter */}
-        <div className="flex items-center h-full">
+        <div className="flex items-center">
           {/* Slide counter */}
-          <div className="px-6 border-l border-white/10 h-full flex items-center">
+          <div className="px-6 border-l border-white/10 py-4">
             <span className="text-white flex items-baseline">
               <span className="text-xl font-bold">{(activeIndex % heroSlides.length) + 1}</span>
               <span className="mx-1 text-sm opacity-50">/</span>
@@ -259,13 +260,13 @@ export default function HeroSlider() {
           </div>
           
           {/* Navigation buttons */}
-          <div className="flex h-full">
-            <button className="hero-button-prev w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+          <div className="flex">
+            <button className="hero-button-prev w-16 h-16 flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button className="hero-button-next w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+            <button className="hero-button-next w-16 h-16 flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
