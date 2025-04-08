@@ -103,8 +103,8 @@ const ContactSection = () => {
                     </svg>
                     <span className="text-white font-medium">Email Us</span>
                   </div>
-                  <a href="mailto:info@chery.bd" className="text-white/80 hover:text-white transition-colors">
-                    info@chery.bd
+                  <a href="mailto:info@cherybd.com" className="text-white/80 hover:text-white transition-colors">
+                  info@cherybd.com
                   </a>
                 </div>
                 
@@ -115,8 +115,8 @@ const ContactSection = () => {
                     </svg>
                     <span className="text-white font-medium">Call Us</span>
                   </div>
-                  <a href="tel:+8801234567890" className="text-white/80 hover:text-white transition-colors">
-                    +880 12345 67890
+                  <a href="tel:09639119977" className="text-white/80 hover:text-white transition-colors">
+                  09639119977
                   </a>
                 </div>
               </div>
@@ -143,7 +143,7 @@ const ContactSection = () => {
                   href="/dealerships" 
                   className="inline-flex items-center justify-center bg-transparent border border-white text-white py-3 px-8 font-medium hover:bg-white/10 transition-colors duration-300"
                 >
-                  Find a Dealership
+                  Find us on Map
                 </Link>
               </div>
             </motion.div>
@@ -160,9 +160,9 @@ const ContactSection = () => {
       >
         <div className="border-l-2 border-primary pl-4">
           <h3 className="text-white font-medium mb-2">Business Hours</h3>
-          <p className="text-white/80 text-sm mb-1">Mon-Fri: 9:00 AM - 6:00 PM</p>
-          <p className="text-white/80 text-sm mb-1">Saturday: 10:00 AM - 4:00 PM</p>
-          <p className="text-white/80 text-sm">Sunday: Closed</p>
+          <p className="text-white/80 text-sm mb-1">Mon-Fri: 10:00 AM - 8:00 PM</p>
+          <p className="text-white/80 text-sm mb-1">Saturday: 10:00 AM - 8:00 PM</p>
+          <p className="text-white/80 text-sm">Govt. Holidays: Closed(Not Always)</p>
         </div>
       </motion.div>
     </section>

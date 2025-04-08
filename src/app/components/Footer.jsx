@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -24,16 +24,17 @@ export default function Footer() {
             </Link>
             
             <p className="text-gray-600 text-sm mb-6">
-              Chery International is a leading global automobile manufacturer committed to innovation, quality, and customer satisfaction.
+            Chery Bangladesh.
+            Chery Automobile Co. Ltd. is a globalized automobile brand.
             </p>
             
             {/* Social Media */}
             <div className="flex space-x-4 mt-auto">
               {[
-                { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
-                { icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
-                { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
-                { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" }
+                  { icon: FaFacebookF, href: "https://www.facebook.com/CheryBDofficial", label: "Facebook" },
+                  { icon: FaLinkedin, href: "https://www.linkedin.com/company/chery-bangladesh/", label: "LinkedIn" },
+                  { icon: FaInstagram, href: "https://instagram.com/cherybangladesh", label: "Instagram" },
+                  { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" }
               ].map((social, index) => (
                 <Link 
                   key={index}
@@ -172,7 +173,9 @@ export default function Footer() {
                   </svg>
                 </div>
                 <div className="text-sm text-gray-600">
-                  8 Changchun Road, Wuhu Economic and Technological Development Zone, Anhui Province, P.R.China
+                <span class="text-1xl font-bold">Asian Motorspex Limited </span><br/>
+                206/1-207/1 Bir Uttam Mir Shawkat Sarak
+                Tejgaon Gulshan Link Road, Dhaka
                 </div>
               </li>
               <li className="flex items-start">
@@ -182,7 +185,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <div className="text-sm text-gray-600">
-                  <a href="mailto:info@chery.com" className="hover:text-primary transition-colors">info@chery.com</a>
+                  <a href="mailto:info@cherybd.com" className="hover:text-primary transition-colors">info@cherybd.com</a>
                 </div>
               </li>
               <li className="flex items-start">
@@ -192,7 +195,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <div className="text-sm text-gray-600">
-                  <a href="tel:+86-555-1234567" className="hover:text-primary transition-colors">+86-555-1234567</a>
+                  <a href="tel:09639119977" className="hover:text-primary transition-colors">09639119977</a>
                 </div>
               </li>
             </ul>
@@ -215,7 +218,8 @@ export default function Footer() {
             {/* Social Media */}
             <div className="flex space-x-3 mt-4">
               {[
-                { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
+                { icon: FaFacebookF, href: "https://www.facebook.com/CheryBDofficial", label: "Facebook" },
+                { icon: FaLinkedin, href: "https://www.linkedin.com/company/chery-bangladesh/", label: "LinkedIn" },
                 { icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
                 { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
                 { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" }
@@ -236,8 +240,8 @@ export default function Footer() {
         {/* Bottom Legal Section */}
         <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center">
           <div className="text-sm text-gray-500 mb-4 md:mb-0 text-center md:text-left">
-            © Copyright {currentYear} Chery International. All Rights Reserved.  
-            <span className="ml-2 text-gray-400">皖ICP备05009427号-1</span>
+            © Copyright {currentYear} Chery Bangladesh. All Rights Reserved.  
+            <span className="ml-2 text-gray-400"></span>
           </div>
           
           <div className="flex flex-wrap justify-center md:justify-end text-sm text-gray-500 gap-x-6">
