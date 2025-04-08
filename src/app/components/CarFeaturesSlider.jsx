@@ -1,17 +1,18 @@
 'use client'
 
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const CarFeaturesSlider = ({ 
   // Content props
   features,
   
-  // Styling props - simplified with light theme
-  backgroundColor = "bg-gray-200",
+  // Styling props
+  backgroundColor = "bg-gray-100",
   textColor = "text-gray-800",
-  accentColor = "bg-blue-500",
-  accentTextColor = "text-blue-500",
+  accentColor = "bg-primary",
+  accentTextColor = "text-primary",
   
   // Layout & behavior props
   slidesPerView = { 
@@ -24,7 +25,16 @@ const CarFeaturesSlider = ({
   showHeading = true,
   heading = "Car Features",
   subtitle = "Explore what makes our vehicles special",
-  showLearnMore = false
+  showLearnMore = false,
+  
+  // New props for enhanced functionality
+  linkAllCards = false,
+  linkTarget = '/features',
+  cardAspectRatio = "aspect-[4/3]",
+  showProgressBar = true,
+  showBulletPagination = true,
+  linkBase = '/features',
+  animationSpeed = 500,
 }) => {
   // Default features if none are provided
   const defaultFeatures = [
@@ -32,31 +42,36 @@ const CarFeaturesSlider = ({
       id: 1,
       image: "/api/placeholder/800/600",
       title: "Dynamic LED Lighting",
-      text: "Adaptive lighting system that automatically adjusts to driving conditions."
+      text: "Adaptive lighting system that automatically adjusts to driving conditions.",
+      link: "/features/lighting"
     },
     {
       id: 2,
       image: "/api/placeholder/800/600",
       title: "Premium Alloy Wheels",
-      text: "Lightweight design enhancing performance and efficiency with premium materials."
+      text: "Lightweight design enhancing performance and efficiency with premium materials.",
+      link: "/features/wheels"
     },
     {
       id: 3,
       image: "/api/placeholder/800/600",
       title: "Signature Front Grille",
-      text: "Distinctive design with premium finish for unmistakable presence on the road."
+      text: "Distinctive design with premium finish for unmistakable presence on the road.",
+      link: "/features/grille"
     },
     {
       id: 4,
       image: "/api/placeholder/800/600",
       title: "Panoramic Sunroof",
-      text: "Full-length glass roof providing an enhanced sense of space and light."
+      text: "Full-length glass roof providing an enhanced sense of space and light.",
+      link: "/features/sunroof"
     },
     {
       id: 5,
       image: "/api/placeholder/800/600",
       title: "Advanced Infotainment",
-      text: "Seamless connectivity with intuitive controls and premium audio."
+      text: "Seamless connectivity with intuitive controls and premium audio.",
+      link: "/features/infotainment"
     }
   ];
 
@@ -68,6 +83,8 @@ const CarFeaturesSlider = ({
   const [touchEnd, setTouchEnd] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [visibleItems, setVisibleItems] = useState(slidesPerView.desktop);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const sliderRef = useRef(null);
   const autoplayTimerRef = useRef(null);
   
   // Responsive behavior
@@ -90,13 +107,15 @@ const CarFeaturesSlider = ({
   // Calculate max index based on visible items
   const maxIndex = Math.max(0, totalItems - visibleItems);
 
-  // Autoplay functionality
+  // Autoplay functionality with improved pause handling
   useEffect(() => {
     if (autoplay && !isPaused) {
       autoplayTimerRef.current = setInterval(() => {
-        setCurrentIndex(prevIndex => 
-          prevIndex < maxIndex ? prevIndex + 1 : 0
-        );
+        if (!isTransitioning) {
+          setCurrentIndex(prevIndex => 
+            prevIndex < maxIndex ? prevIndex + 1 : 0
+          );
+        }
       }, autoplaySpeed);
     }
     
@@ -105,25 +124,71 @@ const CarFeaturesSlider = ({
         clearInterval(autoplayTimerRef.current);
       }
     };
-  }, [autoplay, autoplaySpeed, isPaused, maxIndex]);
+  }, [autoplay, autoplaySpeed, isPaused, maxIndex, isTransitioning]);
 
-  const nextSlide = () => {
-    setCurrentIndex(prevIndex => 
-      prevIndex < maxIndex ? prevIndex + 1 : 0
-    );
-  };
+  // Navigation functions with transition lock
+  const nextSlide = useCallback(() => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex(prevIndex => {
+      const newIndex = prevIndex < maxIndex ? prevIndex + 1 : 0;
+      
+      // Reset to start if we've reached the end and are going to first slide
+      if (prevIndex === maxIndex && newIndex === 0 && sliderRef.current) {
+        // Use setTimeout to allow the DOM to update
+        setTimeout(() => {
+          if (sliderRef.current) {
+            sliderRef.current.style.transition = 'none';
+            sliderRef.current.style.transform = 'translateX(0)';
+            // Force reflow
+            void sliderRef.current.offsetWidth;
+            sliderRef.current.style.transition = `transform ${animationSpeed}ms ease-out`;
+          }
+        }, animationSpeed);
+      }
+      
+      return newIndex;
+    });
+    
+    setTimeout(() => setIsTransitioning(false), animationSpeed);
+  }, [maxIndex, isTransitioning, animationSpeed]);
 
-  const prevSlide = () => {
-    setCurrentIndex(prevIndex => 
-      prevIndex > 0 ? prevIndex - 1 : maxIndex
-    );
-  };
+  const prevSlide = useCallback(() => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex(prevIndex => {
+      const newIndex = prevIndex > 0 ? prevIndex - 1 : maxIndex;
+      
+      // Jump to end if we're at the start and going to last slide
+      if (prevIndex === 0 && newIndex === maxIndex && sliderRef.current) {
+        setTimeout(() => {
+          if (sliderRef.current) {
+            sliderRef.current.style.transition = 'none';
+            sliderRef.current.style.transform = `translateX(calc(-${maxIndex * (100 / visibleItems)}%))`;
+            // Force reflow
+            void sliderRef.current.offsetWidth;
+            sliderRef.current.style.transition = `transform ${animationSpeed}ms ease-out`;
+          }
+        }, animationSpeed);
+      }
+      
+      return newIndex;
+    });
+    
+    setTimeout(() => setIsTransitioning(false), animationSpeed);
+  }, [maxIndex, isTransitioning, visibleItems, animationSpeed]);
 
-  const goToSlide = (index) => {
+  const goToSlide = useCallback((index) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
     setCurrentIndex(Math.min(Math.max(0, index), maxIndex));
-  };
+    setTimeout(() => setIsTransitioning(false), animationSpeed);
+  }, [maxIndex, isTransitioning, animationSpeed]);
 
-  // Touch handlers
+  // Touch handlers with improved sensitivity
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
     setIsPaused(true);
@@ -131,55 +196,97 @@ const CarFeaturesSlider = ({
 
   const handleTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX);
+    
+    // Optional: Add drag effect on the slider
+    if (sliderRef.current && touchStart) {
+      const distance = touchEnd - touchStart;
+      const translateValue = -currentIndex * (100 / visibleItems) + (distance / sliderRef.current.offsetWidth) * 100;
+      
+      // Limit drag within bounds
+      if ((currentIndex === 0 && distance > 0) || (currentIndex === maxIndex && distance < 0)) {
+        // Reduce effect for out-of-bounds drag
+        sliderRef.current.style.transform = `translateX(calc(${translateValue * 0.3}%))`;
+      } else {
+        sliderRef.current.style.transform = `translateX(calc(${translateValue}%))`;
+      }
+    }
   };
 
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 70) {
+    if (sliderRef.current) {
+      // Reset transition
+      sliderRef.current.style.transition = `transform ${animationSpeed}ms ease-out`;
+    }
+    
+    // Threshold for swipe detection - more sensitive now
+    if (touchStart - touchEnd > 50) {
       nextSlide();
-    }
-    if (touchEnd - touchStart > 70) {
+    } else if (touchEnd - touchStart > 50) {
       prevSlide();
+    } else {
+      // Restore position if no swipe detected
+      if (sliderRef.current) {
+        sliderRef.current.style.transform = `translateX(calc(-${currentIndex * (100 / visibleItems)}%))`;
+      }
     }
+    
     setIsPaused(false);
   };
 
+  // Progress calculation
+  const progressPercentage = maxIndex > 0 ? (currentIndex / maxIndex) * 100 : 100;
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextSlide, prevSlide]);
+
   return (
     <div className={`w-full ${backgroundColor}`}>
-      {/* Header - Simplified */}
+      {/* Header with improved structure */}
       {showHeading && (
         <div className="relative w-full">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-8 pb-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between">
               <div>
-                <div className={`${accentColor} h-1 w-12 mb-3`}></div>
-                <h2 className={`text-2xl md:text-3xl font-bold ${textColor} mb-2`}>
+                <div className={`${accentColor} h-1 w-12 mb-4`}></div>
+                <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold ${textColor} mb-2`}>
                   {heading}
                 </h2>
-                <p className="text-gray-500 text-base max-w-xl">
+                <p className="text-gray-600 text-base md:text-lg max-w-xl">
                   {subtitle}
                 </p>
               </div>
               
-              {/* Navigation controls - Simplified */}
-              <div className="flex items-center mt-4 md:mt-0">
+              {/* Navigation controls with improved interaction */}
+              <div className="flex items-center mt-6 md:mt-0">
                 <button 
                   onClick={prevSlide}
-                  className={`w-10 h-10 border border-gray-300 flex items-center justify-center mr-2 focus:outline-none ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
+                  className={`w-10 h-10 border border-gray-300 flex items-center justify-center mr-2 focus:outline-none focus:border-gray-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary transition-colors ${currentIndex === 0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}`}
                   aria-label="Previous slide"
-                  disabled={currentIndex === 0}
+                  disabled={currentIndex === 0 && isTransitioning}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="15 18 9 12 15 6"></polyline>
                   </svg>
                 </button>
                 
                 <button 
                   onClick={nextSlide}
-                  className={`w-10 h-10 border border-gray-300 flex items-center justify-center focus:outline-none ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
+                  className={`w-10 h-10 border border-gray-300 flex items-center justify-center focus:outline-none focus:border-gray-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary transition-colors ${currentIndex === maxIndex ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}`}
                   aria-label="Next slide"
-                  disabled={currentIndex === maxIndex}
+                  disabled={currentIndex === maxIndex && isTransitioning}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
                 </button>
@@ -189,7 +296,7 @@ const CarFeaturesSlider = ({
         </div>
       )}
       
-      {/* Slider - Simplified design */}
+      {/* Slider with improved interaction */}
       <div className="w-full overflow-hidden py-6">
         <div 
           className="w-full"
@@ -198,65 +305,91 @@ const CarFeaturesSlider = ({
           onTouchEnd={handleTouchEnd}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
+          aria-roledescription="carousel"
+          aria-label="Car features showcase"
         >
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div 
+              ref={sliderRef}
               className="flex transition-transform duration-500 ease-out h-full"
               style={{ transform: `translateX(calc(-${currentIndex * (100 / visibleItems)}%))` }}
+              role="presentation"
             >
-              {items.map((feature, index) => (
-                <div 
-                  key={feature.id || index}
-                  className="flex-none pr-4"
-                  style={{ width: `${100 / visibleItems}%` }}
-                >
-                  <div className="group h-full bg-white border border-gray-300 overflow-hidden">
-                    {/* Image */}
-                    <div className="relative w-full aspect-[4/3] overflow-hidden">
-                      <Image 
-                        src={feature.image}
-                        alt={feature.title || ''}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        priority={index < 3}
-                      />
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="p-4">
-                      <h3 className={`${textColor} text-lg font-semibold mb-2`}>
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm">
-                        {feature.text}
-                      </p>
-                      {showLearnMore && (
-                        <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
-                          <span className={`${accentTextColor} text-sm font-medium`}>Learn more</span>
-                          <div className={`w-6 h-6 ${accentColor} flex items-center justify-center`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                              <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                          </div>
+              {items.map((feature, index) => {
+                const CardTag = (linkAllCards || feature.link) ? Link : 'div';
+                const cardProps = (linkAllCards || feature.link) ? {
+                  href: feature.link || `${linkBase}/${feature.id}`,
+                  className: "block h-full"
+                } : {};
+                
+                return (
+                  <div 
+                    key={feature.id || index}
+                    className="flex-none pr-4"
+                    style={{ width: `${100 / visibleItems}%` }}
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`Slide ${index + 1} of ${items.length}: ${feature.title}`}
+                  >
+                    <div className="group h-full bg-white border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                      <CardTag {...cardProps}>
+                        {/* Image with improved hover effect */}
+                        <div className={`relative w-full ${cardAspectRatio} overflow-hidden`}>
+                          <Image 
+                            src={feature.image}
+                            alt={feature.title || ''}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            priority={index < visibleItems}
+                          />
+                          {/* Optional caption overlay */}
+                          {feature.caption && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                              <span className="text-white text-sm font-medium">{feature.caption}</span>
+                            </div>
+                          )}
                         </div>
-                      )}
+                        
+                        {/* Content with improved layout */}
+                        <div className="p-5">
+                          <h3 className={`${textColor} text-lg font-semibold mb-2`}>
+                            {feature.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {feature.text}
+                          </p>
+                          {showLearnMore && (
+                            <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
+                              <span className={`${accentTextColor} text-sm font-medium group-hover:underline`}>
+                                Learn more
+                              </span>
+                              <div className={`w-6 h-6 ${accentColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                                  <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </CardTag>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
       
-      {/* Progress indicator - Simplified */}
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 pb-8">
-        <div className="flex items-center justify-between">
+      {/* Improved controls and indicators */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 sm:items-center sm:justify-between">
+          {/* Play/pause and count indicators */}
           <div className="flex items-center">
             <button 
               onClick={() => setIsPaused(!isPaused)}
-              className="text-gray-500 p-2 focus:outline-none mr-2"
+              className="text-gray-500 hover:text-gray-700 p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary mr-2 transition-colors"
               aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
             >
               {isPaused ? (
@@ -271,31 +404,69 @@ const CarFeaturesSlider = ({
               )}
             </button>
             <div className="text-xs text-gray-500">
-              <span className={accentTextColor}>{currentIndex + 1}</span>
+              <span className={`font-medium ${accentTextColor}`}>{currentIndex + 1}</span>
               <span className="mx-1">/</span>
               <span>{maxIndex + 1}</span>
             </div>
           </div>
           
-          <div className="flex-1 mx-4">
-            <div className="h-1 bg-gray-300 w-full">
-                              <div 
-                className={`h-full ${accentColor} transition-all duration-300`}
-                style={{ width: `${((currentIndex) / (maxIndex)) * 100}%` }}
-              />
+          {/* Progress bar */}
+          {showProgressBar && (
+            <div className="flex-1 mx-4 hidden sm:block">
+              <div className="h-1 bg-gray-200 w-full rounded-full overflow-hidden">
+                <div 
+                  className={`h-full ${accentColor} transition-all duration-300 rounded-full`}
+                  style={{ width: `${progressPercentage}%` }}
+                />
+              </div>
             </div>
-          </div>
+          )}
           
-          <div className="flex">
-            {Array.from({ length: Math.min(5, maxIndex + 1) }).map((_, index) => (
-                              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-6 h-2 mx-1 transition-colors ${currentIndex === index ? accentColor : 'bg-gray-300'}`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {/* Bullet pagination - show limited bullets for better UI */}
+          {showBulletPagination && (
+            <div className="flex">
+              {Array.from({ length: Math.min(maxIndex + 1, 7) }).map((_, index) => {
+                // For many slides, show ellipsis in the middle
+                if (maxIndex + 1 > 7 && index === 3 && currentIndex > 3 && currentIndex < maxIndex - 2) {
+                  return (
+                    <div key="ellipsis" className="mx-1 flex items-center">
+                      <span className="text-gray-400 text-xs">...</span>
+                    </div>
+                  );
+                }
+                
+                // Calculate which index to show for the bullet
+                let bulletIndex = index;
+                if (maxIndex + 1 > 7) {
+                  if (currentIndex > 3 && currentIndex < maxIndex - 2) {
+                    if (index === 0) bulletIndex = 0;
+                    else if (index === 1) bulletIndex = 1;
+                    else if (index === 2) bulletIndex = 2;
+                    else if (index === 4) bulletIndex = currentIndex;
+                    else if (index === 5) bulletIndex = maxIndex - 1;
+                    else if (index === 6) bulletIndex = maxIndex;
+                  } else if (currentIndex >= maxIndex - 2) {
+                    if (index <= 2) bulletIndex = index;
+                    else bulletIndex = maxIndex - (6 - index);
+                  }
+                }
+                
+                return (
+                  <button
+                    key={bulletIndex}
+                    onClick={() => goToSlide(bulletIndex)}
+                    className={`w-6 h-2 mx-0.5 transition-all duration-300 ${
+                      currentIndex === bulletIndex 
+                        ? `${accentColor}` 
+                        : 'bg-gray-200 hover:bg-gray-300'
+                    }`}
+                    aria-label={`Go to slide ${bulletIndex + 1}`}
+                    aria-current={currentIndex === bulletIndex ? "true" : "false"}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
