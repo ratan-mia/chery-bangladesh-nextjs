@@ -116,7 +116,7 @@ export default function NewsSection() {
               onMouseEnter={() => setHoveredCard(news.id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Image container with clean overlay */}
+              {/* Image container with gradient overlay */}
               <div className="relative aspect-[16/9] overflow-hidden">
                 <Image
                   src={news.image}
@@ -126,19 +126,21 @@ export default function NewsSection() {
                   className={`object-cover transition-transform duration-500 ${hoveredCard === news.id ? 'scale-105' : 'scale-100'}`}
                 />
                 
-                {/* Flat, clean overlay */}
+                {/* Gradient overlay that appears from bottom to top on hover */}
                 <div 
-                  className={`absolute inset-0 bg-black transition-opacity duration-300 ${hoveredCard === news.id ? 'opacity-10' : 'opacity-0'}`}
+                  className={`absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/40 to-transparent transition-all duration-300 ease-in-out ${
+                    hoveredCard === news.id ? 'opacity-100' : 'opacity-0 translate-y-16'
+                  }`}
                 ></div>
                 
                 {/* Category label */}
-                <div className="absolute bottom-0 left-0 bg-white py-1 px-3">
+                <div className="absolute bottom-0 left-0 bg-white py-1 px-3 z-10">
                   <span className="text-xs font-medium uppercase tracking-wider text-gray-900">{news.category}</span>
                 </div>
                 
                 {/* New tag - flat design */}
                 {news.isNew && (
-                  <div className="absolute top-0 right-0 bg-primary py-1 px-3">
+                  <div className="absolute top-0 right-0 bg-primary py-1 px-3 z-10">
                     <span className="text-xs font-medium uppercase tracking-wider text-white">New</span>
                   </div>
                 )}
