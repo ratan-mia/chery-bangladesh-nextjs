@@ -180,6 +180,7 @@ export default function Home() {
         </div>
       </section>
       <CarSafetySection/>
+      
 
       <CarColorSwitcher />
       <VehicleSpecs
