@@ -132,7 +132,9 @@ export default function MasonryImageSlider() {
   return (
     <section className="relative w-full overflow-hidden bg-white">
       <Swiper
-        ref={swiperRef}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
         modules={[Navigation, Pagination, EffectFade, Autoplay]}
         navigation={false}
         pagination={false} // Using custom pagination
@@ -196,7 +198,10 @@ export default function MasonryImageSlider() {
                         <button
                           key={index}
                           className="text-xs tracking-wider uppercase font-medium flex flex-col items-start"
-                          onClick={() => swiperRef.current?.slideTo(index + 1)}
+                          onClick={() => {
+                            swiperRef.current.slideTo(index + 1);
+                            resetProgress();
+                          }}
                           aria-label={`View ${item.textOverlay.model}`}
                         >
                           <span 
@@ -225,11 +230,11 @@ export default function MasonryImageSlider() {
                     
                     {/* Navigation buttons */}
                     <div className="flex justify-end space-x-2">
-                                              <button 
+                      <button 
                         className="w-10 h-10 flex items-center justify-center border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
                         onClick={() => {
-                          swiperRef.current?.slidePrev()
-                          resetProgress()
+                          swiperRef.current.slidePrev();
+                          resetProgress();
                         }}
                         aria-label="Previous slide"
                       >
@@ -240,8 +245,8 @@ export default function MasonryImageSlider() {
                       <button 
                         className="w-10 h-10 flex items-center justify-center border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
                         onClick={() => {
-                          swiperRef.current?.slideNext()
-                          resetProgress()
+                          swiperRef.current.slideNext();
+                          resetProgress();
                         }}
                         aria-label="Next slide"
                       >
@@ -263,8 +268,8 @@ export default function MasonryImageSlider() {
         <button 
           className="w-10 h-10 flex items-center justify-center bg-gray-50/90 dark:bg-gray-900/90 text-gray-900 dark:text-gray-100"
           onClick={() => {
-            swiperRef.current?.slidePrev()
-            resetProgress()
+            swiperRef.current.slidePrev();
+            resetProgress();
           }}
           aria-label="Previous slide"
         >
@@ -275,8 +280,8 @@ export default function MasonryImageSlider() {
         <button 
           className="w-10 h-10 flex items-center justify-center bg-gray-50/90 dark:bg-gray-900/90 text-gray-900 dark:text-gray-100"
           onClick={() => {
-            swiperRef.current?.slideNext()
-            resetProgress()
+            swiperRef.current.slideNext();
+            resetProgress();
           }}
           aria-label="Next slide"
         >
