@@ -210,7 +210,7 @@ const CarShowcase = ({
 
                 {/* Side-positioned content card with glow effect */}
                 <div className="relative z-20 h-full flex items-center">
-                  <div className={`w-full max-w-md p-8 ${contentPosition === 'left' ? 'ml-8 md:ml-16' : 'ml-auto mr-8 md:mr-16'}`}>
+                  <div className={`w-full max-w-lg p-8 ${contentPosition === 'left' ? 'ml-8 md:ml-16' : 'ml-auto mr-8 md:mr-16'}`}>
                     <motion.div
                       className="relative"
                       initial="hidden"
@@ -229,7 +229,7 @@ const CarShowcase = ({
 
                       {/* Content card with minimal background */}
                       <motion.div
-                        className="backdrop-blur-sm p-8 rounded-xl relative z-10"
+                        className="backdrop-blur-sm p-8  relative z-10"
                         style={{
                           backgroundColor: colors.contentBg,
                           boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06)',
@@ -301,7 +301,7 @@ const CarShowcase = ({
                           {slide.brochureLink && (
                             <a
                               href={slide.brochureLink}
-                              className="inline-flex items-center justify-center px-6 py-3 rounded-lg transition-all duration-200"
+                              className="inline-flex items-center justify-center px-6 py-3  transition-all duration-200"
                               style={{
                                 backgroundColor: colors.buttonBg,
                                 color: colors.buttonText,
@@ -318,7 +318,7 @@ const CarShowcase = ({
                           {slide.testDriveLink && (
                             <a
                               href={slide.testDriveLink}
-                              className="inline-flex items-center justify-center px-6 py-3 rounded-lg transition-all duration-200"
+                              className="inline-flex items-center justify-center px-6 py-3  transition-all duration-200"
                               style={{
                                 borderWidth: '2px',
                                 borderStyle: 'solid',
@@ -340,7 +340,7 @@ const CarShowcase = ({
                 {showSpecs && slide.specs && (
                   <div className="absolute bottom-8 left-0 right-0 z-30 px-8 md:px-16">
                     <motion.div
-                      className="backdrop-blur-md p-4 rounded-xl overflow-hidden"
+                      className="backdrop-blur-md p-4  overflow-hidden"
                       style={{
                         backgroundColor: 'rgba(0, 0, 0, 0.20)',
                       }}
@@ -382,7 +382,7 @@ const CarShowcase = ({
       {showControls && (
         <>
           <button
-            className="absolute top-1/2 -translate-y-1/2 left-4 z-40 w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-lg"
+            className="absolute top-1/2 -translate-y-1/2 left-4 z-40 w-10 h-10 flex items-center justify-center  backdrop-blur-lg"
             style={{
               backgroundColor: 'rgba(0, 0, 0, 0.15)',
               boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)'
@@ -404,7 +404,7 @@ const CarShowcase = ({
           </button>
 
           <button
-            className="absolute top-1/2 -translate-y-1/2 right-4 z-40 w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-lg"
+            className="absolute top-1/2 -translate-y-1/2 right-4 z-40 w-10 h-10 flex items-center justify-center  backdrop-blur-lg"
             style={{
               backgroundColor: 'rgba(0, 0, 0, 0.15)',
               boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)'
@@ -429,7 +429,7 @@ const CarShowcase = ({
           <div className="absolute bottom-8 right-8 z-40 flex items-center space-x-4">
             <button
               onClick={toggleAutoplay}
-              className="w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-lg"
+              className="w-10 h-10 flex items-center justify-center backdrop-blur-lg"
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)'
@@ -457,7 +457,7 @@ const CarShowcase = ({
             </button>
 
             <div
-              className="flex items-center px-3 py-1 rounded-full backdrop-blur-lg"
+              className="flex items-center px-3 py-1  backdrop-blur-lg"
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)'
@@ -466,7 +466,7 @@ const CarShowcase = ({
               {slides.map((_, idx) => (
                 <button
                   key={idx}
-                  className="w-2 h-2 mx-1 rounded-full transition-all duration-300 ease-in-out"
+                  className="w-2 h-2 mx-1 transition-all duration-300 ease-in-out"
                   style={{
                     backgroundColor: activeIndex === idx ? 'white' : 'rgba(255, 255, 255, 0.5)',
                     transform: activeIndex === idx ? 'scale(1.5)' : 'scale(1)'
