@@ -338,7 +338,7 @@ const CarShowcase = ({
 
                 {/* Specs panel at bottom */}
                 {showSpecs && slide.specs && (
-                  <div className="absolute bottom-8 left-0 right-0 z-30 px-8 md:px-16">
+                  <div className="absolute bottom-15 left-8 right-10 z-30 px-8 md:px-16">
                     <motion.div
                       className="backdrop-blur-md p-4  overflow-hidden"
                       style={{
