@@ -443,7 +443,7 @@ export default function ModelsMegaMenu({
                     className="px-10 py-4 rounded text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors border-2"
                     style={{ 
                       borderColor: primaryBg,
-                      color: primaryText,
+                      color: 'black',
                       boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                     }}
                     onMouseOver={(e) => {
@@ -452,10 +452,10 @@ export default function ModelsMegaMenu({
                     }}
                     onMouseOut={(e) => {
                       e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.color = primaryText;
+                      e.currentTarget.style.color = 'black';
                     }}
                   >
-                    Configure
+                    Order Now
                   </button>
                 </Link>
               </div>
