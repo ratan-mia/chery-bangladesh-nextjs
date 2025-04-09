@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
@@ -17,7 +18,9 @@ export default function ModelsMegaMenu({
   const [expandedSeries, setExpandedSeries] = useState({
     'tiggo9series': true // Default expanded
   })
+  const [hoveredModel, setHoveredModel] = useState(null)
   const menuRef = useRef(null)
+  const timeoutRef = useRef(null)
 
   // Close menu on ESC key
   useEffect(() => {
@@ -44,20 +47,20 @@ export default function ModelsMegaMenu({
     }
   }, [isOpen])
   
-  // Handle clicks outside menu to close it
+  // Cleanup on unmount
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target) && isOpen) {
-        // Checking if the click is outside the menu but not on the toggle button
-        if (!event.target.closest('button[aria-controls="' + id + '"]')) {
-          onClose()
-        }
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     }
-    
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isOpen, onClose, id])
+  }, []);
+  
+  // Handle clicks inside menu to prevent propagation to document
+  const handleMenuClick = (e) => {
+    // Prevent click from reaching the backdrop
+    e.stopPropagation()
+  }
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category)
@@ -70,6 +73,20 @@ export default function ModelsMegaMenu({
     }
   }
   
+  const handleCategoryHover = (category) => {
+    // Only respond to hover on desktop
+    if (window.innerWidth >= 768) {
+      setActiveCategory(category)
+      
+      // Set default model for category
+      if (category === 'tiggo') {
+        setActiveModel('tiggo9')
+      } else if (category === 'arrizo') {
+        setActiveModel('arrizo8')
+      }
+    }
+  }
+  
   const toggleSeries = (series) => {
     setExpandedSeries(prev => ({
       ...prev,
@@ -77,8 +94,38 @@ export default function ModelsMegaMenu({
     }))
   }
   
+  const handleSeriesHover = (series) => {
+    // Only respond to hover on desktop
+    if (window.innerWidth >= 768) {
+      // Use timeout to prevent flickering when moving between items
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      
+      timeoutRef.current = setTimeout(() => {
+        setExpandedSeries(prev => ({
+          ...prev,
+          [series]: true
+        }))
+      }, 200);
+    }
+  }
+  
   const handleModelClick = (model) => {
     setActiveModel(model)
+  }
+  
+  const handleModelHover = (model) => {
+    // Only respond to hover on desktop
+    if (window.innerWidth >= 768) {
+      setHoveredModel(model);
+      
+      // Use timeout to prevent flickering when moving between items
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      
+      timeoutRef.current = setTimeout(() => {
+        setActiveModel(model)
+        setHoveredModel(null);
+      }, 200);
+    }
   }
   
   // Get car specs based on model
@@ -95,6 +142,22 @@ export default function ModelsMegaMenu({
     }
     
     return specs[model] || specs['tiggo9']
+  }
+  
+  // Get car image path based on model
+  const getCarImagePath = (model) => {
+    const imagePaths = {
+      'tiggo9': '/images/cars/tiggo9.png',
+      'tiggo8': '/images/cars/tiggo8.png',
+      'tiggo7': '/images/cars/tiggo7.png',
+      'tiggo4pro': '/images/cars/tiggo4pro.png',
+      'tiggo2pro': '/images/cars/tiggo2pro.png',
+      'arrizo8': '/images/cars/arrizo8.png',
+      'arrizo7': '/images/cars/arrizo7.png',
+      'arrizo5': '/images/cars/arrizo5.png'
+    }
+    
+    return imagePaths[model] || '/images/cars/placeholder.png'
   }
   
   // Get series display data
@@ -123,6 +186,7 @@ export default function ModelsMegaMenu({
   }
   
   const specs = getModelSpecs(activeModel)
+  const carImagePath = getCarImagePath(activeModel)
   
   if (!isOpen) return null
   
@@ -139,6 +203,7 @@ export default function ModelsMegaMenu({
       aria-modal="true"
       role="dialog"
       aria-label="Models navigation"
+      onClick={handleMenuClick}
     >
       <div className="flex">
         {/* Left sidebar - Categories */}
@@ -155,6 +220,7 @@ export default function ModelsMegaMenu({
               <div 
                 className={`px-8 py-4 cursor-pointer transition-colors ${activeCategory === 'tiggo' ? 'bg-black/10' : 'hover:bg-black/5'}`}
                 onClick={() => handleCategoryClick('tiggo')}
+                onMouseEnter={() => handleCategoryHover('tiggo')}
                 role="tab"
                 aria-selected={activeCategory === 'tiggo'}
                 tabIndex={0}
@@ -165,6 +231,7 @@ export default function ModelsMegaMenu({
               <div 
                 className={`px-8 py-4 cursor-pointer transition-colors ${activeCategory === 'arrizo' ? 'bg-black/10' : 'hover:bg-black/5'}`}
                 onClick={() => handleCategoryClick('arrizo')}
+                onMouseEnter={() => handleCategoryHover('arrizo')}
                 role="tab"
                 aria-selected={activeCategory === 'arrizo'}
                 tabIndex={0}
@@ -199,6 +266,13 @@ export default function ModelsMegaMenu({
                     handleModelClick(series.id)
                   }
                 }}
+                onMouseEnter={() => {
+                  if (series.models.length > 0) {
+                    handleSeriesHover(series.id)
+                  } else {
+                    handleModelHover(series.id)
+                  }
+                }}
                 role={series.models.length > 0 ? "button" : "link"}
                 aria-expanded={series.models.length > 0 ? expandedSeries[series.id] : undefined}
                 tabIndex={0}
@@ -228,10 +302,11 @@ export default function ModelsMegaMenu({
                       key={model}
                       className="p-4 pl-10 cursor-pointer transition-colors"
                       style={{ 
-                        backgroundColor: activeModel === model ? primaryHover : primaryBg,
+                        backgroundColor: (activeModel === model || hoveredModel === model) ? primaryHover : primaryBg,
                         color: primaryText === 'black' ? 'white' : primaryText
                       }}
                       onClick={() => handleModelClick(model)}
+                      onMouseEnter={() => handleModelHover(model)}
                       role="link"
                       tabIndex={0}
                       onKeyDown={(e) => e.key === 'Enter' && handleModelClick(model)}
@@ -261,17 +336,42 @@ export default function ModelsMegaMenu({
               <div className="relative w-full max-w-3xl">
                 {/* Placeholder for car image */}
                 <div className="aspect-[16/9] relative">
-                  {/* In production, replace this with actual car image */}
+                  {/* Dynamic car image */}
                   <div className="w-full h-full bg-transparent flex items-center justify-center">
-                    {/* Example car silhouette - replace with actual image in production */}
-                    <svg className="w-full" viewBox="0 0 800 400" fill="none">
-                      <path d="M120,280 C160,280 240,240 400,240 C560,240 640,280 680,280 C720,280 720,300 680,300 C640,300 560,310 400,310 C240,310 160,300 120,300 C80,300 80,280 120,280 Z" fill={secondaryColor} opacity="0.8" />
-                      <path d="M140,240 C140,240 160,180 200,160 C240,140 320,130 400,130 C480,130 560,140 600,160 C640,180 660,240 660,240" stroke={secondaryColor} strokeWidth="8" fill="none" />
-                      <circle cx="200" cy="280" r="40" fill="#333" />
-                      <circle cx="200" cy="280" r="25" fill="#666" />
-                      <circle cx="600" cy="280" r="40" fill="#333" />
-                      <circle cx="600" cy="280" r="25" fill="#666" />
-                    </svg>
+                    <div className="relative w-full h-full">
+                      <Image 
+                        src={carImagePath}
+                        alt={`${formatModelName(activeModel)} vehicle`}
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 1200px) 100vw, 1200px"
+                        priority
+                        onError={(e) => {
+                          // If image fails to load, render fallback SVG
+                          e.currentTarget.style.display = 'none';
+                          document.getElementById(`fallback-svg-${activeModel}`).style.display = 'block';
+                        }}
+                      />
+                      
+                      {/* Fallback SVG (hidden by default) */}
+                      <svg 
+                        id={`fallback-svg-${activeModel}`} 
+                        className="w-full hidden" 
+                        viewBox="0 0 800 400" 
+                        fill="none"
+                        style={{position: 'absolute', top: 0, left: 0}}
+                      >
+                        <path d="M120,280 C160,280 240,240 400,240 C560,240 640,280 680,280 C720,280 720,300 680,300 C640,300 560,310 400,310 C240,310 160,300 120,300 C80,300 80,280 120,280 Z" fill={secondaryColor} opacity="0.8" />
+                        <path d="M140,240 C140,240 160,180 200,160 C240,140 320,130 400,130 C480,130 560,140 600,160 C640,180 660,240 660,240" stroke={secondaryColor} strokeWidth="8" fill="none" />
+                        <circle cx="200" cy="280" r="40" fill="#333" />
+                        <circle cx="200" cy="280" r="25" fill="#666" />
+                        <circle cx="600" cy="280" r="40" fill="#333" />
+                        <circle cx="600" cy="280" r="25" fill="#666" />
+                        <text x="400" y="200" textAnchor="middle" fill={secondaryColor} fontWeight="bold" fontSize="28px">
+                          {formatModelName(activeModel)}
+                        </text>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>

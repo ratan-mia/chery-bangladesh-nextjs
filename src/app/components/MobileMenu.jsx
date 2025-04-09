@@ -1,6 +1,7 @@
 'use client'
 
 import { Music, Pause } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
@@ -9,7 +10,7 @@ export default function MobileMenu({
   isOpen, 
   closeMenu, 
   primaryBg = '#b29980', 
-  primaryText = 'black',
+  primaryText = 'white',
   primaryHover = '#a38a73',
   aboutSubMenuItems = []
 }) {
@@ -21,6 +22,18 @@ export default function MobileMenu({
   const [isPlaying, setIsPlaying] = useState(false)
   const menuRef = useRef(null)
   const audioRef = useRef(null)
+  
+  // Define theme colors - matching the header and mega menu
+  const THEME = {
+    primary: primaryBg,
+    primaryDark: primaryHover,
+    primaryText: primaryText,
+
+
+    secondary: '#b29980',      // Dark green for accents
+    secondaryDark: '#a38a73',  // Darker green
+    secondaryText: 'white',    // Text on secondary background
+  }
   
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -110,6 +123,13 @@ export default function MobileMenu({
   const handleCategoryClick = (category) => {
     setActiveModelCategory(category)
     setOpenModelSubmenus({})
+    
+    // Set default model for the category
+    if (category === 'tiggo' && !activeModel.includes('tiggo')) {
+      setActiveModel('tiggo9')
+    } else if (category === 'arrizo' && !activeModel.includes('arrizo')) {
+      setActiveModel('arrizo8')
+    }
   }
   
   const toggleModelSubmenu = (model) => {
@@ -140,9 +160,30 @@ export default function MobileMenu({
     return specs[model] || specs['tiggo9']
   }
   
+  // Get car image path based on model
+  const getCarImagePath = (model) => {
+    const imagePaths = {
+      'tiggo9': '/images/cars/tiggo9.png',
+      'tiggo9plus': '/images/cars/tiggo9plus.png',
+      'tiggo8': '/images/cars/tiggo8.png',
+      'tiggo8plus': '/images/cars/tiggo8plus.png',
+      'tiggo8pro': '/images/cars/tiggo8pro.png',
+      'tiggo7': '/images/cars/tiggo7.png',
+      'tiggo7pro': '/images/cars/tiggo7pro.png',
+      'tiggo4pro': '/images/cars/tiggo4pro.png',
+      'tiggo2pro': '/images/cars/tiggo2pro.png',
+      'arrizo8': '/images/cars/arrizo8.png',
+      'arrizo8plus': '/images/cars/arrizo8plus.png',
+      'arrizo6': '/images/cars/arrizo6.png',
+      'arrizo5plus': '/images/cars/arrizo5plus.png'
+    }
+    
+    return imagePaths[model] || '/images/cars/placeholder.png'
+  }
+  
   // Get car color for display
   const getCarColor = (model) => {
-    if (model?.includes('tiggo9')) return '#1E5945' // Dark green
+    if (model?.includes('tiggo9')) return THEME.secondary // Dark green
     if (model?.includes('tiggo8')) return '#2D7C5E' // Green  
     if (model?.includes('tiggo7')) return '#00A8E8' // Blue
     if (model?.includes('tiggo4')) return '#556B2F' // Olive
@@ -150,7 +191,7 @@ export default function MobileMenu({
     if (model?.includes('arrizo8')) return '#003F5C' // Navy
     if (model?.includes('arrizo6')) return '#444444' // Dark gray
     if (model?.includes('arrizo5')) return '#8A2BE2' // Purple
-    return '#1E5945' // Default green
+    return THEME.secondary // Default green
   }
   
   // Format model name for display
@@ -217,6 +258,7 @@ export default function MobileMenu({
   
   const specs = getModelSpecs(activeModel || 'tiggo9')
   const carColor = getCarColor(activeModel)
+  const carImagePath = getCarImagePath(activeModel)
   
   // Styling variables
   const menuBackgroundStyle = {
@@ -224,22 +266,13 @@ export default function MobileMenu({
   }
   
   const categoryBackgroundStyle = {
-    backgroundColor: '#1E5945',
-    color: 'white'
+    backgroundColor: THEME.secondary,
+    color: THEME.secondaryText
   }
   
   const subMenuBackgroundStyle = {
-    backgroundColor: '#174233',
-    color: 'white'
-  }
-  
-  const buttonStyle = {
-    backgroundColor: primaryBg,
-    color: 'white'
-  }
-  
-  const buttonHoverStyle = {
-    backgroundColor: primaryHover
+    backgroundColor: THEME.secondaryDark,
+    color: THEME.secondaryText
   }
   
   return (
@@ -362,18 +395,39 @@ export default function MobileMenu({
                     
                     {/* Car display for selected model */}
                     <div className="p-5 text-center bg-white">
-                      <div className="w-full h-32 sm:h-40 relative mb-5 rounded overflow-hidden shadow-md">
-                        <div style={{ 
-                          backgroundColor: carColor, 
-                          width: '100%', 
-                          height: '100%', 
-                          position: 'relative',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center' 
-                        }}>
-                          <div className="text-white text-2xl font-bold">
-                            {formatModelName(activeModel)}
+                      <div className="w-full h-32 sm:h-48 relative mb-5 rounded overflow-hidden shadow-md">
+                        {/* Car image container with fallback */}
+                        <div className="relative w-full h-full bg-gray-100 flex items-center justify-center">
+                          {/* Next.js Image with fallback to colored background */}
+                          <div className="relative w-full h-full">
+                            <Image 
+                              src={carImagePath}
+                              alt={`${formatModelName(activeModel)} vehicle`}
+                              fill
+                              className="object-contain"
+                              sizes="(max-width: 768px) 100vw, 600px"
+                              priority
+                              onError={(e) => {
+                                // If image fails to load, show colored div with text
+                                e.currentTarget.style.display = 'none';
+                                document.getElementById(`mobile-fallback-${activeModel}`).style.display = 'flex';
+                              }}
+                            />
+                            
+                            {/* Fallback colored div with text */}
+                            <div 
+                              id={`mobile-fallback-${activeModel}`}
+                              className="absolute inset-0 hidden items-center justify-center"
+                              style={{ 
+                                backgroundColor: carColor,
+                                color: 'white',
+                                display: 'none'
+                              }}
+                            >
+                              <div className="text-white text-2xl font-bold">
+                                {formatModelName(activeModel)}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -404,9 +458,12 @@ export default function MobileMenu({
                       <Link href={`/models/${activeModel}`}>
                         <button 
                           className="text-white border-none py-2 sm:py-3 px-6 sm:px-8 text-sm uppercase cursor-pointer transition-colors mt-4 sm:mt-6 rounded shadow-sm"
-                          style={buttonStyle}
-                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = primaryHover}
-                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = primaryBg}
+                          style={{ 
+                            backgroundColor: THEME.primary,
+                            color: THEME.primaryText
+                          }}
+                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = THEME.primaryDark}
+                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = THEME.primary}
                         >
                           Explore
                         </button>
@@ -484,7 +541,7 @@ export default function MobileMenu({
           <div className="flex justify-between items-center px-5 py-4 border-t border-gray-200 mt-auto">
             {/* Music control */}
             <button 
-              className={`p-2 rounded-full transition-colors hover:text-amber-700`}
+              className={`p-2 rounded-full transition-colors ${isPlaying ? 'text-gray-800' : 'text-gray-600 hover:text-gray-800'}`}
               onClick={toggleMusic}
               aria-label={isPlaying ? "Pause background music" : "Play background music"}
             >
@@ -498,7 +555,7 @@ export default function MobileMenu({
             {/* Search button */}
             <Link 
               href="#" 
-              className="text-gray-800 hover:text-amber-700 transition-colors" 
+              className="text-gray-800 hover:text-gray-600 transition-colors" 
               onClick={closeMenu}
               aria-label="Search"
             >
@@ -510,7 +567,7 @@ export default function MobileMenu({
             {/* Language button */}
             <Link 
               href="#" 
-              className="text-gray-800 hover:text-amber-700 transition-colors" 
+              className="text-gray-800 hover:text-gray-600 transition-colors" 
               onClick={closeMenu}
               aria-label="Language"
             >

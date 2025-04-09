@@ -3,7 +3,7 @@
 import { Music, Pause } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import MobileMenu from './MobileMenu'
 import ModelsMegaMenu from './ModelsMegaMenu'
 
@@ -13,8 +13,8 @@ const THEME = {
   primaryDark: '#a38a73',    // Darker tan for hover
   primaryText: 'white',      // Text on primary background
   
-  secondary: '#1E5945',      // Dark green for accents
-  secondaryDark: '#174233',  // Darker green
+  secondary: '#a38a73',      // Dark green for accents
+  secondaryDark: '#a38a73',  // Darker green
   secondaryText: 'white',    // Text on secondary background
 }
 
@@ -64,6 +64,9 @@ export default function Header() {
   const [isAboutSubMenuOpen, setIsAboutSubMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { playing, toggle } = useAudio('/background-music.mp3')
+  const modelsMenuRef = useRef(null)
+  const aboutMenuRef = useRef(null)
+  const timeoutRef = useRef(null)
   
   // Handle scroll event for header styling with throttling
   const handleScroll = useCallback(() => {
@@ -135,6 +138,15 @@ export default function Header() {
     };
   }, []);
   
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    }
+  }, []);
+  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
     // Close other menus when opening mobile menu
@@ -144,24 +156,53 @@ export default function Header() {
     }
   }
 
+  // For mobile - we still need click functionality
   const toggleMegaMenu = () => {
-    // Toggle mega menu
-    setIsMegaMenuOpen(!isMegaMenuOpen)
-    // Close other menus when opening this one
-    setIsAboutSubMenuOpen(false)
-    // Always close mobile menu
-    setIsMobileMenuOpen(false)
+    // Only respond to clicks on mobile
+    if (window.innerWidth < 768) {
+      setIsMegaMenuOpen(!isMegaMenuOpen)
+      setIsAboutSubMenuOpen(false)
+      setIsMobileMenuOpen(false)
+    }
   }
 
   const toggleAboutSubMenu = () => {
-    // Toggle about submenu
-    setIsAboutSubMenuOpen(!isAboutSubMenuOpen)
-    // Close other menus when opening this one
-    setIsMegaMenuOpen(false)
-    // Always close mobile menu
-    setIsMobileMenuOpen(false)
+    // Only respond to clicks on mobile
+    if (window.innerWidth < 768) {
+      setIsAboutSubMenuOpen(!isAboutSubMenuOpen)
+      setIsMegaMenuOpen(false)
+      setIsMobileMenuOpen(false)
+    }
   }
-
+  
+  // Hover handlers for desktop
+  const handleModelsMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsMegaMenuOpen(true)
+    setIsAboutSubMenuOpen(false)
+  }
+  
+  const handleAboutMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsAboutSubMenuOpen(true)
+    setIsMegaMenuOpen(false)
+  }
+  
+  const handleMouseLeave = () => {
+    // Use timeout to prevent menu from closing immediately when moving from button to menu
+    timeoutRef.current = setTimeout(() => {
+      setIsMegaMenuOpen(false)
+      setIsAboutSubMenuOpen(false)
+    }, 300) // 300ms delay before closing
+  }
+  
+  const handleMenuMouseEnter = () => {
+    // Cancel the timeout when entering the menu
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+  }
+  
   const closeMegaMenu = () => {
     setIsMegaMenuOpen(false)
   }
@@ -231,13 +272,19 @@ export default function Header() {
           {/* Main Navigation - Left aligned */}
           <nav className="hidden md:flex items-center ml-10" aria-label="Main navigation">
             <ul className="flex list-none">
-              <li className="relative mr-5">
+              <li 
+                className="relative mr-5" 
+                ref={modelsMenuRef}
+                onMouseEnter={handleModelsMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
                 <button 
                   className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors
                              ${isMegaMenuOpen ? 'text-gray-600 bg-gray-100' : ''}`}
                   onClick={toggleMegaMenu}
                   aria-expanded={isMegaMenuOpen}
                   aria-controls="models-mega-menu"
+                  aria-haspopup="true"
                 >
                   MODELS
                   <span className="ml-1 text-xs inline-block transition-transform duration-300" 
@@ -254,13 +301,19 @@ export default function Header() {
                   NEWS
                 </Link>
               </li>
-              <li className="relative mr-5">
+              <li 
+                className="relative mr-5"
+                ref={aboutMenuRef}
+                onMouseEnter={handleAboutMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
                 <button 
                   className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors
                              ${isAboutSubMenuOpen ? 'text-gray-600 bg-gray-100' : ''}`}
                   onClick={toggleAboutSubMenu}
                   aria-expanded={isAboutSubMenuOpen}
                   aria-controls="about-sub-menu"
+                  aria-haspopup="true"
                 >
                   ABOUT CHERY
                   <span className="ml-1 text-xs inline-block transition-transform duration-300" 
@@ -346,6 +399,8 @@ export default function Header() {
         <div 
           id="about-sub-menu"
           className="fixed top-16 md:top-20 left-0 right-0 bg-gray-100 shadow-md z-40 transition-all duration-300 w-full"
+          onMouseEnter={handleMenuMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <div className="px-4 sm:px-6 lg:px-8 py-4">
             <ul className="flex flex-wrap justify-start -mx-2">
@@ -365,16 +420,18 @@ export default function Header() {
         </div>
       )}
       
-      {/* Models Mega Menu - Important: This needs to render OUTSIDE of the header element */}
+      {/* Models Mega Menu */}
       {isMegaMenuOpen && (
-        <ModelsMegaMenu 
-          id="models-mega-menu"
-          isOpen={true} 
-          onClose={closeMegaMenu} 
-          primaryBg={THEME.primary}
-          primaryText={THEME.primaryText}
-          primaryHover={THEME.primaryDark}
-        />
+        <div onMouseEnter={handleMenuMouseEnter} onMouseLeave={handleMouseLeave}>
+          <ModelsMegaMenu 
+            id="models-mega-menu"
+            isOpen={true} 
+            onClose={closeMegaMenu} 
+            primaryBg={THEME.primary}
+            primaryText={THEME.primaryText}
+            primaryHover={THEME.primaryDark}
+          />
+        </div>
       )}
       
       {/* Mobile Menu */}
