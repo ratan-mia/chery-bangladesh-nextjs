@@ -224,7 +224,7 @@ const NewsComponent = () => {
                 <div className="mt-auto">
                   <a
                     href={item.link}
-                    className="inline-flex items-center justify-center px-6 py-2 bg-primary-600 text-white font-medium  hover:bg-blue-700 transition-colors duration-300"
+                    className="inline-flex items-center justify-center px-6 py-2 bg-primary-600 text-white font-medium  hover:bg-primary-900 transition-colors duration-300"
                     aria-label={`Read more about ${item.title}`}
                   >
                     Read More
@@ -240,7 +240,7 @@ const NewsComponent = () => {
           <div className="mt-12 text-center">
             <motion.button
               onClick={handleLoadMore}
-              className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium  hover:bg-blue-700 transition-colors duration-300"
+              className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium  hover:bg-primary-900 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
