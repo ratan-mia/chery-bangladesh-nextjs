@@ -223,10 +223,10 @@ export default function Header() {
   
   // About submenu items
   const aboutSubMenuItems = [
-    { label: 'COMPANY HISTORY', href: '#history' },
-    { label: 'BRAND VALUES', href: '#values' },
-    { label: 'SUSTAINABILITY', href: '#sustainability' },
-    { label: 'LEADERSHIP TEAM', href: '#leadership' },
+    { label: 'COMPANY HISTORY', href: '/about' },
+    { label: 'HONORS', href: '/honors' },
+    { label: 'ENVIRONMENT', href: '/environment' },
+    { label: 'OPERATIONS', href: '/aboutchery/operations' },
     { label: 'CAREERS', href: '#careers' }
   ]
 
