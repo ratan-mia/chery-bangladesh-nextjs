@@ -1,17 +1,74 @@
-'use client';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, ChevronRight, Share2, Tag } from 'lucide-react';
-import React from 'react';
 
-const SingleNewsPage = () => {
-  // Mock data for the single news article
-  const article = {
+import { notFound } from 'next/navigation';
+import SingleNewsPage from '../../components/news/SingleNewsPage';
+
+// Sample data array - in a real application, this would come from an API or database
+const allNewsItems = [
+  {
+    id: 1,
+    category: 'information',
+    image: "/api/placeholder/1200/600",
+    date: "March 19, 2025",
+    title: "The Fashion Code of Global Success: Decoding the Aesthetic DNA Behind Our Latest Models",
+    author: "Design Team",
+    content: `
+      <p class="mb-6">Aesthetics play a crucial role in the automotive industry, often becoming the first point of connection between a vehicle and its potential owner. Our latest models represent years of research into what makes design resonate across different cultures and markets.</p>
+      
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">The Universal Language of Design</h2>
+      <p class="mb-6">While preferences vary across regions, our research identified several universal design elements that create emotional connections regardless of cultural background. These elements have been carefully integrated into our latest lineup.</p>
+      
+      <p class="mb-6">Key insights from our global design study:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Balanced proportions create a sense of stability that appeals across all markets</li>
+        <li>Dynamic lines suggest performance and technological advancement</li>
+        <li>Thoughtful detailing signals quality and attention to craftsmanship</li>
+        <li>Distinctive lighting signatures establish brand recognition</li>
+      </ul>
+      
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">Cultural Nuance in Global Design</h2>
+      <p class="mb-6">While maintaining a consistent design language, we've incorporated subtle cultural preferences that help our vehicles feel at home in diverse markets. These adaptations never compromise the core design but enhance relevance for local consumers.</p>
+      
+      <div class="bg-gray-100 p-6 rounded-lg mb-6">
+        <blockquote class="text-gray-700 italic">
+          "Great design speaks to universal human preferences while acknowledging cultural context. It's not about different designs for different markets—it's about creating a cohesive design with thoughtful variations."
+        </blockquote>
+        <p class="text-gray-600 mt-3">— Head of Global Design</p>
+      </div>
+      
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">The Future of Global Design</h2>
+      <p class="mb-6">Our ongoing research continues to explore the evolution of global design preferences, allowing us to stay ahead of trends while maintaining timeless appeal. The next generation of vehicles will build on these foundations while pushing boundaries in new directions.</p>
+      
+      <p>The success of our design approach is ultimately measured in the emotional connection customers feel with our vehicles—a connection that transcends borders and speaks to universal appreciation for thoughtful, purposeful design.</p>
+    `,
+    tags: ['Design', 'Global Markets', 'Research', 'Innovation'],
+    relatedArticles: [
+      {
+        id: 5,
+        title: "Unveiling the Future: Highlights from the International Auto Expo",
+        date: "February 22, 2025",
+        link: "/news/5"
+      },
+      {
+        id: 7,
+        title: "The Future of Mobility: Trends Shaping Next-Generation Transportation",
+        date: "February 10, 2025",
+        link: "/news/7"
+      },
+      {
+        id: 9,
+        title: "Global Expansion: New Markets and Growth Opportunities in 2025",
+        date: "January 30, 2025",
+        link: "/news/9"
+      }
+    ]
+  },
+  {
     id: 2,
     category: 'product',
     image: "/api/placeholder/1200/600",
     date: "March 14, 2025",
     title: "The Secret to Milestones: TIGGO 4's Path to Global Trust via Safety Excellence",
-    author: "Marketing Team",
+    author: "Safety Engineering Team",
     content: `
       <p class="mb-6">The automotive industry has witnessed numerous innovations over the decades, but safety remains a cornerstone of consumer trust and brand reputation. For the TIGGO 4, safety excellence wasn't just a marketing slogan—it became the foundation of its global success story.</p>
       
@@ -54,201 +111,141 @@ const SingleNewsPage = () => {
         id: 8,
         title: "Advanced Safety Features: The Technology Behind Our 5-Star Rating",
         date: "February 05, 2025",
-        link: "#"
+        link: "/news/8"
       },
       {
         id: 5,
         title: "Unveiling the Future: Highlights from the International Auto Expo",
         date: "February 22, 2025",
-        link: "#"
+        link: "/news/5"
       },
       {
         id: 9,
         title: "Global Expansion: New Markets and Growth Opportunities in 2025",
         date: "January 30, 2025",
-        link: "#"
+        link: "/news/9"
       }
     ]
-  };
-
-  // Animation variants
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: { 
-      opacity: 1,
-      transition: { 
-        duration: 0.5,
-        staggerChildren: 0.2 
+  },
+  {
+    id: 3,
+    category: 'partnerships',
+    image: "/api/placeholder/1200/600",
+    date: "March 04, 2025",
+    title: "Allianz Partners and Chery International sign Strategic Partnership Agreement to Enhance Customer Experience",
+    author: "Partnership Team",
+    content: `
+      <p class="mb-6">In a significant move that promises to elevate the ownership experience for customers worldwide, Chery International and Allianz Partners have entered into a comprehensive strategic partnership. The agreement, signed on February 15, 2025, in Wuhu, Anhui, China, marks a new chapter in automotive customer service and protection.</p>
+      
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">A Global Vision for Customer Care</h2>
+      <p class="mb-6">The partnership between Chery International and Allianz Partners represents a shared commitment to customer-centric values and global excellence. By combining Chery's innovative vehicle technologies with Allianz's world-class insurance and assistance services, the collaboration aims to create a seamless, comprehensive ownership experience.</p>
+      
+      <p class="mb-6">Key elements of the partnership include:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Tailored insurance solutions integrated with vehicle purchase</li>
+        <li>24/7 global roadside assistance with premium service levels</li>
+        <li>Extended warranty programs with enhanced coverage</li>
+        <li>Digital-first customer service platforms with multilingual support</li>
+        <li>Specialized protection for next-generation electric and hybrid vehicles</li>
+      </ul>
+      
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">Implementation Timeline</h2>
+      <p class="mb-6">The partnership will roll out in phases, beginning with key European and Asian markets in Q3 2025, followed by expansion to additional regions by early 2026. The phased approach allows for market-specific customization while maintaining consistent global service standards.</p>
+      
+      <div class="bg-gray-100 p-6 rounded-lg mb-6">
+        <blockquote class="text-gray-700 italic">
+          "This partnership represents our shared commitment to customer peace of mind. Together, we're creating protection and service solutions that match the quality and innovation of Chery vehicles themselves."
+        </blockquote>
+        <p class="text-gray-600 mt-3">— Allianz Partners CEO</p>
+      </div>
+      
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">Customer Benefits</h2>
+      <p class="mb-6">For Chery customers, the partnership delivers immediate tangible benefits, including simplified claims processes, priority service scheduling, and integrated digital tools for managing all aspects of vehicle ownership and protection. The partnership's customer-first approach aligns perfectly with both companies' long-term strategies for growth and customer satisfaction.</p>
+      
+      <p>As both companies look to the future, this strategic alliance establishes a foundation for ongoing collaboration in emerging areas such as mobility services, connected vehicle technologies, and sustainable transportation solutions.</p>
+    `,
+    tags: ['Partnerships', 'Allianz', 'Customer Service', 'Global'],
+    relatedArticles: [
+      {
+        id: 10,
+        title: "Strategic Technology Alliance: Enhancing Electric Vehicle Capabilities",
+        date: "January 25, 2025",
+        link: "/news/10"
+      },
+      {
+        id: 9,
+        title: "Global Expansion: New Markets and Growth Opportunities in 2025",
+        date: "January 30, 2025",
+        link: "/news/9"
+      },
+      {
+        id: 6,
+        title: "Innovation Summit 2025: Connecting Global Automotive Leaders",
+        date: "February 15, 2025",
+        link: "/news/6"
       }
-    }
+    ]
+  }
+  // Add more news items as needed
+];
+
+// This function will generate metadata for the page
+export async function generateMetadata({ params }) {
+  const post = allNewsItems.find(item => item.id === parseInt(params.id));
+  
+  if (!post) {
+    return {
+      title: 'Article Not Found',
+      description: 'The requested article could not be found.'
+    };
+  }
+  
+  // Extract plain text from HTML content for description
+  const plainTextContent = post.content.replace(/<[^>]*>/g, '');
+  const description = plainTextContent.substring(0, 160) + '...';
+  
+  return {
+    title: post.title,
+    description: description,
+    openGraph: {
+      title: post.title,
+      description: description,
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 600,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: description,
+      images: [post.image],
+    },
   };
+}
 
-  const itemVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
+// Generate static paths for all news items
+export async function generateStaticParams() {
+  return allNewsItems.map(post => ({
+    id: post.id.toString()
+  }));
+}
 
-  return (
-    <motion.div 
-      className="bg-gray-50 min-h-screen"
-      initial="initial"
-      animate="animate"
-      variants={pageVariants}
-    >
-      {/* Header Image */}
-      <div className="w-full h-96 relative bg-gray-800 overflow-hidden">
-        <img 
-          src={article.image} 
-          alt={article.title} 
-          className="w-full h-full object-cover opacity-80"
-        />
-        <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-gray-900 to-transparent">
-          <div className="container mx-auto">
-            <span className="inline-block bg-primary-600 text-white text-sm font-medium px-3 py-1 mb-4">
-              {article.category.charAt(0).toUpperCase() + article.category.slice(1)}
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{article.title}</h1>
-            <div className="flex items-center text-white/80 text-sm">
-              <Calendar size={16} className="mr-2" />
-              <span>{article.date}</span>
-              <span className="mx-3">•</span>
-              <span>{article.author}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex items-center text-sm text-gray-500">
-          <a href="/" className="hover:text-primary-700">Home</a>
-          <ChevronRight size={14} className="mx-2" />
-          <a href="/news" className="hover:text-primary-700">News</a>
-          <ChevronRight size={14} className="mx-2" />
-          <span className="text-gray-700">{article.title.substring(0, 30)}...</span>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <motion.div 
-            className="lg:col-span-2"
-            variants={itemVariants}
-          >
-            {/* Back button */}
-            <div className="mb-8">
-              <a 
-                href="/news" 
-                className="inline-flex items-center text-primary-700 hover:text-primary-900 font-medium"
-              >
-                <ArrowLeft size={18} className="mr-2" />
-                Back to News
-              </a>
-            </div>
-
-            {/* Article content */}
-            <motion.div 
-              className="bg-white rounded-lg shadow-sm p-8"
-              variants={itemVariants}
-            >
-              <div 
-                className="prose max-w-none text-gray-700"
-                dangerouslySetInnerHTML={{ __html: article.content }}
-              />
-
-              {/* Tags */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="flex items-center flex-wrap gap-2">
-                  <Tag size={18} className="text-gray-500 mr-2" />
-                  {article.tags.map((tag, index) => (
-                    <a 
-                      key={index} 
-                      href={`/news/tag/${tag.toLowerCase()}`}
-                      className="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full hover:bg-gray-200 transition-colors"
-                    >
-                      {tag}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Share */}
-              <div className="mt-6 flex items-center">
-                <span className="text-gray-700 mr-4">Share this article:</span>
-                <div className="flex space-x-3">
-                  <button className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-colors">
-                    <Share2 size={18} />
-                  </button>
-                  {/* Add more social share buttons as needed */}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Sidebar */}
-          <motion.div 
-            className="lg:col-span-1"
-            variants={itemVariants}
-          >
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Related Articles</h3>
-              <div className="space-y-6">
-                {article.relatedArticles.map((related) => (
-                  <div key={related.id} className="group">
-                    <h4 className="font-medium text-gray-900 group-hover:text-primary-700 transition-colors">
-                      <a href={related.link}>{related.title}</a>
-                    </h4>
-                    <p className="text-sm text-gray-500 mt-1">{related.date}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Contact Us</h3>
-                <p className="text-gray-700 mb-4">Looking for more information about our products or services?</p>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center w-full px-6 py-3 bg-primary-600 text-white font-medium hover:bg-primary-900 transition-colors duration-300"
-                >
-                  Get in Touch
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Newsletter signup */}
-      <div className="bg-gray-100 py-12">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-lg shadow-sm p-8 md:p-12">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-12">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Stay Updated</h3>
-                <p className="text-gray-700">Subscribe to our newsletter for the latest news and updates.</p>
-              </div>
-              <div className="w-full md:w-auto">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input 
-                    type="email" 
-                    placeholder="Your email address" 
-                    className="border border-gray-300 rounded-md px-4 py-3 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                  />
-                  <button className="bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-900 transition-colors whitespace-nowrap">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-export default SingleNewsPage;
+// The main page component - server component
+export default function NewsDetail({ params }) {
+  const { id } = params;
+  
+  // Find the post with the matching ID
+  const post = allNewsItems.find(item => item.id === parseInt(id));
+  
+  // If post not found, return 404
+  if (!post) {
+    notFound();
+  }
+  
+  return <SingleNewsPage post={post} />;
+}
