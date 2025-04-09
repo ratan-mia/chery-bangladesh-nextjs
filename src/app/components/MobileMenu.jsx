@@ -1,14 +1,26 @@
 'use client'
 
+import { Music, Pause } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
-export default function MobileMenu({ isOpen, closeMenu }) {
+export default function MobileMenu({ 
+  id,
+  isOpen, 
+  closeMenu, 
+  primaryBg = '#b29980', 
+  primaryText = 'black',
+  primaryHover = '#a38a73',
+  aboutSubMenuItems = []
+}) {
   const [activeSubmenu, setActiveSubmenu] = useState(null)
+  const [isAboutSubMenuOpen, setIsAboutSubMenuOpen] = useState(false)
   const [activeModelCategory, setActiveModelCategory] = useState('tiggo')
   const [activeModel, setActiveModel] = useState('tiggo9')
   const [openModelSubmenus, setOpenModelSubmenus] = useState({})
+  const [isPlaying, setIsPlaying] = useState(false)
   const menuRef = useRef(null)
+  const audioRef = useRef(null)
   
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -35,6 +47,48 @@ export default function MobileMenu({ isOpen, closeMenu }) {
     }
   }, [isOpen])
   
+  // Initialize audio
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      audioRef.current = new Audio('/background-music.mp3')
+      audioRef.current.loop = true
+      audioRef.current.volume = 0.5
+      
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.pause()
+          audioRef.current = null
+        }
+      }
+    }
+  }, [])
+  
+  // Handle ESC key to close menu
+  useEffect(() => {
+    const handleEscKey = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeMenu()
+      }
+    }
+    
+    window.addEventListener('keydown', handleEscKey)
+    return () => window.removeEventListener('keydown', handleEscKey)
+  }, [isOpen, closeMenu])
+  
+  const toggleMusic = () => {
+    if (isPlaying) {
+      audioRef.current?.pause()
+    } else {
+      const playPromise = audioRef.current?.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log('Playback was prevented:', error)
+        })
+      }
+    }
+    setIsPlaying(!isPlaying)
+  }
+  
   const toggleMainSubmenu = (submenu) => {
     setActiveSubmenu(activeSubmenu === submenu ? null : submenu)
     
@@ -42,6 +96,15 @@ export default function MobileMenu({ isOpen, closeMenu }) {
     if (activeSubmenu !== submenu) {
       setOpenModelSubmenus({})
     }
+    
+    // Close About submenu when opening a different submenu
+    if (submenu !== 'about') {
+      setIsAboutSubMenuOpen(false)
+    }
+  }
+  
+  const toggleAboutSubmenu = () => {
+    setIsAboutSubMenuOpen(!isAboutSubMenuOpen)
   }
   
   const handleCategoryClick = (category) => {
@@ -79,15 +142,15 @@ export default function MobileMenu({ isOpen, closeMenu }) {
   
   // Get car color for display
   const getCarColor = (model) => {
-    if (model?.includes('tiggo9')) return '#008770' // Teal
-    if (model?.includes('tiggo8')) return '#1E5945' // Dark green  
+    if (model?.includes('tiggo9')) return '#1E5945' // Dark green
+    if (model?.includes('tiggo8')) return '#2D7C5E' // Green  
     if (model?.includes('tiggo7')) return '#00A8E8' // Blue
     if (model?.includes('tiggo4')) return '#556B2F' // Olive
     if (model?.includes('tiggo2')) return '#C23B22' // Red
     if (model?.includes('arrizo8')) return '#003F5C' // Navy
     if (model?.includes('arrizo6')) return '#444444' // Dark gray
     if (model?.includes('arrizo5')) return '#8A2BE2' // Purple
-    return '#008770' // Default teal
+    return '#1E5945' // Default green
   }
   
   // Format model name for display
@@ -155,6 +218,30 @@ export default function MobileMenu({ isOpen, closeMenu }) {
   const specs = getModelSpecs(activeModel || 'tiggo9')
   const carColor = getCarColor(activeModel)
   
+  // Styling variables
+  const menuBackgroundStyle = {
+    backgroundColor: '#ffffff'
+  }
+  
+  const categoryBackgroundStyle = {
+    backgroundColor: '#1E5945',
+    color: 'white'
+  }
+  
+  const subMenuBackgroundStyle = {
+    backgroundColor: '#174233',
+    color: 'white'
+  }
+  
+  const buttonStyle = {
+    backgroundColor: primaryBg,
+    color: 'white'
+  }
+  
+  const buttonHoverStyle = {
+    backgroundColor: primaryHover
+  }
+  
   return (
     <>
       {/* Backdrop overlay */}
@@ -163,14 +250,20 @@ export default function MobileMenu({ isOpen, closeMenu }) {
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={closeMenu}
+        aria-hidden="true"
       />
       
       {/* Mobile menu */}
       <div 
+        id={id}
         ref={menuRef}
         className={`fixed top-0 right-0 w-full sm:w-4/5 md:w-3/5 h-full bg-white z-30 overflow-y-auto transition-transform duration-300 transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } pt-16 max-h-screen`}
+        style={menuBackgroundStyle}
+        aria-modal="true"
+        role="dialog"
+        aria-label="Mobile navigation menu"
       >
         <div className="mobile-menu-container h-full flex flex-col">
           {/* Close button */}
@@ -184,12 +277,14 @@ export default function MobileMenu({ isOpen, closeMenu }) {
             </svg>
           </button>
           
-          <nav className="mb-5 flex-grow">
+          <nav className="mb-5 flex-grow" aria-label="Mobile navigation">
             <ul className="list-none border-b border-gray-200">
               <li className="border-b border-gray-100">
                 <button 
-                  className="text-gray-800 w-full text-left text-base px-5 py-4 block uppercase flex justify-between items-center"
+                  className="text-gray-800 w-full text-left text-base px-5 py-4 block uppercase flex justify-between items-center hover:bg-gray-100 transition-colors"
                   onClick={() => toggleMainSubmenu('models')}
+                  aria-expanded={activeSubmenu === 'models'}
+                  aria-controls={`${id}-models-submenu`}
                 >
                   Models
                   <span className="text-2xl">{activeSubmenu === 'models' ? '−' : '+'}</span>
@@ -197,12 +292,15 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                 
                 {/* Models submenu */}
                 {activeSubmenu === 'models' && (
-                  <div className="transition-all duration-300 ease-in-out">
-                    <div className="bg-primary-700 text-white">
+                  <div 
+                    id={`${id}-models-submenu`}
+                    className="transition-all duration-300 ease-in-out"
+                  >
+                    <div style={categoryBackgroundStyle}>
                       <ul className="list-none flex">
                         <li 
                           className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
-                            activeModelCategory === 'tiggo' ? 'bg-primary bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                            activeModelCategory === 'tiggo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                           }`}
                           onClick={() => handleCategoryClick('tiggo')}
                         >
@@ -210,7 +308,7 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                         </li>
                         <li 
                           className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
-                            activeModelCategory === 'arrizo' ? 'bg-primary bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                            activeModelCategory === 'arrizo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                           }`}
                           onClick={() => handleCategoryClick('arrizo')}
                         >
@@ -219,12 +317,12 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                       </ul>
                     </div>
                     
-                    <div className="bg-primary-800 overflow-hidden transition-all duration-300">
+                    <div style={subMenuBackgroundStyle} className="overflow-hidden transition-all duration-300">
                       <ul className="list-none">
                         {getModelList().map((model) => (
                           <div key={model.id}>
                             <li 
-                              className={`py-3 px-5 sm:px-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 transition-colors ${
+                              className={`py-3 px-5 sm:px-8 flex justify-between items-center cursor-pointer border-b border-white border-opacity-10 transition-colors ${
                                 activeModel === model.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                               }`}
                               onClick={() => model.hasSubmenu ? toggleModelSubmenu(model.id) : handleModelClick(model.id)}
@@ -239,15 +337,16 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                             
                             {model.hasSubmenu && (
                               <ul 
-                                className={`list-none bg-primary-900 transition-all duration-300 ${
+                                className={`list-none transition-all duration-300 ${
                                   openModelSubmenus[model.id] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
                                 }`}
+                                style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
                               >
                                 {getSubmenuItems(model.id).map((subItem) => (
                                   <li 
                                     key={subItem.id}
-                                    className={`py-3 pl-8 sm:pl-12 pr-5 sm:pr-8 flex justify-between items-center text-white cursor-pointer border-b border-white border-opacity-10 transition-colors ${
-                                      activeModel === subItem.id ? 'bg-primary-700 active:bg-primary-900 bg-opacity-20' : 'hover:bg-primary-700 hover:bg-opacity-10'
+                                    className={`py-3 pl-8 sm:pl-12 pr-5 sm:pr-8 flex justify-between items-center cursor-pointer border-b border-white border-opacity-10 transition-colors ${
+                                      activeModel === subItem.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                                     }`}
                                     onClick={() => handleModelClick(subItem.id)}
                                   >
@@ -303,7 +402,12 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                       </div>
                       
                       <Link href={`/models/${activeModel}`}>
-                        <button className="bg-primary-700 text-white border-none py-2 sm:py-3 px-6 sm:px-8 text-sm uppercase cursor-pointer hover:bg-primary-800 active:bg-primary-900 transition-colors mt-4 sm:mt-6 rounded shadow-sm">
+                        <button 
+                          className="text-white border-none py-2 sm:py-3 px-6 sm:px-8 text-sm uppercase cursor-pointer transition-colors mt-4 sm:mt-6 rounded shadow-sm"
+                          style={buttonStyle}
+                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = primaryHover}
+                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = primaryBg}
+                        >
                           Explore
                         </button>
                       </Link>
@@ -321,13 +425,40 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                 </Link>
               </li>
               <li className="border-b border-gray-100">
-                <Link 
-                  href="#" 
-                  className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
-                  onClick={closeMenu}
+                <button 
+                  className="text-gray-800 w-full text-left text-base px-5 py-4 block uppercase flex justify-between items-center hover:bg-gray-100 transition-colors"
+                  onClick={() => {
+                    toggleMainSubmenu('about');
+                    toggleAboutSubmenu();
+                  }}
+                  aria-expanded={activeSubmenu === 'about' && isAboutSubMenuOpen}
+                  aria-controls={`${id}-about-submenu`}
                 >
                   About Chery
-                </Link>
+                  <span className="text-2xl">{activeSubmenu === 'about' && isAboutSubMenuOpen ? '−' : '+'}</span>
+                </button>
+                
+                {/* About submenu */}
+                {activeSubmenu === 'about' && isAboutSubMenuOpen && aboutSubMenuItems.length > 0 && (
+                  <div 
+                    id={`${id}-about-submenu`}
+                    className="bg-gray-100 pl-5"
+                  >
+                    <ul className="list-none">
+                      {aboutSubMenuItems.map((item, index) => (
+                        <li key={index} className="border-t border-gray-200 first:border-t-0">
+                          <Link 
+                            href={item.href} 
+                            className="text-gray-700 no-underline text-sm py-3 px-4 block hover:bg-gray-200 transition-colors"
+                            onClick={closeMenu}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </li>
               <li className="border-b border-gray-100">
                 <Link 
@@ -351,6 +482,20 @@ export default function MobileMenu({ isOpen, closeMenu }) {
           </nav>
           
           <div className="flex justify-between items-center px-5 py-4 border-t border-gray-200 mt-auto">
+            {/* Music control */}
+            <button 
+              className={`p-2 rounded-full transition-colors hover:text-amber-700`}
+              onClick={toggleMusic}
+              aria-label={isPlaying ? "Pause background music" : "Play background music"}
+            >
+              {isPlaying ? (
+                <Pause className="w-6 h-6" />
+              ) : (
+                <Music className="w-6 h-6" />
+              )}
+            </button>
+          
+            {/* Search button */}
             <Link 
               href="#" 
               className="text-gray-800 hover:text-amber-700 transition-colors" 
@@ -361,6 +506,8 @@ export default function MobileMenu({ isOpen, closeMenu }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </Link>
+            
+            {/* Language button */}
             <Link 
               href="#" 
               className="text-gray-800 hover:text-amber-700 transition-colors" 
