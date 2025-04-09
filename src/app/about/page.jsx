@@ -6,7 +6,7 @@ import CommunitySection from "../components/about/CommunitySection";
 import ParallaxHeroSection from "../components/about/ParallaxHeroSection";
 import VisionMissionSection from "../components/about/VisionMissionSection";
 
-export default function Home() {
+export default function About() {
   return (
     <main>
       <ParallaxHeroSection />
