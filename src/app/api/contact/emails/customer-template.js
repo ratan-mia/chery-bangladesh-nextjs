@@ -46,10 +46,9 @@ export function generateCustomerEmailTemplate(formData, refNumber) {
         <div style="text-align: center; margin-top: 30px;">
           <p>Connect with us:</p>
           <div>
-            <!-- Social icons would be added here in production -->
-            <span style="display: inline-block; background-color: #f0f0f0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin: 0 5px;">FB</span>
-            <span style="display: inline-block; background-color: #f0f0f0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin: 0 5px;">IG</span>
-            <span style="display: inline-block; background-color: #f0f0f0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin: 0 5px;">YT</span>
+            <a href="https://www.facebook.com/CheryBDofficial" style="display: inline-block; background-color: #f0f0f0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin: 0 5px; text-decoration: none; color: #333333;" title="Facebook">FB</a>
+            <a href="https://www.linkedin.com/company/chery-bangladesh/" style="display: inline-block; background-color: #f0f0f0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin: 0 5px; text-decoration: none; color: #333333;" title="LinkedIn">LI</a>
+            <a href="https://www.youtube.com/@cherybangladesh" style="display: inline-block; background-color: #f0f0f0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin: 0 5px; text-decoration: none; color: #333333;" title="YouTube">YT</a>
           </div>
         </div>
   
