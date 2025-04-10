@@ -93,19 +93,30 @@ export default function ContactForm({ models }) {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     
-    if (!validateForm()) return
+    if (!validateForm()) return;
     
-    setIsSubmitting(true)
-    setSubmitSuccess(false)
-    setSubmitError(false)
+    setIsSubmitting(true);
+    setSubmitSuccess(false);
+    setSubmitError(false);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       
-      setSubmitSuccess(true)
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
+      
+      setSubmitSuccess(true);
       setFormData({
         name: '',
         email: '',
@@ -113,14 +124,14 @@ export default function ContactForm({ models }) {
         subject: '',
         message: '',
         model: ''
-      })
+      });
     } catch (error) {
-      console.error('Error submitting form:', error)
-      setSubmitError(true)
+      console.error('Error submitting form:', error);
+      setSubmitError(true);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <motion.div
