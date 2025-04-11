@@ -363,6 +363,38 @@ body {
     color: var(--color-brown-950);
   }
 
+  /* Text utilities for primary color */
+  .text-primary-50 {
+    color: rgba(var(--color-primary-rgb), 0.05);
+  }
+  .text-primary-100 {
+    color: rgba(var(--color-primary-rgb), 0.1);
+  }
+  .text-primary-200 {
+    color: rgba(var(--color-primary-rgb), 0.2);
+  }
+  .text-primary-300 {
+    color: rgba(var(--color-primary-rgb), 0.3);
+  }
+  .text-primary-400 {
+    color: rgba(var(--color-primary-rgb), 0.4);
+  }
+  .text-primary-500 {
+    color: var(--color-primary);
+  }
+  .text-primary-600 {
+    color: var(--color-primary-700);
+  }
+  .text-primary-700 {
+    color: var(--color-primary-700);
+  }
+  .text-primary-800 {
+    color: var(--color-primary-800);
+  }
+  .text-primary-900 {
+    color: var(--color-primary-900);
+  }
+
   /* Border utilities */
   .border-brown-50 {
     border-color: var(--color-brown-50);
