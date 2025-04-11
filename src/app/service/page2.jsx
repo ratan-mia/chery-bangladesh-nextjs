@@ -2,33 +2,128 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-
-// Import components
-import Footer from '@/components/Footer';
-import AssistanceCTA from '@/components/services/AssistanceCTA';
-import CustomerReviews from '@/components/services/CustomerReviews';
-import EmergencyAssistance from '@/components/services/EmergencyAssistance';
-import MaintenanceSchedule from '@/components/services/MaintenanceSchedule';
-import PremiumServices from '@/components/services/PremiumServices';
-import RoadsideAssistance from '@/components/services/RoadsideAssistance';
-import ServiceProcess from '@/components/services/ServiceProcess';
-import WarrantySection from '@/components/services/WarrantySection';
-import WhyChooseChery from '@/components/services/WhyChooseChery';
-
-// Custom Service Page Components
+import { useState } from 'react';
 
 const ServicePage = () => {
+  // State for service category filter
+  const [activeCategory, setActiveCategory] = useState('all');
+  
+  // Service categories
+  const categories = [
+    { id: 'all', name: 'All Services' },
+    { id: 'maintenance', name: 'Maintenance' },
+    { id: 'repair', name: 'Repair' },
+    { id: 'diagnostics', name: 'Diagnostics' },
+    { id: 'cosmetic', name: 'Cosmetic' }
+  ];
+  
+  // Service offerings with categories
+  const services = [
+    {
+      id: 1,
+      title: "Regular Maintenance Service",
+      category: "maintenance",
+      description: "Comprehensive vehicle check including oil change, filter replacement, and multi-point inspection to keep your Chery running at its best.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 4,500",
+      duration: "3 hours",
+      featuredService: true
+    },
+    {
+      id: 2,
+      title: "Full Engine Diagnostics",
+      category: "diagnostics",
+      description: "Complete computer diagnostics to identify and resolve engine performance issues using Chery's proprietary diagnostic equipment.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 2,500",
+      duration: "1.5 hours",
+      featuredService: true
+    },
+    {
+      id: 3,
+      title: "Brake System Service",
+      category: "repair",
+      description: "Full brake inspection and service including pad replacement, rotor resurfacing, and brake fluid flush for optimal stopping power.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 5,500",
+      duration: "4 hours",
+      featuredService: true
+    },
+    {
+      id: 4,
+      title: "Air Conditioning Service",
+      category: "repair",
+      description: "Complete A/C system service including refrigerant recharge, leak detection, and component inspection for maximum comfort.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 3,500",
+      duration: "2 hours",
+      featuredService: false
+    },
+    {
+      id: 5,
+      title: "Transmission Service",
+      category: "maintenance",
+      description: "Transmission fluid change, filter replacement, and system inspection to ensure smooth gear shifting and optimal transmission performance.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 6,000",
+      duration: "3 hours",
+      featuredService: false
+    },
+    {
+      id: 6,
+      title: "Battery Replacement",
+      category: "repair",
+      description: "Battery testing, replacement, and electrical system check to ensure reliable starting and electrical system performance.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 7,000",
+      duration: "1 hour",
+      featuredService: false
+    },
+    {
+      id: 7,
+      title: "Premium Detailing",
+      category: "cosmetic",
+      description: "Complete interior and exterior detailing including paint correction, interior deep cleaning, and protective treatments.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 8,500",
+      duration: "6 hours",
+      featuredService: true
+    },
+    {
+      id: 8,
+      title: "Wheel Alignment",
+      category: "maintenance",
+      description: "Precision alignment of all four wheels to factory specifications for optimal handling, tire wear, and fuel efficiency.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 2,800",
+      duration: "1.5 hours",
+      featuredService: false
+    },
+    {
+      id: 9,
+      title: "Timing Belt Replacement",
+      category: "repair",
+      description: "Complete timing belt replacement service including water pump and tensioner replacement to prevent engine damage.",
+      image: "/api/placeholder/800/500",
+      price: "৳ 12,000",
+      duration: "5 hours",
+      featuredService: false
+    }
+  ];
+  
+  // Filter services based on active category
+  const filteredServices = activeCategory === 'all' 
+    ? services 
+    : services.filter(service => service.category === activeCategory);
+
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigation would typically be included via a layout component */}
-      
-      {/* Main Service Hero - Modified version of hero with service-specific content */}
+    <div className="bg-white">
+      {/* Hero Banner */}
       <section className="relative">
-        <div className="w-full h-[50vh] md:h-[60vh] relative">
+        <div className="w-full h-[40vh] md:h-[50vh] relative">
           <Image
-            src="/images/service-center.jpg" // Replace with actual image path
-            alt="Chery Bangladesh Service Center"
+            src="/api/placeholder/1920/800"
+            alt="Chery Service Center"
             fill
             className="object-cover"
             priority
@@ -64,26 +159,155 @@ const ServicePage = () => {
         </div>
       </section>
       
-      {/* Why Choose Chery for Service */}
-      <WhyChooseChery />
+      {/* Service Intro */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              Why Service with Chery Bangladesh
+            </h2>
+            <p className="text-lg text-gray-700 mb-12">
+              When you choose Chery Bangladesh for your vehicle service, you're choosing excellence, reliability, 
+              and the assurance that your vehicle is being cared for by experts who know it best.
+            </p>
+            
+            {/* Key Benefits */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Fast Turnaround</h3>
+                <p className="text-gray-600">
+                  We value your time and work efficiently to get you back on the road as quickly as possible.
+                </p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Warranty Protection</h3>
+                <p className="text-gray-600">
+                  Our services maintain your vehicle warranty protection with proper documentation and genuine parts.
+                </p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.48-8.48l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Genuine Parts</h3>
+                <p className="text-gray-600">
+                  We use only genuine Chery parts that are specifically designed for your vehicle's optimal performance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       
-      {/* Roadside Assistance Section */}
-      <RoadsideAssistance />
-      
-      {/* Emergency Assistance CTA */}
-      <AssistanceCTA />
-      
-      {/* Premium Services Showcase */}
-      <PremiumServices />
-      
-      {/* Service Process */}
-      <ServiceProcess />
-      
-      {/* Maintenance Schedule */}
-      <MaintenanceSchedule />
-      
-      {/* Warranty Section */}
-      <WarrantySection />
+      {/* Featured Services */}
+      <section id="service-packages" className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            Our Service Packages
+          </h2>
+          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+            Choose from our range of service packages tailored to meet your vehicle's specific needs.
+          </p>
+          
+          {/* Category Filter */}
+          <div className="flex justify-center flex-wrap gap-2 mb-12">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-4 py-2 border transition-colors ${
+                  activeCategory === category.id
+                    ? 'bg-red-800 text-white border-red-800'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+          
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredServices.map((service) => (
+              <div key={service.id} className="border border-gray-200 group hover:shadow-md transition-shadow">
+                {/* Image */}
+                <div className="relative h-56 overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 bg-black/70 text-white text-xs uppercase tracking-wider px-2 py-1">
+                    {categories.find(cat => cat.id === service.category)?.name}
+                  </div>
+                  
+                  {/* Featured Badge */}
+                  {service.featuredService && (
+                    <div className="absolute top-4 right-4 bg-red-800 text-white text-xs uppercase tracking-wider px-2 py-1">
+                      Popular
+                    </div>
+                  )}
+                </div>
+                
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {service.description}
+                  </p>
+                  
+                  {/* Service Details */}
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mr-1">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span className="text-sm text-gray-600">{service.duration}</span>
+                    </div>
+                    <span className="font-bold text-red-800">{service.price}</span>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <button className="flex-1 bg-red-800 text-white py-2 text-sm font-medium hover:bg-red-900 transition-colors">
+                      BOOK NOW
+                    </button>
+                    <button className="flex-1 border border-gray-300 py-2 text-sm font-medium hover:bg-gray-50 transition-colors">
+                      DETAILS
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* No results message */}
+          {filteredServices.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-gray-600">No services found in this category. Please try another category.</p>
+            </div>
+          )}
+        </div>
+      </section>
       
       {/* Service Centers */}
       <section className="py-16 bg-gray-100">
@@ -100,7 +324,7 @@ const ServicePage = () => {
             <div className="bg-white shadow-sm">
               <div className="relative h-48">
                 <Image
-                  src="/images/dhaka-center.jpg" // Replace with actual image path
+                  src="/api/placeholder/600/400"
                   alt="Dhaka Service Center"
                   fill
                   className="object-cover"
@@ -143,7 +367,7 @@ const ServicePage = () => {
             <div className="bg-white shadow-sm">
               <div className="relative h-48">
                 <Image
-                  src="/images/ctg-center.jpg" // Replace with actual image path
+                  src="/api/placeholder/600/400"
                   alt="Chattogram Service Center"
                   fill
                   className="object-cover"
@@ -186,7 +410,7 @@ const ServicePage = () => {
             <div className="bg-white shadow-sm">
               <div className="relative h-48">
                 <Image
-                  src="/images/khulna-center.jpg" // Replace with actual image path
+                  src="/api/placeholder/600/400"
                   alt="Khulna Service Center"
                   fill
                   className="object-cover"
@@ -391,11 +615,65 @@ const ServicePage = () => {
         </div>
       </section>
       
-      {/* Emergency Assistance Section */}
-      <EmergencyAssistance />
-      
-      {/* Customer Reviews */}
-      <CustomerReviews />
+      {/* Service FAQ */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+            Find answers to the most common questions about our service offerings.
+          </p>
+          
+          <div className="max-w-3xl mx-auto bg-white p-8 shadow-sm">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-bold mb-2">How often should I service my Chery vehicle?</h3>
+                <p className="text-gray-600">
+                  We recommend following the maintenance schedule in your owner's manual. Generally, a basic service is recommended every 5,000 km, and a major service every 10,000 km or 12 months, whichever comes first.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold mb-2">What is included in the regular maintenance service?</h3>
+                <p className="text-gray-600">
+                  Our regular maintenance service includes oil and filter change, comprehensive multi-point inspection, fluid level checks and top-ups, tire pressure check, and a basic diagnostic scan of all electronic systems.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold mb-2">How long does a typical service take?</h3>
+                <p className="text-gray-600">
+                  A basic service typically takes 1-2 hours, while a major service may take 3-4 hours. Repairs will vary based on the complexity of the issue. We'll provide an estimated completion time when you drop off your vehicle.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold mb-2">Do you provide a courtesy car during service?</h3>
+                <p className="text-gray-600">
+                  Yes, we offer courtesy cars for major services and repairs that require your vehicle to be kept overnight. This service needs to be booked in advance and is subject to availability.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold mb-2">Will servicing at Chery Bangladesh affect my warranty?</h3>
+                <p className="text-gray-600">
+                  No, servicing your vehicle at our authorized service centers will maintain your warranty protection. We use only genuine Chery parts and follow the manufacturer's recommended service procedures.
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 mb-4">
+                Didn't find the answer you're looking for?
+              </p>
+              <button className="inline-flex items-center border-2 border-red-800 text-red-800 px-6 py-2 font-medium hover:bg-red-800 hover:text-white transition-colors">
+                CONTACT OUR SUPPORT TEAM
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* Call to Action */}
       <section className="py-16 bg-gray-900 text-white">
@@ -422,10 +700,7 @@ const ServicePage = () => {
           </div>
         </div>
       </section>
-      
-      {/* Footer Component */}
-      <Footer />
-    </main>
+    </div>
   );
 };
 
