@@ -2,7 +2,7 @@
 
 const AssistanceCTA = () => {
   return (
-    <section className="bg-red-800 py-12">
+    <section className="bg-primary-800 py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto bg-gray-100 p-6 md:p-8">
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
@@ -10,7 +10,7 @@ const AssistanceCTA = () => {
           </h2>
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-            <button className="bg-red-800 text-white px-6 py-3 font-medium hover:bg-red-900 transition-colors w-full md:w-auto">
+            <button className="bg-primary-800 text-white px-6 py-3 font-medium hover:bg-red-900 transition-colors w-full md:w-auto">
               CALL HOTLINE
             </button>
             
@@ -18,7 +18,7 @@ const AssistanceCTA = () => {
               Available 24 hours / 7 days
             </div>
             
-            <a href="tel:+8801XXX000000" className="bg-red-800 text-white px-6 py-3 font-medium hover:bg-red-900 transition-colors w-full md:w-auto inline-block text-center">
+            <a href="tel:+8801XXX000000" className="bg-primary-800 text-white px-6 py-3 font-medium hover:bg-red-900 transition-colors w-full md:w-auto inline-block text-center">
               <span className="hidden md:inline">CALL NOW: </span>016XX-XXXXXX
             </a>
           </div>

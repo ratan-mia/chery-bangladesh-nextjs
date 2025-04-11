@@ -86,7 +86,7 @@ const EmergencyAssistance = () => {
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="w-full bg-red-800 text-white py-4 px-6 font-medium hover:bg-red-900 transition-colors uppercase"
+                className="w-full bg-primary-800 text-white py-4 px-6 font-medium hover:bg-red-900 transition-colors uppercase"
               >
                 REQUEST EMERGENCY ASSISTANCE
               </button>

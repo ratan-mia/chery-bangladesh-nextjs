@@ -66,7 +66,7 @@ const WhyChooseChery = () => {
                 {reason.description}
               </p>
               <div className="mt-4 flex justify-start">
-                <div className="h-0.5 w-12 bg-red-800"></div>
+                <div className="h-0.5 w-12 bg-primary-800"></div>
               </div>
             </div>
           ))}

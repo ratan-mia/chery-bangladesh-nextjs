@@ -48,7 +48,7 @@ const ServicePage = () => {
               <div className="flex flex-wrap justify-center gap-4">
                 <Link 
                   href="#book-service" 
-                  className="bg-red-800 text-white px-8 py-3 font-medium hover:bg-red-900 transition-colors"
+                  className="bg-primary-800 text-white px-8 py-3 font-medium hover:bg-red-900 transition-colors"
                 >
                   BOOK A SERVICE
                 </Link>
@@ -133,7 +133,7 @@ const ServicePage = () => {
                     <span className="text-sm text-gray-600">8:00 AM - 8:00 PM (Everyday)</span>
                   </div>
                 </div>
-                <button className="w-full mt-4 border border-red-800 text-red-800 py-2 hover:bg-red-800 hover:text-white transition-colors">
+                <button className="w-full mt-4 border border-red-800 text-red-800 py-2 hover:bg-primary-800 hover:text-white transition-colors">
                   GET DIRECTIONS
                 </button>
               </div>
@@ -176,7 +176,7 @@ const ServicePage = () => {
                     <span className="text-sm text-gray-600">8:00 AM - 8:00 PM (Everyday)</span>
                   </div>
                 </div>
-                <button className="w-full mt-4 border border-red-800 text-red-800 py-2 hover:bg-red-800 hover:text-white transition-colors">
+                <button className="w-full mt-4 border border-red-800 text-red-800 py-2 hover:bg-primary-800 hover:text-white transition-colors">
                   GET DIRECTIONS
                 </button>
               </div>
@@ -219,7 +219,7 @@ const ServicePage = () => {
                     <span className="text-sm text-gray-600">9:00 AM - 7:00 PM (Everyday)</span>
                   </div>
                 </div>
-                <button className="w-full mt-4 border border-red-800 text-red-800 py-2 hover:bg-red-800 hover:text-white transition-colors">
+                <button className="w-full mt-4 border border-red-800 text-red-800 py-2 hover:bg-primary-800 hover:text-white transition-colors">
                   GET DIRECTIONS
                 </button>
               </div>
@@ -315,7 +315,7 @@ const ServicePage = () => {
                   <div>
                     <button
                       type="submit"
-                      className="w-full bg-red-800 text-white py-3 font-medium hover:bg-red-900 transition-colors"
+                      className="w-full bg-primary-800 text-white py-3 font-medium hover:bg-red-900 transition-colors"
                     >
                       BOOK APPOINTMENT
                     </button>
@@ -325,7 +325,7 @@ const ServicePage = () => {
               
               {/* Booking Information */}
               <div className="flex flex-col">
-                <div className="bg-red-800 text-white p-8">
+                <div className="bg-primary-800 text-white p-8">
                   <h3 className="text-xl font-bold mb-4">Service Hours</h3>
                   <ul className="space-y-3">
                     <li className="flex justify-between">
@@ -409,7 +409,7 @@ const ServicePage = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="#book-service" 
-              className="bg-red-800 text-white px-8 py-3 font-medium hover:bg-red-700 transition-colors"
+              className="bg-primary-800 text-white px-8 py-3 font-medium hover:bg-red-700 transition-colors"
             >
               SCHEDULE SERVICE
             </Link>

@@ -41,7 +41,7 @@ const ServiceProcess = () => {
             {steps.map((step, index) => (
               <div key={index} className="flex flex-col items-center text-center mb-8 md:mb-0">
                 {/* Step Number */}
-                <div className="w-14 h-14 bg-red-800 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+                <div className="w-14 h-14 bg-primary-800 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
                   {step.number}
                 </div>
                 

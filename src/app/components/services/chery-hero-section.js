@@ -24,7 +24,7 @@ const HeroSection = () => {
       </div>
       
       {/* Right side - Content */}
-      <div className="w-full md:w-1/2 bg-red-800 flex items-center justify-center p-8 md:p-12">
+      <div className="w-full md:w-1/2 bg-primary-800 flex items-center justify-center p-8 md:p-12">
         <div className="max-w-md mx-auto text-center">
           <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">
             WELCOME TO CHERY BANGLADESH

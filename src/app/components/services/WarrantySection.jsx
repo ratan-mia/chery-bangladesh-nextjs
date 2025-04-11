@@ -14,7 +14,7 @@ const WarrantySection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {/* Basic Warranty Card */}
-          <div className="bg-red-800 text-white p-6">
+          <div className="bg-primary-800 text-white p-6">
             <h3 className="text-xl font-bold text-center mb-4">Basic Warranty</h3>
             <p className="text-center font-bold mb-6">
               5 YEARS / 150,000 KM
@@ -43,7 +43,7 @@ const WarrantySection = () => {
           </div>
           
           {/* Powertrain Warranty Card */}
-          <div className="bg-red-800 text-white p-6">
+          <div className="bg-primary-800 text-white p-6">
             <h3 className="text-xl font-bold text-center mb-4">Powertrain Warranty</h3>
             <p className="text-center font-bold mb-6">
               7 YEARS / 200,000 KM

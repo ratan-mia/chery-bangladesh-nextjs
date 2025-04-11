@@ -106,7 +106,7 @@ const CustomerReviews = () => {
               <button 
                 key={review.id}
                 onClick={() => setActiveReview(index)}
-                className={`w-3 h-3 rounded-full transition-colors ${index === activeReview ? 'bg-red-800' : 'bg-gray-300'}`}
+                className={`w-3 h-3 rounded-full transition-colors ${index === activeReview ? 'bg-primary-800' : 'bg-gray-300'}`}
                 aria-label={`View review from ${review.name}`}
               />
             ))}
@@ -115,7 +115,7 @@ const CustomerReviews = () => {
           {/* Leave Review CTA */}
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">Share your experience with our service team</p>
-            <button className="inline-flex items-center border-2 border-red-800 text-red-800 px-6 py-2 font-medium hover:bg-red-800 hover:text-white transition-colors">
+            <button className="inline-flex items-center border-2 border-red-800 text-red-800 px-6 py-2 font-medium hover:bg-primary-800 hover:text-white transition-colors">
               LEAVE A REVIEW
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
