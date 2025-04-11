@@ -1,8 +1,8 @@
-// /app/api/book-service/route.js
-import { generateAdminEmailTemplate } from '@/utils/emailTemplates/adminEmailTemplate';
-import { generateCustomerEmailTemplate } from '@/utils/emailTemplates/customerEmailTemplate';
+
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { generateAdminEmailTemplate } from './emails/adminEmailTemplate';
+import { generateCustomerEmailTemplate } from './emails/customerEmailTemplate';
 
 export async function POST(request) {
   try {
