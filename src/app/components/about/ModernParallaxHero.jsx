@@ -318,7 +318,7 @@ const ModernParallaxHero = () => {
       </div>
 
       {/* Section navigation indicators */}
-      <div className="fixed right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-10">
+      <div className="fixed right-2 md:right-5 top-1/2 transform -translate-y-1/2 z-10">
         <div className="flex flex-col space-y-4">
           {[0, 1, 2].map((index) => (
             <button
@@ -328,7 +328,7 @@ const ModernParallaxHero = () => {
               onClick={() => scrollToSection(index)}
             >
               <div className={`
-                w-2 md:w-3 h-8 md:h-12 rounded-full
+                w-1 md:w-1 h-8 md:h-10 rounded-full
                 transition-all duration-300 ease-in-out
                 ${activeSection === index ? 'bg-primary' : 'bg-white/30 group-hover:bg-white/50'}
               `}/>
