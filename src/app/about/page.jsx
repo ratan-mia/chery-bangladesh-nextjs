@@ -3,19 +3,17 @@
 import AwardsSection from "../components/about/AwardsSection";
 import BrandCoreGrid from "../components/about/BrandCoreGrid";
 import CommunitySection from "../components/about/CommunitySection";
-import ParallaxHeroSection from "../components/about/ParallaxHeroSection";
+import ModernParallaxHero from "../components/about/ModernParallaxHero";
 import VisionMissionSection from "../components/about/VisionMissionSection";
 
 export default function About() {
   return (
     <main>
-      <ParallaxHeroSection />
+      <ModernParallaxHero />
       <VisionMissionSection />
       <BrandCoreGrid />
       <CommunitySection />
-      <AwardsSection/>
-     
-      
+      <AwardsSection />
     </main>
   );
 }
