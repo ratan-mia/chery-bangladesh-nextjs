@@ -9,18 +9,13 @@ const HeroSection = () => {
       {/* Left side - Image */}
       <div className="w-full md:w-1/2 h-[400px] md:h-[600px] relative">
         <Image
-          src="/api/placeholder/1200/800"
+          src="/images/services/workshop.webp"
           alt="Chery Bangladesh Showroom"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute top-6 left-6 bg-white/80 backdrop-blur-sm px-3 py-1">
-          <span className="text-2xl font-bold text-gray-900">15</span>
-        </div>
-        <div className="absolute top-6 right-6 bg-white/80 backdrop-blur-sm px-3 py-1">
-          <span className="text-2xl font-bold text-gray-900">16</span>
-        </div>
+      
       </div>
       
       {/* Right side - Content */}

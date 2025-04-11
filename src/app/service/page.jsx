@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import AssistanceCTA from '@/components/services/AssistanceCTA';
 import CustomerReviews from '@/components/services/CustomerReviews';
 import EmergencyAssistance from '@/components/services/EmergencyAssistance';
+import HeroSection from '@/components/services/HeroSection';
 import MaintenanceSchedule from '@/components/services/MaintenanceSchedule';
 import PremiumServices from '@/components/services/PremiumServices';
 import RoadsideAssistance from '@/components/services/RoadsideAssistance';
@@ -22,6 +23,7 @@ const ServicePage = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* Navigation would typically be included via a layout component */}
+      <HeroSection/>
       
       {/* Main Service Hero - Modified version of hero with service-specific content */}
       <section className="relative">
