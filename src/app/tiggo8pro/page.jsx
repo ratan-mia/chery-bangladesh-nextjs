@@ -1,6 +1,6 @@
 "use client";
 
-import CarFeaturesSlider from "../components/CarFeaturesSlider";
+import CarFeaturesSlider from "../components/CarFeaturesSlider-v1";
 import SimpleBanner from "../components/SimpleBanner";
 import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
 import FeatureSlider from "../components/tiggo8pro/FeatureSlider";
