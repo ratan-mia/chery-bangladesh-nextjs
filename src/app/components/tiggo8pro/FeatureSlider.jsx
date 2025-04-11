@@ -30,7 +30,8 @@ const slides = [
     ctaLink: '/features',
     specs: [
       { label: 'Engine', value: '1.6T GDI' },
-      { label: 'Power', value: '197 HP' }
+      { label: 'Power', value: '197 HP' },
+      { label: 'Torque', value: '290 Nm' }
     ]
   },
   {
@@ -47,23 +48,24 @@ const slides = [
     ctaLink: '/gallery',
     specs: [
       { label: 'Length', value: '4,722 mm' },
-      { label: 'Width', value: '1,860 mm' }
+      { label: 'Width', value: '1,860 mm' },
+      { label: 'Height', value: '1,746 mm' }
     ]
   },
 ]
 
-// Enhanced animation variants
+// Enhanced animation variants with smoother timings
 const fadeInAnimations = {
-  hidden: { opacity: 0, y: -10 },
+  hidden: { opacity: 0, y: -15 },
   visible: (delay) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.8, delay, ease: [0.25, 0.1, 0.25, 1] }
   }),
   exit: {
     opacity: 0,
     y: -10,
-    transition: { duration: 0.5, ease: 'easeInOut' }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
   }
 }
 
@@ -72,22 +74,49 @@ const slideUpAnimations = {
   visible: (delay) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }
   }),
   exit: {
     opacity: 0,
     y: 10,
-    transition: { duration: 0.5, ease: 'easeInOut' }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
   }
 }
 
-// Improved SlideContent component with enhanced layout and animations
+const scaleAnimations = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: (delay) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, delay, ease: [0.34, 1.56, 0.64, 1] }
+  }),
+  exit: {
+    opacity: 0,
+    scale: 0.98,
+    transition: { duration: 0.6, ease: 'easeInOut' }
+  }
+}
+
+// Improved SlideContent component with enhanced layout and richer visual hierarchy
 const SlideContent = ({ slide, isActive }) => (
-  <div className="absolute inset-0 flex flex-col justify-end md:items-start p-6 md:p-16 text-white">
-    <div className="md:max-w-xl w-full flex flex-col items-center md:items-start">
+  <div className="absolute inset-0 flex flex-col justify-end md:justify-center md:items-start p-6 md:p-16 text-white z-10">
+    <div className="md:max-w-2xl w-full flex flex-col items-center md:items-start md:ml-8 lg:ml-16">
       <AnimatePresence mode="wait">
         {isActive && (
           <>
+            {/* Badge - new element */}
+            <motion.div
+              key={`badge-${slide.id}`}
+              variants={scaleAnimations}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              custom={0.1}
+              className="bg-primary-600/90 backdrop-blur-sm py-1.5 px-4 mb-6 hidden md:block"
+            >
+              <span className="text-xs uppercase tracking-widest font-medium">Premium SUV</span>
+            </motion.div>
+
             {/* Logo */}
             <motion.div
               key={`logo-${slide.id}`}
@@ -103,12 +132,12 @@ const SlideContent = ({ slide, isActive }) => (
                 alt={slide.logoAlt}
                 width={280}
                 height={80}
-                className="object-contain md:w-60 lg:w-72"
+                className="object-contain md:w-64 lg:w-80"
                 priority
               />
             </motion.div>
 
-            {/* Decorative line */}
+            {/* Decorative dual lines with enhanced styling */}
             <motion.div
               key={`line-${slide.id}`}
               variants={fadeInAnimations}
@@ -116,10 +145,13 @@ const SlideContent = ({ slide, isActive }) => (
               animate="visible"
               exit="exit"
               custom={0.3}
-              className="hidden md:block w-24 h-1 bg-gradient-to-r from-primary-600 to-primary-400 mb-5"
-            />
+              className="flex flex-col gap-1.5 mb-6 hidden md:block"
+            >
+              <div className="w-32 h-1 bg-gradient-to-r from-primary-600 to-primary-400"></div>
+              <div className="w-16 h-1 bg-white/30"></div>
+            </motion.div>
 
-            {/* Title */}
+            {/* Title with enhanced typography */}
             <motion.h2
               key={`title-${slide.id}`}
               variants={fadeInAnimations}
@@ -127,12 +159,12 @@ const SlideContent = ({ slide, isActive }) => (
               animate="visible"
               exit="exit"
               custom={0.4}
-              className="text-2xl md:text-3xl lg:text-5xl uppercase tracking-wider font-light mb-2 text-center md:text-left"
+              className="text-2xl md:text-4xl lg:text-6xl uppercase tracking-wider font-light mb-3 text-center md:text-left"
             >
               {slide.title}
             </motion.h2>
 
-            {/* Subtitle */}
+            {/* Subtitle with better contrast */}
             {slide.subtitle && (
               <motion.p
                 key={`subtitle-${slide.id}`}
@@ -141,13 +173,13 @@ const SlideContent = ({ slide, isActive }) => (
                 animate="visible"
                 exit="exit"
                 custom={0.5}
-                className="text-lg md:text-2xl text-white/90 mb-3 text-center md:text-left font-light"
+                className="text-lg md:text-2xl text-white font-medium mb-3 text-center md:text-left"
               >
                 {slide.subtitle}
               </motion.p>
             )}
 
-            {/* Description - new addition */}
+            {/* Description - enhanced readability */}
             {slide.description && (
               <motion.p
                 key={`desc-${slide.id}`}
@@ -156,13 +188,13 @@ const SlideContent = ({ slide, isActive }) => (
                 animate="visible"
                 exit="exit"
                 custom={0.6}
-                className="text-sm md:text-base text-white/80 mb-4 text-center md:text-left max-w-lg hidden md:block"
+                className="text-sm md:text-base text-white/90 mb-5 text-center md:text-left max-w-lg hidden md:block leading-relaxed"
               >
                 {slide.description}
               </motion.p>
             )}
 
-            {/* Specs - new addition */}
+            {/* Specs - improved visual presentation */}
             {slide.specs && (
               <motion.div
                 key={`specs-${slide.id}`}
@@ -171,18 +203,18 @@ const SlideContent = ({ slide, isActive }) => (
                 animate="visible"
                 exit="exit"
                 custom={0.65}
-                className="flex gap-6 mt-1 mb-6 hidden md:flex"
+                className="grid grid-cols-3 gap-8 mt-1 mb-8 hidden md:grid bg-black/30 backdrop-blur-sm p-5 border-l-2 border-primary-500"
               >
                 {slide.specs.map((spec, index) => (
                   <div key={index} className="flex flex-col">
-                    <span className="text-white/60 text-xs uppercase tracking-wider">{spec.label}</span>
-                    <span className="text-white font-medium">{spec.value}</span>
+                    <span className="text-white/60 text-xs uppercase tracking-wider font-semibold">{spec.label}</span>
+                    <span className="text-white font-medium text-lg">{spec.value}</span>
                   </div>
                 ))}
               </motion.div>
             )}
 
-            {/* CTA Button */}
+            {/* CTA Button with improved interaction */}
             <motion.div
               key={`cta-${slide.id}`}
               variants={slideUpAnimations}
@@ -194,24 +226,25 @@ const SlideContent = ({ slide, isActive }) => (
             >
               <Link 
                 href={slide.ctaLink}
-                className="inline-flex items-center bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 transition-colors duration-300 text-sm md:text-base tracking-wide group"
+                className="inline-flex items-center bg-primary-600 hover:bg-primary-700 text-white font-medium py-3.5 px-8 transition-all duration-300 text-sm md:text-base tracking-wide group relative overflow-hidden"
               >
-                <span>{slide.ctaText}</span>
+                <span className="relative z-10">{slide.ctaText}</span>
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
+                  width="18" 
+                  height="18" 
                   viewBox="0 0 24 24" 
                   fill="none" 
                   stroke="currentColor" 
                   strokeWidth="2" 
                   strokeLinecap="round" 
                   strokeLinejoin="round"
-                  className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+                  className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300 relative z-10"
                 >
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-500 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
               </Link>
             </motion.div>
           </>
@@ -259,7 +292,7 @@ const FeatureSlider = () => {
     }
   }, [isAutoplayPaused])
 
-  // Reset and animate progress bar
+  // Reset and animate progress bar with smoother animation
   const resetProgress = useCallback(() => {
     setProgressWidth(0)
     clearInterval(progressIntervalRef.current)
@@ -271,7 +304,7 @@ const FeatureSlider = () => {
             clearInterval(progressIntervalRef.current)
             return 100
           }
-          return prev + 0.5
+          return prev + 0.4
         })
       }, 25) // Update every 25ms for smooth animation
     }
@@ -309,7 +342,7 @@ const FeatureSlider = () => {
     setIsAutoplayPaused(!isAutoplayPaused)
   }, [isAutoplayPaused, activeIndex, resetProgress])
 
-  // Initialize the slider
+  // Initialize the slider with improved loading transition
   useEffect(() => {
     // Set loading state until first video/image is ready
     const timeout = setTimeout(() => {
@@ -325,7 +358,7 @@ const FeatureSlider = () => {
       }
       
       resetProgress()
-    }, 800)
+    }, 1000)
 
     // Clean up function
     return () => {
@@ -370,44 +403,68 @@ const FeatureSlider = () => {
       className="w-full h-screen relative overflow-hidden" 
       aria-label="Tiggo 8 Pro Feature Showcase"
     >
-      {/* Loading overlay */}
+      {/* Enhanced loading overlay with branded animation */}
       <AnimatePresence>
         {isLoading && (
           <motion.div 
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0 z-50 bg-black flex items-center justify-center"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 z-50 bg-gradient-to-br from-black to-gray-900 flex flex-col items-center justify-center"
           >
             <motion.div 
-              animate={{ scale: [0.8, 1, 0.8], opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-16 h-16"
+              animate={{ 
+                scale: [0.8, 1, 0.8], 
+                opacity: [0.5, 1, 0.5],
+                rotateY: [0, 10, 0, -10, 0]
+              }}
+              transition={{ 
+                duration: 2.5, 
+                repeat: Infinity,
+                ease: "easeInOut" 
+              }}
+              className="w-24 h-24 mb-6"
             >
               <Image 
                 src="/images/tiggo8pro/hero-slider/tiggo8-logo.png"
                 alt="Loading"
-                width={160}
-                height={160}
+                width={240}
+                height={240}
                 className="object-contain"
               />
             </motion.div>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "180px" }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+              className="h-1 bg-gradient-to-r from-primary-600 to-primary-400"
+            />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Progress bar at the top */}
-      <div className="absolute top-0 left-0 right-0 z-20 h-1 bg-white/10">
+      {/* Progress bar at the top with enhanced styling */}
+      <div className="absolute top-0 left-0 right-0 z-20 h-1.5 bg-white/5">
         <motion.div 
-          className="h-full bg-primary-600"
+          className="h-full bg-gradient-to-r from-primary-600 to-primary-400"
           style={{ width: `${progressWidth}%` }}
           transition={{ ease: 'linear' }}
         />
       </div>
 
-      {/* Model badge in top left */}
-      <div className="absolute top-6 left-6 z-20 bg-black/40 backdrop-blur-sm px-4 py-2">
-        <span className="text-white text-sm font-medium tracking-wider">TIGGO 8 PRO</span>
+      {/* Enhanced model badge in top left */}
+      <div className="absolute top-6 left-6 z-20 bg-black/40 backdrop-blur-md px-5 py-2.5 border-l-2 border-primary-500 flex items-center">
+        <svg 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg" 
+          className="w-4 h-4 mr-2 text-primary-500"
+        >
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <span className="text-white text-sm font-medium tracking-widest">TIGGO 8 PRO</span>
       </div>
 
       <Swiper
@@ -415,7 +472,7 @@ const FeatureSlider = () => {
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
-        speed={800}
+        speed={1000}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -446,38 +503,47 @@ const FeatureSlider = () => {
             className="relative" 
             aria-label={slide.ariaLabel}
           >
-            {/* Video or Image Background */}
-            {slide.type === 'video' ? (
-              <video
-                ref={(el) => (videoRefs.current[index] = el)}
-                className="absolute inset-0 w-full h-full object-cover"
-                playsInline
-                muted
-                loop
-                poster={slide.poster}
-                preload="auto"
-                aria-hidden="true"
-              >
-                <source src={slide.src} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <div className="absolute inset-0 w-full h-full">
+            {/* Video or Image Background with enhanced filters */}
+            <div className="absolute inset-0 w-full h-full">
+              {slide.type === 'video' ? (
+                <video
+                  ref={(el) => (videoRefs.current[index] = el)}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  playsInline
+                  muted
+                  loop
+                  poster={slide.poster}
+                  preload="auto"
+                  aria-hidden="true"
+                >
+                  <source src={slide.src} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
                 <Image
                   src={slide.src}
                   alt=""
                   fill
                   className="object-cover"
                   priority={index === 0}
-                  quality={90}
+                  quality={95}
                   sizes="100vw"
                   aria-hidden="true"
                 />
+              )}
+              
+              {/* Enhanced overlay with multiple gradients for better depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
+              
+              {/* Animated scan line effect for more dynamic visuals */}
+              <div className="absolute inset-0 opacity-10 pointer-events-none">
+                <div className="w-full h-full bg-[linear-gradient(to_bottom,transparent_50%,rgba(255,255,255,0.05)_50%)] bg-[length:100%_4px] animate-scan"></div>
               </div>
-            )}
-
-            {/* Improved dark gradient overlay for better text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30"></div>
+              
+              {/* Subtle vignette effect */}
+              <div className="absolute inset-0 bg-radial-gradient opacity-80"></div>
+            </div>
 
             {/* Slide Content */}
             <SlideContent slide={slide} isActive={index === activeIndex} />
@@ -486,36 +552,46 @@ const FeatureSlider = () => {
       </Swiper>
 
       {/* Improved Controls Container */}
-      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-4">
-        {/* Custom Pagination with labels */}
-        <div className="flex items-center gap-3">
+      <div className="absolute bottom-8 right-8 z-20 flex items-center gap-4">
+        {/* Custom Pagination with enhanced styling */}
+        <div className="flex items-center gap-4">
           {slides.map((slide, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+              className={`relative w-3 h-3 rounded-full transition-all duration-300 ${
                 index === activeIndex 
-                  ? 'bg-white scale-125' 
+                  ? 'bg-primary-500 scale-125' 
                   : 'bg-white/40 hover:bg-white/60'
               }`}
               aria-label={`Go to slide ${index + 1}: ${slide.title}`}
               aria-current={index === activeIndex ? 'true' : 'false'}
-            />
+            >
+              {index === activeIndex && (
+                <motion.span 
+                  className="absolute inset-0 rounded-full border border-primary-500"
+                  initial={{ opacity: 0, scale: 1 }}
+                  animate={{ opacity: 1, scale: 1.8 }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              )}
+            </button>
           ))}
         </div>
 
-        {/* Play/Pause Button */}
+        {/* Enhanced Play/Pause Button */}
         <button
           onClick={toggleAutoplay}
-          className="bg-black/30 backdrop-blur-sm text-white p-3 w-10 h-10 flex items-center justify-center transition-colors hover:bg-black/50 border border-white/20"
+          className="bg-black/40 backdrop-blur-md text-white p-3.5 w-12 h-12 flex items-center justify-center transition-all hover:bg-primary-600 border border-white/20 hover:border-primary-500 group relative overflow-hidden"
           aria-label={isAutoplayPaused ? "Resume slideshow" : "Pause slideshow"}
         >
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           {isAutoplayPaused ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
               <rect x="6" y="4" width="4" height="16"></rect>
               <rect x="14" y="4" width="4" height="16"></rect>
             </svg>
@@ -523,33 +599,35 @@ const FeatureSlider = () => {
         </button>
       </div>
 
-      {/* Improved Navigation Arrows */}
-      <button 
-        className="swiper-button-prev absolute left-4 top-1/2 z-20 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white w-12 h-12 flex items-center justify-center transition-all duration-300 border border-white/20 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-        aria-label="Previous slide"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="transform group-hover:-translate-x-1 transition-transform duration-300">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-      </button>
-      
-      <button 
-        className="swiper-button-next absolute right-4 top-1/2 z-20 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white w-12 h-12 flex items-center justify-center transition-all duration-300 border border-white/20 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-        aria-label="Next slide"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="transform group-hover:translate-x-1 transition-transform duration-300">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
+      {/* Enhanced Navigation Arrows */}
+      <div className="hidden md:block">
+        <button 
+          className="swiper-button-prev absolute left-6 top-1/2 z-20 transform -translate-y-1/2 bg-black/30 hover:bg-primary-600 backdrop-blur-md text-white w-14 h-14 flex items-center justify-center transition-all duration-300 border border-white/20 hover:border-primary-500 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full"
+          aria-label="Previous slide"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="transform group-hover:-translate-x-1 transition-transform duration-300">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        
+        <button 
+          className="swiper-button-next absolute right-6 top-1/2 z-20 transform -translate-y-1/2 bg-black/30 hover:bg-primary-600 backdrop-blur-md text-white w-14 h-14 flex items-center justify-center transition-all duration-300 border border-white/20 hover:border-primary-500 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full"
+          aria-label="Next slide"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="transform group-hover:translate-x-1 transition-transform duration-300">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
 
-      {/* Current slide / total slides indicator */}
-      <div className="absolute bottom-6 left-6 z-20 bg-black/30 backdrop-blur-sm px-4 py-2 flex items-center">
-        <span className="text-primary-500 font-medium mr-1">{activeIndex + 1}</span>
+      {/* Enhanced current slide / total slides indicator */}
+      <div className="absolute bottom-8 left-8 z-20 bg-black/40 backdrop-blur-md px-5 py-2.5 flex items-center border-l-2 border-primary-500">
+        <span className="text-primary-500 font-medium text-lg mr-1">{activeIndex + 1}</span>
         <span className="text-white/70 text-sm">/</span>
         <span className="text-white/70 text-sm ml-1">{slides.length}</span>
       </div>
 
-      {/* Custom Swiper Styling */}
+      {/* Custom Swiper Styling with additional transitions */}
       <style jsx global>{`
         /* Hide default swiper navigation arrows since we have custom ones */
         .swiper-button-next::after,
@@ -562,13 +640,40 @@ const FeatureSlider = () => {
           pointer-events: none;
         }
 
+        /* Animated scan line effect */
+        @keyframes scan {
+          from { transform: translateY(-100%); }
+          to { transform: translateY(100%); }
+        }
+        
+        .animate-scan {
+          animation: scan 8s linear infinite;
+        }
+        
+        /* Radial gradient for vignette effect */
+        .bg-radial-gradient {
+          background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+        }
+        
+        /* Enhanced swiper fade effect */
+        .swiper-slide {
+          transition: opacity 0.8s ease;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 640px) {
           .swiper-button-prev,
           .swiper-button-next {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
           }
+        }
+        
+        /* Enhance focus states for accessibility */
+        button:focus-visible,
+        a:focus-visible {
+          outline: 2px solid #3ABFF8;
+          outline-offset: 2px;
         }
       `}</style>
     </section>
