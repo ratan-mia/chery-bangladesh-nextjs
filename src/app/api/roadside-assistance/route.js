@@ -1,10 +1,10 @@
 
 import AssistanceRequest from '@/models/AssistanceRequest';
 import dbConnect from '@/utils/dbConnect';
-import { generateAdminAssistanceEmailTemplate } from '@/utils/emailTemplates/adminAssistanceEmailTemplate';
-import { generateCustomerAssistanceEmailTemplate } from '@/utils/emailTemplates/customerAssistanceEmailTemplate';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { generateAdminAssistanceEmailTemplate } from './emails/adminAssistanceEmailTemplate';
+import { generateCustomerAssistanceEmailTemplate } from './emails/customerAssistanceEmailTemplate';
 
 export async function POST(request) {
   try {
