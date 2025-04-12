@@ -14,6 +14,7 @@ import MaintenanceSchedule from "@/components/services/MaintenanceSchedule";
 import PremiumServices from "@/components/services/PremiumServices";
 import RoadsideAssistance from "@/components/services/RoadsideAssistance";
 import ServiceHero from "@/components/services/ServiceHero";
+import ServiceHeroSlider from "@/components/services/ServiceHeroSlider";
 import ServiceProcess from "@/components/services/ServiceProcess";
 import ServiceStickyNav from "@/components/services/ServiceStickyNav";
 import WarrantySection from "@/components/services/WarrantySection";
@@ -39,6 +40,7 @@ const ServicePage = () => {
       
       {/* Hero Sections */}
       <div className="relative">
+        <ServiceHeroSlider />
         <HeroSlider />
         <ServiceHero />
       </div>
