@@ -29,8 +29,8 @@ export async function POST(request) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // your Gmail address
-        pass: process.env.EMAIL_PASSWORD, // your app password for Gmail
+        user: process.env.GMAIL_USER, // your Gmail address
+        pass: process.env.GMAIL_APP_PASSWORD, // your app password for Gmail
       },
     });
 
@@ -45,7 +45,7 @@ export async function POST(request) {
 
     // Send email to administrators - high priority
     await transporter.sendMail({
-      from: `"Chery Roadside Assistance" <${process.env.EMAIL_USER}>`,
+      from: `"Chery Roadside Assistance" <${process.env.GMAIL_USER}>`,
       to: [data.adminEmail1, data.adminEmail2],
       subject: `URGENT: Roadside Assistance Request - ${data.assistanceType}`,
       html: generateAdminAssistanceEmailTemplate({...data, referenceNumber}, formattedDate),
@@ -59,7 +59,7 @@ export async function POST(request) {
 
     // Send confirmation email to customer
     await transporter.sendMail({
-      from: `"Chery Bangladesh" <${process.env.EMAIL_USER}>`,
+      from: `"Chery Bangladesh" <${process.env.GMAIL_USER}>`,
       to: data.email,
       subject: 'Your Roadside Assistance Request Confirmation',
       html: generateCustomerAssistanceEmailTemplate({...data, referenceNumber}, formattedDate),

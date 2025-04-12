@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import AssistanceCTA from "@/components/services/AssistanceCTA";
 import BookServiceSection from "@/components/services/BookServiceSection";
 import CustomerReviews from "@/components/services/CustomerReviews";
-import HeroSection from "@/components/services/HeroSection";
+import HeroSlider from "@/components/services/HeroSlider";
 import MaintenanceSchedule from "@/components/services/MaintenanceSchedule";
 import PremiumServices from "@/components/services/PremiumServices";
 import RoadsideAssistance from "@/components/services/RoadsideAssistance";
@@ -39,7 +39,7 @@ const ServicePage = () => {
       
       {/* Hero Sections */}
       <div className="relative">
-        <HeroSection />
+        <HeroSlider />
         <ServiceHero />
       </div>
       
