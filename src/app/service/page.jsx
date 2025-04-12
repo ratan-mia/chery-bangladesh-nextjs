@@ -13,12 +13,11 @@ import MaintenanceSchedule from "@/components/services/MaintenanceSchedule";
 import PremiumServices from "@/components/services/PremiumServices";
 import RoadsideAssistance from "@/components/services/RoadsideAssistance";
 import ServiceCenters from "@/components/services/ServiceCenters";
-import ServiceHero from "@/components/services/ServiceHero";
-import ServiceHeroSlider from "@/components/services/ServiceHeroSlider";
 import ServiceProcess from "@/components/services/ServiceProcess";
 import ServiceStickyNav from "@/components/services/ServiceStickyNav";
 import WarrantySection from "@/components/services/WarrantySection";
 import WhyChooseChery from "@/components/services/WhyChooseChery";
+import ServiceFAQs from "../components/services/ServiceFAQs";
 
 const ServicePage = () => {
   
@@ -40,9 +39,7 @@ const ServicePage = () => {
       
       {/* Hero Sections */}
       <div className="relative">
-        <ServiceHeroSlider />
         <HeroSlider />
-        <ServiceHero />
       </div>
       
       {/* Sticky Navigation - Positioned below main navigation */}
@@ -89,6 +86,7 @@ const ServicePage = () => {
 
       <ServiceCenters />
 
+
       
 
 
@@ -101,6 +99,13 @@ const ServicePage = () => {
       <section id="reviews">
         <CustomerReviews />
       </section>
+
+       {/* Customer Reviews */}
+       <section id="faqs">
+        <ServiceFAQs />
+      </section>
+
+      
 
       {/* Call to Action */}
       <section id="cta" className="py-16 bg-gray-900 text-white">
