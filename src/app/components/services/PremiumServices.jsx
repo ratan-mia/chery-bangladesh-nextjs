@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Plus } from 'lucide-react';
+import Link from 'next/link';
 
 const PremiumServices = () => {
   const services = [
@@ -142,10 +143,10 @@ const PremiumServices = () => {
                     
                     {/* Action Button */}
                     <div className="md:col-span-2 flex justify-end">
-                      <button className="px-4 py-2 border border-gray-700 text-gray-300 flex items-center hover:border-primary-600 hover:text-primary-600 transition-colors duration-300">
+                      <Link href="#book-service" className="px-4 py-2 border border-gray-700 text-gray-300 flex items-center hover:border-primary-600 hover:text-primary-600 transition-colors duration-300">
                         <span className="mr-2">Book Now</span>
                         <Plus size={16} className="transform group-hover:rotate-90 transition-transform duration-300" />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                   
