@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { useEffect } from "react";
 
 // Import components
@@ -13,6 +12,7 @@ import MaintenanceSchedule from "@/components/services/MaintenanceSchedule";
 import PremiumServices from "@/components/services/PremiumServices";
 import RoadsideAssistance from "@/components/services/RoadsideAssistance";
 import ServiceCenters from "@/components/services/ServiceCenters";
+import ServiceCTA from "@/components/services/ServiceCTA";
 import ServiceProcess from "@/components/services/ServiceProcess";
 import ServiceStickyNav from "@/components/services/ServiceStickyNav";
 import WarrantySection from "@/components/services/WarrantySection";
@@ -108,31 +108,9 @@ const ServicePage = () => {
       
 
       {/* Call to Action */}
-      <section id="cta" className="py-16 bg-gray-900 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Experience Premium Service for Your Chery
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Book your service appointment today and enjoy the peace of mind that
-            comes with expert care.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="#book-service"
-              className="bg-primary-800 text-white px-8 py-3 font-medium hover:bg-red-700 transition-colors"
-            >
-              SCHEDULE SERVICE
-            </Link>
-            <Link
-              href="/contact"
-              className="bg-transparent border border-white text-white px-8 py-3 font-medium hover:bg-white/10 transition-colors"
-            >
-              CONTACT US
-            </Link>
-          </div>
-        </div>
-      </section>
+    <section id="call-to-action">
+      <ServiceCTA/>
+    </section>
 
       {/* Footer Component */}
       <Footer />

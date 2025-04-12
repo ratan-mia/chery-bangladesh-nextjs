@@ -1,14 +1,23 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Calendar, Check, Clock, Mail, MapPin, Navigation, Phone } from 'lucide-react';
-import Image from 'next/image';
+import { motion } from "framer-motion";
+import {
+    Calendar,
+    Check,
+    Clock,
+    Mail,
+    MapPin,
+    Navigation,
+    Phone,
+} from "lucide-react";
+import Image from "next/image";
 
 const ServiceCenter = () => {
   // Single service center info
   const center = {
     name: "Chery Bangladesh Service Center",
-    address: "206/1-207/1 Bir Uttam Mir Shawkat Sarak, Tejgaon Gulshan Link Road, Dhaka",
+    address:
+      "206/1-207/1 Bir Uttam Mir Shawkat Sarak, Tejgaon Gulshan Link Road, Dhaka",
     phone: "09639119977",
     email: "info@cherybd.com",
     hours: "8:00 AM - 8:00 PM (Everyday)",
@@ -18,16 +27,32 @@ const ServiceCenter = () => {
       "Express Service",
       "Genuine Parts Center",
       "Body & Paint Shop",
-      "Warranty Service"
+      "Warranty Service",
     ],
     image: "/images/services/service-center.jpg",
-    mapUrl: "https://maps.google.com/?q=206/1-207/1+Bir+Uttam+Mir+Shawkat+Sarak+Tejgaon+Gulshan+Link+Road+Dhaka"
+    mapUrl:
+      "https://maps.google.com/?q=206/1-207/1+Bir+Uttam+Mir+Shawkat+Sarak+Tejgaon+Gulshan+Link+Road+Dhaka",
   };
 
+  {
+    /* Dark gradient overlay */
+  }
+  <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950 to-black opacity-90"></div>;
+
   return (
-    <section id="location" className="py-24 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <section
+      id="location"
+      className="py-24 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black"
+    >
       {/* Background texture */}
-      <div className="absolute inset-0 bg-[url('/texture-dots.svg')] opacity-5 pointer-events-none"></div>
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950 to-black opacity-90"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Heading Section */}
@@ -44,7 +69,8 @@ const ServiceCenter = () => {
           <div className="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
 
           <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
-            Visit our state-of-the-art service center for professional care for your Chery vehicle.
+            Visit our state-of-the-art service center for professional care for
+            your Chery vehicle.
           </p>
         </motion.div>
 
@@ -115,7 +141,7 @@ const ServiceCenter = () => {
             >
               {/* Center Image with Overlay */}
               <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-black bg-opacity-40 z-10 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-black/40 z-10 group-hover:bg-opacity-20 transition-all duration-300"></div>
                 <Image
                   src={center.image}
                   alt={center.name}
@@ -172,9 +198,7 @@ const ServiceCenter = () => {
                       size={16}
                       className="text-primary-600 mr-3 mt-0.5 flex-shrink-0"
                     />
-                    <span className="text-gray-300">
-                      {center.hours}
-                    </span>
+                    <span className="text-gray-300">{center.hours}</span>
                   </div>
                 </div>
 
@@ -281,26 +305,33 @@ const ServiceCenter = () => {
 
             {/* Booking CTA */}
             <div className="bg-black bg-opacity-70 border border-gray-800 p-6 border-t-4 border-t-primary-600">
-              <h3 className="text-xl font-bold text-white mb-4">Ready to Schedule Your Service?</h3>
+              <h3 className="text-xl font-bold text-white mb-4">
+                Ready to Schedule Your Service?
+              </h3>
               <p className="text-gray-300 mb-6">
-                Our factory-trained technicians use advanced diagnostic tools and genuine parts to keep your vehicle in optimal condition.
+                Our factory-trained technicians use advanced diagnostic tools
+                and genuine parts to keep your vehicle in optimal condition.
               </p>
-              
+
               <div className="space-y-3">
                 <div className="flex items-start">
                   <div className="flex-shrink-0 mr-3 w-6 h-6 rounded-full bg-black border border-primary-600 flex items-center justify-center">
                     <Check size={14} className="text-primary-600" />
                   </div>
-                  <span className="text-gray-300">Free multi-point inspection with every service</span>
+                  <span className="text-gray-300">
+                    Free multi-point inspection with every service
+                  </span>
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 mr-3 w-6 h-6 rounded-full bg-black border border-primary-600 flex items-center justify-center">
                     <Check size={14} className="text-primary-600" />
                   </div>
-                  <span className="text-gray-300">Transparent pricing with no hidden charges</span>
+                  <span className="text-gray-300">
+                    Transparent pricing with no hidden charges
+                  </span>
                 </div>
               </div>
-              
+
               <div className="mt-6">
                 <a
                   href="#book-service"
