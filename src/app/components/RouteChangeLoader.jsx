@@ -34,11 +34,11 @@ function NavigationEventWatcher({ onRouteChange }) {
 export default function RouteChangeLoader() {
   const [isLoading, setIsLoading] = useState(false);
   
-  // Callback for route changes
+  // Callback for route changes - reduced timeout for faster loading
   const handleRouteChange = () => {
     setIsLoading(true);
-    // Set timeout to handle completion
-    setTimeout(() => setIsLoading(false), 1000);
+    // Reduced timeout to improve performance
+    setTimeout(() => setIsLoading(false), 300);
   };
   
   return (
@@ -52,7 +52,7 @@ export default function RouteChangeLoader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
           >
             <div className="relative">
               {/* Chery Logo */}
@@ -61,7 +61,7 @@ export default function RouteChangeLoader() {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ 
-                  duration: 0.3,
+                  duration: 0.15,
                   ease: "easeOut" 
                 }}
               >
@@ -78,7 +78,7 @@ export default function RouteChangeLoader() {
                 className="absolute bottom-0 left-0 right-0 flex justify-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.1 }}
               >
                 <div className="w-full max-w-[100px] h-1 bg-gray-200 overflow-hidden">
                   <motion.div 
@@ -99,4 +99,5 @@ export default function RouteChangeLoader() {
     </>
   );
 }
+
 
