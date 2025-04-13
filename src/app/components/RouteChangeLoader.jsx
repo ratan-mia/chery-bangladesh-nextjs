@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+
 
 export default function RouteChangeLoader() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,7 @@ export default function RouteChangeLoader() {
   }, [pathname, searchParams]);
 
   return (
+    <Suspense>
     <AnimatePresence>
       {isLoading && (
         <motion.div
@@ -79,5 +81,6 @@ export default function RouteChangeLoader() {
         </motion.div>
       )}
     </AnimatePresence>
+    </Suspense>
   );
 }
