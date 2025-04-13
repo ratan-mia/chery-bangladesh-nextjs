@@ -121,11 +121,11 @@ const HeroSection = () => {
               
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-4 mt-8">
-                <Link href="/book" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 flex items-center group">
+                <Link href="/book" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium  transition-all duration-300 flex items-center group">
                   Book Appointment
                   <Calendar className="ml-2 w-5 h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
-                <Link href="/location" className="px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium rounded-lg border border-white/30 transition-all duration-300 flex items-center group">
+                <Link href="/location" className="px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium border border-white/30 transition-all duration-300 flex items-center group">
                   Find Us
                   <MapPin className="ml-2 w-5 h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
@@ -159,22 +159,23 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Custom Swiper styles - CSS for pagination bullets */}
+      {/* Custom Swiper styles - CSS for pagination lines */}
       <style jsx global>{`
         .swiper-pagination-custom .swiper-pagination-bullet {
-          width: 10px;
-          height: 10px;
+          width: 30px;
+          height: 3px;
           background: rgba(255, 255, 255, 0.5);
           opacity: 1;
+          border-radius: 0;
           transition: all 0.3s ease;
           margin: 0 4px;
           cursor: pointer;
         }
         
         .swiper-pagination-custom .swiper-pagination-bullet-active {
-          width: 30px;
-          border-radius: 5px;
-          background: var(--primary-600, #3B82F6);
+          width: 40px;
+          transition: all 0.3s ease;
+          background: rgba(255, 255, 255, 1);
         }
       `}</style>
     </div>
