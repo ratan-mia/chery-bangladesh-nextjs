@@ -254,13 +254,13 @@ const NewsComponent = () => {
         </div>
         
         {/* Filters Section */}
-        <div className="bg-white shadow-sm border border-gray-100 rounded-lg p-6 mb-12">
+        <div className="bg-white shadow-sm border border-gray-100  p-6 mb-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <h2 className="text-xl font-semibold text-gray-800">News & Updates</h2>
             
             {/* Mobile Filter Toggle */}
             <button 
-              className="md:hidden px-4 py-2 bg-gray-100 text-gray-700 rounded flex items-center justify-center"
+              className="md:hidden px-4 py-2 bg-gray-100 text-gray-700  flex items-center justify-center"
               onClick={() => setIsFilterOpen(!isFilterOpen)}
             >
               <Filter size={16} className="mr-2" />
@@ -274,7 +274,7 @@ const NewsComponent = () => {
                 placeholder="Search news..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-3 pl-10 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full p-3 pl-10 border border-gray-200  focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
               <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               {searchTerm && (
@@ -296,14 +296,14 @@ const NewsComponent = () => {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
-                  className={`px-4 py-2 rounded-full transition-colors duration-300 flex items-center ${
+                  className={`px-4 py-2  transition-colors duration-300 flex items-center ${
                     activeTab === tab.id 
                       ? 'bg-primary-100 text-primary-700 font-medium border border-primary-200' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-transparent'
                   }`}
                 >
                   {tab.label}
-                  <span className={`ml-2 text-xs rounded-full px-2 py-0.5 ${
+                  <span className={`ml-2 text-xs px-2 py-0.5 ${
                     activeTab === tab.id ? 'bg-primary-200 text-primary-800' : 'bg-gray-200 text-gray-700'
                   }`}>
                     {tab.count}
@@ -318,7 +318,7 @@ const NewsComponent = () => {
               <select 
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="p-2 border border-gray-200 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="p-2 border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
@@ -362,11 +362,11 @@ const NewsComponent = () => {
               {filteredNewsItems.slice(0, visibleItems).map((item) => (
                 <motion.article 
                   key={item.id} 
-                  className="group flex flex-col rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+                  className="group flex flex-col overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200"
                   variants={itemVariants}
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <div className="absolute top-0 left-0 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-xs font-semibold py-1 px-3 z-10 uppercase rounded-br-lg">
+                    <div className="absolute top-0 left-0 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-xs font-semibold py-1 px-3 z-10 uppercase">
                       {tabs.find(tab => tab.id === item.category)?.label}
                     </div>
                     <img 
@@ -409,15 +409,15 @@ const NewsComponent = () => {
               ))}
             </motion.div>
           ) : (
-            <div className="text-center py-16 bg-white rounded-lg border border-gray-100 shadow-sm">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+            <div className="text-center py-16 bg-white border border-gray-200 shadow-sm">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 mb-4">
                 <Search size={24} className="text-gray-400" />
               </div>
               <h3 className="text-xl font-medium text-gray-900 mb-2">No news articles found</h3>
               <p className="text-gray-600 mb-6">Try adjusting your filters or search term</p>
               <button 
                 onClick={handleResetFilters}
-                className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white hover:bg-primary-700 transition-colors"
               >
                 Reset Filters
               </button>
@@ -430,7 +430,7 @@ const NewsComponent = () => {
           <div className="mt-12 text-center">
             <motion.button
               onClick={handleLoadMore}
-              className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded hover:bg-primary-700 transition-colors duration-300"
+              className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors duration-300"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -443,7 +443,7 @@ const NewsComponent = () => {
         {/* No more results message */}
         {visibleItems >= filteredNewsItems.length && filteredNewsItems.length > 0 && (
           <div className="mt-12 text-center">
-            <div className="inline-flex items-center justify-center bg-gray-100 rounded-full w-12 h-12 mb-3">
+            <div className="inline-flex items-center justify-center bg-gray-100 w-12 h-12 mb-3">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-500">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
@@ -453,7 +453,7 @@ const NewsComponent = () => {
         )}
         
         {/* Newsletter subscription */}
-        <div className="mt-20 bg-gradient-to-r from-primary-50 to-amber-50 rounded-xl p-8 lg:p-12">
+        <div className="mt-20 bg-gray-100 p-8 lg:p-12 border border-gray-200">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             <div className="lg:max-w-lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Stay Updated</h2>
@@ -464,9 +464,9 @@ const NewsComponent = () => {
                 <input 
                   type="email" 
                   placeholder="Your email address"
-                  className="flex-grow p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="flex-grow p-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
-                <button className="bg-primary-600 text-white py-3 px-6 rounded-md hover:bg-primary-700 transition-colors">
+                <button className="bg-primary-600 text-white py-3 px-6 hover:bg-primary-700 transition-colors">
                   Subscribe
                 </button>
               </div>
@@ -478,7 +478,7 @@ const NewsComponent = () => {
               <img
                 src="/api/placeholder/300/200"
                 alt=""
-                className="h-40 w-auto object-cover rounded-md"
+                className="h-40 w-auto object-cover"
                 aria-hidden="true"
               />
             </div>
@@ -486,14 +486,14 @@ const NewsComponent = () => {
         </div>
 
         {/* Contact section at the bottom */}
-        <div className="mt-20 flex flex-col md:flex-row justify-between items-center bg-white rounded-lg shadow-sm border border-gray-100 p-8">
+        <div className="mt-20 flex flex-col md:flex-row justify-between items-center bg-white border border-gray-200 p-8">
           <div>
             <h2 className="text-xl font-bold text-gray-900 mb-2">Have Questions?</h2>
             <p className="text-gray-600">Our team is ready to assist you with any inquiries.</p>
           </div>
           <a
             href="#contact"
-            className="mt-6 md:mt-0 inline-flex items-center justify-center px-8 py-3 bg-amber-500 text-white font-medium rounded hover:bg-amber-600 transition-colors duration-300"
+            className="mt-6 md:mt-0 inline-flex items-center justify-center px-8 py-3 bg-primary-700 text-white font-medium hover:bg-primary-800 transition-colors duration-300"
           >
             CONTACT US
             <ArrowRight size={16} className="ml-2" />
