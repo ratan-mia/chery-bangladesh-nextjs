@@ -4,212 +4,48 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
-// Car series and models data configuration
-const CAR_DATA = {
-  // You can easily add/remove entire series here
-  series: [
-    {
-      id: 'tiggo',
-      name: 'Tiggo',
-      // Default model to show when the series is selected
-      defaultModel: 'tiggo9',
-      // Series categories
-      categories: [
-        { 
-          id: 'tiggo9series', 
-          name: 'TIGGO 9 SERIES', 
-          models: ['tiggo9'],
-          defaultExpanded: true
-        },
-        { 
-          id: 'tiggo8series', 
-          name: 'TIGGO 8 SERIES', 
-          models: ['tiggo8'],
-          defaultExpanded: false
-        },
-        { 
-          id: 'tiggo7series', 
-          name: 'TIGGO 7 SERIES', 
-          models: ['tiggo7'],
-          defaultExpanded: false
-        },
-        { 
-          id: 'tiggo4pro', 
-          name: 'TIGGO 4 PRO', 
-          models: [],
-          defaultExpanded: false
-        },
-        { 
-          id: 'tiggo2pro', 
-          name: 'TIGGO 2 PRO', 
-          models: [],
-          defaultExpanded: false
-        }
-      ]
-    },
-    // To add Arrizo back, just uncomment this section
-    /*
-    {
-      id: 'arrizo',
-      name: 'Arrizo',
-      defaultModel: 'arrizo8',
-      categories: [
-        { id: 'arrizo8', name: 'ARRIZO 8', models: [] },
-        { id: 'arrizo7', name: 'ARRIZO 7', models: [] },
-        { id: 'arrizo5', name: 'ARRIZO 5', models: [] }
-      ]
-    }
-    */
-  ],
-  // Car specifications data
-  specs: {
-    'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
-    'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
-    'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
-    'tiggo4pro': { engine: '1.5', length: '4318', wheelbase: '2610', power: '145', torque: '210' },
-    'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555', power: '126', torque: '180' },
-    'arrizo8': { engine: '1.6', length: '4780', wheelbase: '2780', power: '197', torque: '290' },
-    'arrizo7': { engine: '1.5', length: '4650', wheelbase: '2700', power: '156', torque: '230' },
-    'arrizo5': { engine: '1.5', length: '4530', wheelbase: '2610', power: '147', torque: '210' }
-  },
-  // Car image paths
-  imagePaths: {
-    'tiggo9': '/images/cars/tiggo9.png',
-    'tiggo8': '/images/cars/tiggo8.png',
-    'tiggo7': '/images/cars/tiggo7.png',
-    'tiggo4pro': '/images/cars/tiggo4pro.png',
-    'tiggo2pro': '/images/cars/tiggo2pro.png',
-    'arrizo8': '/images/cars/arrizo8.png',
-    'arrizo7': '/images/cars/arrizo7.png',
-    'arrizo5': '/images/cars/arrizo5.png'
-  }
-}
-
-// Component for animating number counting
-const AnimatedCounter = ({ value, suffix, duration = 1000 }) => {
-  const [displayValue, setDisplayValue] = useState(0);
-  const counterRef = useRef(null);
-  const initialValue = useRef(0);
-  const targetValue = parseInt(value, 10);
-  
-  useEffect(() => {
-    let startTime;
-    let frameId;
-    
-    const animateValue = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      
-      // Easing function for smooth animation
-      const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
-      
-      const currentValue = Math.floor(initialValue.current + (targetValue - initialValue.current) * easedProgress);
-      setDisplayValue(currentValue);
-      
-      if (progress < 1) {
-        frameId = requestAnimationFrame(animateValue);
-      } else {
-        setDisplayValue(targetValue);
-      }
-    };
-    
-    // Start the animation
-    initialValue.current = displayValue;
-    frameId = requestAnimationFrame(animateValue);
-    
-    return () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
-    };
-  }, [targetValue, duration]);
-  
-  return (
-    <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
-      {displayValue}<span className="text-sm ml-1">{suffix}</span>
-    </div>
-  );
-};
-
 export default function ModelsMegaMenu({ 
   id, 
   isOpen, 
   onClose,
-  // Color settings with sensible defaults
+  // Color settings
   primaryBg = '#b29980', 
   primaryText = 'black',
-  primaryHover = '#a38a73',
-  // You can pass a custom dataset if needed
-  customData = null
+  primaryHover = '#a38a73'
 }) {
-  // Use either custom data passed as prop or default data
-  const data = customData || CAR_DATA;
-  
-  // Initialize state with first series and its default model
-  const initialSeries = data.series[0];
-  
-  const [activeCategory, setActiveCategory] = useState(initialSeries?.id || '');
-  const [activeModel, setActiveModel] = useState(initialSeries?.defaultModel || '');
-  
-  // Initialize expanded series state based on defaultExpanded flags
-  const initialExpandedState = {};
-  data.series.forEach(series => {
-    series.categories.forEach(category => {
-      if (category.defaultExpanded) {
-        initialExpandedState[category.id] = true;
-      }
-    });
-  });
-  
-  const [expandedSeries, setExpandedSeries] = useState(initialExpandedState);
-  const [hoveredModel, setHoveredModel] = useState(null);
-  const [isSpectVisible, setIsSpecVisible] = useState(false);
-  
-  const menuRef = useRef(null);
-  const timeoutRef = useRef(null);
-
-  // Reset active model when switching categories
-  useEffect(() => {
-    const activeSeries = data.series.find(series => series.id === activeCategory);
-    if (activeSeries) {
-      setActiveModel(activeSeries.defaultModel);
-    }
-  }, [activeCategory, data.series]);
-  
-  // Trigger spec animation when model changes
-  useEffect(() => {
-    setIsSpecVisible(false);
-    const timer = setTimeout(() => {
-      setIsSpecVisible(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, [activeModel]);
+  const [activeCategory, setActiveCategory] = useState('tiggo')
+  const [activeModel, setActiveModel] = useState('tiggo9')
+  const [expandedSeries, setExpandedSeries] = useState({
+    'tiggo9series': true // Default expanded
+  })
+  const [hoveredModel, setHoveredModel] = useState(null)
+  const menuRef = useRef(null)
+  const timeoutRef = useRef(null)
 
   // Close menu on ESC key
   useEffect(() => {
     const handleEscKey = (e) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose();
+        onClose()
       }
-    };
+    }
     
-    window.addEventListener('keydown', handleEscKey);
-    return () => window.removeEventListener('keydown', handleEscKey);
-  }, [isOpen, onClose]);
+    window.addEventListener('keydown', handleEscKey)
+    return () => window.removeEventListener('keydown', handleEscKey)
+  }, [isOpen, onClose])
 
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = ''
     }
     
     return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
   
   // Cleanup on unmount
   useEffect(() => {
@@ -217,43 +53,46 @@ export default function ModelsMegaMenu({
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-    };
+    }
   }, []);
   
   // Handle clicks inside menu to prevent propagation to document
   const handleMenuClick = (e) => {
-    e.stopPropagation();
-  };
+    // Prevent click from reaching the backdrop
+    e.stopPropagation()
+  }
 
   const handleCategoryClick = (category) => {
-    setActiveCategory(category);
+    setActiveCategory(category)
     
-    // Find and set default model for selected category
-    const selectedSeries = data.series.find(series => series.id === category);
-    if (selectedSeries) {
-      setActiveModel(selectedSeries.defaultModel);
+    // Set default model for category
+    if (category === 'tiggo') {
+      setActiveModel('tiggo9')
+    } else if (category === 'arrizo') {
+      setActiveModel('arrizo8')
     }
-  };
+  }
   
   const handleCategoryHover = (category) => {
     // Only respond to hover on desktop
     if (window.innerWidth >= 768) {
-      setActiveCategory(category);
+      setActiveCategory(category)
       
-      // Find and set default model for hovered category
-      const selectedSeries = data.series.find(series => series.id === category);
-      if (selectedSeries) {
-        setActiveModel(selectedSeries.defaultModel);
+      // Set default model for category
+      if (category === 'tiggo') {
+        setActiveModel('tiggo9')
+      } else if (category === 'arrizo') {
+        setActiveModel('arrizo8')
       }
     }
-  };
+  }
   
   const toggleSeries = (series) => {
     setExpandedSeries(prev => ({
       ...prev,
       [series]: !prev[series]
-    }));
-  };
+    }))
+  }
   
   const handleSeriesHover = (series) => {
     // Only respond to hover on desktop
@@ -265,14 +104,14 @@ export default function ModelsMegaMenu({
         setExpandedSeries(prev => ({
           ...prev,
           [series]: true
-        }));
+        }))
       }, 200);
     }
-  };
+  }
   
   const handleModelClick = (model) => {
-    setActiveModel(model);
-  };
+    setActiveModel(model)
+  }
   
   const handleModelHover = (model) => {
     // Only respond to hover on desktop
@@ -283,43 +122,77 @@ export default function ModelsMegaMenu({
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       
       timeoutRef.current = setTimeout(() => {
-        setActiveModel(model);
+        setActiveModel(model)
         setHoveredModel(null);
       }, 200);
     }
-  };
+  }
   
   // Get car specs based on model
   const getModelSpecs = (model) => {
-    return data.specs[model] || data.specs[data.series[0]?.defaultModel];
-  };
+    const specs = {
+      'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
+      'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
+      'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
+      'tiggo4pro': { engine: '1.5', length: '4318', wheelbase: '2610', power: '145', torque: '210' },
+      'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555', power: '126', torque: '180' },
+      'arrizo8': { engine: '1.6', length: '4780', wheelbase: '2780', power: '197', torque: '290' },
+      'arrizo7': { engine: '1.5', length: '4650', wheelbase: '2700', power: '156', torque: '230' },
+      'arrizo5': { engine: '1.5', length: '4530', wheelbase: '2610', power: '147', torque: '210' }
+    }
+    
+    return specs[model] || specs['tiggo9']
+  }
   
   // Get car image path based on model
   const getCarImagePath = (model) => {
-    return data.imagePaths[model] || '/images/cars/placeholder.png';
-  };
+    const imagePaths = {
+      'tiggo9': '/images/cars/tiggo9.png',
+      'tiggo8': '/images/cars/tiggo8.png',
+      'tiggo7': '/images/cars/tiggo7.png',
+      'tiggo4pro': '/images/cars/tiggo4pro.png',
+      'tiggo2pro': '/images/cars/tiggo2pro.png',
+      'arrizo8': '/images/cars/arrizo8.png',
+      'arrizo7': '/images/cars/arrizo7.png',
+      'arrizo5': '/images/cars/arrizo5.png'
+    }
+    
+    return imagePaths[model] || '/images/cars/placeholder.png'
+  }
   
-  // Get series display data for the active category
+  // Get series display data
   const getSeriesData = () => {
-    const activeSeries = data.series.find(series => series.id === activeCategory);
-    return activeSeries ? activeSeries.categories : [];
-  };
+    if (activeCategory === 'tiggo') {
+      return [
+        { id: 'tiggo9series', name: 'TIGGO 9 SERIES', models: ['tiggo9'] },
+        { id: 'tiggo8series', name: 'TIGGO 8 SERIES', models: ['tiggo8'] },
+        { id: 'tiggo7series', name: 'TIGGO 7 SERIES', models: ['tiggo7'] },
+        { id: 'tiggo4pro', name: 'TIGGO 4 PRO', models: [] },
+        { id: 'tiggo2pro', name: 'TIGGO 2 PRO', models: [] }
+      ]
+    } else {
+      return [
+        { id: 'arrizo8', name: 'ARRIZO 8', models: [] },
+        { id: 'arrizo7', name: 'ARRIZO 7', models: [] },
+        { id: 'arrizo5', name: 'ARRIZO 5', models: [] }
+      ]
+    }
+  }
   
   // Format model name for display
   const formatModelName = (model) => {
-    if (!model) return '';
-    return model.replace(/([a-z])([0-9])/i, '$1 $2').toUpperCase();
-  };
+    if (!model) return ''
+    return model.replace(/([a-z])([0-9])/i, '$1 $2').toUpperCase()
+  }
   
-  // Get all visible specs
-  const specs = getModelSpecs(activeModel);
-  const carImagePath = getCarImagePath(activeModel);
+  const specs = getModelSpecs(activeModel)
+  const carImagePath = getCarImagePath(activeModel)
   
-  if (!isOpen) return null;
+  if (!isOpen) return null
   
   // Styling
-  const sidebarGradient = 'linear-gradient(to bottom, #d1d5db, #9ca3af)';
-  const secondaryColor = '#1E5945'; // Darker green
+  const sidebarGradient = 'linear-gradient(to bottom, #d1d5db, #9ca3af)'
+  const secondaryColor = '#1E5945' // Darker green
   
   return (
     <div 
@@ -344,20 +217,28 @@ export default function ModelsMegaMenu({
           <div className="flex">
             {/* Main categories */}
             <div className="w-full">
-              {data.series.map(series => (
-                <div 
-                  key={series.id}
-                  className={`px-8 py-4 cursor-pointer transition-colors ${activeCategory === series.id ? 'bg-black/10' : 'hover:bg-black/5'}`}
-                  onClick={() => handleCategoryClick(series.id)}
-                  onMouseEnter={() => handleCategoryHover(series.id)}
-                  role="tab"
-                  aria-selected={activeCategory === series.id}
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && handleCategoryClick(series.id)}
-                >
-                  <h3 className="text-2xl font-light tracking-wide uppercase">{series.name}</h3>
-                </div>
-              ))}
+              <div 
+                className={`px-8 py-4 cursor-pointer transition-colors ${activeCategory === 'tiggo' ? 'bg-black/10' : 'hover:bg-black/5'}`}
+                onClick={() => handleCategoryClick('tiggo')}
+                onMouseEnter={() => handleCategoryHover('tiggo')}
+                role="tab"
+                aria-selected={activeCategory === 'tiggo'}
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleCategoryClick('tiggo')}
+              >
+                <h3 className="text-2xl font-light tracking-wide uppercase">Tiggo</h3>
+              </div>
+              <div 
+                className={`px-8 py-4 cursor-pointer transition-colors ${activeCategory === 'arrizo' ? 'bg-black/10' : 'hover:bg-black/5'}`}
+                onClick={() => handleCategoryClick('arrizo')}
+                onMouseEnter={() => handleCategoryHover('arrizo')}
+                role="tab"
+                aria-selected={activeCategory === 'arrizo'}
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleCategoryClick('arrizo')}
+              >
+                <h3 className="text-2xl font-light tracking-wide uppercase">Arrizo</h3>
+              </div>
             </div>
           </div>
         </div>
@@ -380,16 +261,16 @@ export default function ModelsMegaMenu({
                 }
                 onClick={() => {
                   if (series.models.length > 0) {
-                    toggleSeries(series.id);
+                    toggleSeries(series.id)
                   } else {
-                    handleModelClick(series.id);
+                    handleModelClick(series.id)
                   }
                 }}
                 onMouseEnter={() => {
                   if (series.models.length > 0) {
-                    handleSeriesHover(series.id);
+                    handleSeriesHover(series.id)
                   } else {
-                    handleModelHover(series.id);
+                    handleModelHover(series.id)
                   }
                 }}
                 role={series.models.length > 0 ? "button" : "link"}
@@ -398,9 +279,9 @@ export default function ModelsMegaMenu({
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     if (series.models.length > 0) {
-                      toggleSeries(series.id);
+                      toggleSeries(series.id)
                     } else {
-                      handleModelClick(series.id);
+                      handleModelClick(series.id)
                     }
                   }
                 }}
@@ -496,47 +377,47 @@ export default function ModelsMegaMenu({
               </div>
             </div>
             
-            {/* Specs section at bottom with animated numbers */}
+            {/* Specs section at bottom */}
             <div className="p-8 border-t border-neutral-200 bg-gray-100">
               <div className="flex flex-wrap gap-8">
                 {/* Engine */}
                 <div>
                   <div className="text-sm text-neutral-500">Engine</div>
-                  {isSpectVisible && specs && (
-                    <AnimatedCounter value={specs.engine} suffix="T" />
-                  )}
+                  <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
+                    {specs.engine}<span className="text-sm ml-1">T</span>
+                  </div>
                 </div>
                 
                 {/* Length */}
                 <div>
                   <div className="text-sm text-neutral-500">Length</div>
-                  {isSpectVisible && specs && (
-                    <AnimatedCounter value={specs.length} suffix="mm" />
-                  )}
+                  <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
+                    {specs.length}<span className="text-sm ml-1">mm</span>
+                  </div>
                 </div>
                 
                 {/* Wheelbase */}
                 <div>
                   <div className="text-sm text-neutral-500">Wheelbase</div>
-                  {isSpectVisible && specs && (
-                    <AnimatedCounter value={specs.wheelbase} suffix="mm" />
-                  )}
+                  <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
+                    {specs.wheelbase}<span className="text-sm ml-1">mm</span>
+                  </div>
                 </div>
                 
                 {/* Power */}
                 <div>
                   <div className="text-sm text-neutral-500">Power</div>
-                  {isSpectVisible && specs && (
-                    <AnimatedCounter value={specs.power} suffix="hp" />
-                  )}
+                  <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
+                    {specs.power}<span className="text-sm ml-1">hp</span>
+                  </div>
                 </div>
                 
                 {/* Torque */}
                 <div>
                   <div className="text-sm text-neutral-500">Torque</div>
-                  {isSpectVisible && specs && (
-                    <AnimatedCounter value={specs.torque} suffix="Nm" />
-                  )}
+                  <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
+                    {specs.torque}<span className="text-sm ml-1">Nm</span>
+                  </div>
                 </div>
               </div>
               
