@@ -153,18 +153,18 @@ const ContactSection = () => {
       
       {/* Business hours callout */}
       <motion.div 
-        className="absolute bottom-0 right-0 bg-white/10 backdrop-blur-sm p-4 md:p-6 max-w-xs md:max-w-sm"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        <div className="border-l-2 border-primary pl-4">
-          <h3 className="text-white font-medium mb-2">Business Hours</h3>
-          <p className="text-white/80 text-sm mb-1">Mon-Fri: 10:00 AM - 8:00 PM</p>
-          <p className="text-white/80 text-sm mb-1">Saturday: 10:00 AM - 8:00 PM</p>
-          <p className="text-white/80 text-sm">Govt. Holidays: Closed(Not Always)</p>
-        </div>
-      </motion.div>
+  className="hidden sm:block absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 bg-white/10 backdrop-blur-sm p-3 sm:p-4 md:p-6 w-auto max-w-[85%] sm:max-w-xs md:max-w-sm rounded-lg shadow-lg"
+  initial={{ opacity: 0, y: 20 }}
+  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+  transition={{ duration: 0.5, delay: 0.3 }}
+>
+  <div className="border-l-2 border-primary pl-3 sm:pl-4">
+    <h3 className="text-white font-medium text-base sm:text-lg mb-1 sm:mb-2">Business Hours</h3>
+    <p className="text-white/80 text-xs sm:text-sm mb-0.5 sm:mb-1">Mon-Fri: 10:00 AM - 8:00 PM</p>
+    <p className="text-white/80 text-xs sm:text-sm mb-0.5 sm:mb-1">Saturday: 10:00 AM - 8:00 PM</p>
+    <p className="text-white/80 text-xs sm:text-sm">Govt. Holidays: Closed(Not Always)</p>
+  </div>
+</motion.div>
     </section>
   )
 }
