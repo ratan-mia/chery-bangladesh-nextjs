@@ -36,7 +36,7 @@ export default function HeroSlider() {
       subtitle: 'Beyond Extraordinary',
       description: 'Our flagship SUV with cutting-edge design and performance',
       image: '/images/hero-slider/slider2.jpg',
-      color: '#008770', // Teal color
+      color: '#b7a99a', // Teal color
       link: '/models/tiggo9'
     },
     {
@@ -45,7 +45,7 @@ export default function HeroSlider() {
       subtitle: 'Designed For Distinction',
       description: 'Stylish compact SUV with smart technology and efficiency',
       image: '/images/hero-slider/header-image.jpg',
-      color: '#00A8E8', // Blue color
+      color: '#b7a99a', // Blue color
       link: '/models/tiggo7-pro'
     }
   ]
