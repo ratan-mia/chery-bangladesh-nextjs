@@ -63,11 +63,11 @@ const AssistanceCTA = () => {
                   <div className="w-full md:w-auto text-center">
                     <div className="text-gray-400 text-sm mb-2">Emergency Hotline</div>
                     <a 
-                      href="tel:+8801XXX000000" 
+                      href="tel:09639119977" 
                       className="text-2xl md:text-3xl text-white font-bold hover:text-primary-600 transition-colors duration-300 flex items-center justify-center"
                     >
                       <Phone size={24} className="text-primary-600 mr-3" />
-                      01XX-XXXXXX
+                      09639119977
                     </a>
                   </div>
                   
@@ -76,7 +76,7 @@ const AssistanceCTA = () => {
                   {/* Call Button */}
                   <div className="w-full md:w-auto flex-1">
                     <a 
-                      href="tel:+8801XXX000000" 
+                      href="tel:09639119977" 
                       className="w-full bg-primary-600 text-white px-8 py-4 font-medium hover:bg-primary-700 transition-colors duration-300 flex items-center justify-center"
                     >
                       <span className="mr-2">Call Now</span>

@@ -178,7 +178,7 @@ export function generateCustomerAssistanceEmailTemplate(data, formattedDate) {
             <div class="contact-info">
               <h3>Need Immediate Assistance?</h3>
               <p>If your situation is critical or you need to speak with someone immediately:</p>
-              <a href="tel:01XXXXXXXXX" class="emergency-number">01XX-XXXXXX</a>
+              <a href="tel:01XXXXXXXXX" class="emergency-number">09639119977</a>
               <p>24/7 Emergency Hotline</p>
             </div>
           </div>

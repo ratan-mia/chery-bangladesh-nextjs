@@ -182,7 +182,7 @@ export function generateCustomerEmailTemplate(data, formattedDate) {
             <div class="contact-info">
               <h3>Need to Make Changes?</h3>
               <p>If you need to reschedule or have any questions, please contact our service center:</p>
-              <p>Phone: 01XX-XXXXXX<br>
+              <p>Phone: 09639119977<br>
               Email: service@cherybd.com</p>
             </div>
             

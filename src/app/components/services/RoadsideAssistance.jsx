@@ -373,7 +373,7 @@ const RoadsideAssistance = () => {
               <div className="bg-black bg-opacity-20 p-6 mb-6">
                 <p className="text-sm mb-2">For immediate assistance, call our 24/7 hotline:</p>
                 <a href="tel:01XXXXXXXXX" className="text-2xl font-bold block text-center py-4">
-                  01XX-XXXXXX
+                  09639119977
                 </a>
                 <p className="text-xs text-center">Toll-free for Chery owners</p>
               </div>

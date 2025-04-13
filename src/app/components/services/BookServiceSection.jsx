@@ -379,7 +379,7 @@ const BookServiceSection = () => {
                       </p>
                       <div className="mt-4 flex items-center">
                         <Phone size={20} className="mr-2" />
-                        <span className="font-bold">01XX-XXXXXX</span>
+                        <span className="font-bold">09639119977</span>
                       </div>
                     </div>
                   </div>

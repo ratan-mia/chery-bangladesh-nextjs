@@ -188,7 +188,7 @@ export function generateCustomerEmailTemplate(data) {
         
         <div class="contact-info">
           <h3>24/7 EMERGENCY SUPPORT</h3>
-          <div class="contact-number">01XXX-XXXXXX</div>
+          <div class="contact-number">09639119977</div>
           <p>Available 24 hours a day, 7 days a week</p>
         </div>
         

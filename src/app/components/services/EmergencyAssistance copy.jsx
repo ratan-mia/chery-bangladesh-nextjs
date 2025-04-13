@@ -120,7 +120,7 @@ const EmergencyAssistance = () => {
               <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mr-4">
                 <Phone className="text-white w-6 h-6" />
               </div>
-              <span className="text-2xl md:text-3xl font-bold text-primary-600">01XXX-XXXXXX</span>
+              <span className="text-2xl md:text-3xl font-bold text-primary-600">09639119977</span>
             </div>
           </div>
         </div>
