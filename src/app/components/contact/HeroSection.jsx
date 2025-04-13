@@ -1,12 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { ChevronRight, Mail, MapPin, Phone } from 'lucide-react'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function HeroSection() {
-  // This would normally come from a theme context or provider
-  // Using the dark theme from the design system by default
+  // Theme configuration
   const theme = {
     accent: '#e2cdb8',
     text: '#ffffff',
@@ -18,12 +18,35 @@ export default function HeroSection() {
   }
   
   const [isInView, setIsInView] = useState(false)
+  const sectionRef = useRef(null)
   
   useEffect(() => {
+    // Set initial state immediately for a smoother experience
     setIsInView(true)
+    
+    // Enhanced intersection observer
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+          observer.unobserve(entry.target)
+        }
+      },
+      { threshold: 0.2 }
+    )
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
+      }
+    }
   }, [])
 
-  // Animation variants from the design system
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -44,110 +67,162 @@ export default function HeroSection() {
     }
   }
 
+  // Quick contact methods
+  const contactMethods = [
+    { 
+      icon: Phone, 
+      text: '+880 9666 795 795',
+      href: 'tel:+8809666795795'
+    },
+    { 
+      icon: Mail, 
+      text: 'info@cherybd.com',
+      href: 'mailto:info@cherybd.com'
+    },
+    { 
+      icon: MapPin, 
+      text: 'Find us on the map',
+      href: 'https://goo.gl/maps/3v1x5Z2g7Qk',
+    }
+  ]
+
   return (
-    <section className="relative w-full overflow-hidden" aria-label="Contact Us Hero Section">
-      {/* Background with overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/contact/contact-hero.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-          aria-hidden="true"
-          quality={90}
-        />
-        {/* Custom overlay with design system gradient */}
-        <div
-          className="absolute inset-0 z-10"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(17, 24, 39, 0.5), rgba(17, 24, 39, 0.6))'
-          }}
-          aria-hidden="true"
-        />
-      </div>
-      
-      {/* Content area - using grid system from design guidelines */}
-      <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" style={{ minHeight: '80vh' }}>
-          {/* Center positioned content following design system grid */}
-          <motion.div
-            className="lg:col-span-8 lg:col-start-3 text-center"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {/* Accent element */}
-            <div 
-              className="h-1.5 w-28 mx-auto mb-8"
-              style={{ backgroundColor: theme.accentLine }}
-            />
-            
-            {/* Primary heading with design system typography */}
-            <motion.h1 
-              className="text-5xl lg:text-6xl font-bold leading-tight mb-6"
-              style={{ 
-                color: theme.text,
-                letterSpacing: '-0.01em',
-                textShadow: '0 1px 2px rgba(0,0,0,0.1)'
-              }}
-              variants={itemVariants}
-            >
-              Contact Us
-            </motion.h1>
-            
-            {/* Content container with backdrop blur */}
+    <section 
+      ref={sectionRef}
+      className="relative w-full overflow-hidden" 
+      aria-label="Contact Us Hero Section"
+    >
+      {/* Split Design with Two-Column Layout */}
+      <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12">
+        {/* Left Column - Content */}
+        <div className="lg:col-span-6 xl:col-span-5 relative z-20 flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-16 lg:py-0">
+          <div className="lg:min-h-screen flex flex-col justify-center max-w-2xl mx-auto lg:mx-0">
             <motion.div
-              className="backdrop-blur-sm p-8 md:p-10  mx-auto max-w-2xl"
-              style={{
-                backgroundColor: theme.contentBg,
-                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
-              }}
-              variants={itemVariants}
+              variants={containerVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              className="lg:pr-6"
             >
-              <motion.p 
-                className="text-lg leading-relaxed mb-8"
-                style={{ color: theme.textSecondary }}
+              {/* Accent line with refined animation */}
+              <motion.div 
+                className="h-1 w-16 mb-6"
+                style={{ backgroundColor: theme.accentLine }}
+                variants={itemVariants}
+              />
+              
+              {/* Enhanced Typography */}
+              <motion.h1 
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900"
                 variants={itemVariants}
               >
-                We're here to answer your questions and help you find your perfect Chery vehicle. Our team of experts is ready to provide you with the information and assistance you need.
+                Connect With <span style={{ color: '#c20000' }}>Chery</span> Bangladesh
+              </motion.h1>
+              
+              <motion.p 
+                className="text-lg text-white leading-relaxed mb-8"
+                variants={itemVariants}
+              >
+                We're committed to providing exceptional customer service. Whether you have questions about our vehicles, need service support, or want to provide feedback, our team is here to help you every step of the way.
               </motion.p>
               
-              {/* Primary button with design system styling */}
-              <motion.div variants={itemVariants}>
+              {/* Quick Contact Methods */}
+              <motion.div
+                className="space-y-4 mb-8"
+                variants={itemVariants}
+              >
+                {contactMethods.map((method, index) => (
+                  <a 
+                    key={index} 
+                    href={method.href}
+                    className="flex items-center text-white hover:text-primary-600 transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded flex items-center justify-center bg-gray-100 mr-4">
+                      <method.icon size={20} className="text-primary-600" />
+                    </div>
+                    <span className="text-lg">{method.text}</span>
+                  </a>
+                ))}
+              </motion.div>
+              
+              {/* Primary CTA Button */}
+              <motion.div variants={itemVariants} className="mt-8">
                 <a
                   href="#contact-form"
-                  className="inline-flex items-center justify-center px-8 py-4 font-medium transition-all duration-300"
-                  style={{
-                    backgroundColor: theme.buttonBg,
-                    color: theme.buttonText,
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-                  }}
+                  className="group inline-flex items-center justify-center px-8 py-4 font-medium transition-all duration-300 text-white bg-primary-600 hover:bg-primary-700 shadow-md hover:shadow-lg"
                 >
-                  Get in Touch
-                  <svg className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H3a1 1 0 110-2h9.586l-2.293-2.293a1 1 0 010-1.414z" />
-                  </svg>
+                  Send us a message
+                  <ChevronRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </motion.div>
             </motion.div>
+          </div>
+        </div>
+        
+        {/* Right Column - Image with Overlay */}
+        <div className="lg:col-span-6 xl:col-span-7 relative">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0 h-full lg:h-screen">
+            <Image
+              src="/images/contact/contact-hero.jpg"
+              alt=""
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              quality={90}
+            />
+            {/* Gradient Overlay */}
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/20"
+              aria-hidden="true"
+            />
+          </div>
+          
+          {/* Floating Contact Information Box */}
+          <motion.div 
+            className="hidden lg:block absolute bottom-16 left-0 z-20 max-w-md -translate-x-1/4"
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <div className="bg-white shadow-2xl p-8 ml-12">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 relative">
+                <span className="absolute -left-12 top-1/2 transform -translate-y-1/2 w-8 h-1 bg-primary-600"></span>
+                Headquarters
+              </h3>
+              <address className="not-italic text-gray-700 space-y-3">
+                <p>Chery Bangladesh</p>
+                <p>206/1-207/1 Bir Uttam Mir Shawkat Sarak</p>
+                <p> Tejgaon Gulshan Link Road, Dhaka</p>
+              </address>
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <div className="text-sm text-gray-500">Business Hours</div>
+                <div className="text-gray-700">Mon-Fri: 9AM-6PM, Sat: 10AM-4PM</div>
+              </div>
+            </div>
           </motion.div>
+          
+          {/* Mobile version of the image (displayed only on small screens) */}
+          <div className="lg:hidden relative h-64 sm:h-80">
+            <Image
+              src="/images/contact/contact-hero.jpg"
+              alt=""
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="100vw"
+              quality={85}
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/20"
+              aria-hidden="true"
+            />
+          </div>
         </div>
       </div>
       
-      {/* Decorative element with glow */}
-      <div className="absolute bottom-0 left-0 right-0 z-0">
-        <div
-          className="absolute inset-0 blur-3xl opacity-30"
-          style={{
-            background: `radial-gradient(circle at center, ${theme.accent}44 0%, transparent 70%)`,
-            transform: 'translate(0, -5%)',
-            height: '100px'
-          }}
-          aria-hidden="true"
-        />
-      </div>
+      {/* Custom decorative element */}
+      <div className="absolute top-0 right-0 w-full h-16 bg-pattern-dots opacity-5 z-10" aria-hidden="true" />
     </section>
   )
 }
