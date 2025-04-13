@@ -14,22 +14,20 @@ export default function HeroBanner() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true)
-        } else {
-          setIsInView(false)
-        }
+        setIsInView(entry.isIntersecting)
       },
       { threshold: 0.2 }
     )
     
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+    const currentRef = sectionRef.current
+    
+    if (currentRef) {
+      observer.observe(currentRef)
     }
     
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+      if (currentRef) {
+        observer.unobserve(currentRef)
       }
     }
   }, [])
@@ -37,7 +35,7 @@ export default function HeroBanner() {
   // Handle video modal open/close
   const openVideo = () => {
     setIsVideoOpen(true)
-    // Use a more React-friendly approach to manipulate body class
+    // Lock scroll when modal is open
     if (typeof document !== 'undefined') {
       document.body.style.overflow = 'hidden'
     }
@@ -45,7 +43,7 @@ export default function HeroBanner() {
 
   const closeVideo = () => {
     setIsVideoOpen(false)
-    // Use a more React-friendly approach to manipulate body class
+    // Restore scroll when modal is closed
     if (typeof document !== 'undefined') {
       document.body.style.overflow = ''
     }
@@ -71,7 +69,7 @@ export default function HeroBanner() {
     }
   }, [])
 
-  // Animation variants - simplified for cleaner transitions
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -157,11 +155,12 @@ export default function HeroBanner() {
           >
             <button 
               onClick={openVideo}
-              className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 transition-colors px-6 py-3  text-white font-medium"
+              className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 transition-colors px-6 py-3 text-white font-medium"
+              aria-label="Play brand film video"
             >
               <div className="relative">
                 <div className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 24 24" fill="currentColor" className="text-primary-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-primary-500 ml-0.5">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
@@ -172,7 +171,8 @@ export default function HeroBanner() {
             
             <a
               href="#explore"
-              className="px-6 py-3  border border-white/30 text-white font-medium hover:bg-white/10 transition-colors"
+              className="px-6 py-3 border border-white/30 text-white font-medium hover:bg-white/10 transition-colors"
+              aria-label="Explore vehicle models"
             >
               Explore Models
             </a>
@@ -187,9 +187,14 @@ export default function HeroBanner() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            onClick={closeVideo}
           >
-            <div className="relative w-full max-w-4xl">
+            <div 
+              className="relative w-full max-w-4xl"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on content
+            >
               <button
                 onClick={closeVideo}
                 className="absolute -top-12 right-0 text-white hover:text-primary-500 transition-colors"
@@ -201,11 +206,12 @@ export default function HeroBanner() {
                 </svg>
               </button>
               
-              <div className="aspect-video bg-black/50 overflow-hidden rounded-lg">
+              <div className="aspect-video bg-black/50 overflow-hidden rounded-lg shadow-xl">
                 <video
                   ref={videoRef}
                   controls
                   className="w-full h-full object-cover"
+                  autoPlay
                 >
                   <source src="/videos/chery-brand-film.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
