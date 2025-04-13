@@ -179,29 +179,6 @@ const GlobalPresenceBanner = () => {
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/70"
-        initial={{ opacity: 0, y: 10 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ delay: 1, duration: 0.5 }}
-      >
-        <span className="text-xs uppercase tracking-widest mb-2">Scroll Down</span>
-        <div className="w-6 h-10 border border-white/20 rounded-full flex justify-center">
-          <motion.div 
-            className="w-1 h-2 bg-white mt-2 rounded-full"
-            animate={{ 
-              y: [0, 12, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "loop"
-            }}
-          ></motion.div>
-        </div>
-      </motion.div>
     </section>
   )
 }
