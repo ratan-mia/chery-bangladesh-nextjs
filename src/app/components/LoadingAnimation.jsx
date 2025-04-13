@@ -10,7 +10,7 @@ export default function LoadingAnimation() {
     // Simulate minimum loading time for branding effect
     const minLoadingTime = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1000);
 
     // Add event listeners for route changes if needed
     // This would be used if you want to show the loader during navigation
