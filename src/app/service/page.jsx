@@ -7,10 +7,10 @@ import Footer from "@/components/Footer";
 import AssistanceCTA from "@/components/services/AssistanceCTA";
 import BookServiceSection from "@/components/services/BookServiceSection";
 import CustomerReviews from "@/components/services/CustomerReviews";
+import EmergencyAssistance from "@/components/services/EmergencyAssistance";
 import HeroSlider from "@/components/services/HeroSlider";
 import MaintenanceSchedule from "@/components/services/MaintenanceSchedule";
 import PremiumServices from "@/components/services/PremiumServices";
-import RoadsideAssistance from "@/components/services/RoadsideAssistance";
 import ServiceCenters from "@/components/services/ServiceCenters";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import ServiceProcess from "@/components/services/ServiceProcess";
@@ -53,10 +53,10 @@ const ServicePage = () => {
       </section>
 
       {/* Roadside Assistance Section */}
-      <section id="assistance">
-        <RoadsideAssistance />
+         <section id="assistance">
+        <EmergencyAssistance />
       </section>
-    
+
       {/* Emergency Assistance CTA */}
       <section id="emergency">
         <AssistanceCTA />
@@ -82,12 +82,10 @@ const ServicePage = () => {
         <WarrantySection />
       </section>
 
+      <section id="locations">
+        <ServiceCenters />
+      </section>
       {/* Service Centers */}
-
-      <ServiceCenters />
-
-
-      
 
 
       {/* Service Booking */}

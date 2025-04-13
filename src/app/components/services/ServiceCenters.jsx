@@ -2,13 +2,13 @@
 
 import { motion } from "framer-motion";
 import {
-    Calendar,
-    Check,
-    Clock,
-    Mail,
-    MapPin,
-    Navigation,
-    Phone,
+  Calendar,
+  Check,
+  Clock,
+  Mail,
+  MapPin,
+  Navigation,
+  Phone,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -40,9 +40,7 @@ const ServiceCenter = () => {
   <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950 to-black opacity-90"></div>;
 
   return (
-    <section
-      id="location"
-      className="py-24 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black"
+    <section className="py-24 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black"
     >
       {/* Background texture */}
       <div
