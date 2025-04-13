@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 
 // Import components
-import Footer from "@/components/Footer";
 import AssistanceCTA from "@/components/services/AssistanceCTA";
 import BookServiceSection from "@/components/services/BookServiceSection";
 import CustomerReviews from "@/components/services/CustomerReviews";
@@ -109,9 +108,6 @@ const ServicePage = () => {
     <section id="call-to-action">
       <ServiceCTA/>
     </section>
-
-      {/* Footer Component */}
-      <Footer />
     </main>
   );
 };
