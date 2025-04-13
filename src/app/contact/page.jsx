@@ -6,6 +6,7 @@ import ContactInfo from '../components/contact/ContactInfo'
 import FaqSection from '../components/contact/FaqSection'
 import HeroSection from '../components/contact/HeroSection'
 import MapSection from '../components/contact/MapSection'
+import PartsAccessoriesSection from '../components/contact/PartsAccessoriesSection'
 
 export default function ContactPage() {
   // Theme configuration based on the climate design system
@@ -121,7 +122,7 @@ export default function ContactPage() {
           coordinates: officeInfo.coordinates
         }}
       />
-
+<PartsAccessoriesSection/>
       {/* FAQ section */}
       <FaqSection />
     </main>
