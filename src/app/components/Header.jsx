@@ -295,7 +295,7 @@ export default function Header() {
               </li>
               <li className="mr-5">
                 <Link 
-                  href="#" 
+                  href="/news" 
                   className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors"
                 >
                   NEWS
