@@ -29,7 +29,7 @@ const CookiesConsent = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50">
       {!showSettings ? (
-        <div className="bg-[#b9aa97] text-gray-800 p-4 md:p-6 shadow-lg">
+        <div className="bg-[#b9aa97] text-gray-800 p-10 md:p-15 shadow-lg">
           <div className="container mx-auto flex flex-col md:flex-row md:items-center gap-4">
             <button 
               onClick={() => setIsVisible(false)}
