@@ -5,195 +5,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
-// Car series and models data configuration
-const CAR_DATA = {
-  // You can easily add/remove entire series here
-  series: [
-    {
-      id: 'tiggo',
-      name: 'Tiggo',
-      // Default model to show when the series is selected
-      defaultModel: 'tiggo9',
-      // Series categories
-      categories: [
-        { 
-          id: 'tiggo9series', 
-          name: 'Tiggo 9 Series', 
-          models: [
-            { id: 'tiggo9', name: 'Tiggo 9' },
-            { id: 'tiggo9plus', name: 'Tiggo 9 Plus' }
-          ]
-        },
-        { 
-          id: 'tiggo8series', 
-          name: 'Tiggo 8 Series', 
-          models: [
-            { id: 'tiggo8', name: 'Tiggo 8' },
-            { id: 'tiggo8plus', name: 'Tiggo 8 Plus' },
-            { id: 'tiggo8pro', name: 'Tiggo 8 Pro' }
-          ]
-        },
-        { 
-          id: 'tiggo7series', 
-          name: 'Tiggo 7 Series', 
-          models: [
-            { id: 'tiggo7', name: 'Tiggo 7' },
-            { id: 'tiggo7pro', name: 'Tiggo 7 Pro' }
-          ]
-        },
-        { 
-          id: 'tiggo4pro', 
-          name: 'Tiggo 4 Pro', 
-          models: []
-        },
-        { 
-          id: 'tiggo2pro', 
-          name: 'Tiggo 2 Pro', 
-          models: []
-        }
-      ]
-    },
-    // To add Arrizo back, just uncomment this section
-    /*
-    {
-      id: 'arrizo',
-      name: 'Arrizo',
-      defaultModel: 'arrizo8',
-      categories: [
-        { 
-          id: 'arrizo8', 
-          name: 'Arrizo 8', 
-          models: [
-            { id: 'arrizo8', name: 'Arrizo 8' },
-            { id: 'arrizo8plus', name: 'Arrizo 8 Plus' }
-          ]
-        },
-        { id: 'arrizo6', name: 'Arrizo 6', models: [] },
-        { id: 'arrizo5plus', name: 'Arrizo 5 Plus', models: [] }
-      ]
-    }
-    */
-  ],
-  // Car specifications data
-  specs: {
-    'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800' },
-    'tiggo9plus': { engine: '2.0', length: '4820', wheelbase: '2850' },
-    'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710' },
-    'tiggo8plus': { engine: '1.9', length: '4750', wheelbase: '2730' },
-    'tiggo8pro': { engine: '2.0', length: '4700', wheelbase: '2710' },
-    'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670' },
-    'tiggo7pro': { engine: '1.6', length: '4510', wheelbase: '2680' },
-    'tiggo4pro': { engine: '1.5', length: '4318', wheelbase: '2610' },
-    'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555' },
-    'arrizo8': { engine: '1.6', length: '4780', wheelbase: '2780' },
-    'arrizo8plus': { engine: '1.8', length: '4800', wheelbase: '2800' },
-    'arrizo6': { engine: '1.5', length: '4630', wheelbase: '2670' },
-    'arrizo5plus': { engine: '1.5', length: '4530', wheelbase: '2610' }
-  },
-  // Car image paths
-  imagePaths: {
-    'tiggo9': '/images/cars/tiggo9.png',
-    'tiggo9plus': '/images/cars/tiggo9plus.png',
-    'tiggo8': '/images/cars/tiggo8.png',
-    'tiggo8plus': '/images/cars/tiggo8plus.png',
-    'tiggo8pro': '/images/cars/tiggo8pro.png',
-    'tiggo7': '/images/cars/tiggo7.png',
-    'tiggo7pro': '/images/cars/tiggo7pro.png',
-    'tiggo4pro': '/images/cars/tiggo4pro.png',
-    'tiggo2pro': '/images/cars/tiggo2pro.png',
-    'arrizo8': '/images/cars/arrizo8.png',
-    'arrizo8plus': '/images/cars/arrizo8plus.png',
-    'arrizo6': '/images/cars/arrizo6.png',
-    'arrizo5plus': '/images/cars/arrizo5plus.png'
-  },
-  // Car colors for fallback display
-  colors: {
-    'tiggo9': '#b29980',
-    'tiggo9plus': '#b29980',
-    'tiggo8': '#2D7C5E',
-    'tiggo8plus': '#2D7C5E',
-    'tiggo8pro': '#2D7C5E',
-    'tiggo7': '#00A8E8',
-    'tiggo7pro': '#00A8E8',
-    'tiggo4pro': '#556B2F',
-    'tiggo2pro': '#C23B22',
-    'arrizo8': '#003F5C',
-    'arrizo8plus': '#003F5C',
-    'arrizo6': '#444444',
-    'arrizo5plus': '#8A2BE2'
-  }
-}
-
-// Component for animating number counting
-const AnimatedCounter = ({ value, suffix, duration = 800 }) => {
-  const [displayValue, setDisplayValue] = useState(0);
-  const initialValue = useRef(0);
-  const targetValue = parseInt(value, 10);
-  
-  useEffect(() => {
-    let startTime;
-    let frameId;
-    
-    const animateValue = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      
-      // Easing function for smooth animation
-      const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
-      
-      const currentValue = Math.floor(initialValue.current + (targetValue - initialValue.current) * easedProgress);
-      setDisplayValue(currentValue);
-      
-      if (progress < 1) {
-        frameId = requestAnimationFrame(animateValue);
-      } else {
-        setDisplayValue(targetValue);
-      }
-    };
-    
-    // Start the animation
-    initialValue.current = displayValue;
-    frameId = requestAnimationFrame(animateValue);
-    
-    return () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
-    };
-  }, [targetValue, duration]);
-  
-  return (
-    <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
-      {displayValue}<span className="text-xs sm:text-sm text-gray-500 align-super">{suffix}</span>
-    </div>
-  );
-};
-
 export default function MobileMenu({ 
   id,
   isOpen, 
   closeMenu, 
   primaryBg = '#b29980', 
-  primaryText = 'black',
+  primaryText = 'white',
   primaryHover = '#a38a73',
-  aboutSubMenuItems = [],
-  // You can pass a custom dataset if needed
-  customData = null
+  aboutSubMenuItems = []
 }) {
-  // Use either custom data passed as prop or default data
-  const data = customData || CAR_DATA;
-  
-  // Initialize with first series in the data
-  const initialSeries = data.series[0];
-  
   const [activeSubmenu, setActiveSubmenu] = useState(null)
   const [isAboutSubMenuOpen, setIsAboutSubMenuOpen] = useState(false)
-  const [activeModelCategory, setActiveModelCategory] = useState(initialSeries?.id || 'tiggo')
-  const [activeModel, setActiveModel] = useState(initialSeries?.defaultModel || 'tiggo9')
+  const [activeModelCategory, setActiveModelCategory] = useState('tiggo')
+  const [activeModel, setActiveModel] = useState('tiggo9')
   const [openModelSubmenus, setOpenModelSubmenus] = useState({})
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isSpecVisible, setIsSpecVisible] = useState(false)
-  
   const menuRef = useRef(null)
   const audioRef = useRef(null)
   
@@ -202,6 +28,8 @@ export default function MobileMenu({
     primary: primaryBg,
     primaryDark: primaryHover,
     primaryText: primaryText,
+
+
     secondary: '#b29980',      // Dark green for accents
     secondaryDark: '#a38a73',  // Darker green
     secondaryText: 'white',    // Text on secondary background
@@ -260,16 +88,6 @@ export default function MobileMenu({
     return () => window.removeEventListener('keydown', handleEscKey)
   }, [isOpen, closeMenu])
   
-  // Trigger spec animation when model changes
-  useEffect(() => {
-    setIsSpecVisible(false);
-    const timer = setTimeout(() => {
-      setIsSpecVisible(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, [activeModel]);
-  
   const toggleMusic = () => {
     if (isPlaying) {
       audioRef.current?.pause()
@@ -306,10 +124,11 @@ export default function MobileMenu({
     setActiveModelCategory(category)
     setOpenModelSubmenus({})
     
-    // Find and set default model for selected category
-    const selectedSeries = data.series.find(series => series.id === category);
-    if (selectedSeries) {
-      setActiveModel(selectedSeries.defaultModel);
+    // Set default model for the category
+    if (category === 'tiggo' && !activeModel.includes('tiggo')) {
+      setActiveModel('tiggo9')
+    } else if (category === 'arrizo' && !activeModel.includes('arrizo')) {
+      setActiveModel('arrizo8')
     }
   }
   
@@ -326,55 +145,120 @@ export default function MobileMenu({
   
   // Get car specs based on model
   const getModelSpecs = (model) => {
-    return data.specs[model] || data.specs[data.series[0]?.defaultModel];
+    const specs = {
+      'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800' },
+      'tiggo9plus': { engine: '2.0', length: '4820', wheelbase: '2850' },
+      'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710' },
+      'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670' },
+      'tiggo4pro': { engine: '1.5', length: '4318', wheelbase: '2610' },
+      'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555' },
+      'arrizo8': { engine: '1.6', length: '4780', wheelbase: '2780' },
+      'arrizo6': { engine: '1.5', length: '4630', wheelbase: '2670' },
+      'arrizo5plus': { engine: '1.5', length: '4530', wheelbase: '2610' }
+    }
+    
+    return specs[model] || specs['tiggo9']
   }
   
   // Get car image path based on model
   const getCarImagePath = (model) => {
-    return data.imagePaths[model] || '/images/cars/placeholder.png';
+    const imagePaths = {
+      'tiggo9': '/images/cars/tiggo9.png',
+      'tiggo9plus': '/images/cars/tiggo9plus.png',
+      'tiggo8': '/images/cars/tiggo8.png',
+      'tiggo8plus': '/images/cars/tiggo8plus.png',
+      'tiggo8pro': '/images/cars/tiggo8pro.png',
+      'tiggo7': '/images/cars/tiggo7.png',
+      'tiggo7pro': '/images/cars/tiggo7pro.png',
+      'tiggo4pro': '/images/cars/tiggo4pro.png',
+      'tiggo2pro': '/images/cars/tiggo2pro.png',
+      'arrizo8': '/images/cars/arrizo8.png',
+      'arrizo8plus': '/images/cars/arrizo8plus.png',
+      'arrizo6': '/images/cars/arrizo6.png',
+      'arrizo5plus': '/images/cars/arrizo5plus.png'
+    }
+    
+    return imagePaths[model] || '/images/cars/placeholder.png'
   }
   
   // Get car color for display
   const getCarColor = (model) => {
-    return data.colors[model] || THEME.secondary;
+    if (model?.includes('tiggo9')) return THEME.secondary // Dark green
+    if (model?.includes('tiggo8')) return '#2D7C5E' // Green  
+    if (model?.includes('tiggo7')) return '#00A8E8' // Blue
+    if (model?.includes('tiggo4')) return '#556B2F' // Olive
+    if (model?.includes('tiggo2')) return '#C23B22' // Red
+    if (model?.includes('arrizo8')) return '#003F5C' // Navy
+    if (model?.includes('arrizo6')) return '#444444' // Dark gray
+    if (model?.includes('arrizo5')) return '#8A2BE2' // Purple
+    return THEME.secondary // Default green
   }
   
   // Format model name for display
   const formatModelName = (model) => {
-    if (!model) return '';
-    return model.replace(/([a-z])([0-9])/i, '$1 $2').replace(/^([a-z])/, match => match.toUpperCase());
+    if (!model) return ''
+    return model.replace(/([a-z])([0-9])/i, '$1 $2').replace(/^([a-z])/, match => match.toUpperCase())
   }
   
-  // Get model lists based on active category
+  // Get model lists based on category
   const getModelList = () => {
-    const activeSeries = data.series.find(series => series.id === activeModelCategory);
-    return activeSeries ? activeSeries.categories : [];
+    if (activeModelCategory === 'tiggo') {
+      return [
+        { id: 'tiggo9series', name: 'Tiggo 9 Series', hasSubmenu: true },
+        { id: 'tiggo9', name: 'Tiggo 9', hasSubmenu: false },
+        { id: 'tiggo8series', name: 'Tiggo 8 Series', hasSubmenu: true },
+        { id: 'tiggo7series', name: 'Tiggo 7 Series', hasSubmenu: true },
+        { id: 'tiggo4pro', name: 'Tiggo 4 Pro', hasSubmenu: false },
+        { id: 'tiggo2pro', name: 'Tiggo 2 Pro', hasSubmenu: false }
+      ]
+    } else {
+      return [
+        { id: 'arrizo8', name: 'Arrizo 8', hasSubmenu: true },
+        { id: 'arrizo6', name: 'Arrizo 6', hasSubmenu: false },
+        { id: 'arrizo5plus', name: 'Arrizo 5 Plus', hasSubmenu: false }
+      ]
+    }
   }
   
-  // Get submenu items for a specific model series
+  // Get submenu items
   const getSubmenuItems = (modelId) => {
-    const activeSeries = data.series.find(series => series.id === activeModelCategory);
-    if (!activeSeries) return [];
-    
-    const category = activeSeries.categories.find(cat => cat.id === modelId);
-    return category ? category.models : [];
+    if (modelId === 'tiggo9series') {
+      return [
+        { id: 'tiggo9', name: 'Tiggo 9' },
+        { id: 'tiggo9plus', name: 'Tiggo 9 Plus' }
+      ]
+    } else if (modelId === 'tiggo8series') {
+      return [
+        { id: 'tiggo8', name: 'Tiggo 8' },
+        { id: 'tiggo8plus', name: 'Tiggo 8 Plus' },
+        { id: 'tiggo8pro', name: 'Tiggo 8 Pro' }
+      ]
+    } else if (modelId === 'tiggo7series') {
+      return [
+        { id: 'tiggo7', name: 'Tiggo 7' },
+        { id: 'tiggo7pro', name: 'Tiggo 7 Pro' }
+      ]
+    } else if (modelId === 'arrizo8') {
+      return [
+        { id: 'arrizo8', name: 'Arrizo 8' },
+        { id: 'arrizo8plus', name: 'Arrizo 8 Plus' }
+      ]
+    }
+    return []
   }
   
   // Set default model if not selected
   useEffect(() => {
-    const activeSeries = data.series.find(series => series.id === activeModelCategory);
-    if (activeSeries) {
-      const modelPrefix = activeSeries.id;
-      // If current active model doesn't belong to the active category
-      if (!activeModel.includes(modelPrefix)) {
-        setActiveModel(activeSeries.defaultModel);
-      }
+    if (activeModelCategory === 'tiggo' && !activeModel) {
+      setActiveModel('tiggo9')
+    } else if (activeModelCategory === 'arrizo' && !activeModel) {
+      setActiveModel('arrizo8')
     }
-  }, [activeModelCategory, activeModel, data.series]);
+  }, [activeModelCategory, activeModel])
   
-  const specs = getModelSpecs(activeModel);
-  const carColor = getCarColor(activeModel);
-  const carImagePath = getCarImagePath(activeModel);
+  const specs = getModelSpecs(activeModel || 'tiggo9')
+  const carColor = getCarColor(activeModel)
+  const carImagePath = getCarImagePath(activeModel)
   
   // Styling variables
   const menuBackgroundStyle = {
@@ -447,54 +331,59 @@ export default function MobileMenu({
                   >
                     <div style={categoryBackgroundStyle}>
                       <ul className="list-none flex">
-                        {data.series.map(series => (
-                          <li 
-                            key={series.id}
-                            className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
-                              activeModelCategory === series.id ? 'bg-primary-800' : 'hover:bg-white hover:bg-opacity-10'
-                            }`}
-                            onClick={() => handleCategoryClick(series.id)}
-                          >
-                            {series.name}
-                          </li>
-                        ))}
+                        <li 
+                          className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
+                            activeModelCategory === 'tiggo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                          }`}
+                          onClick={() => handleCategoryClick('tiggo')}
+                        >
+                          Tiggo
+                        </li>
+                        <li 
+                          className={`flex-1 py-4 px-5 text-base uppercase cursor-pointer text-center transition-colors ${
+                            activeModelCategory === 'arrizo' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                          }`}
+                          onClick={() => handleCategoryClick('arrizo')}
+                        >
+                          Arrizo
+                        </li>
                       </ul>
                     </div>
                     
                     <div style={subMenuBackgroundStyle} className="overflow-hidden transition-all duration-300">
                       <ul className="list-none">
-                        {getModelList().map((category) => (
-                          <div key={category.id}>
+                        {getModelList().map((model) => (
+                          <div key={model.id}>
                             <li 
-                              className={`py-3 px-5 sm:px-8 flex justify-between  items-center cursor-pointer border-b border-white border-opacity-10 transition-colors ${
-                                activeModel === category.id ? 'bg-primary-800 bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                              className={`py-3 px-5 sm:px-8 flex justify-between items-center cursor-pointer border-b border-white border-opacity-10 transition-colors ${
+                                activeModel === model.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                               }`}
-                              onClick={() => category.models.length > 0 ? toggleModelSubmenu(category.id) : handleModelClick(category.id)}
+                              onClick={() => model.hasSubmenu ? toggleModelSubmenu(model.id) : handleModelClick(model.id)}
                             >
-                              {category.name}
-                              {category.models.length > 0 && (
+                              {model.name}
+                              {model.hasSubmenu && (
                                 <span className="text-xl px-2">
-                                  {openModelSubmenus[category.id] ? '−' : '+'}
+                                  {openModelSubmenus[model.id] ? '−' : '+'}
                                 </span>
                               )}
                             </li>
                             
-                            {category.models.length > 0 && (
+                            {model.hasSubmenu && (
                               <ul 
                                 className={`list-none transition-all duration-300 ${
-                                  openModelSubmenus[category.id] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+                                  openModelSubmenus[model.id] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
                                 }`}
                                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
                               >
-                                {category.models.map((model) => (
+                                {getSubmenuItems(model.id).map((subItem) => (
                                   <li 
-                                    key={model.id}
+                                    key={subItem.id}
                                     className={`py-3 pl-8 sm:pl-12 pr-5 sm:pr-8 flex justify-between items-center cursor-pointer border-b border-white border-opacity-10 transition-colors ${
-                                      activeModel === model.id ? 'bg-primary-800 bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
+                                      activeModel === subItem.id ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'
                                     }`}
-                                    onClick={() => handleModelClick(model.id)}
+                                    onClick={() => handleModelClick(subItem.id)}
                                   >
-                                    {model.name}
+                                    {subItem.name}
                                   </li>
                                 ))}
                               </ul>
@@ -544,28 +433,25 @@ export default function MobileMenu({
                       </div>
                       
                       <div className="flex justify-around flex-wrap">
-                        {/* Engine with animated counter */}
                         <div className="text-center p-2">
                           <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Engine</div>
-                          {isSpecVisible && specs && (
-                            <AnimatedCounter value={specs.engine} suffix="T" />
-                          )}
+                          <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
+                            {specs.engine}<span className="text-xs sm:text-sm text-gray-500 align-super">T</span>
+                          </div>
                         </div>
                         
-                        {/* Length with animated counter */}
                         <div className="text-center p-2">
                           <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Length</div>
-                          {isSpecVisible && specs && (
-                            <AnimatedCounter value={specs.length} suffix="mm" />
-                          )}
+                          <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
+                            {specs.length}<span className="text-xs sm:text-sm text-gray-500 align-super">mm</span>
+                          </div>
                         </div>
                         
-                        {/* Wheelbase with animated counter */}
                         <div className="text-center p-2">
                           <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">Wheelbase</div>
-                          {isSpecVisible && specs && (
-                            <AnimatedCounter value={specs.wheelbase} suffix="mm" />
-                          )}
+                          <div className="text-2xl sm:text-3xl text-gray-800 font-bold">
+                            {specs.wheelbase}<span className="text-xs sm:text-sm text-gray-500 align-super">mm</span>
+                          </div>
                         </div>
                       </div>
                       
