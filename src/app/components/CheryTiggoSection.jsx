@@ -32,7 +32,7 @@ const themes = {
 export default function CheryTiggoSection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isInView, setIsInView] = useState(false)
-  const [currentTheme, setCurrentTheme] = useState('dark')
+  const [currentTheme, setCurrentTheme] = useState('light')
   const sectionRef = useRef(null)
   
   const theme = themes[currentTheme]
