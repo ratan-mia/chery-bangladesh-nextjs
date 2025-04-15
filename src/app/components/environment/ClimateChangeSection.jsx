@@ -19,6 +19,7 @@ const ClimateChangeSection = ({
   minHeight = '80vh',
   themeVariant = 'dark',
   showStats = false,
+  showCta = false,
   stats = [],
 }) => {
   const sectionRef = useRef(null);
@@ -145,38 +146,43 @@ const ClimateChangeSection = ({
               </div>
 
               {/* CTAs */}
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <a
-                  href={ctaLink}
-                  className="inline-flex items-center justify-center px-8 py-3 font-medium transition-colors duration-300 group"
-                  style={{ backgroundColor: theme.buttonBg, color: theme.buttonText }}
-                >
-                  {ctaText}
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
-
-                {secondaryCta?.text && (
+             {
+                showCta && (
+                  <div className="mt-8 flex flex-col sm:flex-row gap-4">
                   <a
-                    href={secondaryCta.link}
-                    className="inline-flex items-center justify-center px-8 py-3 font-medium border transition-colors duration-300"
-                    style={{ 
-                      borderColor: themeVariant === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(75, 85, 99, 0.2)', 
-                      color: theme.text,
-                      hover: { borderColor: theme.accent }
-                    }}
+                    href={ctaLink}
+                    className="inline-flex items-center justify-center px-8 py-3 font-medium transition-colors duration-300 group"
+                    style={{ backgroundColor: theme.buttonBg, color: theme.buttonText }}
                   >
-                    {secondaryCta.text}
+                    {ctaText}
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
                   </a>
-                )}
-              </div>
+  
+                  {secondaryCta?.text && (
+                    <a
+                      href={secondaryCta.link}
+                      className="inline-flex items-center justify-center px-8 py-3 font-medium border transition-colors duration-300"
+                      style={{ 
+                        borderColor: themeVariant === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(75, 85, 99, 0.2)', 
+                        color: theme.text,
+                        hover: { borderColor: theme.accent }
+                      }}
+                    >
+                      {secondaryCta.text}
+                    </a>
+                  )}
+                </div>
+
+                )
+             }
 
               {/* Optional Stats */}
               {showStats && stats?.length > 0 && (

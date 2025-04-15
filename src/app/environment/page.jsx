@@ -3,31 +3,71 @@
 import ClimateChangeSection from "../components/environment/ClimateChangeSection";
 import EnvironmentalParallax from "../components/environment/EnvironmentalParallax";
 import EnvironmentNewsSection from "../components/environment/EnvironmentNewsSection";
-import { climateData, lowCarbonData } from "../data/environmentData";
+import {
+  climateData,
+  lowCarbonData,
+  natureData,
+} from "../data/environmentData";
 
 export default function Environment() {
-  // Render paragraph content from the data file with proper HTML formatting
-  const renderClimateContent = () => {
+  const renderClimateContent = (ContentData) => {
+    if (Array.isArray(ContentData.content)) {
+      return (
+        <>
+          {ContentData.content.map((paragraph, index) => (
+            <p
+              key={index}
+              className="text-white/90 text-base sm:text-lg leading-relaxed font-light"
+              dangerouslySetInnerHTML={{ __html: paragraph }}
+            />
+          ))}
+        </>
+      );
+    }
+
+    // Handle string-based content
     return (
-      <>
-        {climateData.content.map((paragraph, index) => (
-          <p 
-            key={index} 
-            className="text-white/90 text-base sm:text-lg leading-relaxed font-light"
-            dangerouslySetInnerHTML={{ __html: paragraph }}
-          />
-        ))}
-      </>
+      <p
+        className="text-white/90 text-base sm:text-lg leading-relaxed font-light"
+        dangerouslySetInnerHTML={{ __html: ContentData.content }}
+      />
     );
   };
 
   return (
     <main>
       <EnvironmentalParallax />
+
+      <ClimateChangeSection
+        title={natureData.title}
+        subtitle={natureData.subtitle}
+        content={renderClimateContent(natureData)}
+        backgroundImage={natureData.backgroundImage}
+        contentPosition={natureData.contentPosition}
+        ctaText={natureData.ctaText}
+        ctaLink={natureData.ctaLink}
+        secondaryCta={natureData.secondaryCta}
+        overlayColor={natureData.overlayColor}
+        stats={natureData.stats}
+      />
+
+      <ClimateChangeSection
+        title={lowCarbonData.title}
+        subtitle={lowCarbonData.subtitle}
+        content={renderClimateContent(lowCarbonData)}
+        backgroundImage={lowCarbonData.backgroundImage}
+        contentPosition={lowCarbonData.contentPosition}
+        ctaText={lowCarbonData.ctaText}
+        ctaLink={lowCarbonData.ctaLink}
+        secondaryCta={lowCarbonData.secondaryCta}
+        overlayColor={lowCarbonData.overlayColor}
+        stats={lowCarbonData.stats}
+      />
+
       <ClimateChangeSection
         title={climateData.title}
         subtitle={climateData.subtitle}
-        content={renderClimateContent()}
+        content={renderClimateContent(climateData)}
         backgroundImage={climateData.backgroundImage}
         contentPosition={climateData.contentPosition}
         ctaText={climateData.ctaText}
@@ -36,19 +76,7 @@ export default function Environment() {
         overlayColor={climateData.overlayColor}
         stats={climateData.stats}
       />
-        <ClimateChangeSection
-        title={lowCarbonData.title}
-        subtitle={lowCarbonData.subtitle}
-        content={renderClimateContent()}
-        backgroundImage={lowCarbonData.backgroundImage}
-        contentPosition={lowCarbonData.contentPosition}
-        ctaText={lowCarbonData.ctaText}
-        ctaLink={lowCarbonData.ctaLink}
-        secondaryCta={lowCarbonData.secondaryCta}
-        overlayColor={lowCarbonData.overlayColor}
-        stats={lowCarbonData.stats}
-      
-      />
+
       <EnvironmentNewsSection themeVariant="light" />
     </main>
   );

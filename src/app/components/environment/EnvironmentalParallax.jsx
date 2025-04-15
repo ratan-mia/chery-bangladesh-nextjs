@@ -1,251 +1,201 @@
-'use client'
-
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
 const EnvironmentalParallax = () => {
-    const containerRef = useRef(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Enhanced image configuration with descriptive alt text
+  const images = {
+    background: "/images/environment/beach-aerial.jpg",
+    midground: "/images/environment/trees-silhouette.png",
+    foreground: "/images/environment/waves-overlay.png",
+  };
+
+  // Enhanced statistics with more detailed information
+  const stats = [
+    { 
+      value: '60+',
+      label: 'Conservation Projects',
+      description: 'Active global initiatives'
+    },
+    { 
+      value: '12M+',
+      label: 'Trees Planted',
+      description: 'Contributing to reforestation'
+    },
+    { 
+      value: '35%',
+      label: 'Carbon Reduction',
+      description: 'Decrease in emissions'
+    }
+  ];
+
+  // Enhanced scroll progress tracking
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Refined parallax transformations
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const midgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const foregroundY = useTransform(scrollYProgress, [0, 1], ['0%', '35%']);
+  const contentY = useTransform(scrollYProgress, [0, 0.5, 1], ['0%', '-5%', '-15%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.95, 0.8]);
+
+  // Intersection Observer setup
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
     
-    // Multiple background images for a richer experience
-    const images = {
-        background: "/images/environment/beach-aerial.jpg",
-        midground: "/images/environment/trees-silhouette.png", // Transparent PNG with tree silhouettes
-        foreground: "/images/environment/waves-overlay.png", // Transparent PNG with wave pattern
-    };
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
     
-    const stats = [
-        { value: '60+', label: 'Conservation Projects' },
-        { value: '12M+', label: 'Trees Planted' },
-        { value: '35%', label: 'Carbon Footprint Reduction' },
-    ];
-    
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
+    return () => observer.disconnect();
+  }, []);
 
-    // Enhanced parallax effects
-    const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-    const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-    const midgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-    const foregroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-    const contentY = useTransform(scrollYProgress, [0, 0.5, 1], ['0%', '-10%', '-25%']);
-    const contentOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.9, 0.6]);
-    const statsY = useTransform(scrollYProgress, [0, 1], ['0%', '-60%']);
-    const statsOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [0, 1, 1]);
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % stats.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
-    // Check if section is in view for animations
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsInView(entry.isIntersecting);
-            },
-            { threshold: 0.1 }
-        );
-        
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-        
-        return () => {
-            if (containerRef.current) {
-                observer.unobserve(containerRef.current);
-            }
-        };
-    }, []);
+  return (
+    <div 
+      ref={containerRef}
+      className="relative h-screen w-full overflow-hidden bg-neutral-900"
+      role="region"
+      aria-label="Environmental Impact Showcase"
+    >
+      {/* Background Layer */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ y: backgroundY }}
+      >
+        <div className="relative h-full w-full">
+          <Image 
+            src={images.background}
+            alt="Aerial view of coastline showing environmental impact"
+            fill
+            priority
+            quality={90}
+            className="object-cover"
+            onLoad={() => setIsLoaded(true)}
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/30 via-transparent to-emerald-900/40" />
+        </div>
+      </motion.div>
 
-    return (
-        <div 
-            ref={containerRef} 
-            className="relative overflow-hidden h-screen w-full"
-        >
-            {/* Main background layer with better loading */}
+      {/* Content Section */}
+      <motion.div 
+        className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 lg:px-8"
+        style={{ y: contentY, opacity: contentOpacity }}
+      >
+        <AnimatePresence mode="wait">
+          {isLoaded && (
             <motion.div 
-                className="absolute inset-0 w-full h-full"
-                style={{ 
-                    y: backgroundY,
-                    scale: backgroundScale,
-                }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-4xl text-center"
             >
-                <div className="w-full h-full relative">
-                    <Image 
-                        src={images.background}
-                        alt="Environmental Background" 
-                        fill
-                        priority
-                        quality={90}
-                        className="object-cover"
-                        onLoad={() => setIsLoaded(true)}
-                        sizes="100vw"
-                    />
-                </div>
-                
-                {/* Enhanced gradient overlay with better blend mode */}
-                <div 
-                    className="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/10 to-primary/40"
-                    style={{ mixBlendMode: 'multiply' }}
-                />
-            </motion.div>
-
-            {/* Midground layer - decorative elements */}
-            <motion.div 
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                style={{ 
-                    y: midgroundY,
-                    opacity: 0.6,
-                }}
-            >
-                <div className="absolute bottom-0 w-full h-1/2">
-                    <div className="relative w-full h-full">
-                        <Image 
-                            src={images.midground}
-                            alt=""
-                            fill
-                            className="object-cover object-bottom"
-                            aria-hidden="true"
-                            sizes="100vw"
-                        />
-                    </div>
-                </div>
-            </motion.div>
-
-            {/* Foreground layer - detail elements */}
-            <motion.div 
-                className="absolute inset-x-0 bottom-0 w-full h-1/4 pointer-events-none"
-                style={{ 
-                    y: foregroundY,
-                    opacity: 0.2,
-                }}
-            >
-                <div className="relative w-full h-full">
-                    <Image 
-                        src={images.foreground}
-                        alt=""
-                        fill
-                        className="object-cover object-bottom"
-                        aria-hidden="true"
-                        sizes="100vw"
-                    />
-                </div>
-            </motion.div>
-
-            {/* Statistics highlight - appears as you scroll */}
-            <motion.div 
-                className="absolute inset-x-0 bottom-20 z-20 pointer-events-none"
-                style={{ 
-                    y: statsY,
-                    opacity: statsOpacity,
-                }}
-            >
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-                        {stats.map((stat, index) => (
-                            <motion.div 
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                                className="bg-white/10 backdrop-blur-sm p-4 md:p-6 text-center"
-                            >
-                                <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                                <div className="text-white/80 text-sm uppercase tracking-wider">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </motion.div>
-
-            {/* Content layer with enhanced animations */}
-            <motion.div 
-                className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 sm:px-12"
-                style={{ 
-                    y: contentY,
-                    opacity: contentOpacity
-                }}
-            >
-                <AnimatePresence>
-                    {isLoaded && (
-                        <motion.div 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="max-w-4xl mx-auto text-center"
-                        >
-                            <motion.h1 
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                transition={{ duration: 0.6, delay: 0.1 }}
-                                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-white tracking-wide"
-                            >
-                                Protecting Our Natural Environment
-                            </motion.h1>
-                            
-                            <motion.div 
-                                initial={{ width: 0 }}
-                                animate={isInView ? { width: "6rem" } : { width: 0 }}
-                                transition={{ duration: 0.8, delay: 0.3 }}
-                                className="h-1 mx-auto my-6 bg-white"
-                            ></motion.div>
-                            
-                            <motion.p 
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                transition={{ duration: 0.6, delay: 0.4 }}
-                                className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto leading-relaxed"
-                            >
-                                Join our mission to preserve natural habitats and create a sustainable future for generations to come. Together we can make a difference.
-                            </motion.p>
-                            
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                transition={{ duration: 0.6, delay: 0.5 }}
-                                className="flex flex-col sm:flex-row items-center justify-center gap-4"
-                            >
-                                <a 
-                                    href="/join-cause" 
-                                    className="px-8 py-3 font-medium text-white bg-primary border-2 border-primary hover:bg-primary/80 transition-all duration-300 w-full sm:w-auto text-center"
-                                >
-                                    Join Our Cause
-                                </a>
-                                <a 
-                                    href="/learn-more" 
-                                    className="px-8 py-3 font-medium text-white border-2 border-white/80 hover:bg-white/10 transition-all duration-300 w-full sm:w-auto text-center"
-                                >
-                                    Learn More
-                                </a>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.div>
-            
-            {/* Scroll indicator */}
-            <motion.div 
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+              <motion.h1 
+                className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
-            >
-                <div className="flex flex-col items-center">
-                    <span className="text-white/70 text-xs uppercase tracking-widest mb-2">Scroll</span>
-                    <motion.div 
-                        className="w-5 h-10 border border-white/30 rounded-full flex justify-center items-start p-1"
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                    >
-                        <motion.div 
-                            className="w-1 h-2 bg-white rounded-full"
-                            animate={{ y: [0, 12, 0] }}
-                            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                        />
-                    </motion.div>
-                </div>
+                transition={{ delay: 0.2 }}
+              >
+                Preserving Earth's Legacy
+              </motion.h1>
+
+              {/* Stats Display */}
+              <div className="mb-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: currentSlide === index ? 1 : 0.7,
+                      y: 0,
+                      scale: currentSlide === index ? 1.05 : 1
+                    }}
+                    transition={{ duration: 0.5 }}
+                    className=" bg-white/10 p-6 backdrop-blur-sm"
+                  >
+                    <div className="text-3xl font-bold text-white lg:text-4xl">
+                      {stat.value}
+                    </div>
+                    <div className="mt-2 text-sm font-medium uppercase tracking-wider text-white/90">
+                      {stat.label}
+                    </div>
+                    <div className="mt-1 text-xs text-white/70">
+                      {stat.description}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Call to Action */}
+              <motion.div
+                className="flex flex-col gap-4 sm:flex-row sm:justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <button
+                  className="group relative overflow-hidden  bg-primary-700 px-8 py-3 text-white transition-all hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                  onClick={() => window.location.href = '/join-cause'}
+                >
+                  <span className="relative z-10">Join Our Mission</span>
+                  <div className="absolute inset-0 -translate-x-full bg-primary-700 transition-transform group-hover:translate-x-0" />
+                </button>
+                <button
+                  className=" border-2 border-white/80 px-8 py-3 text-white transition-all hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+                  onClick={() => window.location.href = '/learn-more'}
+                >
+                  Discover More
+                </button>
+              </motion.div>
             </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+      >
+        <div className="flex flex-col items-center">
+          <span className="mb-2 text-xs uppercase tracking-widest text-white/70">
+            Explore More
+          </span>
+          <motion.div 
+            className="flex h-10 w-5 rounded-full items-start justify-center  border border-white/30 p-1"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <motion.div 
+              className="h-2 w-1 rounded-full bg-white"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            />
+          </motion.div>
         </div>
-    );
+      </motion.div>
+    </div>
+  );
 };
 
 export default EnvironmentalParallax;
