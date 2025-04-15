@@ -21,7 +21,7 @@ const themes = {
     bg: '#f8f9fa',
     surface: '#ffffff',
     surfaceHighlight: '#f0f2f5',
-    primary: '#1a365d',  // Deep blue accent
+    primary: '#8c735d',  // Deep brown accent
     text: '#1a1a1a',
     textSecondary: 'rgba(26, 26, 26, 0.7)',
     border: 'rgba(0, 0, 0, 0.1)',
