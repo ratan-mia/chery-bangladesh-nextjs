@@ -7,15 +7,15 @@ import FormSelect from '../form/FormSelect'
 import FormTextarea from '../form/FormTextarea'
 
 export default function ContactForm({ models }) {
-  // Using a light theme but keeping same structure for compatibility
+  // Using the dark theme from the design system
   const theme = {
-    accent: '#8c735d',       // Brown
-    text: '#111827',         // Dark Slate Gray
-    textSecondary: '#4B5563', // Slate Gray
-    buttonBg: '#8c735d',     // Brown
-    buttonText: '#ffffff',   // White
-    accentLine: '#8c735d',   // Brown
-    contentBg: '#ffffff'     // White
+    accent: '#e2cdb8',
+    text: '#ffffff',
+    textSecondary: 'rgba(255, 255, 255, 0.95)',
+    buttonBg: '#e2cdb8',
+    buttonText: '#111827',
+    accentLine: '#e2cdb8',
+    contentBg: 'rgba(17, 24, 39, 0.85)'
   }
 
   const [formData, setFormData] = useState({
@@ -32,24 +32,24 @@ export default function ContactForm({ models }) {
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState(false)
 
-  // Animation variants updated to match design system
+  // Animation variants from the design system
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.12,
         delayChildren: 0.1
       }
     }
   }
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
   }
 
@@ -93,13 +93,13 @@ export default function ContactForm({ models }) {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     
-    if (!validateForm()) return
+    if (!validateForm()) return;
     
-    setIsSubmitting(true)
-    setSubmitSuccess(false)
-    setSubmitError(false)
+    setIsSubmitting(true);
+    setSubmitSuccess(false);
+    setSubmitError(false);
     
     try {
       const response = await fetch('/api/contact', {
@@ -108,15 +108,15 @@ export default function ContactForm({ models }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      })
+      });
       
-      const data = await response.json()
+      const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit form')
+        throw new Error(data.error || 'Failed to submit form');
       }
       
-      setSubmitSuccess(true)
+      setSubmitSuccess(true);
       setFormData({
         name: '',
         email: '',
@@ -124,45 +124,40 @@ export default function ContactForm({ models }) {
         subject: '',
         message: '',
         model: ''
-      })
+      });
     } catch (error) {
-      console.error('Error submitting form:', error)
-      setSubmitError(true)
+      console.error('Error submitting form:', error);
+      setSubmitError(true);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="bg-white border border-gray-200 shadow-sm p-8 md:p-10"
+      className="backdrop-blur-sm p-8 md:p-10"
       style={{
         backgroundColor: theme.contentBg,
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
       }}
     >
       {/* Accent line following design system */}
       <motion.div 
         variants={itemVariants}
-        className="h-1 w-10 mb-4"
+        className="h-1.5 w-28 mb-8"
         style={{ backgroundColor: theme.accentLine }}
       ></motion.div>
       
-      <motion.span
-        variants={itemVariants}
-        className="inline-block text-sm uppercase tracking-wider mb-3"
-        style={{ color: theme.accent }}
-      >
-        Contact Form
-      </motion.span>
-      
       <motion.h2 
         variants={itemVariants}
-        className="text-2xl md:text-3xl font-bold mb-8"
-        style={{ color: theme.text }}
+        className="text-4xl font-bold mb-8 leading-tight"
+        style={{ 
+          color: theme.text,
+          letterSpacing: '-0.01em'
+        }}
       >
         Send Us a Message
       </motion.h2>
@@ -268,7 +263,7 @@ export default function ContactForm({ models }) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="inline-flex items-center justify-center px-8 py-3 text-base font-medium transition-all duration-300"
+            className="inline-flex items-center justify-center px-8 py-4 text-base font-medium transition-all duration-300"
             style={{ 
               backgroundColor: theme.buttonBg,
               color: theme.buttonText,

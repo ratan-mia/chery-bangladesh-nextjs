@@ -1,11 +1,22 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { ChevronRight, Mail, MapPin, Phone } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
 export default function HeroSection() {
+  // Theme configuration
+  const theme = {
+    accent: '#e2cdb8',
+    text: '#ffffff',
+    textSecondary: 'rgba(255, 255, 255, 0.95)',
+    buttonBg: '#e2cdb8',
+    buttonText: '#111827',
+    accentLine: '#e2cdb8',
+    contentBg: 'rgba(17, 24, 39, 0.85)'
+  }
+  
   const [isInView, setIsInView] = useState(false)
   const sectionRef = useRef(null)
   
@@ -41,18 +52,18 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.12,
         delayChildren: 0.1
       }
     }
   }
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
   }
 
@@ -60,8 +71,8 @@ export default function HeroSection() {
   const contactMethods = [
     { 
       icon: Phone, 
-      text: '09639119977',
-      href: 'tel:09639119977'
+      text: '+880 9666 795 795',
+      href: 'tel:+8809666795795'
     },
     { 
       icon: Mail, 
@@ -71,7 +82,7 @@ export default function HeroSection() {
     { 
       icon: MapPin, 
       text: 'Find us on the map',
-      href: '/dealerships',
+      href: 'https://goo.gl/maps/3v1x5Z2g7Qk',
     }
   ]
 
@@ -84,7 +95,7 @@ export default function HeroSection() {
       {/* Split Design with Two-Column Layout */}
       <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12">
         {/* Left Column - Content */}
-        <div className="lg:col-span-6 xl:col-span-5 relative z-20 flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-16 lg:py-0 bg-white">
+        <div className="lg:col-span-6 xl:col-span-5 relative z-20 flex flex-col justify-center px-4 sm:px-6 lg:px-12 xl:px-20 py-16 lg:py-0">
           <div className="lg:min-h-screen flex flex-col justify-center max-w-2xl mx-auto lg:mx-0">
             <motion.div
               variants={containerVariants}
@@ -94,27 +105,21 @@ export default function HeroSection() {
             >
               {/* Accent line with refined animation */}
               <motion.div 
-                className="h-1 w-10 mb-4 bg-primary"
+                className="h-1 w-16 mb-6"
+                style={{ backgroundColor: theme.accentLine }}
                 variants={itemVariants}
               />
               
-              <motion.span
-                variants={itemVariants}
-                className="inline-block text-sm uppercase tracking-wider mb-3 text-primary"
-              >
-                Get In Touch
-              </motion.span>
-              
               {/* Enhanced Typography */}
               <motion.h1 
-                className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-gray-900"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900"
                 variants={itemVariants}
               >
-                Connect With <span className="text-primary">Chery</span> Bangladesh
+                Connect With <span style={{ color: '#c20000' }}>Chery</span> Bangladesh
               </motion.h1>
               
               <motion.p 
-                className="text-lg text-gray-600 leading-relaxed mb-8"
+                className="text-lg text-white leading-relaxed mb-8"
                 variants={itemVariants}
               >
                 We're committed to providing exceptional customer service. Whether you have questions about our vehicles, need service support, or want to provide feedback, our team is here to help you every step of the way.
@@ -129,10 +134,10 @@ export default function HeroSection() {
                   <a 
                     key={index} 
                     href={method.href}
-                    className="flex items-center text-gray-600 hover:text-primary transition-colors duration-300"
+                    className="flex items-center text-white hover:text-primary-600 transition-colors"
                   >
                     <div className="w-10 h-10 rounded flex items-center justify-center bg-gray-100 mr-4">
-                      <method.icon size={20} className="text-primary" />
+                      <method.icon size={20} className="text-primary-600" />
                     </div>
                     <span className="text-lg">{method.text}</span>
                   </a>
@@ -143,18 +148,10 @@ export default function HeroSection() {
               <motion.div variants={itemVariants} className="mt-8">
                 <a
                   href="#contact-form"
-                  className="inline-flex items-center justify-center px-8 py-3 font-medium bg-primary hover:bg-primary-dark text-white transition-colors duration-300 group"
+                  className="group inline-flex items-center justify-center px-8 py-4 font-medium transition-all duration-300 text-white bg-primary-600 hover:bg-primary-700 shadow-md hover:shadow-lg"
                 >
                   Send us a message
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  <ChevronRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </motion.div>
             </motion.div>
@@ -167,7 +164,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 z-0 h-full lg:h-screen">
             <Image
               src="/images/contact/contact-hero.jpg"
-              alt="Chery showroom and vehicles"
+              alt=""
               fill
               priority
               className="object-cover object-center"
@@ -188,19 +185,19 @@ export default function HeroSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <div className="bg-white shadow-lg p-8 ml-12 border-l-2 border-l-primary">
+            <div className="bg-white shadow-2xl p-8 ml-12">
               <h3 className="text-xl font-bold text-gray-900 mb-4 relative">
-                <span className="absolute -left-12 top-1/2 transform -translate-y-1/2 w-8 h-1 bg-primary"></span>
+                <span className="absolute -left-12 top-1/2 transform -translate-y-1/2 w-8 h-1 bg-primary-600"></span>
                 Headquarters
               </h3>
-              <address className="not-italic text-gray-600 space-y-3">
-                <p>Asian Motorspex Limited</p>
+              <address className="not-italic text-gray-700 space-y-3">
+                <p>Chery Bangladesh</p>
                 <p>206/1-207/1 Bir Uttam Mir Shawkat Sarak</p>
-                <p>Tejgaon Gulshan Link Road, Dhaka</p>
+                <p> Tejgaon Gulshan Link Road, Dhaka</p>
               </address>
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <div className="text-sm text-gray-500">Business Hours</div>
-                <div className="text-gray-600">Mon-Fri: 10:00 AM - 8:00 PM<br />Saturday: 10:00 AM - 8:00 PM</div>
+                <div className="text-gray-700">Mon-Fri: 9AM-6PM, Sat: 10AM-4PM</div>
               </div>
             </div>
           </motion.div>
@@ -209,7 +206,7 @@ export default function HeroSection() {
           <div className="lg:hidden relative h-64 sm:h-80">
             <Image
               src="/images/contact/contact-hero.jpg"
-              alt="Chery showroom and vehicles"
+              alt=""
               fill
               priority
               className="object-cover object-center"
@@ -223,6 +220,9 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+      
+      {/* Custom decorative element */}
+      <div className="absolute top-0 right-0 w-full h-16 bg-pattern-dots opacity-5 z-10" aria-hidden="true" />
     </section>
   )
 }
