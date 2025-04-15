@@ -61,7 +61,7 @@ const OperationsParallax = () => {
                 className="lg:col-span-2 overflow-hidden"
                 style={{ opacity: firstSectionOpacity }}
               >
-                <div className="backdrop-blur-md bg-[#524336]/70 border border-[#c4b19c]/20 p-8 shadow-2xl rounded-lg">
+                <div className="backdrop-blur-md bg-[#524336]/70 border border-[#c4b19c]/20 p-8 shadow-2xl ">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-12 bg-[#c4b19c] mr-4"></div>
                     <h1 className="text-4xl lg:text-5xl font-bold text-white">
@@ -74,10 +74,10 @@ const OperationsParallax = () => {
                   </p>
                   
                   <div className="flex flex-wrap gap-4">
-                    <a href="#learn-more" className="px-6 py-3 bg-[#c4b19c] text-[#524336] font-semibold rounded-lg hover:bg-white transition-colors">
+                    <a href="#learn-more" className="px-6 py-3 bg-[#c4b19c] text-[#524336] font-semibold  hover:bg-white transition-colors">
                       Learn More
                     </a>
-                    <a href="#contact" className="px-6 py-3 border border-[#c4b19c]/50 text-white font-semibold rounded-lg hover:bg-[#8c735d]/30 transition-colors">
+                    <a href="#contact" className="px-6 py-3 border border-[#c4b19c]/50 text-white font-semibold  hover:bg-[#8c735d]/30 transition-colors">
                       Contact Us
                     </a>
                   </div>
@@ -89,7 +89,7 @@ const OperationsParallax = () => {
                 className="hidden lg:block"
                 style={{ opacity: firstSectionOpacity }}
               >
-                <div className="backdrop-blur-md bg-[#524336]/70 border border-[#c4b19c]/20 p-8 shadow-2xl h-full rounded-lg">
+                <div className="backdrop-blur-md bg-[#524336]/70 border border-[#c4b19c]/20 p-8 shadow-2xl h-full ">
                   <h2 className="text-2xl font-semibold text-[#c4b19c] mb-8">Key Stats</h2>
                   
                   <div className="space-y-6">
@@ -98,7 +98,7 @@ const OperationsParallax = () => {
                         <span className="text-white/80">Governance Meetings</span>
                         <span className="text-[#c4b19c] font-semibold">7</span>
                       </div>
-                      <div className="w-full h-2 bg-[#8c735d]/30 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-[#8c735d]/30  overflow-hidden">
                         <div className="h-full bg-[#c4b19c] group-hover:bg-white transition-colors duration-500" style={{ width: '70%' }}></div>
                       </div>
                     </div>
@@ -108,7 +108,7 @@ const OperationsParallax = () => {
                         <span className="text-white/80">Board Directors</span>
                         <span className="text-[#c4b19c] font-semibold">9</span>
                       </div>
-                      <div className="w-full h-2 bg-[#8c735d]/30 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-[#8c735d]/30  overflow-hidden">
                         <div className="h-full bg-[#c4b19c] group-hover:bg-white transition-colors duration-500" style={{ width: '90%' }}></div>
                       </div>
                     </div>
@@ -118,7 +118,7 @@ const OperationsParallax = () => {
                         <span className="text-white/80">Ethics Training</span>
                         <span className="text-[#c4b19c] font-semibold">100%</span>
                       </div>
-                      <div className="w-full h-2 bg-[#8c735d]/30 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-[#8c735d]/30  overflow-hidden">
                         <div className="h-full bg-[#c4b19c] group-hover:bg-white transition-colors duration-500" style={{ width: '100%' }}></div>
                       </div>
                     </div>
@@ -128,7 +128,7 @@ const OperationsParallax = () => {
                         <span className="text-white/80">Security Incidents</span>
                         <span className="text-[#c4b19c] font-semibold">0</span>
                       </div>
-                      <div className="w-full h-2 bg-[#8c735d]/30 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-[#8c735d]/30  overflow-hidden">
                         <div className="h-full bg-[#c4b19c] group-hover:bg-white transition-colors duration-500" style={{ width: '0%' }}></div>
                       </div>
                     </div>
@@ -141,10 +141,10 @@ const OperationsParallax = () => {
                 className="lg:col-span-3"
                 style={{ opacity: secondSectionOpacity }}
               >
-                <div className="backdrop-blur-md bg-[#524336]/70 border border-[#c4b19c]/20 p-8 shadow-2xl rounded-lg">
+                <div className="backdrop-blur-md bg-[#524336]/70 border border-[#c4b19c]/20 p-8 shadow-2xl ">
                   <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center">
-                      <div className="w-12 h-12 rounded-full border-4 border-[#c4b19c] flex items-center justify-center mr-4 text-[#c4b19c]">
+                      <div className="w-12 h-12  border-4 border-[#c4b19c] flex items-center justify-center mr-4 text-[#c4b19c]">
                         <span className="font-bold">23</span>
                       </div>
                       <h2 className="text-3xl font-bold text-[#c4b19c]">2023 Achievements</h2>
@@ -163,7 +163,7 @@ const OperationsParallax = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {achievements.map((achievement, index) => (
                       <div key={index} className="flex group">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#8c735d]/30 group-hover:bg-[#8c735d]/50 flex items-center justify-center text-[#c4b19c] font-semibold mr-4 transition-colors">
+                        <div className="flex-shrink-0 w-10 h-10  bg-[#8c735d]/30 group-hover:bg-[#8c735d]/50 flex items-center justify-center text-[#c4b19c] font-semibold mr-4 transition-colors">
                           {index + 1}
                         </div>
                         <div>
