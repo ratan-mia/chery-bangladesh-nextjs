@@ -27,7 +27,7 @@ export const allNewsItems = [
         <p>As an important practice of Environment, Social, and Governance (ESG), this strategic cooperation will provide powerful support for Chery's sustainable development strategy, helping Chery achieve carbon neutrality, biodiversity conservation, and sustainable use of resources. It will also enhance Chery's brand influence and recognition in global markets, especially in Europe, South America, and other regions, creating sustainable value for Chery's global businesses.</p>
   
         <figure>
-          <img src="/images/environment/news/signing-ceremony-full.jpg" alt="Chery and IUCN signing ceremony" />
+          <img src="/images/environment/news/signing-ceremony.jpg" alt="Chery and IUCN signing ceremony" />
           <figcaption>Yin Tongyue, Chairman of Chery Group, and Dr. Grethel Aguilar, Director General of IUCN, at the signing ceremony</figcaption>
         </figure>
   
@@ -72,7 +72,7 @@ export const allNewsItems = [
         <p>During the summit, Megan shared inspiring insights on how corporations can integrate animal welfare considerations into their sustainability frameworks. Her presentation highlighted the interconnection between environmental health, animal wellbeing, and community prosperity.</p>
   
         <figure>
-          <img src="/images/environment/news/animals-full.jpg" alt="Megan Harvey speaking at the Chery Global Summit" />
+          <img src="/images/environment/news/animals.jpg" alt="Megan Harvey speaking at the Chery Global Summit" />
           <figcaption>Megan Harvey sharing insights on animal welfare and sustainability practices</figcaption>
         </figure>
   
@@ -143,7 +143,7 @@ export const allNewsItems = [
         <p>These initiatives have positioned Chery as an industry leader in sustainable manufacturing practices and put the company ahead of schedule on its path to carbon neutrality by 2035.</p>
         
         <figure>
-          <img src="/images/environment/news/esg-report-full.jpg" alt="Chery ESG Report Highlights" />
+          <img src="/images/environment/news/esg-report.jpg" alt="Chery ESG Report Highlights" />
           <figcaption>Key environmental metrics from the 2023 Chery ESG Report</figcaption>
         </figure>
         
@@ -196,7 +196,7 @@ export const allNewsItems = [
         <p>The charging network now spans 12 countries across four continents, making Chery one of the leading automotive manufacturers in providing accessible charging solutions. The strategic placement of these stations along major highways, urban centers, and remote areas ensures that Chery EV owners can travel with confidence.</p>
         
         <figure>
-          <img src="/images/environment/news/dual-carbon-full.jpg" alt="Chery EV Charging Station" />
+          <img src="/images/environment/news/dual-carbon.jpg" alt="Chery EV Charging Station" />
           <figcaption>The 1,000th Chery charging station features advanced fast-charging technology</figcaption>
         </figure>
         
@@ -259,7 +259,7 @@ export const allNewsItems = [
         </ul>
         
         <figure>
-          <img src="/images/environment/news/chery-eco-full.jpg" alt="Chery Green Supply Chain" />
+          <img src="/images/environment/news/chery-eco.jpg" alt="Chery Green Supply Chain" />
           <figcaption>Reusable packaging containers at Chery's main manufacturing facility</figcaption>
         </figure>
         
@@ -313,7 +313,7 @@ export const allNewsItems = [
         <p>"The completion of our solar energy project marks a significant milestone in our journey toward carbon neutrality by 2030," said Zhang Wei, Chery's Director of Sustainability. "These installations will substantially reduce our reliance on grid electricity and decrease our carbon footprint."</p>
         
         <figure>
-          <img src="/images/environment/news/recycle-full.jpg" alt="Solar panels at Chery manufacturing plant" />
+          <img src="/images/environment/news/recycle.jpg" alt="Solar panels at Chery manufacturing plant" />
           <figcaption>Aerial view of the solar panel installation at Chery's Wuhu manufacturing facility</figcaption>
         </figure>
         
@@ -384,7 +384,7 @@ export const allNewsItems = [
         <p>"When we launched this initiative in 2022, planting a million trees seemed like an enormous challenge," said Lin Mei, Chery's Director of Corporate Social Responsibility. "Today, we're celebrating not just reaching that goal, but the incredible community engagement that made it possible."</p>
         
         <figure>
-          <img src="/images/environment/news/plantation-full.jpg" alt="Tree planting event with community volunteers" />
+          <img src="/images/environment/news/plantation.jpg" alt="Tree planting event with community volunteers" />
           <figcaption>Chery employees and community volunteers at a tree planting event in Brazil</figcaption>
         </figure>
         
