@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Calendar,
@@ -8,35 +8,38 @@ import {
   Clock,
   Filter,
   Search,
-  X
-} from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+  X,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const NewsComponent = () => {
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState("all");
   const [visibleItems, setVisibleItems] = useState(8);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [sortBy, setSortBy] = useState('newest');
+  const [sortBy, setSortBy] = useState("newest");
 
   const allNewsItems = [
     {
       id: 1,
       isFeature: true,
       image: "/images/environment/news/signing-ceremony.jpg",
-      title: "Chery and IUCN Launch Global Partnership, Ushering in a New Chapter of Green Development Worldwide",
+      title:
+        "Chery and IUCN Launch Global Partnership, Ushering in a New Chapter of Green Development Worldwide",
       date: "October 20, 2024",
       timestamp: new Date("2024-10-20").getTime(),
       category: "GLOBAL PARTNERSHIP",
-      excerpt: 'On October 20th, the 2024 Chery International User Summit, themed "FOR US·FOR FUTURE," was grandly held in Wuhu, Anhui. The event attracted Chery users, media friends, and partners from around the world to witness another important milestone in Chery\'s globalization journey',
+      excerpt:
+        'On October 20th, the 2024 Chery International User Summit, themed "FOR US·FOR FUTURE," was grandly held in Wuhu, Anhui. The event attracted Chery users, media friends, and partners from around the world to witness another important milestone in Chery\'s globalization journey',
       tags: ["Partnership", "IUCN", "Sustainability"],
       link: "/news/partnership-with-iucn",
-      readTime: "5 min read"
+      readTime: "5 min read",
     },
     {
       id: 2,
       image: "/images/environment/news/animals.jpg",
-      title: "Together, we are driving impactful change for communities, animals, and the planet.",
+      title:
+        "Together, we are driving impactful change for communities, animals, and the planet.",
       date: "Sep 30,2024",
       timestamp: new Date("2024-09-30").getTime(),
       category: "CORPORATE RESPONSIBILITY",
@@ -49,31 +52,35 @@ const NewsComponent = () => {
         "ForUsForFuture",
       ],
       link: "/news/environmental-innovation",
-      readTime: "7 min read"
+      readTime: "7 min read",
     },
     {
       id: 3,
       image: "/images/environment/news/esg-report.jpg",
-      title: "2023 Chery ESG Report Highlights Record Environmental Achievements",
+      title:
+        "2023 Chery ESG Report Highlights Record Environmental Achievements",
       date: "July 30, 2024",
       timestamp: new Date("2024-07-30").getTime(),
       category: "ESG REPORT",
-      excerpt: "In 2023, Chery's annual charitable contributions reached 46.849 million yuan. Through a series of public welfare projects, Chery actively gave back to society, achieving significant results especially in the areas of child development, environmental protection, and disaster relief.",
+      excerpt:
+        "In 2023, Chery's annual charitable contributions reached 46.849 million yuan. Through a series of public welfare projects, Chery actively gave back to society, achieving significant results especially in the areas of child development, environmental protection, and disaster relief.",
       tags: ["ESG", "Philanthropy", "Report"],
       link: "/news/esg-report-2023",
-      readTime: "4 min read"
+      readTime: "4 min read",
     },
     {
       id: 4,
       image: "/images/environment/news/dual-carbon.jpg",
-      title: "Electric Vehicle Charging Network Expansion Reaches 1,000 Stations",
+      title:
+        "Electric Vehicle Charging Network Expansion Reaches 1,000 Stations",
       date: "June 15, 2024",
       timestamp: new Date("2024-06-15").getTime(),
       category: "INFRASTRUCTURE",
-      excerpt: "Expanding our EV charging infrastructure across 12 countries to support sustainable transportation and reduce range anxiety for electric vehicle owners.",
+      excerpt:
+        "Expanding our EV charging infrastructure across 12 countries to support sustainable transportation and reduce range anxiety for electric vehicle owners.",
       tags: ["Electric Vehicles", "Infrastructure"],
       link: "/news/ev-charging-expansion",
-      readTime: "6 min read"
+      readTime: "6 min read",
     },
     {
       id: 5,
@@ -82,10 +89,11 @@ const NewsComponent = () => {
       date: "Jan 07,2024",
       timestamp: new Date("2024-01-07").getTime(),
       category: "ECOLOGY",
-      excerpt: "The sight of different generations joining hands for sustainability was nothing short of awe-inspiring. Grandparents, parents, and children all geared up with smiles, united by a common goal. Our heartfelt gratitude extends to every participant, irrespective of age or background, for being the driving force behind this remarkable event. Your diverse presence turned the Eco Run into a celebration of unity.",
+      excerpt:
+        "The sight of different generations joining hands for sustainability was nothing short of awe-inspiring. Grandparents, parents, and children all geared up with smiles, united by a common goal. Our heartfelt gratitude extends to every participant, irrespective of age or background, for being the driving force behind this remarkable event. Your diverse presence turned the Eco Run into a celebration of unity.",
       tags: ["Sustainability", "Packaging", "Waste Reduction"],
       link: "/news/packaging-waste-reduction",
-      readTime: "5 min read"
+      readTime: "5 min read",
     },
     {
       id: 6,
@@ -94,10 +102,11 @@ const NewsComponent = () => {
       date: "April 12, 2024",
       timestamp: new Date("2024-04-12").getTime(),
       category: "RENEWABLE ENERGY",
-      excerpt: "The completion of our solar energy project marks a significant milestone in our journey toward carbon neutrality by 2030.",
+      excerpt:
+        "The completion of our solar energy project marks a significant milestone in our journey toward carbon neutrality by 2030.",
       tags: ["Renewable Energy", "Manufacturing"],
       link: "/news/solar-panel-installation",
-      readTime: "6 min read"
+      readTime: "6 min read",
     },
     {
       id: 7,
@@ -106,36 +115,37 @@ const NewsComponent = () => {
       date: "March 15, 2024",
       timestamp: new Date("2024-03-15").getTime(),
       category: "COMMUNITY ENGAGEMENT",
-      excerpt: "Our tree planting initiative has successfully planted over 1 million trees in partnership with local communities and NGOs.",
+      excerpt:
+        "Our tree planting initiative has successfully planted over 1 million trees in partnership with local communities and NGOs.",
       tags: ["Community", "Reforestation"],
       link: "/news/tree-planting-campaign",
-      readTime: "5 min read"
+      readTime: "5 min read",
     },
   ];
 
   const [tabs, setTabs] = useState([
-    { id: 'all', label: 'All', count: 0 },
-    { id: 'GLOBAL PARTNERSHIP', label: 'Partnerships', count: 0 },
-    { id: 'CORPORATE RESPONSIBILITY', label: 'Information', count: 0 },
-    { id: 'ESG REPORT', label: 'Brand', count: 0 },
-    { id: 'INFRASTRUCTURE', label: 'Product', count: 0 },
-    { id: 'ECOLOGY', label: 'Ecology', count: 0 },
-    { id: 'RENEWABLE ENERGY', label: 'Renewable Energy', count: 0 },
-    { id: 'COMMUNITY ENGAGEMENT', label: 'Community', count: 0 }
+    { id: "all", label: "All", count: 0 },
+    { id: "GLOBAL PARTNERSHIP", label: "Partnerships", count: 0 },
+    { id: "CORPORATE RESPONSIBILITY", label: "Information", count: 0 },
+    { id: "ESG REPORT", label: "Brand", count: 0 },
+    { id: "INFRASTRUCTURE", label: "Product", count: 0 },
+    { id: "ECOLOGY", label: "Ecology", count: 0 },
+    { id: "RENEWABLE ENERGY", label: "Renewable Energy", count: 0 },
+    { id: "COMMUNITY ENGAGEMENT", label: "Community", count: 0 },
   ]);
 
   // Fix: Run this effect only once on component mount by removing the dependency array item
   useEffect(() => {
     const allCount = allNewsItems.length;
     const categoryCountMap = {};
-    allNewsItems.forEach(item => {
+    allNewsItems.forEach((item) => {
       const category = item.category;
       categoryCountMap[category] = (categoryCountMap[category] || 0) + 1;
     });
-    setTabs(prevTabs =>
-      prevTabs.map(tab => ({
+    setTabs((prevTabs) =>
+      prevTabs.map((tab) => ({
         ...tab,
-        count: tab.id === 'all' ? allCount : (categoryCountMap[tab.id] || 0)
+        count: tab.id === "all" ? allCount : categoryCountMap[tab.id] || 0,
       }))
     );
   }, []); // Empty dependency array means this runs once on mount
@@ -144,8 +154,8 @@ const NewsComponent = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.05 }
-    }
+      transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    },
   };
 
   const itemVariants = {
@@ -153,24 +163,28 @@ const NewsComponent = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
   };
 
   const getFilteredItems = () => {
-    let filtered = activeTab === 'all' ? allNewsItems : allNewsItems.filter(item => item.category === activeTab);
+    let filtered =
+      activeTab === "all"
+        ? allNewsItems
+        : allNewsItems.filter((item) => item.category === activeTab);
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(searchLower) ||
-        item.excerpt.toLowerCase().includes(searchLower)
+      filtered = filtered.filter(
+        (item) =>
+          item.title.toLowerCase().includes(searchLower) ||
+          item.excerpt.toLowerCase().includes(searchLower)
       );
     }
-    if (sortBy === 'newest') {
+    if (sortBy === "newest") {
       filtered.sort((a, b) => b.timestamp - a.timestamp);
-    } else if (sortBy === 'oldest') {
+    } else if (sortBy === "oldest") {
       filtered.sort((a, b) => a.timestamp - b.timestamp);
-    } else if (sortBy === 'title') {
+    } else if (sortBy === "title") {
       filtered.sort((a, b) => a.title.localeCompare(b.title));
     }
     return filtered;
@@ -178,21 +192,22 @@ const NewsComponent = () => {
 
   const filteredNewsItems = getFilteredItems();
 
-  const handleLoadMore = () => setVisibleItems(prev => Math.min(prev + 4, filteredNewsItems.length));
+  const handleLoadMore = () =>
+    setVisibleItems((prev) => Math.min(prev + 4, filteredNewsItems.length));
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
     setVisibleItems(8);
-    const newsGrid = document.getElementById('news-grid');
+    const newsGrid = document.getElementById("news-grid");
     if (newsGrid) {
-      window.scrollTo({ top: newsGrid.offsetTop - 100, behavior: 'smooth' });
+      window.scrollTo({ top: newsGrid.offsetTop - 100, behavior: "smooth" });
     }
   };
 
   const handleResetFilters = () => {
-    setSearchTerm('');
-    setSortBy('newest');
-    setActiveTab('all');
+    setSearchTerm("");
+    setSortBy("newest");
+    setActiveTab("all");
   };
 
   return (
@@ -206,19 +221,22 @@ const NewsComponent = () => {
           <h1 className="text-5xl font-bold text-gray-900 mb-4">Latest News</h1>
           <div className="w-20 h-1 bg-primary-600 mb-6"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Stay updated with the latest happenings, product launches, and innovations from Chery Bangladesh
+            Stay updated with the latest happenings, product launches, and
+            innovations from Chery Bangladesh
           </p>
         </div>
 
         <div className="bg-white shadow-sm border border-gray-100 p-6 mb-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-            <h2 className="text-xl font-semibold text-gray-800">News & Updates</h2>
+            <h2 className="text-xl font-semibold text-gray-800">
+              News & Updates
+            </h2>
             <button
               className="md:hidden px-4 py-2 bg-gray-100 text-gray-700 flex items-center justify-center"
               onClick={() => setIsFilterOpen(!isFilterOpen)}
             >
               <Filter size={16} className="mr-2" />
-              {isFilterOpen ? 'Hide Filters' : 'Show Filters'}
+              {isFilterOpen ? "Hide Filters" : "Show Filters"}
             </button>
 
             <div className="relative w-full md:w-auto md:min-w-[300px]">
@@ -229,10 +247,13 @@ const NewsComponent = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full p-3 pl-10 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
-              <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Search
+                size={18}
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
               {searchTerm && (
                 <button
-                  onClick={() => setSearchTerm('')}
+                  onClick={() => setSearchTerm("")}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
                   <X size={16} />
@@ -241,22 +262,30 @@ const NewsComponent = () => {
             </div>
           </div>
 
-          <div className={`${isFilterOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row md:items-center justify-between gap-4`}>
+          <div
+            className={`${
+              isFilterOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row md:items-center justify-between gap-4`}
+          >
             <div className="flex flex-wrap gap-2">
-              {tabs.map(tab => (
+              {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
                   className={`px-4 py-2 transition-colors duration-300 flex items-center ${
                     activeTab === tab.id
-                      ? 'bg-primary-100 text-primary-700 font-medium border border-primary-200'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-transparent'
+                      ? "bg-primary-100 text-primary-700 font-medium border border-primary-200"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-transparent"
                   }`}
                 >
                   {tab.label}
-                  <span className={`ml-2 text-xs px-2 py-0.5 ${
-                    activeTab === tab.id ? 'bg-primary-200 text-primary-800' : 'bg-gray-200 text-gray-700'
-                  }`}>
+                  <span
+                    className={`ml-2 text-xs px-2 py-0.5 ${
+                      activeTab === tab.id
+                        ? "bg-primary-200 text-primary-800"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
                     {tab.count}
                   </span>
                 </button>
@@ -282,11 +311,15 @@ const NewsComponent = () => {
               {filteredNewsItems.length === 0 ? (
                 <span>No results found</span>
               ) : (
-                <span>Showing <b>{Math.min(visibleItems, filteredNewsItems.length)}</b> of <b>{filteredNewsItems.length}</b> articles</span>
+                <span>
+                  Showing{" "}
+                  <b>{Math.min(visibleItems, filteredNewsItems.length)}</b> of{" "}
+                  <b>{filteredNewsItems.length}</b> articles
+                </span>
               )}
             </div>
 
-            {(searchTerm || sortBy !== 'newest' || activeTab !== 'all') && (
+            {(searchTerm || sortBy !== "newest" || activeTab !== "all") && (
               <button
                 onClick={handleResetFilters}
                 className="text-sm text-primary-600 hover:text-primary-800 flex items-center"
@@ -337,7 +370,9 @@ const NewsComponent = () => {
                     <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-700 transition-colors duration-300">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.excerpt}</p>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {item.excerpt}
+                    </p>
                     <div className="mt-auto">
                       <a
                         href={item.link}
@@ -345,7 +380,10 @@ const NewsComponent = () => {
                         aria-label={`Read more about ${item.title}`}
                       >
                         Read Full Article
-                        <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-1 transition-transform duration-300" />
+                        <ChevronRight
+                          size={16}
+                          className="ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                        />
                       </a>
                     </div>
                   </div>
@@ -373,6 +411,61 @@ const NewsComponent = () => {
             </button>
           </div>
         )}
+        {/* Newsletter subscription */}
+        <div className="mt-20 bg-gray-100 p-8 lg:p-12 border border-gray-200">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div className="lg:max-w-lg">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Stay Updated
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Subscribe to our newsletter to receive the latest news, updates,
+                and exclusive content directly in your inbox.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="flex-grow p-3 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+                <button className="bg-primary-600 text-white py-3 px-6 hover:bg-primary-700 transition-colors">
+                  Subscribe
+                </button>
+              </div>
+              <p className="text-gray-500 text-xs mt-2">
+                By subscribing, you agree to our Privacy Policy and consent to
+                receive updates from our company.
+              </p>
+            </div>
+            <div className="hidden lg:block">
+              <img
+                src="/api/placeholder/300/200"
+                alt=""
+                className="h-40 w-auto object-cover"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Contact section at the bottom */}
+        <div className="mt-20 flex flex-col md:flex-row justify-between items-center bg-white border border-gray-200 p-8">
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              Have Questions?
+            </h2>
+            <p className="text-gray-600">
+              Our team is ready to assist you with any inquiries.
+            </p>
+          </div>
+          <a
+            href="/contact"
+            className="mt-6 md:mt-0 inline-flex items-center justify-center px-8 py-3 bg-primary-700 text-white font-medium hover:bg-primary-800 transition-colors duration-300"
+          >
+            CONTACT US
+            <ArrowRight size={16} className="ml-2" />
+          </a>
+        </div>
       </div>
     </section>
   );
