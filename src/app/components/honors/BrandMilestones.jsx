@@ -278,7 +278,7 @@ const BrandMilestones = () => {
                             backgroundImage: slide.backgroundImage 
                               ? `url(${slide.backgroundImage})` 
                               : getDummyBgImage(index),
-                            backgroundSize: 'cover',
+                            backgroundSize: 'contain',
                             backgroundPosition: 'center',
                           }}
                         >
