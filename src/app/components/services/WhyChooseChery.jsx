@@ -160,7 +160,7 @@ const WhyChooseChery = () => {
           viewport={{ once: true }}
         >
           <a
-            href="#contact"
+            href="#book-service"
             className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300"
           >
             Schedule Your Service
