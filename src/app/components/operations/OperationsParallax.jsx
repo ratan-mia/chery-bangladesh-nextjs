@@ -47,7 +47,7 @@ const OperationsParallax = () => {
           }}
         >
           {/* Dark overlay using SustainabilityAccordion colors */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#524336]/50 to-[#524336]/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#524336]/20 to-[#524336]/10" />
         </motion.div>
         
         {/* Content container */}
