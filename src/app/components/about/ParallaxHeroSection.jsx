@@ -5,7 +5,9 @@ const ParallaxHeroSection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const heroRef = useRef(null);
   const requestRef = useRef(null);
-  const totalSections = 3; // Increased to 3 sections
+  const totalSections = 3;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(true);
 
   // Track mouse position for subtle parallax effect
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -22,59 +24,102 @@ const ParallaxHeroSection = () => {
   }, []);
 
   const handleScroll = useCallback(() => {
+    if (requestRef.current) {
+      window.cancelAnimationFrame(requestRef.current);
+    }
+    
     requestRef.current = window.requestAnimationFrame(() => {
       if (!heroRef.current) return;
 
       const scrollPosition = window.pageYOffset;
       const viewportHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const maxScroll = documentHeight - viewportHeight;
+      const heroHeight = viewportHeight * 3; // Total height of the hero section
       
-      // Calculate scroll progress (0 to 1)
-      const progress = Math.min(scrollPosition / maxScroll, 1);
+      // Calculate scroll progress relative to the hero section (0 to 1)
+      const progress = Math.min(scrollPosition / (heroHeight - viewportHeight), 1);
       setScrollProgress(progress);
       
       // Determine active section based on scroll position
-      const sectionHeight = viewportHeight * 0.6;
-      if (scrollPosition < sectionHeight) {
-        setActiveSection(0);
-      } else if (scrollPosition < sectionHeight * 2) {
-        setActiveSection(1);
-      } else {
-        setActiveSection(2);
+      const sectionHeight = viewportHeight;
+      const newActiveSection = Math.min(
+        Math.floor(scrollPosition / (sectionHeight * 0.6)),
+        totalSections - 1
+      );
+      
+      if (newActiveSection !== activeSection) {
+        setActiveSection(newActiveSection);
       }
     });
+  }, [activeSection]);
+
+  // Handle intersection observer for performance optimization
+  useEffect(() => {
+    if (!window.IntersectionObserver) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+    
+    return () => {
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
-    // Initial checks
-    handleScroll();
-    
-    // Add event listeners with passive option for performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    // Only handle mouse move and scroll when component is visible
+    if (isIntersecting) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
+      
+      // Initial check
+      handleScroll();
+    } else {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    }
     
     // Handle keyboard navigation
     const handleKeyDown = (e) => {
+      if (!isIntersecting) return;
+      
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
         scrollToSection(Math.min(activeSection + 1, totalSections - 1));
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
         scrollToSection(Math.max(activeSection - 1, 0));
       }
     };
     
     window.addEventListener('keydown', handleKeyDown);
 
+    // Simulate image loading
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+
     // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
+      
       if (requestRef.current) {
         window.cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [handleScroll, handleMouseMove, activeSection]);
+  }, [handleScroll, handleMouseMove, activeSection, isIntersecting]);
 
   // Scroll to specific section
   const scrollToSection = (index) => {
@@ -84,20 +129,77 @@ const ParallaxHeroSection = () => {
 
   // Get background position based on mouse movement for subtle parallax
   const getParallaxStyle = (depth = 1) => {
-    const moveX = mousePosition.x * 2 * depth;
-    const moveY = mousePosition.y * 2 * depth;
+    if (!isIntersecting) return {};
+    
+    const moveX = mousePosition.x * 20 * depth;
+    const moveY = mousePosition.y * 20 * depth;
     return {
       transform: `translate(${moveX}px, ${moveY}px)`,
-      transition: 'transform 0.1s ease-out',
+      transition: 'transform 0.2s ease-out',
     };
   };
 
+  // Images with lazy loading
+  const images = [
+    '/images/about/hero.jpg',
+    '/images/about/hero2.jpg',
+    '/images/about/hero3.jpg'
+  ];
+
+  // Define text content for sections
+  const sections = [
+    {
+      eyebrow: "WELCOME TO CHERY",
+      title: "DRIVING INNOVATION",
+      subtitle: "COMMITTED TO BEING A DIVERSIFIED ENTERPRISE WITH GLOBAL INFLUENCE AND COMPETITIVENESS",
+      buttons: [
+        { text: "Discover More", primary: true },
+        { text: "Our Legacy", primary: false }
+      ]
+    },
+    {
+      title: "OUR GLOBAL JOURNEY",
+      text: [
+        "Since its establishment in 1997, Chery Holding has made significant strides in the automotive industry.",
+        "Its subsidiary, Chery Automobile, holds the distinction of being the first Chinese automobile brand to exceed one million domestic sales. Additionally Chery Automobile has been a trailblazer in expanding into international markets."
+      ],
+      button: { text: "Our Journey", primary: false },
+      stats: [
+        { value: "10M+", label: "Vehicles Sold" },
+        { value: "80+", label: "Countries" },
+        { value: "1,500+", label: "Patents" },
+        { value: "5", label: "R&D Centers" }
+      ]
+    },
+    {
+      title: "FUTURE DRIVEN VISION",
+      cards: [
+        { 
+          title: "Electrification", 
+          icon: "⚡", 
+          description: "Leading the charge in global electric vehicle technology and innovation." 
+        },
+        { 
+          title: "Connectivity", 
+          icon: "🔗", 
+          description: "Creating seamless integration between vehicles and digital ecosystems." 
+        },
+        { 
+          title: "Sustainability", 
+          icon: "🌿", 
+          description: "Committed to reducing carbon footprint and sustainable manufacturing." 
+        }
+      ],
+      button: { text: "Contact Us", primary: true }
+    }
+  ];
+
   return (
-    <div className="relative min-h-screen w-full overflow-hidden" ref={heroRef}>
+    <div className={`relative min-h-screen w-full overflow-hidden ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-700`} ref={heroRef}>
       {/* Progress indicator */}
       <div className="fixed top-0 left-0 w-full h-1 z-50">
         <div 
-          className="h-full bg-primary transition-all duration-300 ease-out"
+          className="h-full bg-primary-600 transition-all duration-300 ease-out"
           style={{ width: `${scrollProgress * 100}%` }}
         />
       </div>
@@ -111,39 +213,46 @@ const ParallaxHeroSection = () => {
         `}
       >
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-500"
           style={{
-            backgroundImage: "url('/images/about/hero.jpg')",
+            backgroundImage: `url('${images[0]}')`,
             ...getParallaxStyle(0.5),
           }}
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto">
           <div className="overflow-hidden mb-2">
-            <p className="text-sm md:text-base text-primary font-medium tracking-wider transform translate-y-0 transition-transform duration-700 delay-100">
-              WELCOME TO CHERY
+            <p className="text-sm md:text-base text-primary-600 font-medium tracking-wider transform translate-y-0 transition-transform duration-700 delay-100">
+              {sections[0].eyebrow}
             </p>
           </div>
           
           <div className="overflow-hidden mb-4">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white transform translate-y-0 transition-transform duration-700 delay-200">
-              DRIVING INNOVATION
+              {sections[0].title}
             </h1>
           </div>
           
           <div className="overflow-hidden mb-8">
             <p className="text-lg md:text-xl text-white/90 max-w-3xl transform translate-y-0 transition-transform duration-700 delay-300">
-              COMMITTED TO BEING A DIVERSIFIED ENTERPRISE WITH GLOBAL INFLUENCE AND COMPETITIVENESS
+              {sections[0].subtitle}
             </p>
           </div>
           
-          <div className="flex space-x-4 transition-all duration-700 delay-400">
-            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 transition-colors duration-300 uppercase tracking-wide">
-              Discover More
-            </button>
-            <button className="border-2 border-white hover:bg-white/10 text-white px-8 py-4 transition-colors duration-300 uppercase tracking-wide">
-              Our Legacy
-            </button>
+          <div className="flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-400">
+            {sections[0].buttons.map((button, index) => (
+              <button 
+                key={index}
+                className={`
+                  px-8 py-4 transition-all duration-300 uppercase tracking-wide text-white
+                  ${button.primary 
+                    ? 'bg-primary-600 hover:bg-primary-700' 
+                    : 'border-2 border-white hover:bg-white/10'}
+                `}
+              >
+                {button.text}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -159,7 +268,7 @@ const ParallaxHeroSection = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/images/about/hero.jpg')",
+            backgroundImage: `url('${images[1] || images[0]}')`,
             ...getParallaxStyle(0.3),
           }}
         />
@@ -172,16 +281,15 @@ const ParallaxHeroSection = () => {
                 ${activeSection === 1 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}
               `}
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">OUR GLOBAL JOURNEY</h2>
-              <div className="w-20 h-1 bg-primary mb-8" />
-              <p className="text-lg text-white/90 mb-6">
-                Since its establishment in 1997, Chery Holding has made significant strides in the automotive industry.
-              </p>
-              <p className="text-lg text-white/90 mb-8">
-                Its subsidiary, Chery Automobile, holds the distinction of being the first Chinese automobile brand to exceed one million domestic sales. Additionally Chery Automobile has been a trailblazer in expanding into international markets.
-              </p>
-              <button className="border-2 border-primary hover:bg-primary text-white hover:text-white px-8 py-4 transition-all duration-300 uppercase tracking-wide">
-                Our Journey
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{sections[1].title}</h2>
+              <div className="w-20 h-1 bg-primary-600 mb-8" />
+              {sections[1].text.map((paragraph, index) => (
+                <p key={index} className="text-lg text-white/90 mb-6">
+                  {paragraph}
+                </p>
+              ))}
+              <button className="border-2 border-primary-600 hover:bg-primary-600 text-white hover:text-white px-8 py-4 transition-all duration-300 uppercase tracking-wide">
+                {sections[1].button.text}
               </button>
             </div>
           </div>
@@ -189,28 +297,18 @@ const ParallaxHeroSection = () => {
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div 
               className={`
-                bg-black/30 border-l-4 border-primary p-8
+                bg-black/30 backdrop-blur-sm border-l-4 border-primary-600 p-8
                 transition-all duration-700 delay-400
                 ${activeSection === 1 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}
               `}
             >
               <div className="grid grid-cols-2 gap-8">
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-2">10M+</div>
-                  <div className="text-sm text-white/80 uppercase tracking-wider">Vehicles Sold</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-2">80+</div>
-                  <div className="text-sm text-white/80 uppercase tracking-wider">Countries</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-2">1,500+</div>
-                  <div className="text-sm text-white/80 uppercase tracking-wider">Patents</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-2">5</div>
-                  <div className="text-sm text-white/80 uppercase tracking-wider">R&D Centers</div>
-                </div>
+                {sections[1].stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">{stat.value}</div>
+                    <div className="text-sm text-white/80 uppercase tracking-wider">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -228,7 +326,7 @@ const ParallaxHeroSection = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/images/about/hero.jpg')",
+            backgroundImage: `url('${images[2] || images[0]}')`,
             ...getParallaxStyle(0.4),
           }}
         />
@@ -240,40 +338,24 @@ const ParallaxHeroSection = () => {
               ${activeSection === 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}
             `}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">FUTURE DRIVEN VISION</h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-10" />
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">{sections[2].title}</h2>
+            <div className="w-20 h-1 bg-primary-600 mx-auto mb-10" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-            {[
-              { 
-                title: "Electrification", 
-                icon: "⚡", 
-                description: "Leading the charge in global electric vehicle technology and innovation." 
-              },
-              { 
-                title: "Connectivity", 
-                icon: "🔗", 
-                description: "Creating seamless integration between vehicles and digital ecosystems." 
-              },
-              { 
-                title: "Sustainability", 
-                icon: "🌿", 
-                description: "Committed to reducing carbon footprint and sustainable manufacturing." 
-              }
-            ].map((item, index) => (
+            {sections[2].cards.map((card, index) => (
               <div 
                 key={index}
                 className={`
-                  bg-black/20 border-t-2 border-primary p-8 backdrop-blur-sm
+                  bg-black/20 border-t-2 border-primary-600 p-8 backdrop-blur-sm
                   transition-all duration-700
                   ${activeSection === 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                 `}
                 style={{ transitionDelay: `${400 + index * 100}ms` }}
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
-                <p className="text-white/80">{item.description}</p>
+                <div className="text-4xl mb-4">{card.icon}</div>
+                <h3 className="text-xl font-semibold text-white mb-3">{card.title}</h3>
+                <p className="text-white/80">{card.description}</p>
               </div>
             ))}
           </div>
@@ -285,20 +367,25 @@ const ParallaxHeroSection = () => {
               ${activeSection === 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
             `}
           >
-            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 transition-colors duration-300 uppercase tracking-wide">
-              Contact Us
+            <button className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 transition-colors duration-300 uppercase tracking-wide">
+              {sections[2].button.text}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Section indicators */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-10">
+      {/* Section indicators with accessibility improvements */}
+      <div 
+        className="fixed right-8 top-1/2 transform -translate-y-1/2 z-10"
+        role="navigation"
+        aria-label="Section navigation"
+      >
         <div className="flex flex-col space-y-4">
-          {[0, 1, 2].map((index) => (
+          {Array.from({ length: totalSections }).map((_, index) => (
             <button
               key={index}
-              aria-label={`Go to section ${index + 1}`}
+              aria-label={`Go to section ${index + 1}: ${index === 0 ? 'Home' : index === 1 ? 'About Us' : 'Vision'}`}
+              aria-current={activeSection === index ? 'step' : undefined}
               className="group relative"
               onClick={() => scrollToSection(index)}
             >
@@ -306,28 +393,28 @@ const ParallaxHeroSection = () => {
                 className={`
                   w-3 h-12
                   transition-all duration-300 ease-in-out
-                  ${activeSection === index ? 'bg-primary' : 'bg-white/30 group-hover:bg-white/50'}
+                  ${activeSection === index ? 'bg-primary-600' : 'bg-white/30 group-hover:bg-white/50'}
                 `}
               />
-              <div 
+              <span 
                 className={`
                   absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-full pr-4
                   opacity-0 group-hover:opacity-100
                   transition-opacity duration-300
-                  pointer-events-none
                 `}
               >
-                <div className="bg-black/80 text-white text-xs uppercase tracking-wider px-3 py-2 whitespace-nowrap">
+                <span className="bg-black/80 text-white text-xs uppercase tracking-wider px-3 py-2 whitespace-nowrap">
                   {index === 0 ? 'Home' : index === 1 ? 'About Us' : 'Vision'}
-                </div>
-              </div>
+                </span>
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator with enhanced animation */}
-      <div 
+      {/* Scroll indicator with enhanced animation and accessibility */}
+      <button
+        aria-label="Scroll to next section"
         className={`
           fixed bottom-8 left-1/2 transform -translate-x-1/2 
           transition-all duration-500 ease-in-out
@@ -336,17 +423,18 @@ const ParallaxHeroSection = () => {
             : 'opacity-0 translate-y-4 pointer-events-none'}
           z-10
         `}
+        onClick={() => scrollToSection(1)}
       >
-        <div className="flex flex-col items-center cursor-pointer" onClick={() => scrollToSection(1)}>
+        <div className="flex flex-col items-center">
           <p className="text-white text-sm mb-2">Scroll down</p>
           <div className="w-6 h-10 rounded-full border-2 border-white flex justify-center items-start">
-            <div className="w-1.5 h-3 rounded-full mt-1.5 bg-primary animate-bounce" />
+            <div className="w-1.5 h-3 rounded-full mt-1.5 bg-primary-600 animate-bounce" />
           </div>
         </div>
-      </div>
+      </button>
 
       {/* Spacer div to enable scrolling */}
-      <div style={{ height: '300vh' }} aria-hidden="true" />
+      <div style={{ height: `${totalSections * 100}vh` }} aria-hidden="true" />
     </div>
   );
 };
