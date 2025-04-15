@@ -4,7 +4,7 @@ export const natureData = {
   title: "WELLBEING FOR NATURE",
   subtitle: "Environmental Responsibility",
   backgroundImage: "/images/environment/hilly-road.jpg",
-  contentPosition: "right",
+  contentPosition: "left",
   ctaText: "Our Climate Initiatives",
   ctaLink: "/sustainability/climate",
   secondaryCta: {
@@ -72,4 +72,27 @@ export const lowCarbonData = {
     { value: "135", label: "New Technologies" },
   ],
   content: `Chery is committed to reducing carbon emissions throughout the entire vehicle lifecycle. We optimize energy use, enhance clean technologies, and upgrade equipment to reduce emissions in manufacturing. At the end of a vehicle's lifecycle, we promote scrapping, recycling, and reuse. By the end of 2023, all Chery models achieved a 95% recyclability rate and an 85% reusability rate.`,
+};
+
+export const greenData = {
+  title: "IMPLEMENTING GREEN OPERATIONS",
+  subtitle: "Ensuring the health of local ecosystems",
+  backgroundImage: "/images/environment/green-operations.jpg",
+  contentPosition: "right",
+  ctaText: "Our Climate Initiatives",
+  ctaLink: "/sustainability/climate",
+  secondaryCta: {
+    text: "Sustainability Report",
+    link: "/reports/sustainability",
+  },
+  overlayColor: "rgba(13, 37, 63, 0.75)",
+  themeVariant: "dark",
+  stats: [
+    { value: "72", label: "Versions Measured" },
+    { value: "503K", label: "Tons CO₂ Tracked" },
+    { value: "135", label: "New Technologies" },
+  ],
+  content: `We prioritize protection, involve all staff, and pursue green development, advancing low-carbon production to reduce resource consumption and environmental impact.
+We have strengthened environmental management through organizational mechanisms, policies, and supervision. This includes establishing a Safety and Environmental Protection Committee, building an integrated management platform, and incorporating energy conservation, emission reduction, and ecological protection into performance assessments.
+We also integrate biodiversity conservation into our operations, ensuring the health of local ecosystems.`,
 };

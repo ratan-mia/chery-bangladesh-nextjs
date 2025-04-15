@@ -5,8 +5,9 @@ import EnvironmentalParallax from "../components/environment/EnvironmentalParall
 import EnvironmentNewsSection from "../components/environment/EnvironmentNewsSection";
 import {
   climateData,
+  greenData,
   lowCarbonData,
-  natureData,
+  natureData
 } from "../data/environmentData";
 
 export default function Environment() {
@@ -42,6 +43,7 @@ export default function Environment() {
         title={natureData.title}
         subtitle={natureData.subtitle}
         content={renderClimateContent(natureData)}
+        contentWdth="12xl"
         backgroundImage={natureData.backgroundImage}
         contentPosition={natureData.contentPosition}
         ctaText={natureData.ctaText}
@@ -49,6 +51,19 @@ export default function Environment() {
         secondaryCta={natureData.secondaryCta}
         overlayColor={natureData.overlayColor}
         stats={natureData.stats}
+      />
+
+      <ClimateChangeSection
+        title={climateData.title}
+        subtitle={climateData.subtitle}
+        content={renderClimateContent(climateData)}
+        backgroundImage={climateData.backgroundImage}
+        contentPosition={climateData.contentPosition}
+        ctaText={climateData.ctaText}
+        ctaLink={climateData.ctaLink}
+        secondaryCta={climateData.secondaryCta}
+        overlayColor={climateData.overlayColor}
+        stats={climateData.stats}
       />
 
       <ClimateChangeSection
@@ -63,18 +78,17 @@ export default function Environment() {
         overlayColor={lowCarbonData.overlayColor}
         stats={lowCarbonData.stats}
       />
-
-      <ClimateChangeSection
-        title={climateData.title}
-        subtitle={climateData.subtitle}
-        content={renderClimateContent(climateData)}
-        backgroundImage={climateData.backgroundImage}
-        contentPosition={climateData.contentPosition}
-        ctaText={climateData.ctaText}
-        ctaLink={climateData.ctaLink}
-        secondaryCta={climateData.secondaryCta}
-        overlayColor={climateData.overlayColor}
-        stats={climateData.stats}
+         <ClimateChangeSection
+        title={greenData.title}
+        subtitle={greenData.subtitle}
+        content={renderClimateContent(greenData)}
+        backgroundImage={greenData.backgroundImage}
+        contentPosition={greenData.contentPosition}
+        ctaText={greenData.ctaText}
+        ctaLink={greenData.ctaLink}
+        secondaryCta={greenData.secondaryCta}
+        overlayColor={greenData.overlayColor}
+        stats={greenData.stats}
       />
 
       <EnvironmentNewsSection themeVariant="light" />
