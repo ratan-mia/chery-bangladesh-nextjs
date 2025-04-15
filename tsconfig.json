@@ -34,7 +34,7 @@
     ".next/types/**/*.ts",
     "src/app/components/tiggo-cross/CarTechSlider.jsx",
     "src/app/components/tiggo-cross/CarTechSlider-v1.jsx",
-    "src/app/components/honors/CheryHonorsParallax.jsx"
+    "src/app/components/honors/CheryHonorsParallax-v1.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import BrandMilestones from "../components/honors/BrandMilestones";
-import CheryHonorsParallax from "../components/honors/CheryHonorsParallax-v3";
+import CheryHonorsParallax from "../components/honors/CheryHonorsParallax";
 import KeyAwardsSlider from "../components/honors/KeyAwardsSlider";
 import LearnMoreSection from "../components/honors/LearnMoreSection";
 
