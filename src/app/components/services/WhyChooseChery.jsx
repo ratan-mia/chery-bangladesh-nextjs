@@ -72,18 +72,15 @@ const WhyChooseChery = () => {
   };
 
   return (
-    <section className="py-24 relative">
+    <section className="py-20 relative bg-gray-100">
       <div
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-5"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       ></div>
 
-      {/* Dark gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950 to-black opacity-90"></div>
-
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         {/* Heading Section */}
         <motion.div
           className="text-center mb-16"
@@ -91,14 +88,13 @@ const WhyChooseChery = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Why Choose <span className="text-primary-600">Chery</span>{" "}
-            Bangladesh
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Why Choose <span className="text-primary-900">Chery</span> Bangladesh
           </h2>
 
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-primary-700 mx-auto mb-8"></div>
 
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
             Experience premium automotive care with the confidence that comes
             from choosing an authorized service provider with proven expertise.
           </p>
@@ -115,33 +111,30 @@ const WhyChooseChery = () => {
           {reasons.map((reason, index) => (
             <motion.div
               key={index}
-              className="relative border border-gray-800 bg-black bg-opacity-40 backdrop-blur-sm overflow-hidden group hover:border-primary-600 transition-colors duration-300"
+              className="relative border border-gray-200 bg-white shadow-sm overflow-hidden group hover:border-primary-700 transition-colors duration-300"
               variants={itemVariants}
             >
-              {/* Decorative corner */}
-              <div className="absolute top-0 right-0 w-16 h-16 bg-primary-600 opacity-10 transform rotate-45 translate-x-8 -translate-y-8"></div>
-
               {/* Top accent */}
-              <div className="h-1 w-full bg-primary-600 opacity-40 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="h-1 w-full bg-primary-800 opacity-40 group-hover:opacity-100 transition-opacity duration-300"></div>
 
               {/* Icon and Content */}
               <div className="p-8">
-                <div className="w-16 h-16 bg-primary-600 bg-opacity-20 flex items-center justify-center mb-6 group-hover:bg-opacity-30 transition-colors duration-300">
-                  <reason.icon className="text-white" size={28} />
+                <div className="w-16 h-16 bg-primary-light bg-opacity-40 flex items-center justify-center mb-6 group-hover:bg-opacity-60 transition-colors duration-300">
+                  <reason.icon className="text-primary-900" size={28} />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
                   {reason.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-400 leading-relaxed mb-8">
+                <p className="text-gray-600 leading-normal mb-8">
                   {reason.description}
                 </p>
 
                 {/* Indicator */}
-                <div className="flex items-center text-primary-600 font-medium text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                <div className="flex items-center text-primary-700 font-medium text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
                   <span>Learn more</span>
                   <ArrowRight
                     size={16}
@@ -151,8 +144,8 @@ const WhyChooseChery = () => {
               </div>
 
               {/* Bottom accent line that fills on hover */}
-              <div className="h-0.5 w-full bg-gray-800 mt-auto">
-                <div className="h-full bg-primary-600 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+              <div className="h-0.5 w-full bg-gray-200 mt-auto">
+                <div className="h-full bg-primary-700 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
               </div>
             </motion.div>
           ))}
@@ -168,7 +161,7 @@ const WhyChooseChery = () => {
         >
           <a
             href="#contact"
-            className="group inline-flex items-center px-10 py-4 bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors duration-300"
+            className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300"
           >
             Schedule Your Service
             <ArrowRight
@@ -177,10 +170,6 @@ const WhyChooseChery = () => {
             />
           </a>
         </motion.div>
-
-        {/* Optional decorative elements */}
-        <div className="absolute bottom-0 left-0 w-16 h-16 bg-primary-600 opacity-5 transform -translate-y-1/2"></div>
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-600 opacity-5 transform translate-x-1/2 -translate-y-1/2 rounded-full"></div>
       </div>
     </section>
   );
