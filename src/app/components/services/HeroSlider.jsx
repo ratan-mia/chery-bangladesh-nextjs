@@ -85,7 +85,7 @@ const HeroSection = () => {
             >
               {/* Badge */}
               <motion.span 
-                className="inline-block bg-primary-light/30 text-primary-900 py-1 px-3 rounded-full text-sm font-medium backdrop-blur-sm border border-primary-light/30"
+                className="inline-block bg-primary-light/30 text-gray-200 py-1 px-3 rounded-full text-sm font-medium backdrop-blur-sm border border-primary/30"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -121,11 +121,11 @@ const HeroSection = () => {
               
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-4 mt-8">
-                <Link href="/book" className="px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-all duration-300 flex items-center group">
+                <Link href="#book-service" className="px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-all duration-300 flex items-center group">
                   Book Appointment
                   <Calendar className="ml-2 w-5 h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
-                <Link href="/location" className="px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium border border-white/30 transition-all duration-300 flex items-center group">
+                <Link href="#locations" className="px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium border border-white/30 transition-all duration-300 flex items-center group">
                   Find Us
                   <MapPin className="ml-2 w-5 h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
