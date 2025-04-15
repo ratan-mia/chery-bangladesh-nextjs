@@ -136,8 +136,8 @@ const SustainabilityAccordion = () => {
       {/* Left side - Enhanced Image Section */}
       <div className="md:w-3/5 h-[50vh] md:h-screen md:sticky top-0 relative overflow-hidden">
         {/* Multiple layered gradients for better visual depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#524336]/80 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#524336]/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#524336]/50 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#524336]/30 to-transparent z-10" />
         
         <Image
           src="/images/operations/skyscrapers.jpg"
