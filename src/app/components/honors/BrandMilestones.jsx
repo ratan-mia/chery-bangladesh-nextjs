@@ -42,45 +42,37 @@ const BrandMilestones = () => {
   const currentYearData = milestonesData[activeCategory]?.[selectedYear] || [];
   const totalSlides = currentYearData.length;
 
-  // Year selection animation variants
-  const yearVariants = {
-    selected: {
-      color: '#111827', // text-gray-900
-      fontWeight: 500,
-      scale: 1.05,
-      transition: { duration: 0.3 }
-    },
-    notSelected: {
-      color: '#6B7280', // text-gray-500
-      fontWeight: 400,
-      scale: 1,
-      transition: { duration: 0.3 }
-    }
-  };
-
-  // Tab selection animation variants
-  const tabVariants = {
-    selected: {
-      borderBottom: '2px solid #111827', // border-gray-900
-      transition: { duration: 0.3 }
-    },
-    notSelected: {
-      borderBottom: '2px solid transparent',
-      transition: { duration: 0.3 }
-    }
-  };
-
   // Fade in animation for main content
   const contentVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { duration: 0.8 }
+      transition: { 
+        duration: 0.7, 
+        ease: 'easeOut' 
+      }
     },
     exit: { 
       opacity: 0,
-      transition: { duration: 0.5 }
+      transition: { 
+        duration: 0.5,
+        ease: 'easeIn'
+      }
     }
+  };
+
+  // Staggered animation for years
+  const yearVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (index) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: index * 0.1,
+        duration: 0.5,
+        ease: 'easeOut'
+      }
+    })
   };
 
   // Handle category tab change
@@ -96,8 +88,8 @@ const BrandMilestones = () => {
   
   // Dummy background images for development/testing if real images are not available
   const getDummyBgImage = (index) => {
-    const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
-    return `linear-gradient(45deg, ${colors[index % colors.length]}, #1F2937)`;
+    const colors = ['#8c735d', '#b7a99a', '#c4b19c', '#524336'];
+    return `linear-gradient(45deg, ${colors[index % colors.length]}, #b7a99a)`;
   };
 
   return (
@@ -107,8 +99,8 @@ const BrandMilestones = () => {
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-gray-900 font-bold text-lg md:text-xl"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="text-primary-900 font-bold text-lg md:text-xl"
         >
           BRAND MILESTONES
         </motion.div>
@@ -121,24 +113,27 @@ const BrandMilestones = () => {
               onClick={() => handleCategoryChange(category)}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              custom={index}
-              transition={{ duration: 0.5, delay: 0.1 * index }}
-              className={`text-sm hover:text-gray-900 transition-colors py-2 px-1 relative`}
+              transition={{ 
+                duration: 0.5, 
+                delay: 0.1 * index,
+                ease: 'easeOut'
+              }}
+              className={`text-sm hover:text-primary-900 transition-colors py-2 px-1 relative group`}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className={`${activeCategory === category ? 'text-gray-900' : 'text-gray-600'}`}>
+              <span className={`${activeCategory === category ? 'text-primary-900' : 'text-gray-600'}`}>
                 {category}
               </span>
               {/* Active indicator line */}
               <motion.div 
-                className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900"
+                className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-700"
                 initial={false}
                 animate={{ 
                   opacity: activeCategory === category ? 1 : 0,
                   width: activeCategory === category ? '100%' : '0%'
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
               />
             </motion.button>
           ))}
@@ -149,7 +144,7 @@ const BrandMilestones = () => {
           <select 
             value={activeCategory}
             onChange={(e) => handleCategoryChange(e.target.value)}
-            className="bg-white border border-gray-200 py-1 px-3 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-white border border-gray-200 py-1 px-3 rounded-md text-sm text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-700"
           >
             {categories.map((category) => (
               <option key={category} value={category}>{category}</option>
@@ -162,11 +157,11 @@ const BrandMilestones = () => {
           className="rounded-full bg-white p-2 shadow-sm"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
           </svg>
         </motion.button>
@@ -181,7 +176,7 @@ const BrandMilestones = () => {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
               className="text-5xl font-extralight text-gray-300 mb-12"
             >
               {activeCategory.split(' ').map((word, i) => (
@@ -192,38 +187,53 @@ const BrandMilestones = () => {
             </motion.h2>
           </AnimatePresence>
           
-          <div className="space-y-6">
-            <AnimatePresence>
-              {years.map((year, index) => (
-                <motion.button
-                  key={year}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="block text-xl transition-all duration-300 w-full text-left"
-                  onClick={() => setSelectedYear(year)}
-                  whileHover={{ x: 5 }}
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+            className="space-y-6"
+          >
+            {years.map((year, index) => (
+              <motion.button
+                key={year}
+                custom={index}
+                variants={yearVariants}
+                onClick={() => setSelectedYear(year)}
+                className="block text-xl transition-all duration-300 w-full text-left"
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <motion.span
+                  animate={{
+                    color: selectedYear === year ? '#111827' : '#6B7280',
+                    fontWeight: selectedYear === year ? 500 : 400,
+                    scale: selectedYear === year ? 1.05 : 1
+                  }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="relative"
                 >
-                  <motion.span
-                    animate={selectedYear === year ? yearVariants.selected : yearVariants.notSelected}
-                    className="relative"
-                  >
-                    {year}
-                    {selectedYear === year && (
-                      <motion.div 
-                        layoutId="yearIndicator"
-                        className="absolute -left-4 top-1/2 w-2 h-2 bg-blue-500 rounded-full -translate-y-1/2"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                      />
-                    )}
-                  </motion.span>
-                </motion.button>
-              ))}
-            </AnimatePresence>
-          </div>
+                  {year}
+                  {selectedYear === year && (
+                    <motion.div 
+                      layoutId="yearIndicator"
+                      className="absolute -left-4 top-1/2 w-2 h-2 bg-primary-700 rounded-full -translate-y-1/2"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    />
+                  )}
+                </motion.span>
+              </motion.button>
+            ))}
+          </motion.div>
         </aside>
         
         {/* Main Content Area with Swiper */}
@@ -268,12 +278,12 @@ const BrandMilestones = () => {
                             backgroundImage: slide.backgroundImage 
                               ? `url(${slide.backgroundImage})` 
                               : getDummyBgImage(index),
-                            backgroundSize: 'contain',
+                            backgroundSize: 'cover',
                             backgroundPosition: 'center',
                           }}
                         >
                           {/* Enhanced gradient overlay for better text visibility */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-black/30"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary-900/40 via-primary-900/30 to-primary-900/30"></div>
                           
                           {/* Year and title */}
                           <div className="relative z-10 p-8 md:p-16 flex flex-col justify-between h-full w-full">
@@ -281,7 +291,7 @@ const BrandMilestones = () => {
                               <motion.h1 
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8 }}
+                                transition={{ duration: 0.7, ease: 'easeOut' }}
                                 className="text-white text-6xl md:text-8xl font-bold mb-8"
                               >
                                 {selectedYear}
@@ -289,7 +299,7 @@ const BrandMilestones = () => {
                               <motion.p 
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ duration: 0.8, delay: 0.3 }}
+                                transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
                                 className="text-white text-lg md:text-xl max-w-md"
                               >
                                 {slide.title}
@@ -329,10 +339,10 @@ const BrandMilestones = () => {
                                 onClick={() => {
                                   setIsAutoplay(!isAutoplay);
                                 }}
-                                className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm ${isAutoplay ? 'bg-white/90' : 'bg-gray-800/80'}`}
+                                className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm ${isAutoplay ? 'bg-white/90' : 'bg-primary-900/80'}`}
                               >
                                 {isAutoplay ? (
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m-9-6h14" />
                                   </svg>
                                 ) : (
@@ -353,7 +363,7 @@ const BrandMilestones = () => {
                                 }}
                                 className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg"
                               >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                               </motion.button>
@@ -368,7 +378,7 @@ const BrandMilestones = () => {
                                 }}
                                 className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg"
                               >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                               </motion.button>
@@ -380,7 +390,7 @@ const BrandMilestones = () => {
                   </Swiper>
                 </div>
               ) : (
-                <div className="h-96 md:h-[500px] bg-gray-800 flex items-center justify-center">
+                <div className="h-96 md:h-[500px] bg-primary-900 flex items-center justify-center">
                   <p className="text-white text-xl">No content available for this selection</p>
                 </div>
               )}
