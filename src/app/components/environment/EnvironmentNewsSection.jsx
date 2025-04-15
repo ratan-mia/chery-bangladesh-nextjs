@@ -53,7 +53,7 @@ const EnvironmentNewsSection = ({
       date: "October 20, 2024",
       category: "GLOBAL PARTNERSHIP",
       excerpt:
-        '     On October 20th, the 2024 Chery International User Summit, themed "FOR US·FOR FUTURE," was grandly held in Wuhu, Anhui. The event attracted Chery users, media friends, and partners from around the world to witness another important milestone in Chery’s globalization journey',
+        'On October 20th, the 2024 Chery International User Summit, themed "FOR US·FOR FUTURE," was grandly held in Wuhu, Anhui. The event attracted Chery users, media friends, and partners from around the world to witness another important milestone in Chery\'s globalization journey',
       tags: ["Partnership", "IUCN", "Sustainability"],
       link: "/news/partnership-with-iucn",
     },
@@ -64,7 +64,7 @@ const EnvironmentNewsSection = ({
         "Together, we are driving impactful change for communities, animals, and the planet.",
       date: "Sep 30,2024",
       category: "CorporateResponsibility",
-      excerpt: `We are thrilled to welcome Megan Harvey, CEO of the Society for Animals in Distress at the Chery User Global Summit! Megan's dedication to animal welfare and her leadership in advocating for sustainable practices align perfectly with Chery’s commitment to corporate social responsibility and environmental stewardship. Together, we are driving impactful change for communities, animals, and the planet.`,
+      excerpt: `We are thrilled to welcome Megan Harvey, CEO of the Society for Animals in Distress at the Chery User Global Summit! Megan's dedication to animal welfare and her leadership in advocating for sustainable practices align perfectly with Chery's commitment to corporate social responsibility and environmental stewardship. Together, we are driving impactful change for communities, animals, and the planet.`,
       tags: [
         "CheryGlobalUserSummit2024",
         "Sustainability",
@@ -82,7 +82,7 @@ const EnvironmentNewsSection = ({
       date: "July 30, 2024",
       category: "ESG REPORT",
       excerpt:
-        "In 2023, Chery’s annual charitable contributions reached 46.849 million yuan. Through a series of public welfare projects, Chery actively gave back to society, achieving significant results especially in the areas of child development, environmental protection, and disaster relief.",
+        "In 2023, Chery's annual charitable contributions reached 46.849 million yuan. Through a series of public welfare projects, Chery actively gave back to society, achieving significant results especially in the areas of child development, environmental protection, and disaster relief.",
       tags: ["ESG", "Philanthropy", "Report"],
       link: "/news/esg-report-2023",
     },
@@ -133,13 +133,6 @@ const EnvironmentNewsSection = ({
     },
   ];
 
-  // Separate news items for masonry columns
-  const masonryColumns = {
-    col1: [newsItems[0], newsItems[3], newsItems[6]],
-    col2: [newsItems[1], newsItems[4]],
-    col3: [newsItems[2], newsItems[5]],
-  };
-
   return (
     <section
       ref={sectionRef}
@@ -181,57 +174,20 @@ const EnvironmentNewsSection = ({
           </p>
         </motion.div>
 
-        {/* Masonry grid - full width layout */}
+        {/* Grid layout */}
         <div className="w-full max-w-[2000px] mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Column 1 */}
-            <div className="flex flex-col gap-6 lg:gap-8">
-              {masonryColumns.col1.map((item, index) => (
-                <NewsCard
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  isInView={isInView}
-                  isFeature={item.isFeature}
-                  theme={theme}
-                  themeVariant={themeVariant}
-                />
-              ))}
-            </div>
-
-            {/* Column 2 */}
-            <div className="flex flex-col gap-6 lg:gap-8">
-              {masonryColumns.col2.map((item, index) => (
-                <NewsCard
-                  key={item.id}
-                  item={item}
-                  index={index + masonryColumns.col1.length}
-                  isInView={isInView}
-                  isFeature={item.isFeature}
-                  theme={theme}
-                  themeVariant={themeVariant}
-                />
-              ))}
-            </div>
-
-            {/* Column 3 */}
-            <div className="flex flex-col gap-6 lg:gap-8">
-              {masonryColumns.col3.map((item, index) => (
-                <NewsCard
-                  key={item.id}
-                  item={item}
-                  index={
-                    index +
-                    masonryColumns.col1.length +
-                    masonryColumns.col2.length
-                  }
-                  isInView={isInView}
-                  isFeature={item.isFeature}
-                  theme={theme}
-                  themeVariant={themeVariant}
-                />
-              ))}
-            </div>
+            {newsItems.map((item, index) => (
+              <NewsCard
+                key={item.id}
+                item={item}
+                index={index}
+                isInView={isInView}
+                isFeature={item.isFeature}
+                theme={theme}
+                themeVariant={themeVariant}
+              />
+            ))}
           </div>
         </div>
 
@@ -277,7 +233,7 @@ const EnvironmentNewsSection = ({
   );
 };
 
-// Extracted NewsCard component for cleaner code
+// NewsCard component remains the same as in the previous version
 const NewsCard = ({
   item,
   index,
