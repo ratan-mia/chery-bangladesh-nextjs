@@ -52,8 +52,8 @@ const HeroSection = () => {
                   backgroundImage: `url(${image})`,
                 }}
               >
-                {/* Overlay gradient for better text visibility */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30"></div>
+                {/* Overlay gradient for better text visibility - updated for light theme but still ensuring text readability */}
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 via-gray-900/50 to-gray-900/30"></div>
               </div>
             </SwiperSlide>
           ))}
@@ -62,10 +62,10 @@ const HeroSection = () => {
 
       {/* Custom navigation arrows */}
       <div className="absolute z-20 w-full top-1/2 -translate-y-1/2 px-4 md:px-10 flex justify-between pointer-events-none">
-        <button className="swiper-button-prev-custom w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm text-white flex items-center justify-center border border-white/20 pointer-events-auto hover:bg-primary-600 transition-all duration-300">
+        <button className="swiper-button-prev-custom w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm text-white flex items-center justify-center border border-white/20 pointer-events-auto hover:bg-primary-700 transition-all duration-300">
           <ChevronLeft size={24} />
         </button>
-        <button className="swiper-button-next-custom w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm text-white flex items-center justify-center border border-white/20 pointer-events-auto hover:bg-primary-600 transition-all duration-300">
+        <button className="swiper-button-next-custom w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm text-white flex items-center justify-center border border-white/20 pointer-events-auto hover:bg-primary-700 transition-all duration-300">
           <ChevronRight size={24} />
         </button>
       </div>
@@ -85,7 +85,7 @@ const HeroSection = () => {
             >
               {/* Badge */}
               <motion.span 
-                className="inline-block bg-primary-600/20 text-primary-500 py-1 px-3 rounded-full text-sm font-medium backdrop-blur-sm border border-primary-600/20"
+                className="inline-block bg-primary-light/30 text-primary-900 py-1 px-3 rounded-full text-sm font-medium backdrop-blur-sm border border-primary-light/30"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -95,33 +95,33 @@ const HeroSection = () => {
               
               {/* Heading */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Expert Auto <span className="text-primary-500">Repair Services</span> You Can Trust
+                Expert Auto <span className="text-primary-700">Repair Services</span> You Can Trust
               </h1>
               
               {/* Description */}
-              <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
+              <p className="text-lg md:text-xl text-gray-200 max-w-2xl">
                 Our certified technicians provide comprehensive auto repair and maintenance services to keep your vehicle running smoothly and safely.
               </p>
               
               {/* Features */}
               <div className="flex flex-wrap gap-y-3 gap-x-6 text-gray-200 text-sm md:text-base">
                 <div className="flex items-center">
-                  <ShieldCheck size={18} className="text-primary-500 mr-2" />
+                  <ShieldCheck size={18} className="text-primary-700 mr-2" />
                   <span>Certified Mechanics</span>
                 </div>
                 <div className="flex items-center">
-                  <Check size={18} className="text-primary-500 mr-2" />
+                  <Check size={18} className="text-primary-700 mr-2" />
                   <span>Transparent Pricing</span>
                 </div>
                 <div className="flex items-center">
-                  <Check size={18} className="text-primary-500 mr-2" />
+                  <Check size={18} className="text-primary-700 mr-2" />
                   <span>Warranty on Services</span>
                 </div>
               </div>
               
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-4 mt-8">
-                <Link href="/book" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium  transition-all duration-300 flex items-center group">
+                <Link href="/book" className="px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-all duration-300 flex items-center group">
                   Book Appointment
                   <Calendar className="ml-2 w-5 h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
@@ -140,7 +140,7 @@ const HeroSection = () => {
               >
                 <div className="flex -space-x-2 mr-4">
                   {[1, 2, 3, 4].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-gray-900 bg-gray-600"></div>
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-primary-light bg-gray-200"></div>
                   ))}
                 </div>
                 <div>
@@ -151,7 +151,7 @@ const HeroSection = () => {
                       </svg>
                     ))}
                   </div>
-                  <p className="text-gray-300 text-sm">Trusted by <span className="font-semibold text-white">4,000+</span> satisfied customers</p>
+                  <p className="text-gray-200 text-sm">Trusted by <span className="font-semibold text-white">4,000+</span> satisfied customers</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -175,7 +175,7 @@ const HeroSection = () => {
         .swiper-pagination-custom .swiper-pagination-bullet-active {
           width: 40px;
           transition: all 0.3s ease;
-          background: rgba(255, 255, 255, 1);
+          background: rgba(196, 177, 156, 1); /* primary-light color */
         }
       `}</style>
     </div>

@@ -92,31 +92,28 @@ const BookServiceSection = () => {
   };
 
   return (
-    <section id="book-service" className="py-24 relative" 
-      style={{
-        background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
-      }}>
+    <section id="book-service" className="py-20 relative bg-gray-100">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 opacity-5" 
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
         }}
       ></div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Book Your <span className="text-primary-600">Service</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Book Your <span className="text-primary-900">Service</span>
           </h2>
           
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-primary-700 mx-auto mb-8"></div>
           
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
             Schedule your service appointment online and our team will contact you 
             to confirm the details. Experience premium automotive care with our 
             factory-trained technicians.
@@ -130,17 +127,16 @@ const BookServiceSection = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-md">
             {/* Booking Form */}
             <motion.div 
-              className="lg:col-span-3 border-t-4 border-primary-600 p-8"
+              className="lg:col-span-3 border-t-4 border-primary-700 p-8 bg-white"
               variants={itemVariants}
-              style={{ background: 'rgba(15, 15, 15, 0.95)' }}
             >
-              <h3 className="text-2xl font-bold text-white mb-6">Service Details</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Service Details</h3>
               
               {submitStatus.message && (
-                <div className={`mb-6 p-4 border ${submitStatus.type === 'success' ? 'border-green-600 bg-green-900/30 text-green-400' : 'border-red-600 bg-red-900/30 text-red-400'}`}>
+                <div className={`mb-6 p-4 border ${submitStatus.type === 'success' ? 'border-green-600 bg-green-50 text-green-700' : 'border-red-300 bg-red-50 text-red-700'}`}>
                   {submitStatus.message}
                 </div>
               )}
@@ -148,12 +144,12 @@ const BookServiceSection = () => {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Vehicle Model</label>
+                    <label className="block text-sm font-medium text-gray-700">Vehicle Model</label>
                     <select 
                       name="vehicleModel"
                       value={formData.vehicleModel}
                       onChange={handleChange}
-                      className="w-full p-3 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                      className="w-full p-3 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                       required
                     >
                       <option value="">Select Your Vehicle</option>
@@ -167,7 +163,7 @@ const BookServiceSection = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Vehicle Reg. Number</label>
+                    <label className="block text-sm font-medium text-gray-700">Vehicle Reg. Number</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <Car size={18} className="text-gray-500" />
@@ -178,19 +174,19 @@ const BookServiceSection = () => {
                         value={formData.vehicleRegNumber}
                         onChange={handleChange}
                         placeholder="E.g., DHK GA 11-1111"
-                        className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                        className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                         required
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Service Type</label>
+                    <label className="block text-sm font-medium text-gray-700">Service Type</label>
                     <select 
                       name="serviceType"
                       value={formData.serviceType}
                       onChange={handleChange}
-                      className="w-full p-3 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                      className="w-full p-3 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                       required
                     >
                       <option value="">Select Service</option>
@@ -206,7 +202,7 @@ const BookServiceSection = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Preferred Date</label>
+                    <label className="block text-sm font-medium text-gray-700">Preferred Date</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <Calendar size={18} className="text-gray-500" />
@@ -216,7 +212,7 @@ const BookServiceSection = () => {
                         name="preferredDate"
                         value={formData.preferredDate}
                         onChange={handleChange}
-                        className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                        className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                         min={new Date().toISOString().split('T')[0]}
                         required
                       />
@@ -224,7 +220,7 @@ const BookServiceSection = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Preferred Time</label>
+                    <label className="block text-sm font-medium text-gray-700">Preferred Time</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <Clock size={18} className="text-gray-500" />
@@ -233,7 +229,7 @@ const BookServiceSection = () => {
                         name="preferredTime"
                         value={formData.preferredTime}
                         onChange={handleChange}
-                        className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                        className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                         required
                       >
                         <option value="">Select Time</option>
@@ -245,12 +241,12 @@ const BookServiceSection = () => {
                   </div>
                 </div>
                 
-                <div className="border-t border-gray-700 pt-6">
-                  <h3 className="text-lg font-bold text-white mb-6">Contact Information</h3>
+                <div className="border-t border-gray-200 pt-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-6">Contact Information</h3>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-300">Your Name</label>
+                      <label className="block text-sm font-medium text-gray-700">Your Name</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                           <User size={18} className="text-gray-500" />
@@ -261,14 +257,14 @@ const BookServiceSection = () => {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Enter your full name"
-                          className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                          className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                           required
                         />
                       </div>
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-300">Email Address</label>
+                      <label className="block text-sm font-medium text-gray-700">Email Address</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                           <Mail size={18} className="text-gray-500" />
@@ -279,14 +275,14 @@ const BookServiceSection = () => {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="Your email address"
-                          className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                          className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                           required
                         />
                       </div>
                     </div>
                     
                     <div className="space-y-2 md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-300">Contact Number</label>
+                      <label className="block text-sm font-medium text-gray-700">Contact Number</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                           <Phone size={18} className="text-gray-500" />
@@ -297,7 +293,7 @@ const BookServiceSection = () => {
                           value={formData.contactNumber}
                           onChange={handleChange}
                           placeholder="Your contact number"
-                          className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                          className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                           required
                         />
                       </div>
@@ -305,14 +301,14 @@ const BookServiceSection = () => {
                   </div>
                   
                   <div className="space-y-2 mt-6">
-                    <label className="block text-sm font-medium text-gray-300">Additional Notes</label>
+                    <label className="block text-sm font-medium text-gray-700">Additional Notes</label>
                     <textarea
                       rows="3"
                       name="notes"
                       value={formData.notes}
                       onChange={handleChange}
                       placeholder="Please provide any additional information about your service needs"
-                      className="w-full p-3 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                      className="w-full p-3 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                     ></textarea>
                   </div>
                 </div>
@@ -321,7 +317,7 @@ const BookServiceSection = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full bg-primary-600 text-white py-3 px-4 font-medium transition-colors duration-300 flex items-center justify-center ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary-700'}`}
+                    className={`w-full bg-primary-700 text-white py-3 px-4 font-medium transition-colors duration-300 flex items-center justify-center ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary-900'}`}
                   >
                     {isSubmitting ? (
                       <>
@@ -349,7 +345,7 @@ const BookServiceSection = () => {
               className="lg:col-span-2 flex flex-col"
               variants={itemVariants}
             >
-              <div className="bg-primary-600 text-white p-8">
+              <div className="bg-primary-700 text-white p-8">
                 <h3 className="text-xl font-bold mb-6 flex items-center">
                   <Clock size={24} className="mr-3" />
                   Service Hours
@@ -386,14 +382,14 @@ const BookServiceSection = () => {
                 </div>
               </div>
               
-              <div className="bg-gray-900 text-white p-8 flex-grow">
-                <h3 className="text-xl font-bold mb-6 flex items-center">
-                  <CheckSquare size={24} className="mr-3" />
+              <div className="bg-gray-50 text-gray-700 p-8 flex-grow border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                  <CheckSquare size={24} className="text-primary-700 mr-3" />
                   What to Expect
                 </h3>
                 <ul className="space-y-5">
                   <li className="flex">
-                    <div className="h-6 w-6 bg-primary-600 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                    <div className="h-6 w-6 bg-primary-700 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
@@ -401,7 +397,7 @@ const BookServiceSection = () => {
                     <span>Confirmation email immediately after booking</span>
                   </li>
                   <li className="flex">
-                    <div className="h-6 w-6 bg-primary-600 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                    <div className="h-6 w-6 bg-primary-700 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
@@ -409,7 +405,7 @@ const BookServiceSection = () => {
                     <span>Follow-up call within 2 hours of booking</span>
                   </li>
                   <li className="flex">
-                    <div className="h-6 w-6 bg-primary-600 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                    <div className="h-6 w-6 bg-primary-700 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
@@ -417,7 +413,7 @@ const BookServiceSection = () => {
                     <span>Digital inspection report with photos</span>
                   </li>
                   <li className="flex">
-                    <div className="h-6 w-6 bg-primary-600 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                    <div className="h-6 w-6 bg-primary-700 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
@@ -425,7 +421,7 @@ const BookServiceSection = () => {
                     <span>Courtesy vehicle wash with every service</span>
                   </li>
                   <li className="flex">
-                    <div className="h-6 w-6 bg-primary-600 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                    <div className="h-6 w-6 bg-primary-700 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>

@@ -50,22 +50,22 @@ const ServiceFAQs = () => {
   ];
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <section className="relative py-20 bg-gray-50">
       {/* Background texture */}
       <div className="absolute inset-0 bg-[url('/texture-dots.svg')] opacity-5 pointer-events-none"></div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Service <span className="text-primary-600">FAQs</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Service <span className="text-primary-900">FAQs</span>
           </h2>
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
+          <div className="w-24 h-1 bg-primary-700 mx-auto mb-6"></div>
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
             Find answers to commonly asked questions about our service center operations and maintenance procedures
           </p>
         </motion.div>
@@ -79,25 +79,25 @@ const ServiceFAQs = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-[#0f0f0f] border border-gray-800 overflow-hidden"
+                className="bg-white border border-gray-200 overflow-hidden shadow-sm"
               >
                 <button
                   onClick={() => toggleFAQ(index)}
                   className={`w-full p-6 text-left flex items-center justify-between transition-colors duration-300 ${
-                    openFAQ === index ? 'border-b border-gray-800' : ''
+                    openFAQ === index ? 'border-b border-gray-200' : ''
                   }`}
                 >
                   <div className="flex items-center">
-                    <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gray-800 mr-4 transition-colors duration-300 ${
-                      openFAQ === index ? 'bg-primary-600 border-primary-600' : 'bg-black bg-opacity-50'
+                    <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center border mr-4 transition-colors duration-300 ${
+                      openFAQ === index ? 'bg-primary-700 border-primary-700' : 'bg-primary-light bg-opacity-30 border-gray-200'
                     }`}>
-                      <HelpCircle size={20} className={openFAQ === index ? 'text-white' : 'text-primary-600'} />
+                      <HelpCircle size={20} className={openFAQ === index ? 'text-white' : 'text-primary-900'} />
                     </div>
-                    <span className="font-medium text-white">{faq.question}</span>
+                    <span className="font-medium text-gray-900">{faq.question}</span>
                   </div>
                   <ChevronDown 
                     size={20} 
-                    className={`text-primary-600 transition-transform duration-300 ${
+                    className={`text-primary-700 transition-transform duration-300 ${
                       openFAQ === index ? 'transform rotate-180' : ''
                     }`} 
                   />
@@ -113,7 +113,7 @@ const ServiceFAQs = () => {
                       className="overflow-hidden"
                     >
                       <div className="p-6 pt-0 pl-20">
-                        <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                        <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
                       </div>
                     </motion.div>
                   )}
@@ -123,19 +123,19 @@ const ServiceFAQs = () => {
           </div>
           
           {/* Additional help CTA */}
-          <div className="mt-12 p-8 bg-black bg-opacity-50 border border-gray-800 text-center">
-            <h3 className="text-xl font-medium text-white mb-2">Need additional assistance?</h3>
-            <p className="text-gray-400 mb-6">Our customer service representatives are available to help with any other questions</p>
+          <div className="mt-12 p-8 bg-white border border-gray-200 text-center shadow-sm">
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Need additional assistance?</h3>
+            <p className="text-gray-600 mb-6">Our customer service representatives are available to help with any other questions</p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
                 href="tel:+8801234567890" 
-                className="px-6 py-3 bg-primary-600 text-white hover:bg-transparent hover:text-primary-600 border-2 border-primary-600 transition-colors duration-300 font-medium inline-flex items-center"
+                className="px-6 py-3 bg-primary-700 text-white hover:bg-transparent hover:text-primary-700 border-2 border-primary-700 transition-colors duration-300 font-medium inline-flex items-center"
               >
                 Call Service Hotline
               </a>
               <a 
                 href="#contact-form" 
-                className="px-6 py-3 border-2 border-gray-800 text-white hover:border-primary-600 hover:text-primary-600 transition-colors duration-300 font-medium inline-flex items-center"
+                className="px-6 py-3 border-2 border-gray-300 text-gray-700 hover:border-primary-700 hover:text-primary-700 transition-colors duration-300 font-medium inline-flex items-center"
               >
                 Submit a Question
               </a>

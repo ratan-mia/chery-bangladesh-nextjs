@@ -71,7 +71,7 @@ const CustomerReviews = () => {
           key={i}
           size={20}
           fill={i < rating ? "currentColor" : "none"}
-          className={`${i < rating ? 'text-primary-600' : 'text-gray-700'}`}
+          className={`${i < rating ? 'text-primary-700' : 'text-gray-400'}`}
         />
       );
     }
@@ -88,22 +88,22 @@ const CustomerReviews = () => {
   };
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <section className="relative py-20 bg-gray-50">
       {/* Background texture */}
       <div className="absolute inset-0 bg-[url('/texture-dots.svg')] opacity-5 pointer-events-none"></div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Customer <span className="text-primary-600">Testimonials</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Customer <span className="text-primary-900">Testimonials</span>
           </h2>
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
+          <div className="w-24 h-1 bg-primary-700 mx-auto mb-6"></div>
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
             Discover what our valued customers have to say about their Chery service experience
           </p>
         </motion.div>
@@ -116,25 +116,25 @@ const CustomerReviews = () => {
               variants={cardVariants}
               initial="hidden"
               animate="visible"
-              className="bg-[#0f0f0f] border border-gray-800 p-8 shadow-2xl mb-8 relative"
+              className="bg-white border border-gray-200 p-8 shadow-md mb-8 relative"
             >
               {/* Quotation Mark */}
-              <div className="absolute -top-6 left-8 bg-primary-600 w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+              <div className="absolute -top-6 left-8 bg-primary-700 w-12 h-12 rounded-full flex items-center justify-center shadow-md">
                 <Quote size={24} className="text-white" />
               </div>
               
               {/* Vehicle Badge */}
-              <div className="absolute -top-4 right-8 bg-black border border-gray-800 px-4 py-2 shadow-lg">
-                <span className="text-primary-600 font-medium text-sm">{reviews[activeReview].vehicle}</span>
+              <div className="absolute -top-4 right-8 bg-gray-50 border border-gray-200 px-4 py-2 shadow-sm">
+                <span className="text-primary-900 font-medium text-sm">{reviews[activeReview].vehicle}</span>
               </div>
               
-              <blockquote className="text-gray-300 italic leading-relaxed mb-6 mt-4 pt-2">
+              <blockquote className="text-gray-700 italic leading-relaxed mb-6 mt-4 pt-2">
                 "{reviews[activeReview].comment}"
               </blockquote>
               
-              <div className="flex items-center justify-between border-t border-gray-800 pt-6">
+              <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                 <div>
-                  <h3 className="font-bold text-white">{reviews[activeReview].name}</h3>
+                  <h3 className="font-bold text-gray-900">{reviews[activeReview].name}</h3>
                   <div className="flex mt-1">
                     {renderStars(reviews[activeReview].rating)}
                   </div>
@@ -143,17 +143,17 @@ const CustomerReviews = () => {
                 <div className="flex gap-2">
                   <button 
                     onClick={handlePrev} 
-                    className="w-10 h-10 border border-gray-800 flex items-center justify-center hover:bg-black hover:bg-opacity-50 transition-colors duration-300"
+                    className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
                     disabled={isAnimating}
                   >
-                    <ChevronLeft size={20} className="text-gray-400" />
+                    <ChevronLeft size={20} className="text-gray-500" />
                   </button>
                   <button 
                     onClick={handleNext}
-                    className="w-10 h-10 border border-gray-800 flex items-center justify-center hover:bg-black hover:bg-opacity-50 transition-colors duration-300"
+                    className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors duration-300"
                     disabled={isAnimating}
                   >
-                    <ChevronRight size={20} className="text-gray-400" />
+                    <ChevronRight size={20} className="text-gray-500" />
                   </button>
                 </div>
               </div>
@@ -161,7 +161,7 @@ const CustomerReviews = () => {
             
             {/* Review Progress Indicator */}
             <div className="flex justify-between items-center px-2 mb-8">
-              <div className="flex-1 h-1 bg-gray-800">
+              <div className="flex-1 h-1 bg-gray-200">
                 {reviews.map((_, index) => (
                   <div 
                     key={index}
@@ -169,19 +169,19 @@ const CustomerReviews = () => {
                       width: `${100/reviews.length}%`, 
                       transform: `translateX(${activeReview * 100}%)` 
                     }}
-                    className={`h-1 bg-primary-600 transition-transform duration-500 ${index === activeReview ? 'opacity-100' : 'opacity-0'}`}
+                    className={`h-1 bg-primary-700 transition-transform duration-500 ${index === activeReview ? 'opacity-100' : 'opacity-0'}`}
                   />
                 ))}
               </div>
-              <span className="text-gray-400 text-sm ml-4">{activeReview + 1}/{reviews.length}</span>
+              <span className="text-gray-600 text-sm ml-4">{activeReview + 1}/{reviews.length}</span>
             </div>
           </div>
           
           {/* Leave Review CTA */}
-          <div className="text-center mt-12 bg-black bg-opacity-50 border border-gray-800 p-8">
-            <h3 className="text-white font-bold text-lg mb-2">Share Your Experience</h3>
-            <p className="text-gray-400 mb-6">We value your feedback about our service team</p>
-            <button className="inline-flex items-center border-2 border-primary-600 text-primary-600 px-8 py-3 font-medium hover:bg-primary-600 hover:text-white transition-colors duration-300 group">
+          <div className="text-center mt-12 bg-white border border-gray-200 p-8 shadow-sm">
+            <h3 className="text-gray-900 font-bold text-lg mb-2">Share Your Experience</h3>
+            <p className="text-gray-600 mb-6">We value your feedback about our service team</p>
+            <button className="inline-flex items-center border-2 border-primary-700 text-primary-700 px-8 py-3 font-medium hover:bg-primary-700 hover:text-white transition-colors duration-300 group">
               LEAVE A REVIEW
               <Star size={16} className="ml-2 transform group-hover:scale-110 transition-transform duration-300" />
             </button>

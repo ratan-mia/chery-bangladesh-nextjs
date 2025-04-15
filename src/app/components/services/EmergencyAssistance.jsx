@@ -139,18 +139,15 @@ const EmergencyAssistance = () => {
   ];
 
   return (
-    <section className="py-24 relative" 
-      style={{
-        background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
-      }}>
+    <section className="py-20 relative bg-gray-100">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 opacity-5" 
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
         }}
       ></div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         {/* Heading Section */}
         <motion.div 
           className="text-center mb-16"
@@ -158,13 +155,13 @@ const EmergencyAssistance = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            24/7 <span className="text-primary-600">Premium</span> Roadside Assistance
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            24/7 <span className="text-primary-900">Premium</span> Roadside Assistance
           </h2>
           
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-primary-700 mx-auto mb-8"></div>
           
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
             Round-the-clock support for Chery owners across Bangladesh. Our certified technicians are ready to help you anytime, anywhere.
           </p>
         </motion.div>
@@ -181,39 +178,38 @@ const EmergencyAssistance = () => {
             <motion.div 
               key={index}
               variants={itemVariants}
-              className="border border-gray-800 p-8 bg-black bg-opacity-50 group hover:border-primary-600 transition-colors duration-300"
+              className="border border-gray-200 p-8 bg-white shadow-sm group hover:border-primary-700 transition-colors duration-300"
             >
-              <div className="w-16 h-16 bg-primary-600 flex items-center justify-center mx-auto mb-6">
-                <service.icon size={24} className="text-white" />
+              <div className="w-16 h-16 bg-primary-light bg-opacity-40 flex items-center justify-center mx-auto mb-6 group-hover:bg-opacity-60 transition-colors duration-300">
+                <service.icon size={24} className="text-primary-900" />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white text-center">{service.title}</h3>
-              <p className="text-gray-400 text-center">
+              <h3 className="text-xl font-bold mb-4 text-gray-900 text-center">{service.title}</h3>
+              <p className="text-gray-600 text-center">
                 {service.description}
               </p>
             </motion.div>
           ))}
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-lg">
           {/* Request Form */}
           <motion.div 
-            className="lg:col-span-3 border-t-4 border-primary-600 p-8"
+            className="lg:col-span-3 border-t-4 border-primary-700 p-8 bg-white"
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            style={{ background: 'rgba(15, 15, 15, 0.95)' }}
           >
-            <h3 className="text-2xl font-bold text-white mb-6">Request Emergency Assistance</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Request Emergency Assistance</h3>
             
             {success && (
-              <div className="mb-6 p-4 border border-green-600 bg-green-900/30 text-green-400">
+              <div className="mb-6 p-4 border border-green-600 bg-green-50 text-green-700">
                 Your emergency request has been submitted. Our team will contact you shortly.
               </div>
             )}
             
             {error && (
-              <div className="mb-6 p-4 border border-red-600 bg-red-900/30 text-red-400 flex items-center">
+              <div className="mb-6 p-4 border border-red-300 bg-red-50 text-red-700 flex items-center">
                 <AlertTriangle className="w-5 h-5 mr-2 flex-shrink-0" />
                 <span>{error}</span>
               </div>
@@ -222,12 +218,12 @@ const EmergencyAssistance = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">Assistance Type</label>
+                  <label className="block text-sm font-medium text-gray-700">Assistance Type</label>
                   <select 
                     name="assistanceType"
                     value={formData.assistanceType}
                     onChange={handleChange}
-                    className="w-full p-3 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                    className="w-full p-3 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                     required
                   >
                     <option value="">Select Assistance Type</option>
@@ -241,7 +237,7 @@ const EmergencyAssistance = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">Your Location</label>
+                  <label className="block text-sm font-medium text-gray-700">Your Location</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <MapPin size={18} className="text-gray-500" />
@@ -252,13 +248,13 @@ const EmergencyAssistance = () => {
                       value={formData.location}
                       onChange={handleChange}
                       placeholder="Current location or address"
-                      className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                      className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                       required
                     />
                     <button 
                       type="button" 
                       onClick={getCurrentLocation}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-primary-600 hover:text-primary-500 transition-colors"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-primary-700 hover:text-primary-900 transition-colors"
                     >
                       {locationLoading ? (
                         <Loader2 className="h-5 w-5 animate-spin" />
@@ -270,12 +266,12 @@ const EmergencyAssistance = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">Vehicle Model</label>
+                  <label className="block text-sm font-medium text-gray-700">Vehicle Model</label>
                   <select 
                     name="vehicleModel"
                     value={formData.vehicleModel}
                     onChange={handleChange}
-                    className="w-full p-3 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                    className="w-full p-3 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                     required
                   >
                     <option value="">Select Your Vehicle</option>
@@ -290,7 +286,7 @@ const EmergencyAssistance = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">Vehicle Reg. Number</label>
+                  <label className="block text-sm font-medium text-gray-700">Vehicle Reg. Number</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <Car size={18} className="text-gray-500" />
@@ -301,19 +297,19 @@ const EmergencyAssistance = () => {
                       value={formData.vehicleRegNumber}
                       onChange={handleChange}
                       placeholder="E.g., DHK GA 11-1111"
-                      className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                      className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                       required
                     />
                   </div>
                 </div>
               </div>
               
-              <div className="border-t border-gray-700 pt-6">
-                <h3 className="text-lg font-bold text-white mb-6">Contact Information</h3>
+              <div className="border-t border-gray-200 pt-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-6">Contact Information</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Your Name</label>
+                    <label className="block text-sm font-medium text-gray-700">Your Name</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <User size={18} className="text-gray-500" />
@@ -324,14 +320,14 @@ const EmergencyAssistance = () => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Enter your full name"
-                        className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                        className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                         required
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-300">Email Address</label>
+                    <label className="block text-sm font-medium text-gray-700">Email Address</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <Mail size={18} className="text-gray-500" />
@@ -342,13 +338,13 @@ const EmergencyAssistance = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="Your email address"
-                        className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                        className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2 md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-300">Contact Number</label>
+                    <label className="block text-sm font-medium text-gray-700">Contact Number</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <Phone size={18} className="text-gray-500" />
@@ -359,7 +355,7 @@ const EmergencyAssistance = () => {
                         value={formData.contactNumber}
                         onChange={handleChange}
                         placeholder="Your contact number"
-                        className="w-full p-3 pl-10 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                        className="w-full p-3 pl-10 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                         required
                       />
                     </div>
@@ -367,14 +363,14 @@ const EmergencyAssistance = () => {
                 </div>
                 
                 <div className="space-y-2 mt-6">
-                  <label className="block text-sm font-medium text-gray-300">Problem Description</label>
+                  <label className="block text-sm font-medium text-gray-700">Problem Description</label>
                   <textarea
                     rows="3"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
                     placeholder="Please describe your situation and any relevant details that might help our assistance team"
-                    className="w-full p-3 border border-gray-700 bg-gray-800 text-white focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
+                    className="w-full p-3 border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700"
                   ></textarea>
                 </div>
               </div>
@@ -383,7 +379,7 @@ const EmergencyAssistance = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full bg-primary-600 text-white py-3 px-4 font-medium transition-colors duration-300 flex items-center justify-center ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary-700'}`}
+                  className={`w-full bg-primary-700 text-white py-3 px-4 font-medium transition-colors duration-300 flex items-center justify-center ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary-900'}`}
                 >
                   {loading ? (
                     <>
@@ -411,15 +407,15 @@ const EmergencyAssistance = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <div className="bg-primary-600 text-white p-8">
+            <div className="bg-primary-700 text-white p-8">
               <h3 className="text-xl font-bold mb-6 flex items-center">
                 <Phone size={24} className="mr-3" />
                 Emergency Hotline
               </h3>
               
-              <div className="bg-black bg-opacity-20 p-6 mb-6">
+              <div className="bg-white text-gray-600 bg-opacity-10 p-6 mb-6">
                 <p className="text-sm mb-2">For immediate assistance, call our 24/7 hotline:</p>
-                <a href="tel:01XXXXXXXXX" className="text-2xl font-bold block text-center py-4">
+                <a href="tel:09639119977" className="text-2xl font-bold block text-center py-4">
                   09639119977
                 </a>
                 <p className="text-xs text-center">Toll-free for Chery owners</p>
@@ -427,7 +423,7 @@ const EmergencyAssistance = () => {
               
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-black bg-opacity-20 flex items-center justify-center mr-3">
+                  <div className="w-10 h-10 bg-white bg-opacity-10 flex items-center justify-center mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M12 3a7 7 0 0 0-7 7c0 1.3.37 2.5 1 3.5l3 5.5 3-5.5c.63-1 1-2.2 1-3.5a3 3 0 0 0-6 0c0 1.3.37 2.5 1 3.5l3 5.5 3-5.5c.63-1 1-2.2 1-3.5a7 7 0 0 0-7-7z"></path>
                       <circle cx="12" cy="10" r="1"></circle>
@@ -440,7 +436,7 @@ const EmergencyAssistance = () => {
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-black bg-opacity-20 flex items-center justify-center mr-3">
+                  <div className="w-10 h-10 bg-white bg-opacity-10 flex items-center justify-center mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="10"></circle>
                       <polyline points="12 6 12 12 16 14"></polyline>
@@ -453,7 +449,7 @@ const EmergencyAssistance = () => {
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-black bg-opacity-20 flex items-center justify-center mr-3">
+                  <div className="w-10 h-10 bg-white bg-opacity-10 flex items-center justify-center mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3 3v18h18"></path>
                       <path d="M18.4 9a6 6 0 1 0 0-6"></path>
@@ -467,38 +463,38 @@ const EmergencyAssistance = () => {
               </div>
             </div>
             
-            <div className="bg-gray-900 text-white p-8 flex-grow">
+            <div className="bg-gray-50 border border-gray-200 text-gray-900 p-8 flex-grow">
               <h3 className="text-xl font-bold mb-6">What to Expect</h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <div className="w-6 h-6 bg-primary-600 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-primary-700 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0 text-white">
                     <span className="text-xs font-bold">1</span>
                   </div>
-                  <p className="text-gray-300">Call our hotline or submit the form to request assistance</p>
+                  <p className="text-gray-600">Call our hotline or submit the form to request assistance</p>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 bg-primary-600 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-primary-700 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0 text-white">
                     <span className="text-xs font-bold">2</span>
                   </div>
-                  <p className="text-gray-300">Our team will assess your situation and dispatch appropriate help</p>
+                  <p className="text-gray-600">Our team will assess your situation and dispatch appropriate help</p>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 bg-primary-600 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-primary-700 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0 text-white">
                     <span className="text-xs font-bold">3</span>
                   </div>
-                  <p className="text-gray-300">You'll receive SMS updates about the estimated arrival time</p>
+                  <p className="text-gray-600">You'll receive SMS updates about the estimated arrival time</p>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 bg-primary-600 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-primary-700 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0 text-white">
                     <span className="text-xs font-bold">4</span>
                   </div>
-                  <p className="text-gray-300">Our technician will arrive and resolve your issue or arrange towing</p>
+                  <p className="text-gray-600">Our technician will arrive and resolve your issue or arrange towing</p>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 bg-primary-600 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-primary-700 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0 text-white">
                     <span className="text-xs font-bold">5</span>
                   </div>
-                  <p className="text-gray-300">Follow-up to ensure your satisfaction with the service provided</p>
+                  <p className="text-gray-600">Follow-up to ensure your satisfaction with the service provided</p>
                 </li>
               </ul>
             </div>

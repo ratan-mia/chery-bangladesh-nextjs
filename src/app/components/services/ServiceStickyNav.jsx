@@ -106,9 +106,9 @@ const ServiceStickyNav = () => {
 
   return (
     <motion.nav 
-      className={`w-full z-50 bg-black/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300 ${
+      className={`w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 transition-all duration-300 ${
         isSticky 
-          ? 'fixed top-0 shadow-lg shadow-black/50' 
+          ? 'fixed top-0 shadow-md' 
           : 'relative'
       }`}
       initial={{ y: -100, opacity: 0 }}
@@ -124,7 +124,7 @@ const ServiceStickyNav = () => {
           <>
             <button 
               onClick={() => scrollNav('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/80 text-white p-1 rounded-full shadow-md"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 text-gray-700 p-1 rounded-full shadow-sm hover:bg-primary-light/30 transition-colors duration-200"
               aria-label="Scroll left"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -133,7 +133,7 @@ const ServiceStickyNav = () => {
             </button>
             <button 
               onClick={() => scrollNav('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/80 text-white p-1 rounded-full shadow-md"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 text-gray-700 p-1 rounded-full shadow-sm hover:bg-primary-light/30 transition-colors duration-200"
               aria-label="Scroll right"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -144,8 +144,12 @@ const ServiceStickyNav = () => {
         )}
       
         <div 
-          className="py-4 overflow-x-auto scrollbar-hide"
+          className="py-3 overflow-x-auto hide-scrollbar"
           ref={navRef}
+          style={{
+            msOverflowStyle: 'none',  /* IE and Edge */
+            scrollbarWidth: 'none',   /* Firefox */
+          }}
         >
           <ul className="flex space-x-1 md:space-x-3 lg:space-x-6 whitespace-nowrap justify-start md:justify-center px-4 md:px-12">
             {navLinks.map((link) => (
@@ -155,12 +159,12 @@ const ServiceStickyNav = () => {
                   onClick={() => scrollToSection(link.id)}
                   className={`flex flex-col md:flex-row items-center justify-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     activeSection === link.id
-                      ? 'bg-primary-600/10 text-primary-500 transform scale-105'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-primary-light/30 text-primary-900 transform scale-105'
+                      : 'text-gray-600 hover:text-primary-700 hover:bg-gray-50'
                   }`}
                 >
                   <link.icon size={18} className={`mb-1 md:mb-0 md:mr-2 ${
-                    activeSection === link.id ? 'text-primary-500' : 'text-gray-500'
+                    activeSection === link.id ? 'text-primary-700' : 'text-gray-500'
                   }`} />
                   <span className="text-xs md:text-sm">{link.label}</span>
                 </button>
@@ -171,7 +175,7 @@ const ServiceStickyNav = () => {
         
         {/* Progress indicator */}
         <motion.div 
-          className="absolute bottom-0 left-0 h-1 bg-primary-600"
+          className="absolute bottom-0 left-0 h-1 bg-primary-700"
           initial={{ width: '0%' }}
           animate={{ 
             width: isSticky ? `${(navLinks.findIndex(link => link.id === activeSection) + 1) / navLinks.length * 100}%` : '0%' 
@@ -179,6 +183,13 @@ const ServiceStickyNav = () => {
           transition={{ duration: 0.3 }}
         />
       </div>
+
+      {/* Custom style for hiding scrollbar */}
+      <style jsx>{`
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </motion.nav>
   );
 };
