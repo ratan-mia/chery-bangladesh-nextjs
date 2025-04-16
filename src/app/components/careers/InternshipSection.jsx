@@ -21,7 +21,7 @@ const InternshipSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative h-64 md:h-auto overflow-hidden">
           <Image
-            src="/images/careers/internship.jpg"
+            src="/images/banners/internship.jpg"
             alt="Chery Bangladesh Internship Program"
             fill
             className="object-cover transition-transform duration-700 hover:scale-105"

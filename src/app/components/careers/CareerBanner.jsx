@@ -6,6 +6,7 @@ import Image from 'next/image'
 /**
  * Full-width banner component with background image for Career page
  * Following Chery Bangladesh design system guidelines
+ * Improved with black overlay for better text visibility
  */
 const CareerBanner = ({ title, subtitle, description }) => {
   return (
@@ -13,15 +14,17 @@ const CareerBanner = ({ title, subtitle, description }) => {
       {/* Background image layer */}
       <div className="absolute inset-0 w-full h-full">
         <Image
-          src="/images/careers/career-banner.jpg" // Replace with your actual image path
+          src="/images/banners/career-banner.jpg" // Replace with your actual image path
           alt="Chery Bangladesh Careers"
           fill
           priority
           className="object-cover"
           sizes="100vw"
         />
-        {/* Gradient overlay for text legibility - follows design guideline for gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/80 via-primary-900/60 to-transparent"></div>
+        {/* Black overlay for better text visibility */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Gradient overlay on top of black overlay - follows design guideline for gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-900/50 to-transparent"></div>
       </div>
 
       {/* Content layer */}
@@ -43,7 +46,7 @@ const CareerBanner = ({ title, subtitle, description }) => {
             </h1>
             
             {description && (
-              <p className="text-xl text-gray-100 max-w-2xl leading-relaxed">
+              <p className="text-xl text-white max-w-2xl leading-relaxed">
                 {description || "Discover exciting career opportunities with Chery Bangladesh. Join us in our mission to provide exceptional automotive experiences to our customers."}
               </p>
             )}
