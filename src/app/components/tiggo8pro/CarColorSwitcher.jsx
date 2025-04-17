@@ -5,86 +5,60 @@ import Image from 'next/image'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 const CarColorSwitcher = () => {
-  // Enhanced color options with improved hex, rgb values and descriptions
+  // Enhanced color options with improved hex values from design system
   const colorOptions = useMemo(() => [
     { 
       name: 'Phantom Gray', 
       bgColor: '#6B717A', 
-      rgbColor: 'rgba(107, 113, 122, 1)',
       gradient: 'linear-gradient(145deg, #7a8185, #5d636b)',
       textColor: 'text-white', 
-      images: {
-        front: '/images/tiggo8pro/colors/chery-gray-front.png',
-        side: '/images/tiggo8pro/colors/chery-gray.png',
-        rear: '/images/tiggo8pro/colors/chery-gray-rear.png',
-      },
+      image: '/images/tiggo8pro/colors/chery-gray.png',
       description: 'Sophisticated urban style with a modern edge',
       colorCode: 'G19'
     },
     { 
       name: 'Silver Blue', 
       bgColor: '#A8B8CF', 
-      rgbColor: 'rgba(168, 184, 207, 1)',
       gradient: 'linear-gradient(145deg, #b6c6dd, #98aac1)',
-      textColor: 'text-black', 
-      images: {
-        front: '/images/tiggo8pro/colors/chery-silver-blue-front.png',
-        side: '/images/tiggo8pro/colors/chery-silver-blue.png',
-        rear: '/images/tiggo8pro/colors/chery-silver-blue-rear.png',
-      },
+      textColor: 'text-gray-900', 
+      image: '/images/tiggo8pro/colors/chery-silver-blue.png',
       description: 'Elegant blend of silver and blue for a distinctive look',
       colorCode: 'SB3'
     },
     { 
       name: 'Rhine Blue', 
       bgColor: '#1A3BB3', 
-      rgbColor: 'rgba(26, 59, 179, 1)',
       gradient: 'linear-gradient(145deg, #2a4bc3, #0a2ba3)',
       textColor: 'text-white', 
-      images: {
-        front: '/images/tiggo8pro/colors/chery-blue-front.png',
-        side: '/images/tiggo8pro/colors/chery-blue.png',
-        rear: '/images/tiggo8pro/colors/chery-blue-rear.png',
-      },
+      image: '/images/tiggo8pro/colors/chery-blue.png',
       description: 'Deep lustrous blue inspired by European landscapes',
       colorCode: 'RB5'
     },
     { 
       name: 'Khaki White', 
       bgColor: '#EAEDEF', 
-      rgbColor: 'rgba(234, 237, 239, 1)',
       gradient: 'linear-gradient(145deg, #f8fbff, #dcdfe1)',
-      textColor: 'text-black', 
-      images: {
-        front: '/images/tiggo8pro/colors/chery-pearl-white-front.png',
-        side: '/images/tiggo8pro/colors/chery-pearl-white.png',
-        rear: '/images/tiggo8pro/colors/chery-pearl-white-rear.png',
-      },
+      textColor: 'text-gray-900', 
+      image: '/images/tiggo8pro/colors/chery-pearl-white.png',
       description: 'Pure and pristine white with subtle warm undertones',
       colorCode: 'KW2'
     },
     { 
       name: 'Carbon Crystal Black', 
       bgColor: '#0F1419', 
-      rgbColor: 'rgba(15, 20, 25, 1)',
       gradient: 'linear-gradient(145deg, #1a1f25, #05090d)',
       textColor: 'text-white', 
-      images: {
-        front: '/images/tiggo8pro/colors/chery-black-front.png',
-        side: '/images/tiggo8pro/colors/chery-black.png',
-        rear: '/images/tiggo8pro/colors/chery-black-rear.png',
-      },
+      image: '/images/tiggo8pro/colors/chery-black.png',
       description: 'Profound depth with subtle mineral highlights',
       colorCode: 'CB1'
     },
   ], []);
 
-  // State management with better defaults
-  const [selectedColor, setSelectedColor] = useState(colorOptions[2]) // Default to Rhine Blue
+  // State management with default to Rhine Blue
+  const [selectedColor, setSelectedColor] = useState(colorOptions[3])
   const [previousColor, setPreviousColor] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isInView, setIsInView] = useState(false)
-  const [viewAngle, setViewAngle] = useState('side') // 'side', 'front', 'rear'
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const sectionRef = useRef(null)
 
@@ -123,35 +97,22 @@ const CarColorSwitcher = () => {
     }
   }, [selectedColor, isTransitioning]);
 
-  // Handle view angle change
-  const handleViewAngleChange = useCallback((angle) => {
-    if (viewAngle !== angle) {
-      setViewAngle(angle)
-      setIsImageLoaded(false)
-    }
-  }, [viewAngle]);
-
   // Calculate background style during transitions with enhanced visual effects
   const getBgStyle = useCallback(() => {
     if (!isTransitioning || !previousColor) {
-      // Use gradient background for more depth and dimension
-      const isDark = selectedColor.textColor === 'text-white';
-      
       return { 
         backgroundImage: selectedColor.gradient,
-        boxShadow: isDark 
-          ? `inset 0 0 200px rgba(0,0,0,0.25), inset 0 0 100px rgba(255,255,255,0.05)` 
-          : `inset 0 0 200px rgba(0,0,0,0.05), inset 0 0 100px rgba(255,255,255,0.1)`
+        boxShadow: 'inset 0 0 200px rgba(0,0,0,0.15), inset 0 0 100px rgba(255,255,255,0.05)'
       }
     }
     
-    // More dynamic transition between colors
+    // Dynamic transition between colors
     return {
-      backgroundImage: `linear-gradient(to right, ${previousColor.rgbColor}, ${selectedColor.rgbColor})`,
+      backgroundImage: `linear-gradient(to right, ${previousColor.bgColor}, ${selectedColor.bgColor})`,
       backgroundSize: '200% 100%',
       backgroundPosition: '0% 50%',
       animation: 'gradientShift 1.2s ease forwards',
-      boxShadow: `inset 0 0 200px rgba(0,0,0,0.15), inset 0 0 100px rgba(255,255,255,0.05)`
+      boxShadow: 'inset 0 0 200px rgba(0,0,0,0.15), inset 0 0 100px rgba(255,255,255,0.05)'
     }
   }, [isTransitioning, previousColor, selectedColor]);
 
@@ -159,11 +120,6 @@ const CarColorSwitcher = () => {
   const getTextColorClass = useCallback(() => {
     return selectedColor.textColor
   }, [selectedColor]);
-
-  // Get image URL based on selected color and view angle
-  const getImageUrl = useCallback(() => {
-    return selectedColor.images[viewAngle] || selectedColor.images.side;
-  }, [selectedColor, viewAngle]);
 
   // Handle image loading state
   const handleImageLoad = useCallback(() => {
@@ -177,7 +133,7 @@ const CarColorSwitcher = () => {
       opacity: 1,
       scale: 1,
       transition: { 
-        duration: 0.7,
+        duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1.0]
       }
     },
@@ -185,7 +141,7 @@ const CarColorSwitcher = () => {
       opacity: 0,
       scale: 1.02,
       transition: { 
-        duration: 0.5,
+        duration: 0.4,
         ease: [0.25, 0.1, 0.25, 1.0]
       } 
     }
@@ -231,12 +187,6 @@ const CarColorSwitcher = () => {
           100% { background-position: 100% 50%; }
         }
         
-        @keyframes bgPulse {
-          0% { background-size: 100% 100%; }
-          50% { background-size: 110% 110%; }
-          100% { background-size: 100% 100%; }
-        }
-        
         .color-dot {
           position: relative;
           cursor: pointer;
@@ -272,36 +222,6 @@ const CarColorSwitcher = () => {
         .color-dot.active::after {
           opacity: 0.6;
           background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
-        }
-
-        .angle-button {
-          position: relative;
-          overflow: hidden;
-          transition: all 0.3s ease;
-          border: 1px solid transparent;
-        }
-
-        .angle-button::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(255,255,255,0.1);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .angle-button:hover::after {
-          opacity: 1;
-        }
-
-        .angle-button.active {
-          color: #fff;
-          background: rgba(0,0,0,0.3);
-          border: 1px solid rgba(255,255,255,0.2);
-          box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
         
         /* Pulse animation for loading state */
@@ -348,7 +268,7 @@ const CarColorSwitcher = () => {
           left: 100%;
         }
         
-        /* Color highlight effect */
+        /* Color name effect */
         .color-name-highlight {
           position: relative;
           display: inline-block;
@@ -375,13 +295,27 @@ const CarColorSwitcher = () => {
       `}</style>
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        {/* Section heading using the design system patterns */}
+        <div className="text-center mb-12">
+          <span className={`uppercase tracking-wider text-sm font-medium ${getTextColorClass()}/70`}>
+            Exterior Finish Options
+          </span>
+          <h2 className={`text-3xl md:text-4xl font-bold ${getTextColorClass()} mt-2 mb-4`}>
+            Choose Your <span className="text-primary-900">Perfect Color</span>
+          </h2>
+          <div className="w-24 h-1 bg-primary-700 mx-auto mb-6"></div>
+          <p className={`${getTextColorClass()}/80 text-lg max-w-2xl mx-auto`}>
+            Make a statement with our premium color options, each carefully crafted to enhance the vehicle's elegant lines and sophisticated design.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Car Image */}
-          <div className="order-2 lg:order-1">
-            <div className="relative h-80 md:h-96 lg:h-[500px] xl:h-[550px] w-full">
+          <div>
+            <div className="relative h-64 md:h-80 lg:h-[450px] w-full">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`${selectedColor.name}-${viewAngle}`}
+                  key={selectedColor.name}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -391,8 +325,8 @@ const CarColorSwitcher = () => {
                   {/* Car image with enhanced shadows */}
                   <div className="relative w-full h-full">
                     <Image
-                      src={getImageUrl()}
-                      alt={`Chery SUV in ${selectedColor.name}, ${viewAngle} view`}
+                      src={selectedColor.image}
+                      alt={`Chery SUV in ${selectedColor.name}`}
                       fill
                       className="object-contain drop-shadow-2xl"
                       priority
@@ -405,7 +339,7 @@ const CarColorSwitcher = () => {
               </AnimatePresence>
               
               {/* Car shadow effect - more natural with dynamic color-aware radial gradient */}
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 max-w-3xl h-8 mx-auto rounded-full z-0 hidden md:block" 
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 max-w-2xl h-8 mx-auto z-0 hidden md:block" 
                 style={{
                   background: `radial-gradient(ellipse, ${
                     selectedColor.textColor === 'text-white' 
@@ -416,120 +350,51 @@ const CarColorSwitcher = () => {
                   transition: 'background 0.8s ease-in-out'
                 }}
               />
-              
-              {/* View angle controls - enhanced with icons */}
-              <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex bg-black/20 backdrop-blur-sm rounded-full overflow-hidden">
-                <button 
-                  className={`angle-button px-4 py-2 text-sm font-medium transition-all flex items-center gap-1 ${viewAngle === 'front' ? 'active' : ''} ${getTextColorClass()}`}
-                  onClick={() => handleViewAngleChange('front')}
-                  aria-label="Front view"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
-                  </svg>
-                  <span>Front</span>
-                </button>
-                <button 
-                  className={`angle-button px-4 py-2 text-sm font-medium transition-all flex items-center gap-1 ${viewAngle === 'side' ? 'active' : ''} ${getTextColorClass()}`}
-                  onClick={() => handleViewAngleChange('side')}
-                  aria-label="Side view"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                  </svg>
-                  <span>Side</span>
-                </button>
-                <button 
-                  className={`angle-button px-4 py-2 text-sm font-medium transition-all flex items-center gap-1 ${viewAngle === 'rear' ? 'active' : ''} ${getTextColorClass()}`}
-                  onClick={() => handleViewAngleChange('rear')}
-                  aria-label="Rear view"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" />
-                  </svg>
-                  <span>Rear</span>
-                </button>
-              </div>
-              
-              {/* 360 rotation indicator */}
-              <div className="absolute top-0 right-0 bg-black/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1 m-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clipRule="evenodd" />
-                </svg>
-                <span className={getTextColorClass()}>360° View</span>
-              </div>
             </div>
           </div>
           
           {/* Right Column - Color Info and Selection */}
-          <div className="order-1 lg:order-2">
+          <div>
             <motion.div 
               className="max-w-lg"
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={containerVariants}
             >
-              {/* Overline */}
+              {/* Color name and description */}
               <motion.div 
                 variants={itemVariants}
-                className="mb-1"
+                className="bg-white/90 backdrop-blur-sm border-l-2 border-primary-700 p-6 shadow-sm mb-8"
               >
-                <span className={`uppercase tracking-wider text-sm font-medium ${getTextColorClass()}/70`}>
-                  Exterior Color Options
-                </span>
-              </motion.div>
-              
-              {/* Heading */}
-              <motion.h2 
-                variants={itemVariants}
-                className={`text-3xl md:text-4xl font-medium ${getTextColorClass()} mb-4`}
-              >
-                Make a statement with <br/>
-                <span className="font-bold">premium colors</span>
-              </motion.h2>
-              
-              {/* Description with color name */}
-              <motion.p 
-                variants={itemVariants}
-                className={`${getTextColorClass()}/80 text-lg mb-4`}
-              >
-                <span className="font-semibold text-xl">{selectedColor.name}:</span> {selectedColor.description}
-              </motion.p>
-              
-              {/* Color Code with enhanced color swatch */}
-              <motion.div 
-                variants={itemVariants}
-                className="mb-8 flex items-center gap-3"
-              >
-                <div className={`inline-block ${getTextColorClass()}/90 text-sm font-mono py-1 px-3 border border-current rounded-md backdrop-blur-sm bg-black/5`}>
+                <div className="flex items-center mb-4">
+                  <div 
+                    className="w-8 h-8 rounded-full shadow-md border border-white/50 mr-3" 
+                    style={{ 
+                      background: selectedColor.gradient || selectedColor.bgColor,
+                      boxShadow: `inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3)` 
+                    }}
+                  />
+                  <span className="text-gray-900 font-medium text-xl">{selectedColor.name}</span>
+                </div>
+                <p className="text-gray-600 mb-3">{selectedColor.description}</p>
+                <div className="inline-block text-xs font-mono py-1 px-2 border border-gray-200 text-gray-600">
                   Color Code: {selectedColor.colorCode}
                 </div>
-                <div 
-                  className="w-8 h-8 rounded-full shadow-lg border border-white/50" 
-                  style={{ 
-                    background: selectedColor.gradient || selectedColor.bgColor,
-                    boxShadow: `inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3)` 
-                  }}
-                />
               </motion.div>
               
-              {/* Color Options with Labels */}
+              {/* Color Options */}
               <motion.div 
-                variants={containerVariants}
-                className="mb-12"
+                variants={itemVariants}
+                className="mb-8"
               >
-                <motion.h3 
-                  variants={itemVariants}
-                  className={`${getTextColorClass()}/80 text-sm uppercase tracking-wider mb-4`}
-                >
-                  Select a Color:
-                </motion.h3>
+                <h3 className="text-primary-900 font-medium mb-4 uppercase tracking-wider text-sm">
+                  Select Exterior Color:
+                </h3>
                 
                 <div className="flex flex-wrap gap-6">
                   {colorOptions.map((color, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      variants={itemVariants}
                       className="flex flex-col items-center gap-2"
                     >
                       <motion.button
@@ -550,24 +415,24 @@ const CarColorSwitcher = () => {
                       }`}>
                         {color.name}
                       </span>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </motion.div>
               
-              {/* Call to Action */}
+              {/* Call to Action - using the design system button patterns */}
               <motion.div 
                 variants={itemVariants}
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <a 
                   href="#configure" 
-                  className={`inline-flex items-center justify-center px-6 py-3 bg-black/20 hover:bg-black/30 ${getTextColorClass()} backdrop-blur-sm rounded-md transition-all duration-300 cta-button`}
+                  className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-all duration-300 cta-button"
                 >
-                  <span>Configure Your Vehicle</span>
+                  Configure Your Vehicle
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
-                    className="h-5 w-5 ml-2" 
+                    className="h-5 w-5 ml-2 group-hover:ml-3 transition-all duration-300" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor"
@@ -582,24 +447,10 @@ const CarColorSwitcher = () => {
                 </a>
                 
                 <a 
-                  href="#test-drive" 
-                  className={`inline-flex items-center justify-center px-6 py-3 border border-current ${getTextColorClass()}/80 hover:${getTextColorClass()} backdrop-blur-sm rounded-md transition-all duration-300`}
+                  href="#dealerships" 
+                  className="inline-flex items-center justify-center bg-transparent border border-primary-700 text-primary-700 hover:text-white hover:bg-primary-700 px-6 py-4 font-medium transition-colors duration-300"
                 >
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-5 w-5 mr-2" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" 
-                    />
-                  </svg>
-                  <span>Schedule a Test Drive</span>
+                  Find Dealership
                 </a>
               </motion.div>
             </motion.div>

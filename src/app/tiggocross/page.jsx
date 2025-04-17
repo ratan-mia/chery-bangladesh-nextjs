@@ -133,10 +133,10 @@ export default function Home() {
     },
   ];
 
-  
+
 
   const techSlides = [
- 
+
     // {
     //   mediaType: "image",
     //   image: "/images/tech/surround-airbags.jpg",
@@ -178,11 +178,36 @@ export default function Home() {
     },
   ];
 
+  const comfortFeatureSlides = [
+
+    {
+      mediaType: "image",
+      image: "/images/tiggocross/comfort/slide1.webp",
+      title: "Multifunction Steering Wheel",
+      description:
+        "",
+    },
+    {
+      mediaType: "image",
+      image: "/images/tiggocross/comfort/slide2.webp",
+      title: "Ergonomic Centre Console",
+      description:
+        "",
+    },
+    {
+      mediaType: "image",
+      image: "/images/tiggocross/comfort/slide3.webp",
+      title: "Dual-zone Automatic Air Conditioning",
+      description:
+        "",
+    }
+  ];
+
   return (
     <main>
       <CarShowcaseSlider />
       <CarTechSlider slides={techSlides} />
-    
+
       <CarColorSwitcher />
       <VehicleSpecs
         category="Appearance"
@@ -202,9 +227,9 @@ export default function Home() {
         height="80vh"
         showContents={false}
         showControls={false}
-        sectionTitle = 'Striking Lines'
-        sectionSubtitle = 'Appearance'
-        sectionText = 'Make a memorable entrance every time, with design that goes beyond the ordinary.'
+        sectionTitle='Striking Lines'
+        sectionSubtitle='Appearance'
+        sectionText='Make a memorable entrance every time, with design that goes beyond the ordinary.'
       />
       <CarFeaturesSlider
         title="Premium Exterior Features"
@@ -213,16 +238,17 @@ export default function Home() {
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
       />
-          <SimpleBanner
+      <SimpleBanner
         slides={comfortSlides}
         accentColor="#8c735d"
         height="80vh"
         showContents={false}
         showControls={false}
-        sectionTitle = 'Crafted Interior'
-        sectionSubtitle = 'Comfort'
-        sectionText = 'Comfort, Control, and a whole lot of character — every detail is designed to amplify your journeys.'
+        sectionTitle='Crafted Interior'
+        sectionSubtitle='Comfort'
+        sectionText='Comfort, Control, and a whole lot of character — every detail is designed to amplify your journeys.'
       />
+        <CarTechSlider slides={comfortFeatureSlides} />
     </main>
   );
 }
