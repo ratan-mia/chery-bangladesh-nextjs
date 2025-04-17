@@ -3,6 +3,7 @@
 import CarFeaturesSlider from "../components/CarFeaturesSlider";
 import SimpleBanner from "../components/SimpleBanner";
 import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
+import ContactBanner from "../components/tiggo8pro/ContactBanner";
 import FeatureSlider from "../components/tiggo8pro/FeatureSlider";
 import VehicleSpecs from "../components/VehicleSpecs";
 
@@ -275,6 +276,7 @@ export default function Home() {
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
       />
+      <ContactBanner/>
 
     </main>
   );
