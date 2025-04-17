@@ -1,7 +1,7 @@
 // app/api/test-drive-booking/route.js
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { adminEmailTemplate, customerEmailTemplate } from '../../../lib/email-templates';
+import { adminEmailTemplate, customerEmailTemplate } from './emails/email-templates';
 
 export async function POST(req) {
   try {
@@ -23,7 +23,7 @@ export async function POST(req) {
       // Sender details
       sender: {
         name: 'Chery Bangladesh',
-        email: process.env.EMAIL_USER,
+        email: process.env.GMAIL_USER,
       },
       
       // Admin recipients
@@ -46,8 +46,8 @@ export async function POST(req) {
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
     });
 
