@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import type { Swiper as SwiperType } from "swiper";
 import { Autoplay, EffectFade, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,21 +10,8 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 
-interface Slide {
-  id?: string;
-  src: string;
-  modelName: string;
-  tagline: string;
-  brochureLink?: string;
-  testDriveLink?: string;
-  buttonText?: {
-    brochure?: string;
-    testDrive?: string;
-  };
-}
-
 // Sample data if none is provided
-const slidesData: Slide[] = [
+const slidesData = [
   {
     id: "exterior",
     src: "/images/tiggocross/hero/1.webp",
@@ -52,17 +38,6 @@ const slidesData: Slide[] = [
   },
 ];
 
-interface CarShowcaseProps {
-  slides?: Slide[];
-  height?: string;
-  autoplaySpeed?: number;
-  showNavigation?: boolean;
-  className?: string;
-  buttonColor?: string;
-  navigationPosition?: 'top' | 'middle' | 'bottom';
-  navigationStyle?: 'dots' | 'lines';
-}
-
 const CarShowcase = ({
   slides = slidesData,
   height = "h-[80vh]",
@@ -72,12 +47,13 @@ const CarShowcase = ({
   buttonColor = "#8c735d", // Primary 700 from Chery design system
   navigationPosition = 'bottom',
   navigationStyle = 'lines',
-}: CarShowcaseProps) => {
+}) => {
   const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+  const [swiperInstance, setSwiperInstance] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Check if on mobile device for responsive adjustments
   useEffect(() => {
@@ -98,9 +74,36 @@ const CarShowcase = ({
     return () => setMounted(false);
   }, []);
 
-  const handleSlideChange = useCallback((swiper: SwiperType) => {
+  const handleSlideChange = useCallback((swiper) => {
     setActiveIndex(swiper.realIndex);
   }, []);
+
+  // Pause autoplay on hover
+  const handleMouseEnter = () => {
+    if (swiperInstance && isPlaying) {
+      swiperInstance.autoplay.stop();
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (swiperInstance && isPlaying) {
+      swiperInstance.autoplay.start();
+      setIsHovered(false);
+    }
+  };
+
+  // Toggle autoplay
+  const toggleAutoplay = () => {
+    if (swiperInstance) {
+      if (isPlaying) {
+        swiperInstance.autoplay.stop();
+      } else {
+        swiperInstance.autoplay.start();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   // Calculate navigation position
   const getNavigationPosition = () => {
@@ -129,6 +132,8 @@ const CarShowcase = ({
       className={`relative w-full overflow-hidden ${className} ${height}`}
       role="region"
       aria-label="Car showcase"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {mounted && (
         <Swiper
@@ -154,7 +159,7 @@ const CarShowcase = ({
               <div className="relative h-full w-full">
                 {/* Background gradient for better text readability */}
                 <div
-                  className="absolute inset-0 z-0 bg-gradient-to-b from-black/10 via-transparent to-black/60"
+                  className="absolute inset-0 z-0 bg-gradient-to-b from-black/20 via-transparent to-black/70"
                   aria-hidden="true"
                 >
                   <Image
@@ -162,19 +167,19 @@ const CarShowcase = ({
                     alt={`${slide.modelName} - ${slide.tagline}`}
                     fill
                     priority
-                    className="object-cover object-center"
+                    className="object-cover object-center transition-transform duration-700 hover:scale-105"
                     sizes="100vw"
                     quality={95}
                   />
                 </div>
 
-                {/* Simple content positioned at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 z-10 p-8 md:p-12 lg:p-16">
+                {/* Content positioned at bottom with animation */}
+                <div className="absolute bottom-0 left-0 right-0 z-10 p-8 md:p-12 lg:p-16 transform transition-transform duration-500">
                   <div className="max-w-7xl mx-auto">
-                    <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold tracking-wider uppercase mb-2">
+                    <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold tracking-wider uppercase mb-2 animate-fade-in">
                       {slide.modelName}
                     </h2>
-                    <p className="text-white text-lg md:text-xl uppercase tracking-wide mb-8">
+                    <p className="text-white text-lg md:text-xl uppercase tracking-wide mb-8 animate-fade-in-delay">
                       {slide.tagline}
                     </p>
 
@@ -182,7 +187,7 @@ const CarShowcase = ({
                       {slide.brochureLink && (
                         <a
                           href={slide.brochureLink}
-                          className="text-white px-8 py-3 inline-block transition-colors duration-300"
+                          className="text-white px-8 py-3 inline-block transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                           style={{ backgroundColor: buttonColor }}
                         >
                           {slide.buttonText?.brochure || "View Brochure"}
@@ -192,8 +197,7 @@ const CarShowcase = ({
                       {slide.testDriveLink && (
                         <a
                           href={slide.testDriveLink}
-                          className="text-white px-8 py-3 inline-block transition-colors duration-300"
-                          style={{ backgroundColor: buttonColor }}
+                          className="text-white border-2 border-white px-8 py-3 inline-block transition-all duration-300 bg-transparent hover:bg-white hover:text-black hover:shadow-lg hover:-translate-y-1"
                         >
                           {slide.buttonText?.testDrive || "Test Drive"}
                         </a>
@@ -207,10 +211,10 @@ const CarShowcase = ({
         </Swiper>
       )}
 
-      {/* Navigation indicators as lines */}
+      {/* Navigation indicators with improved styling */}
       {showNavigation && slides.length > 1 && (
         <div className={`absolute ${getNavigationPosition()} left-0 right-0 z-20 flex justify-center`}>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 py-2 px-3 rounded-full bg-black/20 backdrop-blur">
             {slides.map((_, idx) => (
               <button
                 key={idx}
@@ -218,23 +222,41 @@ const CarShowcase = ({
                 aria-label={`Go to slide ${idx + 1}`}
                 aria-current={activeIndex === idx ? "true" : "false"}
                 className={navigationStyle === 'lines'
-                  ? `h-0.5 transition-all duration-500 ${activeIndex === idx
+                  ? `h-1 transition-all duration-500 ${activeIndex === idx
                     ? "w-8 bg-white"
                     : "w-4 bg-white/40 hover:bg-white/60"}`
-                  : `w-2 h-2 rounded-full transition-all duration-300 ${activeIndex === idx ? "bg-white scale-125" : "bg-white/50 hover:bg-white/70"
+                  : `w-3 h-3 rounded-full transition-all duration-300 ${activeIndex === idx ? "bg-white scale-110" : "bg-white/50 hover:bg-white/70"
                   }`
                 }
               />
             ))}
+
+            {/* Autoplay control button */}
+            <button
+              onClick={toggleAutoplay}
+              className="ml-2 pl-2 border-l border-white/30"
+              aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
+            >
+              {isPlaying ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <rect x="6" y="4" width="4" height="16" fill="white" />
+                  <rect x="14" y="4" width="4" height="16" fill="white" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path fillRule="evenodd" d="M5 3l14 9-14 9V3z" fill="white" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       )}
 
-      {/* Minimal arrow navigation for desktop */}
-      <div className="hidden md:block">
+      {/* Enhanced arrow navigation */}
+      <div className={`${isMobile ? 'hidden' : 'block'} opacity-0 transition-opacity duration-300 ${isHovered ? 'opacity-100' : ''}`}>
         <button
           onClick={() => swiperInstance?.slidePrev()}
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center"
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-black/30 backdrop-blur rounded-full hover:bg-black/50 transition-all duration-300"
           aria-label="Previous slide"
         >
           <svg
@@ -256,7 +278,7 @@ const CarShowcase = ({
         </button>
         <button
           onClick={() => swiperInstance?.slideNext()}
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center"
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-black/30 backdrop-blur rounded-full hover:bg-black/50 transition-all duration-300"
           aria-label="Next slide"
         >
           <svg
@@ -276,6 +298,13 @@ const CarShowcase = ({
             />
           </svg>
         </button>
+      </div>
+
+      {/* Slide counter */}
+      <div className="absolute top-4 right-4 z-10 bg-black/30 backdrop-blur px-3 py-1 rounded-full text-white text-sm">
+        <span>{activeIndex + 1}</span>
+        <span> / </span>
+        <span>{slides.length}</span>
       </div>
     </div>
   );
