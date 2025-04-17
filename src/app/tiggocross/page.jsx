@@ -52,6 +52,18 @@ export default function Home() {
     },
   ];
 
+  const comfortSlides = [
+    {
+      image: "/images/tiggo8pro/banners/banner1.jpg",
+      videoSrc: "/videos/ambient-light.mp4",
+      title: "Welcome to Our Platform",
+      description:
+        "Discover amazing features and benefits designed just for you.",
+      ctaText: "Get Started",
+      ctaLink: "/features",
+    },
+  ];
+
   const cheryVehicles = [
     {
       modelName: "Chery",
@@ -200,6 +212,16 @@ export default function Home() {
         features={myFeatures}
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
+      />
+          <SimpleBanner
+        slides={comfortSlides}
+        accentColor="#8c735d"
+        height="80vh"
+        showContents={false}
+        showControls={false}
+        sectionTitle = 'Crafted Interior'
+        sectionSubtitle = 'Comfort'
+        sectionText = 'Comfort, Control, and a whole lot of character — every detail is designed to amplify your journeys.'
       />
     </main>
   );

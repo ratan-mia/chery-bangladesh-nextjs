@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-
 const SimpleBanner = ({
   slides = [],
   accentColor = '#8c735d', // Primary 700 from Chery design system
@@ -33,6 +32,7 @@ const SimpleBanner = ({
   const [touchEnd, setTouchEnd] = useState(null);
   const sectionRef = useRef(null);
   const slideRef = useRef(null);
+  const videoRefs = useRef({});
 
   // Color theme
   const colors = {
@@ -76,6 +76,36 @@ const SimpleBanner = ({
       }
     };
   }, []);
+
+  // Handle video playback when slide changes
+  useEffect(() => {
+    // Pause all videos
+    Object.values(videoRefs.current).forEach(ref => {
+      if (ref && ref.pause) {
+        ref.pause();
+      }
+    });
+
+    // Play current video if it exists
+    const currentVideo = videoRefs.current[currentIndex];
+    if (currentVideo && slides[currentIndex].videoSrc) {
+      // Reset video to beginning if needed
+      currentVideo.currentTime = 0;
+      
+      // Play the video with a small delay to ensure DOM is updated
+      setTimeout(() => {
+        const playPromise = currentVideo.play();
+        
+        // Handle play promise to avoid DOM exceptions
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.error("Auto-play prevented:", error);
+            // You could show a play button here if auto-play is blocked
+          });
+        }
+      }, 50);
+    }
+  }, [currentIndex, slides]);
 
   // Autoplay functionality
   useEffect(() => {
@@ -331,8 +361,19 @@ const SimpleBanner = ({
             style={{ height: layout === 'split' ? height : '100%' }}
           >
             <div className={`relative ${currentLayout.imagePosition}`}>
-              {/* Background Image */}
-              {slides[currentIndex].image && (
+              {/* Background Media (Image or Video) */}
+              {slides[currentIndex].videoSrc ? (
+                <video
+                  ref={ref => videoRefs.current[currentIndex] = ref}
+                  src={slides[currentIndex].videoSrc}
+                  className="object-cover w-full h-full"
+                  muted
+                  loop
+                  playsInline
+                  style={{ position: 'absolute', inset: 0 }}
+                  aria-label={slides[currentIndex].title || 'Background video'}
+                />
+              ) : slides[currentIndex].image && (
                 <Image
                   src={slides[currentIndex].image}
                   alt={slides[currentIndex].title || ''}
