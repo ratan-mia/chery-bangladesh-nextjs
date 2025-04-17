@@ -64,6 +64,18 @@ export default function Home() {
     },
   ];
 
+  const securitySlides = [
+    {
+      image: "/images/tiggo8pro/banners/banner1.jpg",
+      videoSrc: "/videos/speakers.mp4",
+      title: "Welcome to Our Platform",
+      description:
+        "Discover amazing features and benefits designed just for you.",
+      ctaText: "Get Started",
+      ctaLink: "/features",
+    },
+  ];
+
   const cheryVehicles = [
     {
       modelName: "Chery",
@@ -248,7 +260,17 @@ export default function Home() {
         sectionSubtitle='Comfort'
         sectionText='Comfort, Control, and a whole lot of character — every detail is designed to amplify your journeys.'
       />
-        <CarTechSlider slides={comfortFeatureSlides} />
+      <CarTechSlider slides={comfortFeatureSlides} />
+      <SimpleBanner
+        slides={securitySlides}
+        accentColor="#8c735d"
+        height="80vh"
+        showContents={false}
+        showControls={false}
+        sectionTitle='Beyond Safety'
+        sectionSubtitle='Security'
+        sectionText='Intelligent innovations to keep you safe on the road.'
+      />
     </main>
   );
 }
