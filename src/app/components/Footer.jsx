@@ -53,23 +53,13 @@ export default function Footer() {
             <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">Models</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/models/tiggo" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                  TIGGO Series
+                <Link href="/models/tiggo8pro" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                   Tiggo 8 Pro
                 </Link>
               </li>
               <li>
-                <Link href="/models/arrizo" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                  ARRIZO Series
-                </Link>
-              </li>
-              <li>
-                <Link href="/models/eq" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                  EQ Series
-                </Link>
-              </li>
-              <li>
-                <Link href="/models/overview" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                  Model Overview
+                <Link href="/models/tiggocross" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Tiggo Cross
                 </Link>
               </li>
             </ul>
@@ -85,20 +75,15 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/media/press" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                  Press Releases
-                </Link>
-              </li>
-              <li>
-                <Link href="/media/awards" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/honors#awards" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Awards
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/media/downloads" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Downloads
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -107,7 +92,7 @@ export default function Footer() {
             <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">About Chery</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/about/introduction" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/about" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Introduction
                 </Link>
               </li>

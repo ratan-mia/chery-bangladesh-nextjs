@@ -8,11 +8,14 @@ import LearnMoreSection from "../components/honors/LearnMoreSection";
 export default function Home() {
   return (
     <main>
-      <CheryHonorsParallax/> 
-      <KeyAwardsSlider/>
-      <BrandMilestones/>
-      <LearnMoreSection/>
-      
+      <CheryHonorsParallax />
+      <section id="awards">
+        <KeyAwardsSlider />
+      </section>
+
+      <BrandMilestones />
+      <LearnMoreSection />
+
     </main>
   );
 }
