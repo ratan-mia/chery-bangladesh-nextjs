@@ -188,7 +188,11 @@ export default function Home() {
         slides={simpleSlides}
         accentColor="#8c735d"
         height="80vh"
+        showContents={false}
         showControls={false}
+        sectionTitle = 'Striking Lines'
+        sectionSubtitle = 'Appearance'
+        sectionText = 'Make a memorable entrance every time, with design that goes beyond the ordinary.'
       />
       <CarFeaturesSlider
         title="Premium Exterior Features"
