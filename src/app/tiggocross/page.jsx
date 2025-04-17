@@ -215,6 +215,41 @@ export default function Home() {
     }
   ];
 
+  const securityFeatureSlides = [
+
+    // {
+    //   mediaType: "image",
+    //   image: "/images/tech/surround-airbags.jpg",
+    //   title: "Surround Airbags",
+    //   description:
+    //     "Complete protection with strategically placed airbags that shield passengers from all angles.",
+    // },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider3/high-strength-body.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/sunroof.jpg",
+      title: "Reinvented Chassis Protection",
+      description:
+        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+    },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider3/airbags.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/wheels.jpg",
+      title: "6 Airbags",
+      description:
+        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+    },
+    {
+      mediaType: "video",
+      videoUrl: "/videos/tiggo-cross/slider3/360-pano.mp4",
+      videoPoster: "/videos/tiggo-cross/slider1/headlights.jpg",
+      title: "360° HD Panoramic Camera",
+      description:
+        "Smart speed management that automatically adjusts to maintain safe distance from vehicles ahead.",
+    },
+  ];
+
   return (
     <main>
       <CarShowcaseSlider />
@@ -271,6 +306,7 @@ export default function Home() {
         sectionSubtitle='Security'
         sectionText='Intelligent innovations to keep you safe on the road.'
       />
+        <CarTechSlider slides={securityFeatureSlides} />
     </main>
   );
 }
