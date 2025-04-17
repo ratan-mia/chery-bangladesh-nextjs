@@ -76,6 +76,19 @@ export default function Home() {
     },
   ];
 
+  const intelligenceSlides = [
+    {
+      image: "/images/tiggo8pro/banners/banner1.jpg",
+      videoSrc: "/videos/interior-design.mp4",
+      title: "Welcome to Our Platform",
+      description:
+        "Discover amazing features and benefits designed just for you.",
+      ctaText: "Get Started",
+      ctaLink: "/features",
+    },
+  ];
+
+
   const cheryVehicles = [
     {
       modelName: "Chery",
@@ -296,6 +309,26 @@ export default function Home() {
         sectionText='Comfort, Control, and a whole lot of character — every detail is designed to amplify your journeys.'
       />
       <CarTechSlider slides={comfortFeatureSlides} />
+      <VehicleSpecs
+        category="intelligence"
+        title="Immersive Connectivity"
+        subtitle=""
+        specs={[
+          { name: "Full-Liquid Crystal Infotainment Touch Screen", value: "10.25", unit: "inch" },
+          { name: "Full-Liquid Crystal Instrument Display Screen", value: "10.25", unit: "inch" },
+        ]}
+      />
+      <SimpleBanner
+        slides={intelligenceSlides}
+        accentColor="#8c735d"
+        height="80vh"
+        showContents={false}
+        showControls={false}
+        sectionTitle=''
+        sectionSubtitle=''
+        sectionText=''
+      />
+
       <SimpleBanner
         slides={securitySlides}
         accentColor="#8c735d"
@@ -306,7 +339,7 @@ export default function Home() {
         sectionSubtitle='Security'
         sectionText='Intelligent innovations to keep you safe on the road.'
       />
-        <CarTechSlider slides={securityFeatureSlides} />
+      <CarTechSlider slides={securityFeatureSlides} />
     </main>
   );
 }
