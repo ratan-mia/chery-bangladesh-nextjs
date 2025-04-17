@@ -70,32 +70,34 @@ const TestDriveBooking = () => {
     
     try {
       // Send form data to your backend
-      await axios.post('/api/test-drive-booking', {
+      const response = await axios.post('/api/test-drive-booking', {
         ...formData,
-        // Add timestamp
-        timestamp: new Date().toISOString(),
-        // Send emails to specified addresses
-        recipients: ['info@cherybd.com', 'ratan.mia@continental-motor.com', formData.email]
+        timestamp: new Date().toISOString()
       });
       
-      setSuccess(true);
+      if (response.data.success) {
+        setSuccess(true);
+        
+        // Reset form after successful submission
+        setFormData({
+          vehicleModel: '',
+          preferredDate: '',
+          preferredTime: '',
+          location: '',
+          contactNumber: '',
+          name: '',
+          email: '',
+          drivingExperience: '',
+          specificRequests: ''
+        });
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => setSuccess(false), 5000);
+      } else {
+        setError(response.data.message || 'Something went wrong. Please try again.');
+      }
+      
       setLoading(false);
-      
-      // Reset form after successful submission
-      setFormData({
-        vehicleModel: '',
-        preferredDate: '',
-        preferredTime: '',
-        location: '',
-        contactNumber: '',
-        name: '',
-        email: '',
-        drivingExperience: '',
-        specificRequests: ''
-      });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
       setError('Failed to submit your request. Please try calling our customer support.');
       setLoading(false);
