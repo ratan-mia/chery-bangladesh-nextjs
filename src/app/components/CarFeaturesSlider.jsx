@@ -22,7 +22,7 @@ const CarFeaturesSlider = ({
   },
   autoplay = true,
   autoplaySpeed = 5000,
-  showHeading = true,
+  showHeading = false,
   heading = "Car Features",
   subtitle = "Explore what makes our vehicles special",
   showLearnMore = true, // Changed to true to follow Chery's content focus principle
