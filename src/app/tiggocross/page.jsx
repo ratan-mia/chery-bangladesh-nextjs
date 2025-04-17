@@ -230,7 +230,7 @@ export default function Home() {
       videoPoster: "/videos/tiggo-cross/slider1/sunroof.jpg",
       title: "Reinvented Chassis Protection",
       description:
-        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+        "",
     },
     {
       mediaType: "video",
@@ -238,7 +238,7 @@ export default function Home() {
       videoPoster: "/videos/tiggo-cross/slider1/wheels.jpg",
       title: "6 Airbags",
       description:
-        "Intelligent system that helps maintain your vehicle in the proper lane, reducing driver fatigue.",
+        "",
     },
     {
       mediaType: "video",
@@ -246,7 +246,7 @@ export default function Home() {
       videoPoster: "/videos/tiggo-cross/slider1/headlights.jpg",
       title: "360° HD Panoramic Camera",
       description:
-        "Smart speed management that automatically adjusts to maintain safe distance from vehicles ahead.",
+        "",
     },
   ];
 
