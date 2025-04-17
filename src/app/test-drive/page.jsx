@@ -70,7 +70,7 @@ const TestDriveBooking = () => {
     
     try {
       // Send form data to your backend
-      const response = await axios.post('/api/test-drive-booking', {
+      const response = await axios.post('/api/test-drive', {
         ...formData,
         timestamp: new Date().toISOString()
       });
