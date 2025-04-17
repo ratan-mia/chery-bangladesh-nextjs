@@ -14,36 +14,42 @@ const VehicleSpecs = ({
   category = "Appearance"
 }) => {
   return (
-    <div className="bg-gray-50 py-16 px-4">
+    <div className="bg-gray-50 py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Category label */}
         {category && (
-          <div className="mb-4">
-            <h3 className="text-brown-600 text-lg font-medium">{category}</h3>
+          <div className="mb-3 sm:mb-4">
+            <h3 className="text-brown-600 text-base sm:text-lg font-medium">{category}</h3>
           </div>
         )}
         
         {/* Main title and subtitle */}
-        <div className="mb-12">
-          <h2 className="text-brown-700 text-4xl font-bold mb-2">{title}</h2>
+        <div className="mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-brown-700 text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2">{title}</h2>
           {subtitle && (
-            <p className="text-brown-600 text-2xl font-medium">{subtitle}</p>
+            <p className="text-brown-600 text-lg sm:text-xl md:text-2xl font-medium">{subtitle}</p>
           )}
         </div>
         
         {/* Specifications grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-gray-200">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-0">
           {specs.map((spec, index) => (
             <div 
               key={index} 
-              className={`py-8 ${index < specs.length - 1 ? 'border-r border-gray-200' : ''}`}
+              className={`py-4 sm:py-6 md:py-8 border-t border-gray-200 
+                ${index % 2 === 0 ? 'pr-2 sm:pr-4' : 'pl-2 sm:pl-4'} 
+                ${index < specs.length - 2 || (index < specs.length - 1 && specs.length % 2 === 0) ? 
+                  'sm:border-r sm:border-gray-200' : ''}
+                ${index < specs.length - 1 && specs.length <= 2 ? 'sm:border-r sm:border-gray-200' : ''}
+                ${index < specs.length - (specs.length % 4 || 4) ? 'md:border-r md:border-gray-200' : ''}`
+              }
             >
-              <div className="px-6">
-                <h4 className="text-brown-600 text-lg font-medium mb-3">{spec.name}</h4>
+              <div className="px-0 sm:px-2 md:px-6">
+                <h4 className="text-brown-600 text-base sm:text-lg font-medium mb-1 sm:mb-2 md:mb-3">{spec.name}</h4>
                 <p className="flex items-baseline">
-                  <span className="text-brown-700 text-3xl font-bold mr-2">{spec.value}</span>
+                  <span className="text-brown-700 text-xl sm:text-2xl md:text-3xl font-bold mr-1 sm:mr-2">{spec.value}</span>
                   {spec.unit && (
-                    <span className="text-brown-600 text-lg">{spec.unit}</span>
+                    <span className="text-brown-600 text-sm sm:text-base md:text-lg">{spec.unit}</span>
                   )}
                 </p>
               </div>
