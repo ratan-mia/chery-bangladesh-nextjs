@@ -55,7 +55,7 @@ const CAR_DATA = {
   specs: {
     'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
     'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
-    'tiggo8pro': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
+    'tiggo8pro': { engine: '2.0', length: '4722', wheelbase: '2710', power: '187', torque: '300' },
     'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
     'tiggocross': { engine: '1.5', length: '4318', wheelbase: '2610', power: '145', torque: '210' },
     'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555', power: '126', torque: '180' },
@@ -310,7 +310,7 @@ export default function ModelsMegaMenu({
   if (!isOpen) return null;
 
   // Styling
-  const sidebarGradient = 'linear-gradient(to bottom, #d1d5db, #9ca3af)';
+  const sidebarGradient = '#a8a098';
   const secondaryColor = '#1E5945'; // Darker green
 
   return (
@@ -355,7 +355,7 @@ export default function ModelsMegaMenu({
         </div>
 
         {/* Middle section - Series and Models */}
-        <div className="w-72 overflow-y-auto bg-gray-100">
+        <div className="w-72 overflow-y-auto bg-[#aaa49e]">
           {getSeriesData().map((series) => (
             <div key={series.id} className="border-b border-gray-300">
               <div
