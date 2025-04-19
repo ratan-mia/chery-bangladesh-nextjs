@@ -5,7 +5,7 @@ import SocialResponsibility from '@components/social-responsibility/SocialRespon
 export default function Page() {
     return (
         <div className="space-y-12">
-            {/* Example with content on the left (default) */}
+        
             <SocialResponsibility
                 title="GATHERING FORCES FOR GOOD"
                 description="Chery actively fulfills its global corporate citizenship responsibilities, focusing on child development, environmental protection, and charitable aid. We give back to society with sincerity and warmth through meaningful action."
@@ -15,7 +15,7 @@ export default function Page() {
                 overlayColor="rgba(98, 58, 94, 0.8)"
             />
 
-            {/* Example with content on the right */}
+ 
             <SocialResponsibility
                 title="BUILDING A HAPPY CHERY"
                 description="Chery focuses on enhancing employees' happiness in four areas: spiritual,
@@ -39,7 +39,7 @@ export default function Page() {
                 ctaLink="#environmental-impact"
             />
 
-            {/* Example with different styling */}
+     
             <SocialResponsibility
                 title="GATHERING FORCES FOR GOOD"
                 description="Chery actively fulfills its global corporate citizenship responsibilities,
@@ -52,6 +52,25 @@ through meaningful action."
                 overlayColor="rgba(25, 55, 109, 0.8)"
                 height="h-[600px]"
                 showCta={true}
+            />
+                  <SocialResponsibility
+                title="CHERY PARTNERS WITH
+UNICEF FOR GLOBAL
+CHILD EDUCATION"
+                description="In 2023, Chery announced a two-year partnership with UNICEF, providing $6
+million to support global education programs.
+We will also support education projects in China, Mexico, South Africa, and
+Türkiye, helping create inclusive, healthy, and safe learning environments for
+children and youth, and enhancing their future employment opportunities."
+
+
+                imageSrc="/images/responsibility/unicef.jpg"
+                imageAlt="Environmental conservation project"
+                contentPosition="right"
+                overlayColor="rgba(34, 120, 85, 0.8)"
+                showCta={true}
+                ctaText="Explore Our Impact"
+                ctaLink="#environmental-impact"
             />
         </div>
     );
