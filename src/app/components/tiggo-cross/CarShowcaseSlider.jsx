@@ -14,7 +14,7 @@ import "swiper/css/thumbs";
 const defaultVehicles = [
   {
     id: "tiggo-cross-1",
-    modelName: "TIGGO CROSS",
+    modelName: "INTERIOR",
     modelYear: "2025",
     tagline: "FOR EVERY KIND OF YOU",
     description: "Experience the perfect blend of style, performance and technology",
@@ -47,7 +47,7 @@ const defaultVehicles = [
       {
         label: "Book Test Drive",
         url: "#test-drive",
-        variant: "secondary" 
+        variant: "secondary"
       },
       {
         label: "Download Brochure",
@@ -58,7 +58,7 @@ const defaultVehicles = [
   },
   {
     id: "tiggo-pro-1",
-    modelName: "TIGGO CROSS",
+    modelName: "EXTERIOR",
     modelYear: "2025",
     tagline: "DESIGNED FOR THE FUTURE",
     description: "Advanced driver assistance and premium luxury in every detail",
@@ -123,10 +123,10 @@ const VehicleShowcase = ({
   const [isDragging, setIsDragging] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
-  
+
   // Flatten all vehicle images for the main carousel
   const allImages = useMemo(() => {
-    return vehicles.flatMap(vehicle => 
+    return vehicles.flatMap(vehicle =>
       vehicle.images.map(image => ({
         ...image,
         vehicleId: vehicle.id,
@@ -134,7 +134,7 @@ const VehicleShowcase = ({
       }))
     );
   }, [vehicles]);
-  
+
   // Determine which vehicle is active
   const activeVehicle = useMemo(() => {
     if (!allImages[activeIndex]) return vehicles[0];
@@ -154,11 +154,11 @@ const VehicleShowcase = ({
       border: darkMode ? '#333333' : '#e0e0e0',
     };
   }, [accentColor, secondaryColor, darkMode]);
-  
+
   // Calculate container height on mount and resize
   useEffect(() => {
     setMounted(true);
-    
+
     const handleResize = () => {
       // Calculate the proper height to ensure no scrolling
       const viewportHeight = window.innerHeight;
@@ -166,22 +166,22 @@ const VehicleShowcase = ({
       const newHeight = viewportHeight - navbarHeight;
       setContainerHeight(newHeight);
     };
-    
+
     // Initial calculation
     handleResize();
-    
+
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
       window.removeEventListener('resize', handleResize);
       setMounted(false);
     };
   }, []);
-  
+
   // Handle slide change from main swiper
   const handleSlideChange = useCallback((swiper) => {
     setActiveIndex(swiper.activeIndex);
     const newVehicleId = allImages[swiper.activeIndex]?.vehicleId;
-    
+
     // Find index of this vehicle in the vehicles array
     const vehicleIndex = vehicles.findIndex(v => v.id === newVehicleId);
     if (vehicleIndex !== -1 && thumbsSwiper) {
@@ -190,35 +190,35 @@ const VehicleShowcase = ({
         thumbsSwiper.slideTo(vehicleIndex);
       }
     }
-    
+
     setHasInteracted(true);
   }, [allImages, vehicles, thumbsSwiper]);
-  
+
   // Navigation functions
   const goToVehicle = useCallback((index) => {
     if (!mainSwiper) return;
-    
+
     // Find the first image for this vehicle
     const targetImageIndex = allImages.findIndex(img => img.vehicleId === vehicles[index].id);
     if (targetImageIndex !== -1) {
       mainSwiper.slideTo(targetImageIndex);
     }
   }, [mainSwiper, vehicles, allImages]);
-  
+
   const goToNextVehicle = useCallback(() => {
     const currentVehicleId = allImages[activeIndex]?.vehicleId;
     const currentVehicleIndex = vehicles.findIndex(v => v.id === currentVehicleId);
     const nextIndex = (currentVehicleIndex + 1) % vehicles.length;
     goToVehicle(nextIndex);
   }, [vehicles, allImages, activeIndex, goToVehicle]);
-  
+
   const goToPrevVehicle = useCallback(() => {
     const currentVehicleId = allImages[activeIndex]?.vehicleId;
     const currentVehicleIndex = vehicles.findIndex(v => v.id === currentVehicleId);
     const prevIndex = (currentVehicleIndex - 1 + vehicles.length) % vehicles.length;
     goToVehicle(prevIndex);
   }, [vehicles, allImages, activeIndex, goToVehicle]);
-  
+
   // Handle autoplay toggle
   const toggleAutoplay = useCallback(() => {
     if (mainSwiper) {
@@ -230,11 +230,11 @@ const VehicleShowcase = ({
       setIsAutoplay(!isAutoplay);
     }
   }, [mainSwiper, isAutoplay]);
-  
+
   // Keyboard event handling
   useEffect(() => {
     if (!mounted) return;
-    
+
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -247,11 +247,11 @@ const VehicleShowcase = ({
         toggleAutoplay();
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mounted, mainSwiper, toggleAutoplay]);
-  
+
   // If no data, show placeholder
   if (!vehicles || vehicles.length === 0) {
     return (
@@ -260,11 +260,11 @@ const VehicleShowcase = ({
       </div>
     );
   }
-  
+
   return (
-    <div 
+    <div
       className={`relative w-full overflow-hidden ${height} ${className}`}
-      style={{ 
+      style={{
         backgroundColor: themeColors.background,
         height: containerHeight ? `${containerHeight}px` : '100vh', // Use calculated height to avoid scrolling
         maxHeight: '100vh'
@@ -308,15 +308,15 @@ const VehicleShowcase = ({
                 <div className="relative h-full w-full">
                   {/* Fixed overlay pattern */}
                   <div className="absolute inset-0 z-0 pointer-events-none bg-pattern opacity-10"></div>
-                  
+
                   {/* Main gradient overlay to enhance readability */}
-                  <div 
+                  <div
                     className="absolute inset-0 z-10 pointer-events-none"
                     style={{
                       background: `linear-gradient(0deg, ${themeColors.background}cc 0%, rgba(0,0,0,0.2) 50%, ${themeColors.background}aa 100%)`
                     }}
                   ></div>
-                  
+
                   {/* Vehicle image */}
                   <div className="absolute inset-0 z-0">
                     <Image
@@ -332,18 +332,18 @@ const VehicleShowcase = ({
                       }}
                     />
                   </div>
-                  
+
                   {/* Type indicator (interior/exterior) */}
-                  <div 
+                  <div
                     className="absolute top-6 left-6 z-30 py-1 px-3 uppercase text-xs tracking-widest rounded-sm"
-                    style={{ 
+                    style={{
                       backgroundColor: image.type === 'interior' ? themeColors.accent : themeColors.secondary,
                       color: themeColors.text
                     }}
                   >
                     {image.type}
                   </div>
-                  
+
                   {/* Vehicle info content - Redesigned for better spacing and responsive layout */}
                   <div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-10">
                     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
@@ -352,26 +352,26 @@ const VehicleShowcase = ({
                         <div className="mb-1 opacity-80" style={{ color: themeColors.textMuted }}>
                           <span className="uppercase tracking-widest text-sm">{image.vehicleInfo.modelYear}</span>
                         </div>
-                        
-                        <h2 
+
+                        <h2
                           className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase mb-2 tracking-tight"
                           style={{ color: themeColors.text }}
                         >
                           {image.vehicleInfo.modelName}
                         </h2>
-                        
-                        <div 
+
+                        <div
                           className="w-16 h-1 mb-2 md:mb-4"
                           style={{ backgroundColor: themeColors.accent }}
                         ></div>
-                        
-                        <p 
+
+                        <p
                           className="text-base md:text-xl mb-4 md:mb-6 max-w-lg"
                           style={{ color: themeColors.textMuted }}
                         >
                           {image.vehicleInfo.tagline}
                         </p>
-                        
+
                         {/* CTA Buttons - Redesigned for better touch targets and spacing */}
                         <div className="flex flex-wrap gap-3 mt-2">
                           {image.vehicleInfo.buttons?.map((button, idx) => (
@@ -380,8 +380,8 @@ const VehicleShowcase = ({
                               href={button.url}
                               className="py-2 px-4 md:py-3 md:px-6 text-sm md:text-base inline-flex items-center transition-all duration-300 hover:-translate-y-1 rounded-sm"
                               style={{
-                                backgroundColor: button.variant === 'primary' ? themeColors.accent : 
-                                               button.variant === 'secondary' ? themeColors.secondary : 'transparent',
+                                backgroundColor: button.variant === 'primary' ? themeColors.accent :
+                                  button.variant === 'secondary' ? themeColors.secondary : 'transparent',
                                 color: (button.variant === 'primary' || button.variant === 'secondary') ? '#ffffff' : themeColors.text,
                                 border: button.variant === 'outline' ? `1px solid ${themeColors.border}` : 'none',
                                 boxShadow: button.variant === 'primary' ? '0 4px 6px rgba(0,0,0,0.1)' : 'none'
@@ -395,26 +395,26 @@ const VehicleShowcase = ({
                           ))}
                         </div>
                       </div>
-                      
+
                       {/* Right side: Vehicle specs */}
                       {showSpecs && (
                         <div className="flex flex-col justify-end md:col-span-5">
-                          <div 
+                          <div
                             className="grid grid-cols-2 gap-3 p-4 md:p-6 rounded-sm"
-                            style={{ 
+                            style={{
                               backgroundColor: `${themeColors.surface}cc`,
                               backdropFilter: 'blur(8px)'
                             }}
                           >
                             {image.vehicleInfo.specs && Object.entries(image.vehicleInfo.specs).map(([key, value], idx) => (
                               <div key={idx} className="border-b border-gray-800 pb-2 md:pb-3 mb-2 md:mb-3 last:border-0 last:mb-0 last:pb-0">
-                                <div 
+                                <div
                                   className="text-xs md:text-sm uppercase tracking-wider mb-1"
                                   style={{ color: themeColors.textMuted }}
                                 >
                                   {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                                 </div>
-                                <div 
+                                <div
                                   className="text-base md:text-lg font-medium"
                                   style={{ color: idx % 2 === 0 ? themeColors.accent : themeColors.text }}
                                 >
@@ -433,13 +433,13 @@ const VehicleShowcase = ({
           </Swiper>
         )}
       </div>
-      
+
       {/* Vehicles thumbnail navigation - Improved positioning and visibility */}
       {showThumbNav && mounted && vehicles.length > 1 && (
-        <div 
+        <div
           className="absolute left-0 top-1/2 -translate-y-1/2 z-40 w-16 md:w-20 hidden md:flex flex-col items-center justify-center"
         >
-          <div className="py-4 px-2 rounded-r-md" style={{ 
+          <div className="py-4 px-2 rounded-r-md" style={{
             backgroundColor: `${themeColors.surface}cc`,
             backdropFilter: 'blur(8px)'
           }}>
@@ -454,14 +454,13 @@ const VehicleShowcase = ({
             >
               {vehicles.map((vehicle, idx) => (
                 <SwiperSlide key={vehicle.id} className="h-16 cursor-pointer">
-                  <div 
-                    className={`relative h-full w-full flex items-center justify-center p-1 transition-all duration-300 rounded-sm ${
-                      activeVehicle.id === vehicle.id ? 'opacity-100 scale-105' : 'opacity-50 hover:opacity-80'
-                    }`}
+                  <div
+                    className={`relative h-full w-full flex items-center justify-center p-1 transition-all duration-300 rounded-sm ${activeVehicle.id === vehicle.id ? 'opacity-100 scale-105' : 'opacity-50 hover:opacity-80'
+                      }`}
                     onClick={() => goToVehicle(idx)}
-                    style={{ 
-                      borderLeft: activeVehicle.id === vehicle.id 
-                        ? `3px solid ${themeColors.accent}` 
+                    style={{
+                      borderLeft: activeVehicle.id === vehicle.id
+                        ? `3px solid ${themeColors.accent}`
                         : `3px solid transparent`,
                       boxShadow: activeVehicle.id === vehicle.id ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
                     }}
@@ -473,7 +472,7 @@ const VehicleShowcase = ({
                       sizes="80px"
                       className="object-cover rounded-sm"
                     />
-                    <div 
+                    <div
                       className="absolute inset-0 flex items-center justify-center rounded-sm"
                       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
                     >
@@ -486,14 +485,14 @@ const VehicleShowcase = ({
           </div>
         </div>
       )}
-      
+
       {/* Custom navigation controls - Redesigned for better visibility and positioning */}
       <div className="absolute right-4 md:right-8 bottom-4 md:bottom-8 z-40 flex items-center space-x-2 md:space-x-4">
         {/* Previous vehicle button */}
         <button
           onClick={goToPrevVehicle}
           className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:-translate-x-1 rounded-full"
-          style={{ 
+          style={{
             backgroundColor: `${themeColors.surface}cc`,
             backdropFilter: 'blur(8px)',
             boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
@@ -505,12 +504,12 @@ const VehicleShowcase = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        
+
         {/* Autoplay toggle */}
         <button
           onClick={toggleAutoplay}
           className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:opacity-90 hover:scale-105 rounded-full"
-          style={{ 
+          style={{
             backgroundColor: themeColors.accent,
             boxShadow: '0 4px 6px rgba(0,0,0,0.15)'
           }}
@@ -528,12 +527,12 @@ const VehicleShowcase = ({
             </svg>
           )}
         </button>
-        
+
         {/* Next vehicle button */}
         <button
           onClick={goToNextVehicle}
           className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:translate-x-1 rounded-full"
-          style={{ 
+          style={{
             backgroundColor: `${themeColors.surface}cc`,
             backdropFilter: 'blur(8px)',
             boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
@@ -546,7 +545,7 @@ const VehicleShowcase = ({
           </svg>
         </button>
       </div>
-      
+
       {/* Model indicator - Added for clearer vehicle selection */}
       <div className="hidden md:flex absolute top-6 right-6 z-40">
         <div className="flex gap-2">
@@ -555,7 +554,7 @@ const VehicleShowcase = ({
               key={vehicle.id}
               onClick={() => goToVehicle(idx)}
               className="px-4 py-2 text-xs uppercase tracking-wider transition-all duration-300 rounded-sm"
-              style={{ 
+              style={{
                 backgroundColor: vehicle.id === activeVehicle.id ? themeColors.accent : `${themeColors.surface}cc`,
                 color: vehicle.id === activeVehicle.id ? '#fff' : themeColors.text,
                 backdropFilter: 'blur(8px)',
@@ -568,14 +567,14 @@ const VehicleShowcase = ({
           ))}
         </div>
       </div>
-      
+
       {/* Progress indicator - Redesigned for better visibility */}
       <div className="absolute bottom-0 left-0 right-0 z-30 h-1 bg-gray-800/30">
         {vehicles.map((vehicle, idx) => {
           // Calculate total percentage allocated to this vehicle
           const segmentWidth = 100 / vehicles.length;
           const isActiveVehicle = vehicle.id === activeVehicle.id;
-          
+
           // Calculate progress within this segment for the active vehicle
           let progressWithinSegment = 0;
           if (isActiveVehicle) {
@@ -583,21 +582,21 @@ const VehicleShowcase = ({
             const vehicleImageIndexes = allImages
               .map((img, i) => img.vehicleId === vehicle.id ? i : -1)
               .filter(i => i !== -1);
-            
+
             // Find the position of the active index within this vehicle's images
             const positionInVehicleImages = vehicleImageIndexes.indexOf(activeIndex);
             const totalImagesForVehicle = vehicleImageIndexes.length;
-            
+
             // Calculate progress as a percentage of the segment
-            progressWithinSegment = totalImagesForVehicle > 1 
-              ? (positionInVehicleImages / (totalImagesForVehicle - 1)) * segmentWidth 
+            progressWithinSegment = totalImagesForVehicle > 1
+              ? (positionInVehicleImages / (totalImagesForVehicle - 1)) * segmentWidth
               : 0;
           }
-          
+
           return (
-            <div 
+            <div
               key={vehicle.id}
-              style={{ 
+              style={{
                 position: 'absolute',
                 left: `${idx * segmentWidth}%`,
                 width: `${segmentWidth}%`,
@@ -605,7 +604,7 @@ const VehicleShowcase = ({
                 backgroundColor: isActiveVehicle ? 'rgba(255,255,255,0.15)' : 'transparent'
               }}
             >
-              <div 
+              <div
                 style={{
                   height: '100%',
                   width: isActiveVehicle ? `${(progressWithinSegment / segmentWidth) * 100}%` : (idx < vehicles.findIndex(v => v.id === activeVehicle.id) ? '100%' : '0%'),
@@ -616,16 +615,16 @@ const VehicleShowcase = ({
             </div>
           );
         })}
-        
-        <div 
+
+        <div
           className="h-full transition-all duration-500 ease-out"
-          style={{ 
+          style={{
             width: `${(vehicles.findIndex(v => v.id === activeVehicle.id) / vehicles.length) * 100}%`,
             backgroundColor: themeColors.accent
           }}
         />
       </div>
-      
+
       {/* CSS for custom styling */}
       <style jsx global>{`
         .bg-pattern {
@@ -659,9 +658,7 @@ const VehicleShowcase = ({
           animation: scaleIn 0.8s ease-out forwards;
         }
         
-        /* Remove scrollbars */
-     
-        
+    
         /* Responsive adjustments */
         @media (max-height: 700px) {
           .responsive-text-sm {
