@@ -247,7 +247,7 @@ const VehicleShowcase = ({
   // If no data, show placeholder
   if (!vehicles || vehicles.length === 0) {
     return (
-      <div className={`${height} flex items-center justify-center bg-zinc-900`}>
+      <div className={`h-full flex items-center justify-center bg-zinc-900`}>
         <div className="text-white text-xl">No vehicle data available</div>
       </div>
     );
