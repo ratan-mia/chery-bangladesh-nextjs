@@ -535,7 +535,7 @@ export default function ModelsMegaMenu({
               <div className="mt-8 flex gap-4">
                 <Link href={`/models/${activeModel}`}>
                   <button
-                    className="px-10 py-4  text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors"
+                    className="px-10 py-4 cursor-pointer text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors"
                     style={{
                       backgroundColor: primaryBg,
                       color: 'white',
@@ -550,7 +550,7 @@ export default function ModelsMegaMenu({
 
                 <Link href="/contact">
                   <button
-                    className="px-10 py-4  text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors border-2"
+                    className="px-10 py-4 cursor-pointer text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors border-2"
                     style={{
                       borderColor: primaryBg,
                       color: 'black',
