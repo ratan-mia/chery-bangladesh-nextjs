@@ -1,5 +1,5 @@
 
-import AssistanceRequest from '@/app/models/AssistanceRequest';
+import AssistanceRequest from '@/app/db/models/AssistanceRequest';
 import dbConnect from '@/app/utils/dbConnect';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
