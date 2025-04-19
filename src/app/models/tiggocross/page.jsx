@@ -4,7 +4,6 @@ import CarFeaturesSlider from "@components/CarFeaturesSlider";
 import SimpleBanner from "@components/SimpleBanner";
 import CarShowcaseSlider from "@components/tiggo-cross/CarShowcaseSlider";
 import CarTechSlider from "@components/tiggo-cross/CarTechSlider";
-import CarColorSwitcher from "@components/tiggo8pro/CarColorSwitcher";
 import VehicleSpecs from "@components/VehicleSpecs";
 
 export default function Home() {
@@ -268,7 +267,7 @@ export default function Home() {
       <CarShowcaseSlider />
       <CarTechSlider slides={techSlides} />
 
-      <CarColorSwitcher />
+      {/* <CarColorSwitcher /> */}
       <VehicleSpecs
         category="Appearance"
         title="Dynamic/Energetic Appearance"
