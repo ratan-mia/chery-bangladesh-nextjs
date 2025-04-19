@@ -1,8 +1,8 @@
 
-import AssistanceRequest from '@db/models/AssistanceRequest';
-import dbConnect from '@utils/dbConnect';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import AssistanceRequest from '../../db/models/AssistanceRequest';
+import dbConnect from '../../utils/dbConnect';
 import { generateAdminAssistanceEmailTemplate } from './emails/adminAssistanceEmailTemplate';
 import { generateCustomerAssistanceEmailTemplate } from './emails/customerAssistanceEmailTemplate';
 
