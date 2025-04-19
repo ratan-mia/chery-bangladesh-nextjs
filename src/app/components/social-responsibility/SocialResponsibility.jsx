@@ -1,7 +1,8 @@
 'use client';
 
+import { motion, useAnimation } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const SocialResponsibility = ({
   // Content props
@@ -23,10 +24,84 @@ const SocialResponsibility = ({
   ctaLink = '#initiatives',
   showCta = false,
   
+  // Animation props
+  animationDelay = 0.2,
+  
   // Container props
   height = 'h-screen',
   className = '',
 }) => {
+  // Animation controls
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  
+  // Custom intersection observer hook
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+    
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+    
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.2,
+        delayChildren: animationDelay
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: contentPosition === 'right' ? 20 : -20 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.6, 
+        ease: [0.25, 0.1, 0.25, 1.0] 
+      }
+    }
+  };
+
+  const imageVariants = {
+    initial: { scale: 1.1 },
+    animate: { 
+      scale: 1,
+      transition: { 
+        duration: 8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  // Start animation when in view
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
   // Determine content position classes
   const contentPositionClasses = contentPosition === 'right' 
     ? 'items-end text-right' 
@@ -44,8 +119,13 @@ const SocialResponsibility = ({
   
   return (
     <section className={`relative w-full overflow-hidden ${height} ${className}`}>
-      {/* Background Image */}
-      <div className="absolute inset-0 w-full h-full z-0">
+      {/* Background Image with Motion */}
+      <motion.div 
+        className="absolute inset-0 w-full h-full z-0"
+        initial="initial"
+        animate="animate"
+        variants={imageVariants}
+      >
         <Image
           src={imageSrc}
           alt={imageAlt}
@@ -54,45 +134,78 @@ const SocialResponsibility = ({
           sizes="100vw"
           className="object-cover"
         />
-      </div>
+      </motion.div>
       
       {/* Gradient Overlay */}
-      <div 
+      <motion.div 
         className="absolute inset-0 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2 }}
         style={{
           background: `linear-gradient(${gradientDirection}, ${overlayColor} 0%, rgba(0,0,0,${overlayOpacity}) 100%)`,
         }}
-      ></div>
+      ></motion.div>
       
       {/* Content Container */}
       <div className={`relative z-20 h-full w-full flex flex-col justify-center ${contentPositionClasses}`}>
-        <div className={`w-full max-w-xl ${contentClasses}`}>
-          <h2 
+        <motion.div 
+          ref={ref}
+          initial="hidden"
+          animate={controls}
+          variants={containerVariants}
+          className={`w-full max-w-xl ${contentClasses}`}
+        >
+          <motion.h2 
+            variants={itemVariants}
             className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
             style={{ color: textColor }}
           >
             {title}
-          </h2>
+          </motion.h2>
           
-          <p 
+          <motion.p 
+            variants={itemVariants}
             className="text-base md:text-lg mb-8 opacity-90 leading-relaxed"
             style={{ color: textColor }}
           >
             {description}
-          </p>
+          </motion.p>
           
           {showCta && (
-            <a 
-              href={ctaLink}
-              className="inline-flex items-center py-3 px-6 bg-white text-purple-900 font-medium rounded-lg transition-transform hover:translate-y-[-2px]"
+            <motion.div
+              variants={itemVariants}
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span>{ctaText}</span>
-              <svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
+              <a 
+                href={ctaLink}
+                className="inline-flex items-center py-3 px-6 bg-white text-purple-900 font-medium"
+              >
+                <span>{ctaText}</span>
+                <motion.svg 
+                  className="ml-2 w-5 h-5" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                  initial={{ x: 0 }}
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    repeatType: "reverse", 
+                    duration: 1.5,
+                    repeatDelay: 2
+                  }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </motion.svg>
+              </a>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
