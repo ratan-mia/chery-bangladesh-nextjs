@@ -34,7 +34,7 @@ const CarFeaturesSlider = ({
   showNumbers = true,
   showHeading = false,
   transition = "slide", // "slide", "fade", "creative"
-  height = "md", // "sm", "md", "lg", "xl"
+  height = "lg", // "sm", "md", "lg", "xl"
 }) => {
   const defaultFeatures = [
     {
@@ -489,7 +489,7 @@ const CarFeaturesSlider = ({
       {/* Header section */}
       {showHeading && (
         <div className="w-full py-8 md:py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between">
               <div>
                 <div className="max-w-xl">
@@ -533,7 +533,7 @@ const CarFeaturesSlider = ({
       
       {/* Slider section */}
       <div className="w-full mt-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
           <Swiper
             ref={swiperRef}
             modules={transitionConfig.modules}
@@ -559,7 +559,7 @@ const CarFeaturesSlider = ({
       
       {/* Controls and indicators */}
       {showIndicators && (
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="w-full max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             {/* Play/pause button */}
             <button 
