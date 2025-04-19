@@ -58,14 +58,14 @@ const defaultVehicles = [
   },
   {
     id: "tiggo-pro-1",
-    modelName: "TIGGO PRO",
+    modelName: "TIGGO CROSS",
     modelYear: "2025",
     tagline: "DESIGNED FOR THE FUTURE",
     description: "Advanced driver assistance and premium luxury in every detail",
     images: [
       {
         src: "/images/tiggocross/hero/1.webp", // These would be different images in a real implementation
-        alt: "Tiggo Pro exterior front view",
+        alt: "TIGGO CROSS exterior front view",
         type: "exterior"
       },
       {
@@ -103,10 +103,10 @@ const defaultVehicles = [
 
 const VehicleShowcase = ({
   vehicles = defaultVehicles,
-  height = "h-screen",
+  height = "h-screen",  // Changed from h-screen to h-full
   accentColor = "#8c735d", // Vibrant orange as primary accent
   secondaryColor = "#1a1a1a", // Dark gray for secondary elements
-  darkMode = true,
+  darkMode = false,
   showSpecs = true,
   showThumbNav = false,
   autoplayDelay = 5000,
@@ -122,6 +122,7 @@ const VehicleShowcase = ({
   const [isAutoplay, setIsAutoplay] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [containerHeight, setContainerHeight] = useState(0);
   
   // Flatten all vehicle images for the main carousel
   const allImages = useMemo(() => {
@@ -154,13 +155,20 @@ const VehicleShowcase = ({
     };
   }, [accentColor, secondaryColor, darkMode]);
   
-  // Handle resize and initial setup
+  // Calculate container height on mount and resize
   useEffect(() => {
     setMounted(true);
     
     const handleResize = () => {
-      // Any resize-specific logic
+      // Calculate the proper height to ensure no scrolling
+      const viewportHeight = window.innerHeight;
+      const navbarHeight = 60; // Adjust based on your actual navbar height
+      const newHeight = viewportHeight - navbarHeight;
+      setContainerHeight(newHeight);
     };
+    
+    // Initial calculation
+    handleResize();
     
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
@@ -247,7 +255,7 @@ const VehicleShowcase = ({
   // If no data, show placeholder
   if (!vehicles || vehicles.length === 0) {
     return (
-      <div className={`${height} flex items-center justify-center bg-zinc-900`}>
+      <div className={`w-full flex items-center justify-center bg-zinc-900`} style={{ height: containerHeight }}>
         <div className="text-white text-xl">No vehicle data available</div>
       </div>
     );
@@ -256,7 +264,11 @@ const VehicleShowcase = ({
   return (
     <div 
       className={`relative w-full overflow-hidden ${height} ${className}`}
-      style={{ backgroundColor: themeColors.background }}
+      style={{ 
+        backgroundColor: themeColors.background,
+        height: containerHeight ? `${containerHeight}px` : '100vh', // Use calculated height to avoid scrolling
+        maxHeight: '100vh'
+      }}
     >
       {/* Main showcase area */}
       <div className="absolute inset-0 w-full h-full z-0">
@@ -301,7 +313,7 @@ const VehicleShowcase = ({
                   <div 
                     className="absolute inset-0 z-10 pointer-events-none"
                     style={{
-                      background: `linear-gradient(0deg, ${themeColors.background} 0%, rgba(0,0,0,0) 50%, ${themeColors.background}20 100%)`
+                      background: `linear-gradient(0deg, ${themeColors.background}cc 0%, rgba(0,0,0,0.2) 50%, ${themeColors.background}aa 100%)`
                     }}
                   ></div>
                   
@@ -312,7 +324,7 @@ const VehicleShowcase = ({
                       alt={image.alt || image.vehicleInfo.modelName}
                       fill
                       priority={index === 0}
-                      quality={100}
+                      quality={90}
                       sizes="100vw"
                       className="object-cover object-center transition-transform duration-7000"
                       style={{
@@ -323,7 +335,7 @@ const VehicleShowcase = ({
                   
                   {/* Type indicator (interior/exterior) */}
                   <div 
-                    className="absolute top-6 left-6 z-30 py-1 px-3 uppercase text-xs tracking-widest"
+                    className="absolute top-6 left-6 z-30 py-1 px-3 uppercase text-xs tracking-widest rounded-sm"
                     style={{ 
                       backgroundColor: image.type === 'interior' ? themeColors.accent : themeColors.secondary,
                       color: themeColors.text
@@ -332,51 +344,52 @@ const VehicleShowcase = ({
                     {image.type}
                   </div>
                   
-                  {/* Vehicle info content */}
-                  <div className="absolute bottom-0 left-0 right-0 z-20 p-8 md:p-12">
-                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Vehicle info content - Redesigned for better spacing and responsive layout */}
+                  <div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-10">
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
                       {/* Left side: Vehicle details */}
-                      <div className="flex flex-col justify-end">
-                        <div className="mb-2 opacity-80" style={{ color: themeColors.textMuted }}>
+                      <div className="flex flex-col justify-end md:col-span-7">
+                        <div className="mb-1 opacity-80" style={{ color: themeColors.textMuted }}>
                           <span className="uppercase tracking-widest text-sm">{image.vehicleInfo.modelYear}</span>
                         </div>
                         
                         <h2 
-                          className="text-5xl font-bold uppercase mb-2 tracking-tight"
+                          className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase mb-2 tracking-tight"
                           style={{ color: themeColors.text }}
                         >
                           {image.vehicleInfo.modelName}
                         </h2>
                         
                         <div 
-                          className="w-16 h-1 mb-4"
+                          className="w-16 h-1 mb-2 md:mb-4"
                           style={{ backgroundColor: themeColors.accent }}
                         ></div>
                         
                         <p 
-                          className="text-xl mb-8 max-w-lg"
+                          className="text-base md:text-xl mb-4 md:mb-6 max-w-lg"
                           style={{ color: themeColors.textMuted }}
                         >
                           {image.vehicleInfo.tagline}
                         </p>
                         
-                        {/* CTA Buttons */}
-                        <div className="flex flex-wrap gap-4 mt-4">
+                        {/* CTA Buttons - Redesigned for better touch targets and spacing */}
+                        <div className="flex flex-wrap gap-3 mt-2">
                           {image.vehicleInfo.buttons?.map((button, idx) => (
                             <a
                               key={idx}
                               href={button.url}
-                              className="py-3 px-6 inline-flex items-center transition-transform duration-300 hover:-translate-y-1"
+                              className="py-2 px-4 md:py-3 md:px-6 text-sm md:text-base inline-flex items-center transition-all duration-300 hover:-translate-y-1 rounded-sm"
                               style={{
                                 backgroundColor: button.variant === 'primary' ? themeColors.accent : 
                                                button.variant === 'secondary' ? themeColors.secondary : 'transparent',
                                 color: (button.variant === 'primary' || button.variant === 'secondary') ? '#ffffff' : themeColors.text,
-                                border: button.variant === 'outline' ? `1px solid ${themeColors.border}` : 'none'
+                                border: button.variant === 'outline' ? `1px solid ${themeColors.border}` : 'none',
+                                boxShadow: button.variant === 'primary' ? '0 4px 6px rgba(0,0,0,0.1)' : 'none'
                               }}
                             >
                               <span>{button.label}</span>
                               <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="square" strokeLinejoin="arcs" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                               </svg>
                             </a>
                           ))}
@@ -385,21 +398,24 @@ const VehicleShowcase = ({
                       
                       {/* Right side: Vehicle specs */}
                       {showSpecs && (
-                        <div className="flex flex-col justify-end">
+                        <div className="flex flex-col justify-end md:col-span-5">
                           <div 
-                            className="grid grid-cols-2 gap-4 p-6"
-                            style={{ backgroundColor: themeColors.surface }}
+                            className="grid grid-cols-2 gap-3 p-4 md:p-6 rounded-sm"
+                            style={{ 
+                              backgroundColor: `${themeColors.surface}cc`,
+                              backdropFilter: 'blur(8px)'
+                            }}
                           >
                             {image.vehicleInfo.specs && Object.entries(image.vehicleInfo.specs).map(([key, value], idx) => (
-                              <div key={idx} className="border-b border-gray-800 pb-3 mb-3 last:border-0 last:mb-0 last:pb-0">
+                              <div key={idx} className="border-b border-gray-800 pb-2 md:pb-3 mb-2 md:mb-3 last:border-0 last:mb-0 last:pb-0">
                                 <div 
-                                  className="text-sm uppercase tracking-wider mb-1"
+                                  className="text-xs md:text-sm uppercase tracking-wider mb-1"
                                   style={{ color: themeColors.textMuted }}
                                 >
                                   {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                                 </div>
                                 <div 
-                                  className="text-lg font-medium"
+                                  className="text-base md:text-lg font-medium"
                                   style={{ color: idx % 2 === 0 ? themeColors.accent : themeColors.text }}
                                 >
                                   {value}
@@ -418,46 +434,50 @@ const VehicleShowcase = ({
         )}
       </div>
       
-      {/* Vehicles thumbnail navigation */}
+      {/* Vehicles thumbnail navigation - Improved positioning and visibility */}
       {showThumbNav && mounted && vehicles.length > 1 && (
         <div 
-          className="absolute left-6 top-0 bottom-0 z-40 w-24 hidden md:flex flex-col items-center justify-center"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-40 w-16 md:w-20 hidden md:flex flex-col items-center justify-center"
         >
-          <div className="py-6 px-3" style={{ backgroundColor: themeColors.surface }}>
+          <div className="py-4 px-2 rounded-r-md" style={{ 
+            backgroundColor: `${themeColors.surface}cc`,
+            backdropFilter: 'blur(8px)'
+          }}>
             <Swiper
               modules={[Thumbs]}
               direction="vertical"
               slidesPerView={3}
-              spaceBetween={12}
+              spaceBetween={8}
               watchSlidesProgress={true}
               onSwiper={setThumbsSwiper}
-              className="h-full max-h-96"
+              className="h-full max-h-72"
             >
               {vehicles.map((vehicle, idx) => (
-                <SwiperSlide key={vehicle.id} className="h-20 cursor-pointer">
+                <SwiperSlide key={vehicle.id} className="h-16 cursor-pointer">
                   <div 
-                    className={`relative h-full w-full flex items-center justify-center p-1 transition-all duration-300 ${
-                      activeVehicle.id === vehicle.id ? 'opacity-100' : 'opacity-50 hover:opacity-80'
+                    className={`relative h-full w-full flex items-center justify-center p-1 transition-all duration-300 rounded-sm ${
+                      activeVehicle.id === vehicle.id ? 'opacity-100 scale-105' : 'opacity-50 hover:opacity-80'
                     }`}
                     onClick={() => goToVehicle(idx)}
                     style={{ 
                       borderLeft: activeVehicle.id === vehicle.id 
                         ? `3px solid ${themeColors.accent}` 
-                        : `3px solid transparent` 
+                        : `3px solid transparent`,
+                      boxShadow: activeVehicle.id === vehicle.id ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
                     }}
                   >
                     <Image
                       src={vehicle.images[0].src}
                       alt={vehicle.modelName}
                       fill
-                      sizes="100px"
-                      className="object-cover"
+                      sizes="80px"
+                      className="object-cover rounded-sm"
                     />
                     <div 
-                      className="absolute inset-0 flex items-center justify-center"
-                      style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+                      className="absolute inset-0 flex items-center justify-center rounded-sm"
+                      style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
                     >
-                      <span className="text-white text-xs uppercase tracking-wider">{vehicle.modelName}</span>
+                      <span className="text-white text-xs uppercase tracking-wider px-1 text-center">{vehicle.modelName}</span>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -467,36 +487,43 @@ const VehicleShowcase = ({
         </div>
       )}
       
-      {/* Custom navigation controls */}
-      <div className="absolute right-8 bottom-8 z-40 flex items-center space-x-4">
+      {/* Custom navigation controls - Redesigned for better visibility and positioning */}
+      <div className="absolute right-4 md:right-8 bottom-4 md:bottom-8 z-40 flex items-center space-x-2 md:space-x-4">
         {/* Previous vehicle button */}
         <button
           onClick={goToPrevVehicle}
-          className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:-translate-x-1"
-          style={{ backgroundColor: themeColors.surface }}
+          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:-translate-x-1 rounded-full"
+          style={{ 
+            backgroundColor: `${themeColors.surface}cc`,
+            backdropFilter: 'blur(8px)',
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+          }}
           aria-label="Previous vehicle"
           disabled={isDragging}
         >
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke={themeColors.text}>
-            <path strokeLinecap="square" strokeLinejoin="arcs" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke={themeColors.text}>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         
         {/* Autoplay toggle */}
         <button
           onClick={toggleAutoplay}
-          className="w-12 h-12 flex items-center justify-center transition-opacity duration-300 hover:opacity-80"
-          style={{ backgroundColor: themeColors.accent }}
+          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:opacity-90 hover:scale-105 rounded-full"
+          style={{ 
+            backgroundColor: themeColors.accent,
+            boxShadow: '0 4px 6px rgba(0,0,0,0.15)'
+          }}
           aria-label={isAutoplay ? "Pause slideshow" : "Play slideshow"}
           disabled={isDragging}
         >
           {isAutoplay ? (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="white">
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="white">
               <rect x="6" y="5" width="4" height="14" fill="white" />
               <rect x="14" y="5" width="4" height="14" fill="white" />
             </svg>
           ) : (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="white">
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="white">
               <path fill="white" d="M6 4l15 8-15 8z" />
             </svg>
           )}
@@ -505,19 +532,45 @@ const VehicleShowcase = ({
         {/* Next vehicle button */}
         <button
           onClick={goToNextVehicle}
-          className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:translate-x-1"
-          style={{ backgroundColor: themeColors.surface }}
+          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:translate-x-1 rounded-full"
+          style={{ 
+            backgroundColor: `${themeColors.surface}cc`,
+            backdropFilter: 'blur(8px)',
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+          }}
           aria-label="Next vehicle"
           disabled={isDragging}
         >
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke={themeColors.text}>
-            <path strokeLinecap="square" strokeLinejoin="arcs" strokeWidth="2" d="M9 5l7 7-7 7" />
+          <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke={themeColors.text}>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
       </div>
       
-      {/* Progress indicator */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 h-1 bg-gray-800">
+      {/* Model indicator - Added for clearer vehicle selection */}
+      <div className="hidden md:flex absolute top-6 right-6 z-40">
+        <div className="flex gap-2">
+          {vehicles.map((vehicle, idx) => (
+            <button
+              key={vehicle.id}
+              onClick={() => goToVehicle(idx)}
+              className="px-4 py-2 text-xs uppercase tracking-wider transition-all duration-300 rounded-sm"
+              style={{ 
+                backgroundColor: vehicle.id === activeVehicle.id ? themeColors.accent : `${themeColors.surface}cc`,
+                color: vehicle.id === activeVehicle.id ? '#fff' : themeColors.text,
+                backdropFilter: 'blur(8px)',
+                transform: vehicle.id === activeVehicle.id ? 'scale(1.05)' : 'scale(1)',
+                fontWeight: vehicle.id === activeVehicle.id ? '600' : '400'
+              }}
+            >
+              {vehicle.modelName}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      {/* Progress indicator - Redesigned for better visibility */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 h-1 bg-gray-800/30">
         {vehicles.map((vehicle, idx) => {
           // Calculate total percentage allocated to this vehicle
           const segmentWidth = 100 / vehicles.length;
@@ -541,11 +594,6 @@ const VehicleShowcase = ({
               : 0;
           }
           
-          // Calculate the actual width for this segment's progress bar
-          const segmentProgressWidth = isActiveVehicle 
-            ? (idx * segmentWidth) + progressWithinSegment 
-            : (idx < vehicles.findIndex(v => v.id === activeVehicle.id) ? segmentWidth : 0);
-          
           return (
             <div 
               key={vehicle.id}
@@ -554,7 +602,7 @@ const VehicleShowcase = ({
                 left: `${idx * segmentWidth}%`,
                 width: `${segmentWidth}%`,
                 height: '100%',
-                backgroundColor: isActiveVehicle ? 'rgba(255,255,255,0.2)' : 'transparent'
+                backgroundColor: isActiveVehicle ? 'rgba(255,255,255,0.15)' : 'transparent'
               }}
             >
               <div 
@@ -570,7 +618,7 @@ const VehicleShowcase = ({
         })}
         
         <div 
-          className="h-full bg-white transition-all duration-500 ease-out"
+          className="h-full transition-all duration-500 ease-out"
           style={{ 
             width: `${(vehicles.findIndex(v => v.id === activeVehicle.id) / vehicles.length) * 100}%`,
             backgroundColor: themeColors.accent
@@ -594,12 +642,35 @@ const VehicleShowcase = ({
           to { transform: translateY(0); opacity: 1; }
         }
         
+        @keyframes scaleIn {
+          from { transform: scale(0.95); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+        
         .swiper-slide-active .fade-in {
           animation: fadeIn 0.8s ease-out forwards;
         }
         
         .swiper-slide-active .slide-up {
           animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        .swiper-slide-active .scale-in {
+          animation: scaleIn 0.8s ease-out forwards;
+        }
+        
+        /* Remove scrollbars */
+     
+        
+        /* Responsive adjustments */
+        @media (max-height: 700px) {
+          .responsive-text-sm {
+            font-size: 90%;
+          }
+          
+          .responsive-spacing-sm {
+            margin-bottom: 0.5rem !important;
+          }
         }
       `}</style>
     </div>
