@@ -15,7 +15,7 @@ const SocialResponsibility = ({
   
   // Layout props
   contentPosition = 'left', // 'left' or 'right'
-  overlayOpacity = 0.4,
+  overlayOpacity = 0.1,
   overlayColor = 'rgba(98, 58, 94, 0.8)', // Purple gradient base color
   textColor = '#ffffff',
   
