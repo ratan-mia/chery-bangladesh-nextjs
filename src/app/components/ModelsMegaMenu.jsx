@@ -21,7 +21,7 @@ const CAR_DATA = {
         //   models: ['tiggo8'],
         //   defaultExpanded: false
         // },
-  
+
         {
           id: 'tiggo8pro',
           name: 'TIGGO 8 PRO',
@@ -396,7 +396,10 @@ export default function ModelsMegaMenu({
                   }
                 }}
               >
-                <span className="font-medium">{series.name}</span>
+                <Link href={`/models/${activeModel}`}>
+                  <span className="font-medium">{series.name}</span>
+                </Link>
+
                 {series.models.length > 0 && (
                   <span className="text-xl mr-2">
                     {expandedSeries[series.id] ? '−' : '+'}
