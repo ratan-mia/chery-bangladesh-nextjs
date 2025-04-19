@@ -1,6 +1,6 @@
 
-import AssistanceRequest from '@/app/db/models/AssistanceRequest';
-import dbConnect from '@/app/utils/dbConnect';
+import AssistanceRequest from '@db/models/AssistanceRequest';
+import dbConnect from '@utils/dbConnect';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { generateAdminAssistanceEmailTemplate } from './emails/adminAssistanceEmailTemplate';
