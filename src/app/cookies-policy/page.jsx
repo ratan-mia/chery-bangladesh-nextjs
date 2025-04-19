@@ -1,6 +1,6 @@
 "use client";
 
-import CookieSettingsButton from "@/app/components/CookieSettingsButton";
+import CookieSettingsButton from "@components/CookieSettingsButton";
 import Link from "next/link";
 import { useState } from "react";
 

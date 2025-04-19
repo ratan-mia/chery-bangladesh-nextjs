@@ -102,17 +102,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/honors" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/about/honors" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Honors
                 </Link>
               </li>
               <li>
-                <Link href="/environment" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/about/environment" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Environmental
                 </Link>
               </li>
               <li>
-                <Link href="/social-responsibility" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/about/social-responsibility" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Social Responsibility
                 </Link>
               </li>
@@ -124,23 +124,29 @@ export default function Footer() {
             <h4 className="text-gray-900 font-medium mb-5 pb-2 border-b border-gray-100">Services</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/services/maintenance" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/service#maintenance" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Maintenance
                 </Link>
               </li>
               <li>
-                <Link href="/services/warranty" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/service#warranty" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Warranty
                 </Link>
               </li>
+
               <li>
-                <Link href="/services/roadside" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                <Link href="/service#locations" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  Locations
+                </Link>
+              </li>
+              <li>
+                <Link href="/service#assistance" className="text-gray-600 hover:text-primary transition-colors text-sm">
                   Roadside Assistance
                 </Link>
               </li>
               <li>
-                <Link href="/services/owners" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                  Owner Resources
+                <Link href="/service#book-service" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                 Book an Appointment
                 </Link>
               </li>
             </ul>
@@ -230,17 +236,11 @@ export default function Footer() {
           </div>
           
           <div className="flex flex-wrap justify-center md:justify-end text-sm text-gray-500 gap-x-6">
-            <Link href="/legal" className="hover:text-primary transition-colors">
-              Legal Notice
-            </Link>
             <Link href="/privacy" className="hover:text-primary transition-colors">
               Privacy Statement
             </Link>
-            <Link href="/cookies" className="hover:text-primary transition-colors">
+            <Link href="/cookies-policy" className="hover:text-primary transition-colors">
               Cookies Policy
-            </Link>
-            <Link href="/sitemap" className="hover:text-primary transition-colors">
-              Sitemap
             </Link>
           </div>
         </div>
