@@ -224,10 +224,10 @@ export default function Header() {
   // About submenu items
   const aboutSubMenuItems = [
     { label: 'COMPANY HISTORY', href: '/about' },
-    { label: 'HONORS', href: '/honors' },
-    { label: 'ENVIRONMENT', href: '/environment' },
-    { label: 'OPERATIONS', href: '/aboutchery/operations' },
-    { label: 'CAREERS', href: '#careers' }
+    { label: 'HONORS', href: '/about/honors' },
+    { label: 'ENVIRONMENT', href: '/about/environment' },
+    { label: 'OPERATIONS', href: '/about/operations' },
+    { label: 'CAREERS', href: '/career' }
   ]
 
   return (
@@ -264,14 +264,22 @@ export default function Header() {
             aria-controls="mobile-menu"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            <span className={`block h-0.5 w-full bg-gray-800 rounded-sm transition-all duration-300 ${isMobileMenuOpen ? 'transform translate-y-2 rotate-45' : ''}`}></span>
-            <span className={`block h-0.5 w-full bg-gray-800 rounded-sm transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block h-0.5 w-full bg-gray-800 rounded-sm transition-all duration-300 ${isMobileMenuOpen ? 'transform -translate-y-2 -rotate-45' : ''}`}></span>
+            <span className={`block h-0.5 w-full bg-gray-800  transition-all duration-300 ${isMobileMenuOpen ? 'transform translate-y-2 rotate-45' : ''}`}></span>
+            <span className={`block h-0.5 w-full bg-gray-800  transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block h-0.5 w-full bg-gray-800  transition-all duration-300 ${isMobileMenuOpen ? 'transform -translate-y-2 -rotate-45' : ''}`}></span>
           </button>
           
           {/* Main Navigation - Left aligned */}
           <nav className="hidden md:flex items-center ml-10" aria-label="Main navigation">
             <ul className="flex list-none">
+            <li className="mr-5">
+                <Link 
+                  href="/" 
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
+                >
+                  HOME
+                </Link>
+              </li>
               <li 
                 className="relative mr-5" 
                 ref={modelsMenuRef}
@@ -279,7 +287,7 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button 
-                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors
+                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors
                              ${isMegaMenuOpen ? 'text-gray-600 bg-gray-100' : ''}`}
                   onClick={toggleMegaMenu}
                   aria-expanded={isMegaMenuOpen}
@@ -296,7 +304,7 @@ export default function Header() {
               <li className="mr-5">
                 <Link 
                   href="/news" 
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
                 >
                   NEWS
                 </Link>
@@ -308,7 +316,7 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button 
-                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors
+                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors
                              ${isAboutSubMenuOpen ? 'text-gray-600 bg-gray-100' : ''}`}
                   onClick={toggleAboutSubMenu}
                   aria-expanded={isAboutSubMenuOpen}
@@ -324,20 +332,21 @@ export default function Header() {
               </li>
               <li className="mr-5">
                 <Link 
-                  href="/contact" 
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors"
-                >
-                  CONTACT US
-                </Link>
-              </li>
-              <li className="mr-5">
-                <Link 
                   href="/service" 
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded transition-colors"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
                 >
                   SERVICE
                 </Link>
               </li>
+              <li className="mr-5">
+                <Link 
+                  href="/contact" 
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
+                >
+                  CONTACT
+                </Link>
+              </li>
+        
             </ul>
           </nav>
           
@@ -345,7 +354,7 @@ export default function Header() {
           <div className="flex items-center space-x-4 md:ml-auto">
             {/* Music control */}
             <button 
-              className={`p-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300
+              className={`p-2  transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300
                         ${playing ? 'bg-gray-100 text-gray-800' : 'text-gray-600 hover:bg-gray-100'}`}
               onClick={toggleMusic}
               aria-label={playing ? "Pause background music" : "Play background music"}
@@ -359,7 +368,7 @@ export default function Header() {
             
             {/* Search button */}
             <button 
-              className="p-2 rounded-full transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 hidden md:block"
+              className="p-2  transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 hidden md:block"
               aria-label="Search"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -368,8 +377,9 @@ export default function Header() {
             </button>
             
             {/* CTA button */}
-            <button 
-              className="text-white px-5 py-2 rounded text-sm uppercase tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 hidden md:block"
+            <Link
+              href="/testdrive"
+              className="text-white px-5 py-2  text-sm uppercase tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 hidden md:block"
               style={{ 
                 backgroundColor: THEME.primary,
                 boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
@@ -377,8 +387,8 @@ export default function Header() {
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = THEME.primaryDark}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = THEME.primary}
             >
-              EXPLORE
-            </button>
+            TEST DRIVE
+            </Link>
           </div>
         </div>
       </header>
@@ -408,7 +418,7 @@ export default function Header() {
                 <li key={index} className="px-2 py-1">
                   <Link 
                     href={item.href} 
-                    className="text-gray-700 hover:text-gray-900 text-sm font-medium uppercase transition-colors block px-3 py-2 hover:bg-gray-200 rounded"
+                    className="text-gray-700 hover:text-gray-900 text-sm font-medium uppercase transition-colors block px-3 py-2 hover:bg-gray-200 "
                     onClick={closeAboutSubMenu}
                   >
                     {item.label}

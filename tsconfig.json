@@ -19,12 +19,10 @@
       }
     ],
 
-    "baseUrl": "src/",
+    "baseUrl": "/",
     "paths": {
-      "@/*": ["./*"],
-      "@/app/*": ["/app/*"],
-      "@/styles/*": ["/styles/*"],
-      "@/components/*": ["/app/components/*"]
+      "@/*": ["./src/app/*"],
+      "@components/*": ["./src/app/components/*"]
     }
   },
   "include": [

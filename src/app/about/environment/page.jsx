@@ -1,14 +1,14 @@
 "use client";
 
-import ClimateChangeSection from "../components/environment/ClimateChangeSection";
-import EnvironmentalParallax from "../components/environment/EnvironmentalParallax";
-import EnvironmentNewsSection from "../components/environment/EnvironmentNewsSection";
+import ClimateChangeSection from "../../components/environment/ClimateChangeSection";
+import EnvironmentalParallax from "../../components/environment/EnvironmentalParallax";
+import EnvironmentNewsSection from "../../components/environment/EnvironmentNewsSection";
 import {
   climateData,
   greenData,
   lowCarbonData,
   natureData
-} from "../data/environmentData";
+} from "../../data/environmentData";
 
 export default function Environment() {
   const renderClimateContent = (ContentData) => {

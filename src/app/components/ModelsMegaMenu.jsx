@@ -548,7 +548,7 @@ export default function ModelsMegaMenu({
                   </button>
                 </Link>
 
-                <Link href={`/models/${activeModel}/configure`}>
+                <Link href="/contact">
                   <button
                     className="px-10 py-4  text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors border-2"
                     style={{
@@ -565,7 +565,7 @@ export default function ModelsMegaMenu({
                       e.currentTarget.style.color = 'black';
                     }}
                   >
-                    Order Now
+                    Contact Us
                   </button>
                 </Link>
               </div>
