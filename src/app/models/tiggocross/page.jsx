@@ -1,11 +1,11 @@
 "use client";
 
-import CarFeaturesSlider from "../components/CarFeaturesSlider";
-import SimpleBanner from "../components/SimpleBanner";
-import CarShowcaseSlider from "../components/tiggo-cross/CarShowcaseSlider";
-import CarTechSlider from "../components/tiggo-cross/CarTechSlider";
-import CarColorSwitcher from "../components/tiggo8pro/CarColorSwitcher";
-import VehicleSpecs from "../components/VehicleSpecs";
+import CarFeaturesSlider from "@components/CarFeaturesSlider";
+import SimpleBanner from "@components/SimpleBanner";
+import CarShowcaseSlider from "@components/tiggo-cross/CarShowcaseSlider";
+import CarTechSlider from "@components/tiggo-cross/CarTechSlider";
+import CarColorSwitcher from "@components/tiggo8pro/CarColorSwitcher";
+import VehicleSpecs from "@components/VehicleSpecs";
 
 export default function Home() {
   const myFeatures = [
