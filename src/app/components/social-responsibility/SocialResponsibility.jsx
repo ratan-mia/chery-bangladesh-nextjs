@@ -2,7 +2,7 @@
 
 import { motion, useAnimation } from 'framer-motion';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const SocialResponsibility = ({
   // Content props
@@ -28,13 +28,27 @@ const SocialResponsibility = ({
   animationDelay = 0.2,
   
   // Container props
-  height = 'h-screen',
+  height = 'min-h-screen md:h-screen', // Responsive height handling
   className = '',
 }) => {
   // Animation controls
   const controls = useAnimation();
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(0);
+  
+  // Get window height for responsive sizing
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      const updateHeight = () => {
+        setWindowHeight(window.innerHeight);
+      };
+      
+      updateHeight();
+      window.addEventListener('resize', updateHeight);
+      return () => window.removeEventListener('resize', updateHeight);
+    }
+  }, []);
   
   // Custom intersection observer hook
   useEffect(() => {
@@ -42,7 +56,7 @@ const SocialResponsibility = ({
       ([entry]) => {
         setInView(entry.isIntersecting);
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 } // Reduced threshold for better mobile detection
     );
     
     const currentRef = ref.current;
@@ -102,15 +116,15 @@ const SocialResponsibility = ({
     }
   }, [controls, inView]);
 
-  // Determine content position classes
+  // Responsive content classes
+  // Mobile-first approach with different classes for each breakpoint
   const contentPositionClasses = contentPosition === 'right' 
-    ? 'items-end text-right' 
-    : 'items-start text-left';
+    ? 'items-center text-center sm:items-end sm:text-right min-h-[500px]' 
+    : 'items-center text-center sm:items-start sm:text-left min-h-[500px]';
   
-  // Determine content width and position
   const contentClasses = contentPosition === 'right'
-    ? 'md:ml-auto md:mr-0 pr-8 md:pr-16'
-    : 'md:mr-auto md:ml-0 pl-8 md:pl-16';
+    ? 'w-11/12 mx-auto sm:w-auto px-4 sm:px-6 md:px-8 lg:pr-16 lg:ml-auto lg:mr-0'
+    : 'w-11/12 mx-auto sm:w-auto px-4 sm:px-6 md:px-8 lg:pl-16 lg:mr-auto lg:ml-0';
   
   // Determine gradient direction based on content position
   const gradientDirection = contentPosition === 'right'
@@ -118,7 +132,12 @@ const SocialResponsibility = ({
     : 'to right';
   
   return (
-    <section className={`relative w-full overflow-hidden ${height} ${className}`}>
+    <section 
+      className={`relative w-full overflow-hidden flex flex-col justify-center ${height} ${className}`}
+      style={{ 
+        minHeight: windowHeight > 0 ? `${windowHeight}px` : '100vh',
+      }}
+    >
       {/* Background Image with Motion */}
       <motion.div 
         className="absolute inset-0 w-full h-full z-0"
@@ -131,7 +150,7 @@ const SocialResponsibility = ({
           alt={imageAlt}
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
           className="object-cover"
         />
       </motion.div>
@@ -147,26 +166,25 @@ const SocialResponsibility = ({
         }}
       ></motion.div>
       
-      {/* Content Container */}
-      <div className={`relative z-20 h-full w-full flex flex-col justify-center ${contentPositionClasses}`}>
-        <motion.div 
-          ref={ref}
+      {/* Content Container - Modified for better mobile & overall vertical alignment */}
+      <div className={`relative z-20 w-full py-16 sm:py-0 flex flex-col justify-center ${contentPositionClasses}`}>
+        <motion.div ref={ref}
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className={`w-full max-w-xl ${contentClasses}`}
+          className={`w-full max-w-full sm:max-w-xl my-auto ${contentClasses}`}
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
-            style={{ color: textColor }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight"
+            style={{ color: textColor, wordBreak: 'break-word' }}
           >
             {title}
           </motion.h2>
           
           <motion.p 
             variants={itemVariants}
-            className="text-base md:text-lg mb-8 opacity-90 leading-relaxed"
+            className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 opacity-90 leading-relaxed"
             style={{ color: textColor }}
           >
             {description}
@@ -180,14 +198,15 @@ const SocialResponsibility = ({
                 transition: { duration: 0.2 }
               }}
               whileTap={{ scale: 0.98 }}
+              className="mt-2 sm:mt-0"
             >
               <a 
                 href={ctaLink}
-                className="inline-flex items-center py-3 px-6 bg-white text-purple-900 font-medium"
+                className="inline-flex items-center py-2 px-4 sm:py-3 sm:px-6 bg-white text-purple-900 font-medium text-sm sm:text-base"
               >
                 <span>{ctaText}</span>
                 <motion.svg 
-                  className="ml-2 w-5 h-5" 
+                  className="ml-2 w-4 h-4 sm:w-5 sm:h-5" 
                   fill="none" 
                   viewBox="0 0 24 24" 
                   stroke="currentColor"
