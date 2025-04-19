@@ -29,7 +29,7 @@ const CarFeaturesSlider = ({
   
   // Enhanced functionality
   linkBase = '/features',
-  showIndicators = true,
+  showIndicators = false,
   showArrows = true,
   showNumbers = true,
   showHeading = false,
