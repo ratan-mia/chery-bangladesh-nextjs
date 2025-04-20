@@ -1,11 +1,12 @@
 'use client';
 
 import SocialResponsibility from '@components/social-responsibility/SocialResponsibility';
+import SocialResponsibilityBanner from '@components/social-responsibility/SocialResponsibilityBanner';
 
 export default function Page() {
     return (
-        <div className="space-y-12">
-        
+        <div className="main">
+            <SocialResponsibilityBanner/>
             <SocialResponsibility
                 title="GATHERING FORCES FOR GOOD"
                 description="Chery actively fulfills its global corporate citizenship responsibilities, focusing on child development, environmental protection, and charitable aid. We give back to society with sincerity and warmth through meaningful action."
