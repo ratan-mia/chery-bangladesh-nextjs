@@ -26,10 +26,10 @@ const ContactCard = () => {
       </p>
       
       <a 
-        href="mailto:careers@cherybd.com"
+        href="mailto:hr@cherybd.com"
         className="inline-block text-sm font-medium text-primary-700 hover:text-primary-900 transition-colors duration-300"
       >
-        careers@cherybd.com
+        hr@cherybd.com
       </a>
     </motion.div>
   )
