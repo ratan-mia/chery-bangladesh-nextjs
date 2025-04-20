@@ -82,7 +82,7 @@ const ServiceStickyNav = () => {
     const section = document.getElementById(sectionId);
     if (section) {
       // Get the sticky nav height to offset scrolling position
-      const navHeight = 64; // Slightly increased height for better spacing
+      const navHeight = 300; // Slightly increased height for better spacing
       const sectionTop = section.getBoundingClientRect().top + window.pageYOffset - navHeight;
       
       window.scrollTo({
@@ -106,7 +106,7 @@ const ServiceStickyNav = () => {
 
   return (
     <motion.nav 
-      className={`w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 transition-all duration-300 ${
+      className={`w-full z-50 bg-gray backdrop-blur-lg border-b md:mt-[70px] border-gray-200 transition-all duration-300 ${
         isSticky 
           ? 'fixed top-0 shadow-md' 
           : 'relative'
