@@ -10,13 +10,13 @@ const EmergencyFooter = () => {
   const [isPulsing, setIsPulsing] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Custom color palette
+  // Improved color palette with better contrast and visual appeal
   const colors = {
-    crimson: "#c4b19c", // Attention-grabbing red
-    navy: "#003049",    // Dark blue background
-    gold: "#F77F00",    // Accent color
-    orange: "#FCBF49",  // Highlight color
-    cream: "#EAE2B7"    // Light text color
+    crimson: "#E63946", // Vibrant red - more modern than previous crimson
+    navy: "#1D3557",    // Deeper, richer navy with more character
+    gold: "#c4b19c",    // Brighter, more vibrant gold
+    skyBlue: "#457B9D", // Mid-tone blue for accents
+    cream: "#F1FAEE"    // Cleaner, crisper light color for text
   };
 
   // Start pulsing animation every 10 seconds
@@ -107,48 +107,48 @@ const EmergencyFooter = () => {
                   >
                     <div className="max-w-screen-xl mx-auto px-4 py-5">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="rounded-lg p-4" style={{ backgroundColor: `${colors.navy}`, border: `1px solid rgba(255,255,255,0.1)` }}>
+                        <div className="rounded-lg p-4" style={{ backgroundColor: `${colors.navy}`, border: `1px solid ${colors.skyBlue}30`, boxShadow: `0 4px 12px rgba(0,0,0,0.1)` }}>
                           <div className="flex items-center mb-2">
-                            <div className="p-2 rounded-full mr-3" style={{ backgroundColor: `${colors.crimson}30` }}>
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.crimson} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <div className="p-2 rounded-full mr-3" style={{ backgroundColor: `${colors.gold}30` }}>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.gold} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M12 8v4l2 2"></path>
                               </svg>
                             </div>
-                            <div style={{ color: colors.cream }}>24/7 Response Time</div>
+                            <div style={{ color: colors.cream, fontWeight: 500 }}>24/7 Response Time</div>
                           </div>
-                          <p className="text-sm ml-11" style={{ color: "rgba(234, 226, 183, 0.7)" }}>
+                          <p className="text-sm ml-11" style={{ color: `${colors.cream}90` }}>
                             Our technicians respond within 30 minutes in urban areas, 60 minutes nationwide
                           </p>
                         </div>
                         
-                        <div className="rounded-lg p-4" style={{ backgroundColor: `${colors.navy}`, border: `1px solid rgba(255,255,255,0.1)` }}>
+                        <div className="rounded-lg p-4" style={{ backgroundColor: `${colors.navy}`, border: `1px solid ${colors.skyBlue}30`, boxShadow: `0 4px 12px rgba(0,0,0,0.1)` }}>
                           <div className="flex items-center mb-2">
-                            <div className="p-2 rounded-full mr-3" style={{ backgroundColor: `${colors.crimson}30` }}>
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.crimson} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <div className="p-2 rounded-full mr-3" style={{ backgroundColor: `${colors.gold}30` }}>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.gold} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
                               </svg>
                             </div>
-                            <div style={{ color: colors.cream }}>Repair Services</div>
+                            <div style={{ color: colors.cream, fontWeight: 500 }}>Repair Services</div>
                           </div>
-                          <p className="text-sm ml-11" style={{ color: "rgba(234, 226, 183, 0.7)" }}>
+                          <p className="text-sm ml-11" style={{ color: `${colors.cream}90` }}>
                             On-site repairs for minor issues and towing service for major problems
                           </p>
                         </div>
                         
-                        <div className="rounded-lg p-4" style={{ backgroundColor: `${colors.navy}`, border: `1px solid rgba(255,255,255,0.1)` }}>
+                        <div className="rounded-lg p-4" style={{ backgroundColor: `${colors.navy}`, border: `1px solid ${colors.skyBlue}30`, boxShadow: `0 4px 12px rgba(0,0,0,0.1)` }}>
                           <div className="flex items-center mb-2">
-                            <div className="p-2 rounded-full mr-3" style={{ backgroundColor: `${colors.crimson}30` }}>
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.crimson} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <div className="p-2 rounded-full mr-3" style={{ backgroundColor: `${colors.gold}30` }}>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={colors.gold} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <rect x="1" y="3" width="15" height="13"></rect>
                                 <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
                                 <circle cx="5.5" cy="18.5" r="2.5"></circle>
                                 <circle cx="18.5" cy="18.5" r="2.5"></circle>
                               </svg>
                             </div>
-                            <div style={{ color: colors.cream }}>Towing Coverage</div>
+                            <div style={{ color: colors.cream, fontWeight: 500 }}>Towing Coverage</div>
                           </div>
-                          <p className="text-sm ml-11" style={{ color: "rgba(234, 226, 183, 0.7)" }}>
+                          <p className="text-sm ml-11" style={{ color: `${colors.cream}90` }}>
                             Free towing to the nearest Chery service center up to 100km
                           </p>
                         </div>
@@ -161,13 +161,13 @@ const EmergencyFooter = () => {
               {/* Main footer */}
               <motion.div 
                 style={{ 
-                  backgroundColor: colors.crimson,
+                  background: `linear-gradient(135deg, ${colors.crimson} 0%, #d82f3c 100%)`,
                   boxShadow: "0 -2px 10px rgba(0,0,0,0.15)"
                 }}
                 animate={isPulsing ? { 
                   boxShadow: [
                     "0 -2px 10px rgba(0,0,0,0.15)", 
-                    "0 -4px 20px rgba(214, 40, 40, 0.3)", 
+                    "0 -4px 20px rgba(230, 57, 70, 0.4)", 
                     "0 -2px 10px rgba(0,0,0,0.15)"
                   ] 
                 } : {}}
@@ -179,7 +179,7 @@ const EmergencyFooter = () => {
                     onClick={toggleExpand}
                     className="hidden md:flex items-center justify-center w-14 border-r border-white/10"
                     style={{ backgroundColor: colors.navy }}
-                    whileHover={{ backgroundColor: "#00395a" }}
+                    whileHover={{ backgroundColor: "#2a4568" }}
                   >
                     <motion.div
                       animate={{ rotate: isExpanded ? 180 : 0 }}
@@ -197,11 +197,12 @@ const EmergencyFooter = () => {
                         className="mr-4 p-2 rounded-full"
                         style={{ 
                           backgroundColor: colors.navy,
-                          color: "white"
+                          color: colors.gold
                         }}
                         animate={isPulsing ? {
                           scale: [1, 1.1, 1],
-                          backgroundColor: [colors.navy, "#004b73", colors.navy]
+                          backgroundColor: [colors.navy, "#2a4568", colors.navy],
+                          boxShadow: ["0 0 0 rgba(255,183,3,0)", "0 0 15px rgba(255,183,3,0.5)", "0 0 0 rgba(255,183,3,0)"]
                         } : {}}
                         transition={{ duration: 2 }}
                       >
@@ -228,12 +229,13 @@ const EmergencyFooter = () => {
                         href="tel:09639119977"
                         className="flex items-center px-6 py-2 rounded-full font-medium text-sm"
                         style={{ 
-                          backgroundColor: "white",
-                          color: colors.crimson
+                          background: `linear-gradient(to right, ${colors.gold}, #FDBE3B)`,
+                          color: colors.navy,
+                          boxShadow: "0 2px 10px rgba(255,183,3,0.3)"
                         }}
                         whileHover={{ 
                           scale: 1.03,
-                          boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                          boxShadow: "0 4px 15px rgba(255,183,3,0.5)"
                         }}
                         whileTap={{ scale: 0.97 }}
                       >
@@ -251,24 +253,28 @@ const EmergencyFooter = () => {
                       backgroundColor: colors.navy,
                       color: colors.cream
                     }}
-                    whileHover={{ backgroundColor: "#00395a" }}
+                    whileHover={{ 
+                      backgroundColor: "#2a4568",
+                      color: colors.gold 
+                    }}
                   >
                     <X size={18} />
                   </motion.button>
                 </div>
                 
                 {/* Mobile call button - only visible on small screens */}
-                <div className="md:hidden py-2 px-4" style={{ backgroundColor: colors.navy }}>
+                <div className="md:hidden py-3 px-4" style={{ backgroundColor: colors.navy }}>
                   <motion.a
                     href="tel:09639119977"
-                    className="flex items-center justify-center py-2 rounded-full font-medium text-sm w-full"
+                    className="flex items-center justify-center py-3 rounded-full font-medium text-sm w-full"
                     style={{ 
-                      backgroundColor: "white",
-                      color: colors.crimson
+                      background: `linear-gradient(to right, ${colors.gold}, #FDBE3B)`,
+                      color: colors.navy,
+                      boxShadow: "0 2px 10px rgba(255,183,3,0.3)"
                     }}
                     whileHover={{ 
                       scale: 1.02,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                      boxShadow: "0 4px 15px rgba(255,183,3,0.4)"
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
