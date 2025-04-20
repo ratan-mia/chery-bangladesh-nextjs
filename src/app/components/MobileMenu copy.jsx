@@ -13,29 +13,44 @@ const CAR_DATA = {
       id: 'tiggo',
       name: 'Tiggo',
       // Default model to show when the series is selected
-      defaultModel: 'tiggo8pro',
+      defaultModel: 'tiggo9',
       // Series categories
       categories: [
-        // {
-        //   id: 'tiggo8series',
-        //   name: 'TIGGO 8 SERIES',
-        //   models: ['tiggo8'],
-        //   defaultExpanded: false
-        // },
-
-        {
-          id: 'tiggo8pro',
-          name: 'TIGGO 8 PRO',
-          models: [],
-          defaultExpanded: false
+        { 
+          id: 'tiggo9series', 
+          name: 'Tiggo 9 Series', 
+          models: [
+            { id: 'tiggo9', name: 'Tiggo 9' },
+            { id: 'tiggo9plus', name: 'Tiggo 9 Plus' }
+          ]
         },
-        {
-          id: 'tiggocross',
-          name: 'TIGGO CROSS',
-          models: [],
-          defaultExpanded: false
+        { 
+          id: 'tiggo8series', 
+          name: 'Tiggo 8 Series', 
+          models: [
+            { id: 'tiggo8', name: 'Tiggo 8' },
+            { id: 'tiggo8plus', name: 'Tiggo 8 Plus' },
+            { id: 'tiggo8pro', name: 'Tiggo 8 Pro' }
+          ]
         },
-
+        { 
+          id: 'tiggo7series', 
+          name: 'Tiggo 7 Series', 
+          models: [
+            { id: 'tiggo7', name: 'Tiggo 7' },
+            { id: 'tiggo7pro', name: 'Tiggo 7 Pro' }
+          ]
+        },
+        { 
+          id: 'tiggo4pro', 
+          name: 'Tiggo 4 Pro', 
+          models: []
+        },
+        { 
+          id: 'tiggo2pro', 
+          name: 'Tiggo 2 Pro', 
+          models: []
+        }
       ]
     },
     // To add Arrizo back, just uncomment this section
@@ -45,36 +60,51 @@ const CAR_DATA = {
       name: 'Arrizo',
       defaultModel: 'arrizo8',
       categories: [
-        { id: 'arrizo8', name: 'ARRIZO 8', models: [] },
-        { id: 'arrizo7', name: 'ARRIZO 7', models: [] },
-        { id: 'arrizo5', name: 'ARRIZO 5', models: [] }
+        { 
+          id: 'arrizo8', 
+          name: 'Arrizo 8', 
+          models: [
+            { id: 'arrizo8', name: 'Arrizo 8' },
+            { id: 'arrizo8plus', name: 'Arrizo 8 Plus' }
+          ]
+        },
+        { id: 'arrizo6', name: 'Arrizo 6', models: [] },
+        { id: 'arrizo5plus', name: 'Arrizo 5 Plus', models: [] }
       ]
     }
     */
   ],
   // Car specifications data
   specs: {
-    'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
-    'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
-    'tiggo8pro': { engine: '2.0', length: '4722', wheelbase: '2710', power: '187', torque: '300' },
-    'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
-    'tiggocross': { engine: '1.5', length: '4318', wheelbase: '2610', power: '145', torque: '210' },
-    'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555', power: '126', torque: '180' },
-    'arrizo8': { engine: '1.6', length: '4780', wheelbase: '2780', power: '197', torque: '290' },
-    'arrizo7': { engine: '1.5', length: '4650', wheelbase: '2700', power: '156', torque: '230' },
-    'arrizo5': { engine: '1.5', length: '4530', wheelbase: '2610', power: '147', torque: '210' }
+    'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800' },
+    'tiggo9plus': { engine: '2.0', length: '4820', wheelbase: '2850' },
+    'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710' },
+    'tiggo8plus': { engine: '1.9', length: '4750', wheelbase: '2730' },
+    'tiggo8pro': { engine: '2.0', length: '4700', wheelbase: '2710' },
+    'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670' },
+    'tiggo7pro': { engine: '1.6', length: '4510', wheelbase: '2680' },
+    'tiggo4pro': { engine: '1.5', length: '4318', wheelbase: '2610' },
+    'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555' },
+    'arrizo8': { engine: '1.6', length: '4780', wheelbase: '2780' },
+    'arrizo8plus': { engine: '1.8', length: '4800', wheelbase: '2800' },
+    'arrizo6': { engine: '1.5', length: '4630', wheelbase: '2670' },
+    'arrizo5plus': { engine: '1.5', length: '4530', wheelbase: '2610' }
   },
   // Car image paths
   imagePaths: {
     'tiggo9': '/images/cars/tiggo9.png',
+    'tiggo9plus': '/images/cars/tiggo9plus.png',
     'tiggo8': '/images/cars/tiggo8.png',
-    'tiggo8pro': '/images/cars/tiggo8.png',
+    'tiggo8plus': '/images/cars/tiggo8plus.png',
+    'tiggo8pro': '/images/cars/tiggo8pro.png',
     'tiggo7': '/images/cars/tiggo7.png',
-    'tiggocross': '/images/cars/tiggocross.png',
+    'tiggo7pro': '/images/cars/tiggo7pro.png',
+    'tiggo4pro': '/images/cars/tiggo4pro.png',
     'tiggo2pro': '/images/cars/tiggo2pro.png',
     'arrizo8': '/images/cars/arrizo8.png',
-    'arrizo7': '/images/cars/arrizo7.png',
-    'arrizo5': '/images/cars/arrizo5.png'
+    'arrizo8plus': '/images/cars/arrizo8plus.png',
+    'arrizo6': '/images/cars/arrizo6.png',
+    'arrizo5plus': '/images/cars/arrizo5plus.png'
   },
   // Car colors for fallback display
   colors: {
@@ -558,7 +588,7 @@ export default function MobileMenu({
               </li>
               <li className="border-b border-gray-100">
                 <Link 
-                  href="/news" 
+                  href="#" 
                   className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
                   onClick={closeMenu}
                 >
@@ -603,7 +633,7 @@ export default function MobileMenu({
               </li>
               <li className="border-b border-gray-100">
                 <Link 
-                  href="/contact" 
+                  href="#" 
                   className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
                   onClick={closeMenu}
                 >
@@ -612,7 +642,7 @@ export default function MobileMenu({
               </li>
               <li className="border-b border-gray-100">
                 <Link 
-                  href="/service" 
+                  href="#" 
                   className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
                   onClick={closeMenu}
                 >
