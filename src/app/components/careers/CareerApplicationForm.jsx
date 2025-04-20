@@ -8,6 +8,7 @@ import { useState } from 'react'
 /**
  * Application form for career opportunities
  * Following Chery Bangladesh design system guidelines
+ * Now with email functionality using Gmail SMTP
  */
 const CareerApplicationForm = () => {
   const [formState, setFormState] = useState({
@@ -61,17 +62,45 @@ const CareerApplicationForm = () => {
     }
   }
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     if (validateForm()) {
       setIsSubmitting(true)
       
-      // Simulate form submission
-      setTimeout(() => {
-        setIsSubmitting(false)
+      try {
+        // Create FormData to handle file upload
+        const formData = new FormData()
+        formData.append('name', formState.name)
+        formData.append('email', formState.email)
+        formData.append('phone', formState.phone)
+        formData.append('department', formState.department)
+        formData.append('message', formState.message || '')
+        if (formState.resume) {
+          formData.append('resume', formState.resume)
+        }
+        
+        // Send the form data to our API route
+        const response = await fetch('/api/send-application', {
+          method: 'POST',
+          body: formData,
+        })
+        
+        if (!response.ok) {
+          const data = await response.json()
+          throw new Error(data.error || 'Failed to submit application')
+        }
+        
         setSubmitted(true)
-      }, 1500)
+      } catch (error) {
+        console.error('Error submitting form:', error)
+        setErrors(prev => ({ 
+          ...prev, 
+          form: error.message || "There was an error submitting your application. Please try again." 
+        }))
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
   
@@ -91,7 +120,17 @@ const CareerApplicationForm = () => {
           Thank you for your interest in joining Chery Bangladesh. Our HR team will review your application and contact you soon.
         </p>
         <button
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false)
+            setFormState({
+              name: '',
+              email: '',
+              phone: '',
+              department: '',
+              message: '',
+              resume: null
+            })
+          }}
           className="inline-block py-3 px-8 font-medium transition-all duration-300 bg-primary-700 text-white hover:bg-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-700 focus:ring-opacity-50"
         >
           Submit Another Application
@@ -119,7 +158,7 @@ const CareerApplicationForm = () => {
         Don't see a specific position listed? Submit your profile to our talent pool, and we'll contact you when an opportunity matching your skills becomes available.
       </p>
       
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate encType="multipart/form-data">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-2">
@@ -246,6 +285,12 @@ const CareerApplicationForm = () => {
             I agree to the <Link href="/privacy-policy" className="text-primary-700 hover:text-primary-900 transition-colors duration-300">privacy policy</Link> and consent to having my personal data processed.
           </label>
         </div>
+        
+        {errors.form && (
+          <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
+            <p>{errors.form}</p>
+          </div>
+        )}
         
         <button
           type="submit"
