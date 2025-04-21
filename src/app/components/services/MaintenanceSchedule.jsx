@@ -177,15 +177,15 @@ const MaintenanceSchedule = () => {
               
               <div className="flex space-x-6">
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#c4b19c' }} className="mr-2"></div>
+                  <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: '#c4b19c' }}></div>
                   <span className="text-gray-700 text-sm">Basic</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#8c735d' }} className="mr-2"></div>
+                  <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: '#8c735d' }}></div>
                   <span className="text-gray-700 text-sm">Essential</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#524336' }} className="mr-2"></div>
+                  <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: '#524336' }}></div>
                   <span className="text-gray-700 text-sm">Major</span>
                 </div>
               </div>

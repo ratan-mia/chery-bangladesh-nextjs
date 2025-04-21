@@ -13,28 +13,22 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": "src/app",
+    "paths": {
+      "@/*": ["*"],
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-
-    "baseUrl": "/",
-    "paths": {
-      "@/*": ["./src/app/*"],
-      "@components/*": ["./src/app/components/*"]
-    }
+    ]
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/app/components/tiggo-cross/CarTechSlider.jsx",
-    "src/app/components/tiggo-cross/CarTechSlider-v1.jsx",
-    "src/app/components/honors/CheryHonorsParallax-v1.jsx",
-    "src/app/api/test-drive/route.js",
-    "src/app/api/send-application/route.js"
+    "src/**/*.{js,jsx,ts,tsx}",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
