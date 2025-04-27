@@ -105,6 +105,7 @@ export default function CheryTiggoSection() {
   return (
     <section 
       ref={sectionRef} 
+      id='explore'
       className="py-16 md:py-24 w-full overflow-hidden transition-colors duration-300"
       style={{ 
         backgroundColor: theme.bg,
