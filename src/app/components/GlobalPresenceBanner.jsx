@@ -19,7 +19,7 @@ const GlobalPresenceBanner = () => {
           setIsInView(false)
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2, rootMargin: '0px 0px -100px 0px' } // Added rootMargin for earlier triggering
     )
     
     if (sectionRef.current) {
@@ -46,25 +46,26 @@ const GlobalPresenceBanner = () => {
     }
   }, [isInView])
 
-  // Animation variants - simplified for cleaner transitions
+  // Animation variants - enhanced for smoother transitions
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.1
+        delayChildren: 0.1,
+        duration: 0.7
       }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: "easeOut"
       }
     }
@@ -90,11 +91,11 @@ const GlobalPresenceBanner = () => {
           <source src="/videos/ocean-horizon.mp4" type="video/mp4" />
         </video>
         
-        {/* Flat, clean gradient overlay */}
-        <div className="absolute inset-0 bg-primary/30 backdrop-filter backdrop-blur-[2px]"></div>
+        {/* Improved overlay with stronger contrast for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/40 to-gray-900/80 backdrop-filter backdrop-blur-[3px]"></div>
       </div>
       
-      {/* Content container with better vertical positioning */}
+      {/* Content container with improved vertical positioning */}
       <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 md:px-8">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
@@ -102,47 +103,47 @@ const GlobalPresenceBanner = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Top accent line - matching other sections */}
+          {/* Top accent line - enhanced visibility */}
           <motion.div 
-            className="w-12 h-1 bg-white mx-auto mb-8"
+            className="w-16 h-1 bg-white mx-auto mb-8"
             variants={itemVariants}
           ></motion.div>
           
-          {/* Heading with improved typography */}
+          {/* Heading with improved typography and text-shadow for readability */}
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight drop-shadow-md"
             variants={itemVariants}
           >
             Global Presence
           </motion.h2>
           
-          {/* Subtitle */}
+          {/* Subtitle with enhanced contrast */}
           <motion.h3 
-            className="text-xl md:text-2xl text-white/90 font-light mb-8"
+            className="text-xl md:text-2xl text-white font-light mb-8 drop-shadow-sm"
             variants={itemVariants}
           >
-            Excellence & innovation across continents
+            Excellence & Innovation Across Continents
           </motion.h3>
           
-          {/* Description with better line height and spacing */}
+          {/* Description with better line height, spacing and contrast */}
           <motion.p
-            className="text-base md:text-lg text-white/80 leading-relaxed mb-10 max-w-3xl mx-auto"
+            className="text-base md:text-lg text-white leading-relaxed mb-10 max-w-3xl mx-auto font-medium drop-shadow-sm"
             variants={itemVariants}
           >
-            Chery International proudly maintains a prominent global presence,
-            conducting business in over 100 countries and regions as a top-tier luxury
-            brand recognized for its excellence and innovation. Our worldwide network
-            ensures exceptional service and support for customers everywhere.
+            Chery International maintains a distinguished global presence in over 100 countries 
+            and regions. As a premium luxury brand, we're recognized worldwide for engineering 
+            excellence and breakthrough innovation. Our extensive global network ensures exceptional 
+            service and personalized support for our customers wherever they are.
           </motion.p>
           
-          {/* CTA buttons - dual option */}
+          {/* CTA buttons - improved styling and accessibility */}
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8"
+            className="flex flex-col sm:flex-row items-center justify-center gap-5 mt-10"
             variants={itemVariants}
           >
             <Link 
-              href="/global-network" 
-              className="px-8 py-3 bg-primary text-white hover:bg-primary-dark transition-colors duration-300 inline-flex items-center"
+              href="/about" 
+              className="px-8 py-4 bg-primary text-white hover:bg-primary-dark transition-colors duration-300 inline-flex items-center  shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-medium"
             >
               <span>Explore Our Network</span>
               <svg 
@@ -161,21 +162,10 @@ const GlobalPresenceBanner = () => {
             
             <Link 
               href="/about" 
-              className="px-8 py-3 border border-white/30 text-white hover:bg-white/10 transition-colors duration-300"
+              className="px-8 py-4 border-2 border-white/60 text-white hover:bg-white/20 transition-all duration-300  font-medium backdrop-blur-sm"
             >
               About Chery
             </Link>
-          </motion.div>
-          
-          {/* Countries counter */}
-          <motion.div 
-            className="flex justify-center mt-12"
-            variants={itemVariants}
-          >
-            <div className="border-l-2 border-primary pl-4">
-              <div className="text-4xl font-bold text-white">100+</div>
-              <div className="text-white/70 text-sm uppercase tracking-wider">Countries & Regions</div>
-            </div>
           </motion.div>
         </motion.div>
       </div>

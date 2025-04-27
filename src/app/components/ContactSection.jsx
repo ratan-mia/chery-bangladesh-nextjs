@@ -60,7 +60,7 @@ const ContactSection = () => {
           className="object-cover"
           priority
           sizes="100vw"
-          quality={90}
+          quality={100}
         />
         
         {/* Flat overlay for better text contrast */}
