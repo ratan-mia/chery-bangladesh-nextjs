@@ -227,6 +227,35 @@ export default function Home() {
     }
   ];
 
+
+  const intelligenceFeatureSlides = [
+
+    {
+      mediaType: "image",
+      image: "/images/tiggocross/intelligence/slide1.webp",
+      title: "Dual 10.25-inch Touchscreen & Virtual Driver Cluster",
+      description:
+        "",
+    },
+    {
+      mediaType: "image",
+      image: "/images/tiggocross/intelligence/slide2.webp",
+      title: "Smart Voice Assistant",
+      description:
+        "",
+    },
+    {
+      mediaType: "image",
+      image: "/images/tiggocross/intelligence/slide3.webp",
+      title: "Wireless CarPlay® & Android Auto™",
+      description:
+        "",
+    }
+  ];
+
+
+  
+
   const securityFeatureSlides = [
 
     // {
@@ -317,6 +346,7 @@ export default function Home() {
           { name: "Full-Liquid Crystal Instrument Display Screen", value: "10.25", unit: "inch" },
         ]}
       />
+ 
       <SimpleBanner
         slides={intelligenceSlides}
         accentColor="#8c735d"
@@ -326,6 +356,13 @@ export default function Home() {
         sectionTitle=''
         sectionSubtitle=''
         sectionText=''
+      />
+               <CarFeaturesSlider
+        title="Premium Exterior Features"
+        subtitle="Discover our range of elegant design elements that enhance both style and performance"
+        features={intelligenceFeatureSlides}
+        accentColor="bg-primary-700"
+        backgroundColor="bg-gray-200"
       />
 
       <SimpleBanner
