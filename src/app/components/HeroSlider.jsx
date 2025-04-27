@@ -293,7 +293,7 @@ export default function HeroSlider() {
             color: 'white'
           }}
         >
-          {heroSlides[activeIndex % heroSlides.length].id}
+          {heroSlides[activeIndex % heroSlides.length].title}
         </div>
       </div>
     </div>
