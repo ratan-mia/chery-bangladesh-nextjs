@@ -1,6 +1,7 @@
 "use client";
 
 import CarFeaturesSlider from "@components/CarFeaturesSlider";
+import Gallery from "@components/Gallery";
 import SimpleBanner from "@components/SimpleBanner";
 import CarShowcaseSlider from "@components/tiggo-cross/CarShowcaseSlider";
 import CarTechSlider from "@components/tiggo-cross/CarTechSlider";
@@ -291,6 +292,44 @@ export default function Home() {
     },
   ];
 
+  const galleryImages = [
+    {
+      src: '/images/tiggocross/gallery/gallery1.webp',
+      alt: 'Modern living room with minimalist furniture',
+      title: 'Modern Living Room Design'
+    },
+    {
+      src: '/images/tiggocross/gallery/gallery2.webp',
+      alt: 'Kitchen with marble countertops',
+      title: 'Luxury Kitchen Interior'
+    },
+    {
+      src: '/images/tiggocross/gallery/gallery3.webp',
+      alt: 'Master bedroom with large windows',
+      title: 'Spacious Master Bedroom'
+    },
+    {
+      src: '/images/tiggocross/gallery/gallery4.webp',
+      alt: 'Bathroom with walk-in shower',
+      title: 'Contemporary Bathroom'
+    },
+    {
+      src: '/images/tiggocross/gallery/gallery5.webp',
+      alt: 'Home office setup',
+      title: 'Productivity-Focused Home Office'
+    },
+    {
+      src: '/images/tiggocross/gallery/gallery6.webp',
+      alt: 'Outdoor patio area',
+      title: 'Relaxing Outdoor Space'
+    },
+    {
+      src: '/images/tiggocross/gallery/gallery7.webp',
+      alt: 'Dining room with chandelier',
+      title: 'Elegant Dining Setup'
+    }
+  ]
+
   return (
     <main>
       <CarShowcaseSlider />
@@ -376,6 +415,13 @@ export default function Home() {
         sectionText='Intelligent innovations to keep you safe on the road.'
       />
       <CarTechSlider slides={securityFeatureSlides} />
+      <Gallery 
+          images={galleryImages}
+          title="Gallery"
+          subtitle="Experience the design charm of our flagship SUV with premium features and intelligent technology"
+          aspectRatio="aspect-[16/9]"
+
+        />
     </main>
   );
 }
