@@ -22,13 +22,22 @@ export default function HeroSlider() {
   // Hero slides data
   const heroSlides = [
     {
-      id: 'tiggo8',
-      title: 'TIGGO 8',
+      id: 'tiggo8pro',
+      title: 'TIGGO 8 PRO',
       subtitle: 'Enjoy Your First Class',
       description: 'Premium 7-seater SUV with luxury features and advanced tech',
-      image: '/images/hero-slider/header-image.jpg',
-      color: '#b7a99a', // Beige/Gold color
-      link: '/models/tiggo8'
+      image: '/images/tiggo8pro/hero-slider/tiggo-8pro-banner.jpg',
+      color: '#b7a99a', 
+      link: '/models/tiggo8pro'
+    },
+    {
+      id: 'tiggo8pro2',
+      title: 'TIGGO 8 PRO',
+      subtitle: 'Enjoy Your First Class',
+      description: 'Premium 7-seater SUV with luxury features and advanced tech',
+      image: '/images/tiggo8pro/hero-slider/tiggo-8-pro.jpg',
+      color: '#b7a99a', 
+      link: '/models/tiggo8pro'
     },
     {
       id: 'tiggo9',
@@ -128,7 +137,7 @@ export default function HeroSlider() {
         {heroSlides.map((slide, index) => (
           <SwiperSlide key={slide.id} className="relative w-full h-full">
             {/* Clean flat gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent z-10"></div>
             
             {/* Background image */}
             <div className="absolute inset-0 w-full h-full">
