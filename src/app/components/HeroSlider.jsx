@@ -18,6 +18,8 @@ export default function HeroSlider() {
   const [isPaused, setIsPaused] = useState(false)
   const swiperRef = useRef(null)
   const progressIntervalRef = useRef(null)
+  const navigationPrevRef = useRef(null)
+  const navigationNextRef = useRef(null)
 
   // Hero slides data
   const heroSlides = [
@@ -30,7 +32,6 @@ export default function HeroSlider() {
       color: '#b7a99a', 
       link: '/models/tiggo8pro'
     },
-
     {
       id: 'tiggocross',
       title: 'TIGGO CROSS',
@@ -105,6 +106,14 @@ export default function HeroSlider() {
     }
   }
   
+  // Set up navigation refs when the component mounts
+  useEffect(() => {
+    if (swiperRef.current && navigationPrevRef.current && navigationNextRef.current) {
+      swiperRef.current.swiper.navigation.init()
+      swiperRef.current.swiper.navigation.update()
+    }
+  }, [])
+  
   // Cleanup interval on unmount
   useEffect(() => {
     resetProgress()
@@ -123,8 +132,12 @@ export default function HeroSlider() {
         effect="fade"
         slidesPerView={1}
         navigation={{
-          nextEl: '.hero-button-next',
-          prevEl: '.hero-button-prev',
+          prevEl: navigationPrevRef.current,
+          nextEl: navigationNextRef.current,
+        }}
+        onBeforeInit={(swiper) => {
+          swiper.params.navigation.prevEl = navigationPrevRef.current
+          swiper.params.navigation.nextEl = navigationNextRef.current
         }}
         loop={true}
         speed={800}
@@ -270,12 +283,18 @@ export default function HeroSlider() {
           
           {/* Navigation buttons */}
           <div className="flex h-full">
-            <button className="hero-button-prev w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+            <button 
+              ref={navigationPrevRef}
+              className="w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button className="hero-button-next w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+            <button 
+              ref={navigationNextRef}
+              className="w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
