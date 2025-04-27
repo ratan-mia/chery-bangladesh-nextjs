@@ -44,43 +44,43 @@ export default function CheryTiggoSection() {
   // Models data - simplified
   const models = [
     {
-      name: 'Tiggo 8',
+      name: 'Tiggo 8 Pro',
       subtitle: 'Premium 7-Seater SUV',
-      link: '/models/tiggo/tiggo8',
+      link: '/models/tiggo8pro',
       image: '/images/models/tiggo-8.png',
       specs: [
-        { label: 'Engine', value: '1.6T GDI' },
-        { label: 'Power', value: '197 HP' },
-        { label: 'Torque', value: '290 Nm' },
-        { label: 'Transmission', value: '7-DCT' }
+        { label: 'Engine', value: '2.00 GDI' },
+        { label: 'Power', value: '145 Kw' },
+        { label: 'Torque', value: '375 Nm' },
+        { label: 'Wheelbase', value: '2710 mm' }
       ],
       features: ['Panoramic Sunroof', 'Leather Seats', 'Smart Driving', 'Climate Control']
     },
-    {
-      name: 'Tiggo 7 Pro',
-      subtitle: 'Stylish Compact SUV',
-      link: '/models/tiggo/tiggo7',
-      image: '/images/models/tiggo-7.png',
-      specs: [
-        { label: 'Engine', value: '1.5T GDI' },
-        { label: 'Power', value: '156 HP' },
-        { label: 'Torque', value: '230 Nm' },
-        { label: 'Transmission', value: 'CVT' }
-      ],
-      features: ['LED Headlights', 'Digital Cluster', 'Wireless Charging', 'Auto Parking']
-    },
+    // {
+    //   name: 'Tiggo 7 Pro',
+    //   subtitle: 'Stylish Compact SUV',
+    //   link: '/models/tiggo/tiggo7',
+    //   image: '/images/models/tiggo-7.png',
+    //   specs: [
+    //     { label: 'Engine', value: '1.5T GDI' },
+    //     { label: 'Power', value: '156 HP' },
+    //     { label: 'Torque', value: '230 Nm' },
+    //     { label: 'Transmission', value: 'CVT' }
+    //   ],
+    //   features: ['LED Headlights', 'Digital Cluster', 'Wireless Charging', 'Auto Parking']
+    // },
     {
       name: 'Tiggo Cross',
       subtitle: 'Urban Crossover',
-      link: '/models/tiggo/tiggo4',
+      link: '/models/tiggocross',
       image: '/images/models/tiggo-4.png',
       specs: [
         { label: 'Engine', value: '1.5L' },
-        { label: 'Power', value: '145 HP' },
-        { label: 'Torque', value: '210 Nm' },
+        { label: 'Power', value: '113 HP' },
+        { label: 'Torque', value: '141 Nm' },
         { label: 'Transmission', value: 'CVT' }
       ],
-      features: ['Smart Connect', 'Sport Mode', 'Keyless Entry', 'Hill Assist']
+      features: ['Advanced Driver-Assistance Systems', '17” Alloy Wheels', 'Ventilated discs Brakes', 'MacPherson Strut']
     },
   ]
 
@@ -152,7 +152,7 @@ export default function CheryTiggoSection() {
             className="text-3xl md:text-4xl font-bold mb-3"
             style={{ color: theme.text }}
           >
-            Discover the Tiggo Family
+            Discover the Chery Tiggo Family
           </h2>
           <p 
             className="text-base md:text-lg max-w-2xl mx-auto"
