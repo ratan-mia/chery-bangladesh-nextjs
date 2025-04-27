@@ -140,7 +140,7 @@ const ContactSection = () => {
                 </Link>
                 
                 <Link 
-                  href="/dealerships" 
+                  href="/service#locations" 
                   className="inline-flex items-center justify-center bg-transparent border border-white text-white py-3 px-8 font-medium hover:bg-white/10 transition-colors duration-300"
                 >
                   Find us on Map
