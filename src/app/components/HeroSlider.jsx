@@ -30,6 +30,25 @@ export default function HeroSlider() {
       color: '#b7a99a', 
       link: '/models/tiggo8pro'
     },
+
+    {
+      id: 'tiggocross',
+      title: 'TIGGO CROSS',
+      subtitle: 'The Ultimate Urban SUV',
+      description: 'Compact SUV with sporty design and advanced technology',
+      image: '/images/tiggocross/slider.jpg',
+      color: '#b7a99a', // Teal color
+      link: '/models/tiggo9'
+    },
+    {
+      id: 'tiggocross2',
+      title: 'TIGGO CROSS',
+      subtitle: 'The Ultimate Urban SUV',
+      description: 'Compact SUV with sporty design and advanced technology',
+      image: '/images/tiggocross/slider2.jpg',
+      color: '#b7a99a', // Teal color
+      link: '/models/tiggo9'
+    },
     {
       id: 'tiggo8pro2',
       title: 'TIGGO 8 PRO',
@@ -38,24 +57,6 @@ export default function HeroSlider() {
       image: '/images/tiggo8pro/hero-slider/tiggo-8-pro.jpg',
       color: '#b7a99a', 
       link: '/models/tiggo8pro'
-    },
-    {
-      id: 'tiggo9',
-      title: 'TIGGO 9',
-      subtitle: 'Beyond Extraordinary',
-      description: 'Our flagship SUV with cutting-edge design and performance',
-      image: '/images/hero-slider/slider2.jpg',
-      color: '#b7a99a', // Teal color
-      link: '/models/tiggo9'
-    },
-    {
-      id: 'tiggo7pro',
-      title: 'TIGGO 7 PRO',
-      subtitle: 'Designed For Distinction',
-      description: 'Stylish compact SUV with smart technology and efficiency',
-      image: '/images/hero-slider/header-image.jpg',
-      color: '#b7a99a', // Blue color
-      link: '/models/tiggo7-pro'
     }
   ]
 
