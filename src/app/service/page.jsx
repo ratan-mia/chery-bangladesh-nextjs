@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 // Import components
 import AssistanceCTA from "@/components/services/AssistanceCTA";
 import BookServiceSection from "@/components/services/BookServiceSection";
 import CustomerReviews from "@/components/services/CustomerReviews";
 import EmergencyAssistance from "@/components/services/EmergencyAssistance";
-import EmergencyFooter from "@/components/services/EmergencyFooter";
 import HeroSlider from "@/components/services/HeroSlider";
 import MaintenanceSchedule from "@/components/services/MaintenanceSchedule";
 import PremiumServices from "@/components/services/PremiumServices";
@@ -113,7 +112,7 @@ const ServicePage = () => {
 
       {/* Emergency Footer */}
       <section id="emergency-footer">
-        <EmergencyFooter />
+        {/* <EmergencyFooter /> */}
       </section>
 
     </main>
