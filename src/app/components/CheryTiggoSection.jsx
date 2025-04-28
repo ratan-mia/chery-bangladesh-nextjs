@@ -49,9 +49,9 @@ export default function CheryTiggoSection() {
       link: '/models/tiggo8pro',
       image: '/images/models/tiggo-8.png',
       specs: [
-        { label: 'Engine', value: '2.00 GDI' },
-        { label: 'Power', value: '145 Kw' },
-        { label: 'Torque', value: '375 Nm' },
+        { label: 'Engine', value: '1.6 TGDI' },
+        { label: 'Power', value: '195 BHP' },
+        { label: 'Torque', value: '290 Nm' },
         { label: 'Wheelbase', value: '2710 mm' }
       ],
       features: ['Panoramic Sunroof', 'Leather Seats', 'Smart Driving', 'Climate Control']
@@ -76,9 +76,9 @@ export default function CheryTiggoSection() {
       image: '/images/models/tiggo-4.png',
       specs: [
         { label: 'Engine', value: '1.5L' },
-        { label: 'Power', value: '113 HP' },
-        { label: 'Torque', value: '141 Nm' },
-        { label: 'Transmission', value: 'CVT' }
+        { label: 'Power', value: '145 BHP' },
+        { label: 'Torque', value: '210 Nm' },
+        { label: 'Transmission', value: '6-Speed Dual Clutch' }
       ],
       features: ['Advanced Driver-Assistance Systems', '17” Alloy Wheels', 'Ventilated discs Brakes', 'MacPherson Strut']
     },
