@@ -92,7 +92,7 @@ const GlobalPresenceBanner = () => {
         </video>
         
         {/* Improved overlay with stronger contrast for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/40 to-gray-900/80 backdrop-filter backdrop-blur-[3px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-gray-900/50 backdrop-filter backdrop-blur-[3px]"></div>
       </div>
       
       {/* Content container with improved vertical positioning */}
