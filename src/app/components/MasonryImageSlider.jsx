@@ -84,7 +84,7 @@ export default function MasonryImageSlider() {
         model: 'TIGGO',
         variant: '8 PRO Plug-In Hybrid',
         tagline: 'Experience the design charm on the road',
-        color: '#b7a99a' // Brand color for Tiggo
+        color: '#333' // Brand color for Tiggo
       }
     },
     {
@@ -119,7 +119,7 @@ export default function MasonryImageSlider() {
         model: 'ARRIZO',
         variant: '8 Sedan',
         tagline: 'Elegance meets performance',
-        color: '#00A8E8' // Brand color for Arrizo
+        color: '#333' // Brand color for Arrizo
       }
     },
   ]
@@ -170,7 +170,8 @@ export default function MasonryImageSlider() {
                 {/* Content overlay - with themed background color */}
                 <div 
                   ref={contentRef}
-                  className="absolute bottom-0 right-0 bg-gray-50 dark:bg-gray-900 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/3"
+                  className="absolute bottom-0 right-0 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/3"
+                  style={{ background: 'linear-gradient(to right, #d4b598, #c8a482)' }}
                 >
                   {/* Accent color line */}
                   <div 
@@ -179,13 +180,13 @@ export default function MasonryImageSlider() {
                   ></div>
                   
                   <div className="mb-4">
-                    <h2 className="text-3xl md:text-4xl font-bold tracking-wide text-gray-900 dark:text-white mb-1">
+                    <h2 className="text-3xl md:text-4xl font-bold tracking-wide text-white mb-1">
                       {slide.textOverlay.model}
                     </h2>
-                    <h3 className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-2">
+                    <h3 className="text-lg md:text-xl text-white mb-2">
                       {slide.textOverlay.variant}
                     </h3>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base">
+                    <p className="text-white text-sm md:text-base">
                       {slide.textOverlay.tagline}
                     </p>
                   </div>
@@ -206,14 +207,14 @@ export default function MasonryImageSlider() {
                         >
                           <span 
                             className={`transition-colors duration-300 ${
-                              activeIndex === index ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
+                              activeIndex === index ? 'text-white' : 'text-gray-200'
                             }`}
                           >
                             {item.textOverlay.model}
                           </span>
                           
                           {/* Progress indicator */}
-                          <div className="mt-2 w-12 h-[2px] bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                          <div className="mt-2 w-12 h-[2px] bg-gray-100 overflow-hidden">
                             {activeIndex === index && (
                               <div 
                                 className="h-full" 
@@ -231,7 +232,7 @@ export default function MasonryImageSlider() {
                     {/* Navigation buttons */}
                     <div className="flex justify-end space-x-2">
                       <button 
-                        className="w-10 h-10 flex items-center justify-center border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                        className="w-10 h-10 flex items-center justify-center border border-white text-white hover:bg-white hover:text-gray-800 transition-colors"
                         onClick={() => {
                           swiperRef.current.slidePrev();
                           resetProgress();
@@ -243,7 +244,7 @@ export default function MasonryImageSlider() {
                         </svg>
                       </button>
                       <button 
-                        className="w-10 h-10 flex items-center justify-center border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                        className="w-10 h-10 flex items-center justify-center border border-white text-white hover:bg-white hover:text-gray-800 transition-colors"
                         onClick={() => {
                           swiperRef.current.slideNext();
                           resetProgress();
