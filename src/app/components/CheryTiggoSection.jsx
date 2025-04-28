@@ -54,7 +54,7 @@ export default function CheryTiggoSection() {
         { label: 'Torque', value: '290 Nm' },
         { label: 'Wheelbase', value: '2710 mm' }
       ],
-      features: ['Panoramic Sunroof', 'Leather Seats', 'Smart Driving', 'Climate Control']
+      features: ['Auto Speed Locking', 'Anti-Theft Alarm', 'Mechanical Child Safety Lock', 'Tyre Pressure Monitoring System']
     },
     // {
     //   name: 'Tiggo 7 Pro',
