@@ -10,28 +10,23 @@ import PartsAccessoriesSection from '../components/contact/PartsAccessoriesSecti
 
 export default function ContactPage() {
   const officeInfo = {
-    name: "Asian Motorspex Limited",
+    name: "Chery Bangladesh - Asian Motorspex Limited",
     address:
       "206/1-207/1 Bir Uttam Mir Shawkat Sarak, Tejgaon Gulshan Link Road, Dhaka",
     phone: "09639119977",
     email: "info@cherybd.com",
-    hours: "Monday - Friday: 10:00 AM - 8:00 PM\nSaturday: 10:00 AM - 8:00 PM\nSunday: Closed",
+    hours: "Saturday - Friday: 10:00 AM - 8:00 PM",
     coordinates: "23.777319,90.412587",
     mapLocation:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.3042707244614!2d90.41258731496817!3d23.77731898458251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c77aaaaaaaa%3A0xbbbbbbbbbbbbbbbb!2sTejgaon%20Gulshan%20Link%20Road%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1648653723428!5m2!1sen!2sbd",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.359881323201!2d90.4075285758975!3d23.770195788015073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7876eb61d75%3A0x94d0fb4b26e08e86!2sChery%20Bangladesh%20-%20Asian%20Motorspex%20Ltd.!5e0!3m2!1sen!2sbd!4v1745841698011!5m2!1sen!2sbd",
   }
 
   // Vehicle models
   const models = [
     { value: "", label: "Select a model (optional)" },
     { value: "tiggo9", label: "Tiggo 9" },
-    { value: "tiggo8", label: "Tiggo 8" },
-    { value: "tiggo7", label: "Tiggo 7" },
-    { value: "tiggo4pro", label: "Tiggo 4 Pro" },
-    { value: "tiggo2pro", label: "Tiggo 2 Pro" },
-    { value: "arrizo8", label: "Arrizo 8" },
-    { value: "arrizo7", label: "Arrizo 7" },
-    { value: "arrizo5", label: "Arrizo 5" },
+    { value: "tiggo8pro", label: "Tiggo 8 Pro" },
+    { value: "tiggo7pro", label: "Tiggo 7 Pro" },
   ]
 
   // For smooth scrolling to sections when using anchor links

@@ -36,7 +36,7 @@ export default function FormSelect({
               key={option.value} 
               value={option.value}
               style={{
-                backgroundColor: '#111827',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
                 color: theme.text
               }}
             >

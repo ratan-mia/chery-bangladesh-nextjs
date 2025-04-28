@@ -75,7 +75,7 @@ export default function MapSection({ mapSrc, location = { address: "206/1-207/1 
 
             <motion.span
               variants={itemVariants}
-              className="inline-block text-sm uppercase tracking-wider mb-3 text-primary"
+              className="inline-block text-lg uppercase tracking-wider mb-3 text-primary"
             >
               Visit Our Showroom
             </motion.span>

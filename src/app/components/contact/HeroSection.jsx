@@ -71,7 +71,7 @@ export default function HeroSection() {
     { 
       icon: MapPin, 
       text: 'Find us on the map',
-      href: '/dealerships',
+      href: 'https://www.google.com/maps/place/Chery+Bangladesh+-+Asian+Motorspex+Ltd./@23.7701958,90.4075286,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7876eb61d75:0x94d0fb4b26e08e86!8m2!3d23.7701909!4d90.4101035!16s%2Fg%2F11s5ynvq3q?entry=ttu&g_ep=EgoyMDI1MDQyMy4wIKXMDSoASAFQAw%3D%3D',
     }
   ]
 
@@ -130,6 +130,7 @@ export default function HeroSection() {
                     key={index} 
                     href={method.href}
                     className="flex items-center text-gray-600 hover:text-primary transition-colors duration-300"
+                    target="_blank"
                   >
                     <div className="w-10 h-10 rounded flex items-center justify-center bg-gray-100 mr-4">
                       <method.icon size={20} className="text-primary" />
@@ -194,13 +195,13 @@ export default function HeroSection() {
                 Headquarters
               </h3>
               <address className="not-italic text-gray-600 space-y-3">
-                <p>Asian Motorspex Limited</p>
+                <p>Chery Bangladesh - Asian Motorspex Limited</p>
                 <p>206/1-207/1 Bir Uttam Mir Shawkat Sarak</p>
                 <p>Tejgaon Gulshan Link Road, Dhaka</p>
               </address>
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <div className="text-sm text-gray-500">Business Hours</div>
-                <div className="text-gray-600">Mon-Fri: 10:00 AM - 8:00 PM<br />Saturday: 10:00 AM - 8:00 PM</div>
+                <div className="text-gray-600">Sat-Fri: 10:00 AM - 8:00 PM</div>
               </div>
             </div>
           </motion.div>
