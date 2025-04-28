@@ -192,7 +192,7 @@ export default function HeroSection() {
             <div className="bg-white shadow-lg p-8 ml-12 border-l-2 border-l-primary">
               <h3 className="text-xl font-bold text-gray-900 mb-4 relative">
                 <span className="absolute -left-12 top-1/2 transform -translate-y-1/2 w-8 h-1 bg-primary"></span>
-                Headquarters
+                Showroom Location
               </h3>
               <address className="not-italic text-gray-600 space-y-3">
                 <p>Chery Bangladesh - Asian Motorspex Limited</p>
