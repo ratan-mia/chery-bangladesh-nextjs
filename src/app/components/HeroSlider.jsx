@@ -186,7 +186,7 @@ export default function HeroSlider() {
                 {/* CTA button with accent color */}
                 <Link href={slide.link}>
                   <button 
-                    className="group px-6 sm:px-8 md:px-10 py-2 sm:py-3 cursor-pointer text-white uppercase tracking-wider text-xs sm:text-sm font-medium transition-all duration-300 flex items-center"
+                    className="group px-6 sm:px-8 md:px-10 py-2 sm:py-3 text-white uppercase tracking-wider text-xs sm:text-sm font-medium transition-all duration-300 flex items-center"
                     style={{ backgroundColor: slide.color }}
                   >
                     Explore
@@ -212,8 +212,8 @@ export default function HeroSlider() {
         {/* Progress indicators */}
         <div className="flex-1 px-3 sm:px-4 md:px-6 lg:px-8 h-full w-full sm:w-auto py-2 sm:py-0">
           <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6 h-full">
-            {/* Slide indicators - hidden on smallest screens */}
-            <div className="hidden xs:flex space-x-2 sm:space-x-3 h-full items-center">
+            {/* Slide indicators - visible on all screen sizes */}
+            <div className="flex space-x-2 sm:space-x-3 h-full items-center">
               {heroSlides.map((_, index) => {
                 const realIndex = index % heroSlides.length
                 const isCurrent = realIndex === activeIndex % heroSlides.length
