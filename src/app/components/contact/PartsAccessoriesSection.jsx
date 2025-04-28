@@ -3,12 +3,11 @@
 import { motion } from 'framer-motion'
 import {
   Clock,
-  FileText,
   Mail,
   Package,
   Phone,
   ShieldCheck,
-  Wrench,
+  Wrench
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -80,11 +79,18 @@ const PartsAccessoriesSection = () => {
         'Factory-certified original parts designed specifically for your Chery vehicle.',
     },
     {
-      icon: <FileText size={24} />,
-      title: 'Parts Catalog',
+      icon: <Mail size={24} />,
+      title: 'Parts Inquiries',
       description:
-        'Browse our complete parts catalog or request specific parts by contacting our team.',
+        'Contact our parts department for any inquiries or special requests.',
     },
+
+    // {
+    //   icon: <FileText size={24} />,
+    //   title: 'Parts Catalog',
+    //   description:
+    //     'Browse our complete parts catalog or request specific parts by contacting our team.',
+    // },
   ]
 
   return (
@@ -223,7 +229,7 @@ const PartsAccessoriesSection = () => {
                         href="mailto:parts@cherybd.com"
                         className="text-lg hover:text-primary transition-colors text-gray-600"
                       >
-                        parts@cherybd.com
+                        info@cherybd.com
                       </a>
                     </div>
                   </div>
@@ -240,11 +246,10 @@ const PartsAccessoriesSection = () => {
                         Hours of Operation
                       </p>
                       <p className="text-gray-600">
-                        Monday - Friday: 8:30 AM - 5:30 PM
+                        Saturday - Friday: 10:00 AM - 8:00 PM
                         <br />
-                        Saturday: 9:00 AM - 3:00 PM
-                        <br />
-                        Sunday: Closed
+                    
+                      
                       </p>
                     </div>
                   </div>
@@ -253,7 +258,7 @@ const PartsAccessoriesSection = () => {
                 {/* Order button */}
                 <div className="mt-8">
                   <a
-                    href="/parts-request"
+                    href="/contact"
                     className="block w-full py-3 px-6 text-center font-medium bg-primary hover:bg-primary-dark text-white transition-colors duration-300"
                   >
                     Submit Parts Request
@@ -335,10 +340,10 @@ const PartsAccessoriesSection = () => {
               </a>
 
               <a
-                href="/parts-catalog"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white transition-colors duration-300 group"
               >
-                <span>View Parts Catalog</span>
+                <span>Contact us</span>
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
                   className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" 

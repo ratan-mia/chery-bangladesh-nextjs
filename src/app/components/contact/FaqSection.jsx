@@ -86,7 +86,7 @@ export default function FaqSection() {
     {
       question: "What are your showroom hours?",
       answer:
-        "Our Dhaka showroom is open Monday to Friday from 9:00 AM to 6:00 PM, and Saturday from 10:00 AM to 4:00 PM. We are closed on Sundays and public holidays. We recommend calling ahead to schedule a test drive.",
+        "Our Dhaka showroom is open Saturday to Friday from 10:00 AM to 8:00 PM. We recommend calling ahead to schedule a test drive.",
     },
     {
       question: "How do I schedule a test drive?",
@@ -106,7 +106,7 @@ export default function FaqSection() {
     {
       question: "What warranty do Chery vehicles come with?",
       answer:
-        "All new Chery vehicles in Bangladesh come with a comprehensive 6-year/150,000 km warranty (whichever comes first). This includes 24/7 roadside assistance throughout the warranty period. Some models may have additional warranty features. Please ask your sales representative for specific details.",
+        "All new Chery vehicles in Bangladesh come with a comprehensive 5-year/100,000 km warranty (whichever comes first). This includes 24/7 roadside assistance throughout the warranty period. Some models may have additional warranty features. Please ask your sales manager for specific details.",
     },
     {
       question: "Do you offer test drives at home?",

@@ -23,7 +23,6 @@ export default function ContactPage() {
 
   // Vehicle models
   const models = [
-    { value: "", label: "Select a model (optional)" },
     { value: "tiggo9", label: "Tiggo 9" },
     { value: "tiggo8pro", label: "Tiggo 8 Pro" },
     { value: "tiggo7pro", label: "Tiggo 7 Pro" },
