@@ -152,22 +152,22 @@ export default function MasonryImageSlider() {
         {sliderContent.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="relative w-full h-[600px] sm:h-[700px] md:h-[800px] lg:h-[90vh] max-h-[900px]">
-              {/* Masonry grid layout */}
-              <div className="grid grid-cols-3 grid-rows-4 md:grid-rows-2 gap-1 h-full">
-                {slide.images.map((image, index) => (
-                  <div key={index} className={`relative ${image.className} overflow-hidden`}>
-                    <Image 
-                      src={image.src} 
-                      alt={image.alt}
-                      fill
-                      className="object-cover object-center transition-transform duration-700 hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                      priority={slide.id === 1 && index === 0}
-                    />
-                  </div>
-                ))}
-                
-                {/* Content overlay - with themed background color */}
+               {/* Masonry grid layout  */}
+                      <div className="grid grid-cols-3 grid-rows-4 md:grid-rows-2 gap-1 h-full">
+                      {slide.images.map((image, index) => (
+                        <div key={index} className={`relative ${image.className} overflow-hidden`}>
+                        <Image 
+                          src={image.src} 
+                          alt={image.alt}
+                          fill
+                          className="object-cover object-center transition-transform duration-700 hover:scale-105"
+                          sizes="100vw"
+                          priority={slide.id === 1 && index === 0}
+                        />
+                        </div>
+                      ))}
+                      
+                      {/* Content overlay - with themed background color */}
                 <div 
                   ref={contentRef}
                   className="absolute bottom-0 right-0 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/3"
