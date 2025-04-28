@@ -124,7 +124,7 @@ export default function HeroSlider() {
   }, [])
   
   return (
-    <div className="relative w-full h-[calc(100vh-64px)]">
+    <div className="relative w-full h-[calc(100vh-64px)] min-h-[500px]">
       {/* Main Slider */}
       <Swiper
         ref={swiperRef}
@@ -151,7 +151,7 @@ export default function HeroSlider() {
         {heroSlides.map((slide, index) => (
           <SwiperSlide key={slide.id} className="relative w-full h-full">
             {/* Clean flat gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-10"></div>
             
             {/* Background image */}
             <div className="absolute inset-0 w-full h-full">
@@ -160,39 +160,39 @@ export default function HeroSlider() {
                 alt={slide.title}
                 fill
                 priority={index === 0}
-                sizes="100vw"
-                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                className="object-cover object-center"
               />
             </div>
             
-            {/* Content - positioned to ensure it doesn't overlap with bottom bar */}
-            <div className="absolute inset-0 flex flex-col justify-end z-20 p-8 md:p-16 lg:p-20 pb-24">
+            {/* Content - positioned higher up in the slider */}
+            <div className="absolute inset-0 flex flex-col justify-center z-20 p-4 sm:p-6 md:p-10 lg:p-16 pb-20 sm:pb-24">
               <div className="max-w-xl">
                 {/* Model name with top accent line */}
-                <div className="mb-4">
+                <div className="mb-2 sm:mb-4">
                   <div 
-                    className="w-12 h-1 mb-4"
+                    className="w-8 sm:w-12 h-1 mb-2 sm:mb-4"
                     style={{ backgroundColor: slide.color }}
                   ></div>
-                  <h2 className="text-5xl md:text-6xl font-bold text-white tracking-wide">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wide">
                     {slide.title}
                   </h2>
                 </div>
                 
                 {/* Subtitle and description */}
-                <p className="text-xl md:text-2xl text-white font-light mb-2">{slide.subtitle}</p>
-                <p className="text-base text-gray-200 mb-8 max-w-md">{slide.description}</p>
+                <p className="text-lg sm:text-xl md:text-2xl text-white font-light mb-1 sm:mb-2">{slide.subtitle}</p>
+                <p className="text-sm sm:text-base text-gray-200 mb-4 sm:mb-6 md:mb-8 max-w-md">{slide.description}</p>
                 
                 {/* CTA button with accent color */}
                 <Link href={slide.link}>
                   <button 
-                    className="group px-10 py-3 text-white uppercase tracking-wider text-sm font-medium transition-all duration-300 flex items-center"
+                    className="group px-6 sm:px-8 md:px-10 py-2 sm:py-3 cursor-pointer text-white uppercase tracking-wider text-xs sm:text-sm font-medium transition-all duration-300 flex items-center"
                     style={{ backgroundColor: slide.color }}
                   >
                     Explore
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
+                      className="h-3 w-3 sm:h-4 sm:w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
@@ -208,12 +208,12 @@ export default function HeroSlider() {
       </Swiper>
       
       {/* Fixed bottom controls bar */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 flex justify-between items-center border-t border-white/10 bg-black/20 backdrop-blur-sm h-16">
+      <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col sm:flex-row justify-between items-center border-t border-white/10 bg-black/20 backdrop-blur-sm h-auto sm:h-16">
         {/* Progress indicators */}
-        <div className="flex-1 px-8 h-full">
-          <div className="flex items-center space-x-6 h-full">
-            {/* Slide indicators */}
-            <div className="flex space-x-3 h-full items-center">
+        <div className="flex-1 px-3 sm:px-4 md:px-6 lg:px-8 h-full w-full sm:w-auto py-2 sm:py-0">
+          <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6 h-full">
+            {/* Slide indicators - hidden on smallest screens */}
+            <div className="hidden xs:flex space-x-2 sm:space-x-3 h-full items-center">
               {heroSlides.map((_, index) => {
                 const realIndex = index % heroSlides.length
                 const isCurrent = realIndex === activeIndex % heroSlides.length
@@ -226,7 +226,7 @@ export default function HeroSlider() {
                     aria-label={`Go to slide ${index + 1}`}
                   >
                     <span 
-                      className={`block w-8 h-[2px] transition-all ${
+                      className={`block w-5 sm:w-6 md:w-8 h-[2px] transition-all ${
                         isCurrent ? 'bg-white' : 'bg-white/30 group-hover:bg-white/50'
                       }`}
                     ></span>
@@ -254,15 +254,15 @@ export default function HeroSlider() {
             {/* Pause/Play button */}
             <button 
               onClick={toggleAutoplay}
-              className="w-8 h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+              className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors"
               aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
             >
               {isPaused ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
                 </svg>
               )}
@@ -271,31 +271,31 @@ export default function HeroSlider() {
         </div>
         
         {/* Navigation and counter */}
-        <div className="flex items-center h-full">
+        <div className="flex items-center h-10 sm:h-full w-full sm:w-auto border-t sm:border-t-0 border-white/10">
           {/* Slide counter */}
-          <div className="px-6 border-l border-white/10 h-full flex items-center">
+          <div className="px-3 sm:px-4 md:px-6 border-r sm:border-l sm:border-r-0 border-white/10 h-full flex items-center">
             <span className="text-white flex items-baseline">
-              <span className="text-xl font-bold">{(activeIndex % heroSlides.length) + 1}</span>
-              <span className="mx-1 text-sm opacity-50">/</span>
-              <span className="text-sm opacity-50">{heroSlides.length}</span>
+              <span className="text-base sm:text-lg md:text-xl font-bold">{(activeIndex % heroSlides.length) + 1}</span>
+              <span className="mx-1 text-xs sm:text-sm opacity-50">/</span>
+              <span className="text-xs sm:text-sm opacity-50">{heroSlides.length}</span>
             </span>
           </div>
           
           {/* Navigation buttons */}
-          <div className="flex h-full">
+          <div className="flex h-full flex-1 sm:flex-auto">
             <button 
               ref={navigationPrevRef}
-              className="w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex-1 sm:flex-auto w-12 sm:w-16 h-full flex items-center justify-center border-r border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
             <button 
               ref={navigationNextRef}
-              className="w-16 h-full flex items-center justify-center border-l border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex-1 sm:flex-auto w-12 sm:w-16 h-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/5 transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </button>
@@ -304,9 +304,9 @@ export default function HeroSlider() {
       </div>
       
       {/* Model name indicator */}
-      <div className="absolute top-8 left-8 md:left-16 z-30">
+      <div className="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-10 lg:left-16 z-30">
         <div 
-          className="py-1 px-3 text-xs font-medium uppercase tracking-widest"
+          className="py-1 px-2 sm:px-3 text-xs font-medium uppercase tracking-widest"
           style={{ 
             backgroundColor: heroSlides[activeIndex % heroSlides.length].color,
             color: 'white'
