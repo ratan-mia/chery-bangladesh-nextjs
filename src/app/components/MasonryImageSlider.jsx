@@ -81,7 +81,7 @@ export default function MasonryImageSlider() {
         },
       ],
       textOverlay: {
-        model: 'TIGGO',
+        model: 'TIGGO 8 PRO',
         variant: '8 PRO Plug-In Hybrid',
         tagline: 'Experience the design charm on the road',
         color: '#333' // Brand color for Tiggo
@@ -116,7 +116,7 @@ export default function MasonryImageSlider() {
         },
       ],
       textOverlay: {
-        model: 'ARRIZO',
+        model: 'TIGGO CROSS',
         variant: '8 Sedan',
         tagline: 'Elegance meets performance',
         color: '#333' // Brand color for Arrizo
