@@ -52,9 +52,9 @@ export default function CheryTiggoSection() {
         { label: 'Engine', value: '1.6 TGDI' },
         { label: 'Power', value: '195 BHP' },
         { label: 'Torque', value: '290 Nm' },
-        { label: 'Wheelbase', value: '2710 mm' }
+        { label: 'Transmission', value: '7-Speed Dual Clutch (Wet Type)' }
       ],
-      features: ['Auto Speed Locking', 'Anti-Theft Alarm', 'Mechanical Child Safety Lock', 'Tyre Pressure Monitoring System']
+      features: ['Premium Luxury 7-seat SUV', 'Panoramic Sunroof', 'Dual zone automatic climate control system', 'Multi-color ambient system with music rhythm']
     },
     // {
     //   name: 'Tiggo 7 Pro',
@@ -80,7 +80,7 @@ export default function CheryTiggoSection() {
         { label: 'Torque', value: '210 Nm' },
         { label: 'Transmission', value: '6-Speed Dual Clutch' }
       ],
-      features: ['Speed Limit Reminder', 'Brake Assist System', 'Driver Seat Belt Reminder', 'Electronic Accelerator']
+      features: ['Premium Interior', 'Rain Sensor Wipers', 'Sporty Back Cockpit', '360° Panoramic Camera View']
     },
   ]
 
