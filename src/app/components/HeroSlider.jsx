@@ -35,7 +35,7 @@ export default function HeroSlider() {
     {
       id: 'tiggocross',
       title: 'TIGGO CROSS',
-      subtitle: 'The Ultimate Urban SUV',
+      subtitle: 'Cross wonderful life',
       description: 'Compact SUV with sporty design and advanced technology',
       image: '/images/tiggocross/slider.jpg',
       color: '#b7a99a', // Teal color
