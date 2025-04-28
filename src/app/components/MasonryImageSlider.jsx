@@ -58,26 +58,26 @@ export default function MasonryImageSlider() {
         {
           src: '/images/masonary/1/001-2.jpg',
           alt: 'Tiggo exterior with couple',
-          className: 'col-span-2 row-span-1 md:row-span-2 h-full',
+          className: 'col-span-3 row-span-2 md:col-span-2 md:row-span-1 h-full',
           position: 'top-left',
         },
         {
           src: '/images/masonary/1/002-2.jpg', 
           alt: 'Tiggo charging station',
-          className: 'col-span-1 row-span-1 h-full',
-          position: 'top-right-top',
+          className: 'col-span-3 row-span-1 md:col-span-1 md:row-span-2 h-full',
+          position: 'top-right',
         },
         {
           src: '/images/masonary/1/003-2.jpg',
           alt: 'Tiggo interior with driver',
-          className: 'col-span-1 row-span-1 h-full',
-          position: 'bottom-right-top',
+          className: 'col-span-3 row-span-1 md:col-span-1 md:row-span-1 h-full',
+          position: 'bottom-left',
         },
         {
           src: '/images/masonary/1/004-2.jpg',
           alt: 'Family inside Tiggo',
-          className: 'col-span-2 row-span-1 md:col-span-1 md:row-span-1 h-full',
-          position: 'bottom-left',
+          className: 'col-span-3 row-span-1 md:col-span-1 md:row-span-1 h-full',
+          position: 'bottom-right',
         },
       ],
       textOverlay: {
