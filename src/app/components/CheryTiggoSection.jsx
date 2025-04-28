@@ -80,7 +80,7 @@ export default function CheryTiggoSection() {
         { label: 'Torque', value: '210 Nm' },
         { label: 'Transmission', value: '6-Speed Dual Clutch' }
       ],
-      features: ['Advanced Driver-Assistance Systems', '17” Alloy Wheels', 'Ventilated discs Brakes', 'MacPherson Strut']
+      features: ['Speed Limit Reminder', 'Brake Assist System', 'Driver Seat Belt Reminder', 'Electronic Accelerator']
     },
   ]
 
