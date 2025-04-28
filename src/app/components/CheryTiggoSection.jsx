@@ -71,7 +71,7 @@ export default function CheryTiggoSection() {
     // },
     {
       name: 'Tiggo Cross',
-      subtitle: 'Urban Crossover',
+      subtitle: 'Ultimate Crossover',
       link: '/models/tiggocross',
       image: '/images/models/tiggo-4.png',
       specs: [
