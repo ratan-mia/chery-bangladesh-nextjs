@@ -86,12 +86,12 @@ const ContactSection = () => {
             >
               {/* Heading with improved typography */}
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight">
-                Connect with <span className="text-primary">Chery Bangladesh</span>
+                Connect with <br/> <span className="text-primary">Chery Bangladesh</span>
               </h2>
               
               {/* Enhanced description */}
               <p className="text-lg md:text-xl text-white/90 mb-8 max-w-md">
-                Experience premium automotive excellence and personalized service. Let's start a conversation today.
+                Experience premium automotive excellence and personalized service.<br/> Let's start a conversation today.
               </p>
               
               {/* Contact options with clean, flat design */}
@@ -160,9 +160,9 @@ const ContactSection = () => {
 >
   <div className="border-l-2 border-primary pl-3 sm:pl-4">
     <h3 className="text-white font-medium text-base sm:text-lg mb-1 sm:mb-2">Business Hours</h3>
-    <p className="text-white/80 text-xs sm:text-sm mb-0.5 sm:mb-1">Mon-Fri: 10:00 AM - 8:00 PM</p>
-    <p className="text-white/80 text-xs sm:text-sm mb-0.5 sm:mb-1">Saturday: 10:00 AM - 8:00 PM</p>
-    <p className="text-white/80 text-xs sm:text-sm">Govt. Holidays: Closed(Not Always)</p>
+    <p className="text-white/80 text-xs sm:text-sm mb-0.5 sm:mb-1">Saturday-Fri: 10:00 AM - 8:00 PM</p>
+    {/* <p className="text-white/80 text-xs sm:text-sm mb-0.5 sm:mb-1">Saturday: 10:00 AM - 8:00 PM</p> */}
+
   </div>
 </motion.div>
     </section>
