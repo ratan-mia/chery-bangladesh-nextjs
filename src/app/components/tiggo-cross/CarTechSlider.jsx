@@ -12,39 +12,25 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Theme configuration modified with white background
-const themes = {
-  dark: {
-    accent: "#8c735d", // Primary 700
-    text: "#F9FAFB", // Gray 50
-    textSecondary: "#D1D5DB", // Gray 300
-    buttonBg: "#524336", // Primary 900
-    buttonText: "#FFFFFF",
-    contentBg: "#1F2937", // Gray 800
-    borderColor: "#374151", // Gray 700
-    cardBg: "#111827", // Gray 900
-    overlay: "rgba(0, 0, 0, 0.7)"
-  },
-  light: {
-    accent: "#8c735d", // Primary 700
-    text: "#111827", // Gray 900
-    textSecondary: "#4B5563", // Gray 600
-    buttonBg: "#F3F4F6", // Gray 100
-    buttonText: "#111827", // Gray 900
-    contentBg: "#FFFFFF", // White background
-    borderColor: "#E5E7EB", // Gray 200
-    cardBg: "#F9FAFB", // Gray 50
-    overlay: "rgba(255, 255, 255, 0.7)"
-  },
+// Theme configuration with refined earth tones inspired by CarColorSwitcher
+const theme = {
+  primary: '#8c735d',
+  primaryDark: '#65584A',
+  primaryLight: '#A59988',
+  accent: '#D3B88C',
+  text: '#2D2A26',
+  textSecondary: '#5F574E',
+  buttonBg: '#F3F4F6',
+  buttonText: '#2D2A26',
+  contentBg: '#FFFFFF', // Changed from F7F6F4 to match CarColorSwitcher's background
+  borderColor: '#E5E0DB',
+  cardBg: '#F5F4F2',
+  highlight: '#F0EBE5',
+  overlay: "rgba(255, 255, 255, 0.7)"
 };
 
-// Setting the default theme to light
-const defaultTheme = "light";
-
 // Media placeholder component with improved design
-const ImagePlaceholder = ({ currentTheme }) => {
-  const theme = themes[currentTheme];
-
+const ImagePlaceholder = () => {
   return (
     <div
       className="w-full h-full flex items-center justify-center"
@@ -61,7 +47,7 @@ const ImagePlaceholder = ({ currentTheme }) => {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        style={{ color: theme.accent }}
+        style={{ color: theme.primary }}
       >
         <rect x="3" y="3" width="18" height="18" rx="0" ry="0"></rect>
         <circle cx="8.5" cy="8.5" r="1.5"></circle>
@@ -72,11 +58,10 @@ const ImagePlaceholder = ({ currentTheme }) => {
 };
 
 // Enhanced video player component with autoplay and better loading
-const VideoPlayer = ({ src, poster, currentTheme }) => {
+const VideoPlayer = ({ src, poster }) => {
   const videoRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const theme = themes[currentTheme];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -111,8 +96,8 @@ const VideoPlayer = ({ src, poster, currentTheme }) => {
   return (
     <div className="relative w-full h-full overflow-hidden">
       {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-          <div className="w-10 h-10 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+          <div className="w-10 h-10 border-4 rounded-full animate-spin" style={{ borderColor: theme.primary, borderTopColor: 'transparent' }}></div>
         </div>
       )}
       <video
@@ -133,18 +118,17 @@ const VideoPlayer = ({ src, poster, currentTheme }) => {
   );
 };
 
-// Improved navigation buttons component with smoother hover effects
-const NavigationButtons = ({ onPrev, onNext, currentTheme }) => {
-  const theme = themes[currentTheme];
-
+// Improved navigation buttons component with refined styling
+const NavigationButtons = ({ onPrev, onNext }) => {
   return (
     <div className="flex justify-center space-x-4 mt-5">
       <button
         onClick={onPrev}
-        className="flex items-center justify-center w-12 h-12 transition-all duration-300 hover:scale-105"
+        className="flex items-center justify-center w-12 h-12 transition-all duration-300 hover:scale-105 rounded-full"
         style={{
           backgroundColor: theme.buttonBg,
-          color: theme.buttonText,
+          color: theme.primaryDark,
+          border: `1px solid ${theme.borderColor}`
         }}
         aria-label="Previous slide"
       >
@@ -165,10 +149,10 @@ const NavigationButtons = ({ onPrev, onNext, currentTheme }) => {
       </button>
       <button
         onClick={onNext}
-        className="flex items-center justify-center w-12 h-12 transition-all duration-300 hover:scale-105"
+        className="flex items-center justify-center w-12 h-12 transition-all duration-300 hover:scale-105 rounded-full"
         style={{
-          backgroundColor: theme.buttonBg,
-          color: theme.buttonText,
+          backgroundColor: theme.primary,
+          color: "#FFFFFF",
         }}
         aria-label="Next slide"
       >
@@ -196,10 +180,8 @@ const PaginationIndicator = ({
   activeIndex,
   totalSlides,
   onDotClick,
-  currentTheme,
 }) => {
   const slideIndices = Array.from({ length: totalSlides }, (_, i) => i);
-  const theme = themes[currentTheme];
 
   return (
     <div className="flex items-center justify-center space-x-2 py-3">
@@ -208,9 +190,9 @@ const PaginationIndicator = ({
           key={index}
           className="transition-all duration-300 cursor-pointer"
           style={{
-            backgroundColor: index === activeIndex ? theme.accent : `${theme.accent}40`,
+            backgroundColor: index === activeIndex ? theme.primary : theme.borderColor,
             width: "24px",
-            height: "2px",
+            height: "3px",
             opacity: index === activeIndex ? 1 : 0.5,
             transform: index === activeIndex ? "scaleX(1.2)" : "scaleX(1)",
           }}
@@ -241,12 +223,9 @@ const CarTechSlider = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState(null);
-  const [currentTheme, setCurrentTheme] = useState(defaultTheme); // Set to light theme by default
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [slideChangeDirection, setSlideChangeDirection] = useState("next");
-
-  const theme = themes[currentTheme];
 
   const handlePrev = useCallback(() => {
     setSlideChangeDirection("prev");
@@ -306,26 +285,6 @@ const CarTechSlider = ({
     }
   }, [isHovering, autoplay, swiperInstance]);
 
-  // Removed theme detector to always use light theme
-  // You can uncomment this if you want to keep the auto-detection functionality
-  /*
-  useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    const handleChange = (e) => {
-      setCurrentTheme(e.matches ? 'dark' : 'light');
-    };
-    
-    // Set initial value
-    setCurrentTheme(darkModeMediaQuery.matches ? 'dark' : 'light');
-    
-    // Listen for changes
-    darkModeMediaQuery.addEventListener('change', handleChange);
-    
-    return () => darkModeMediaQuery.removeEventListener('change', handleChange);
-  }, []);
-  */
-
   if (!slides.length) {
     return null;
   }
@@ -367,7 +326,7 @@ const CarTechSlider = ({
       ref={sectionRef}
       className={`w-full py-12 md:py-16 relative overflow-hidden ${className}`}
       style={{
-        backgroundColor: theme.contentBg, // White background
+        backgroundColor: theme.contentBg,
         color: theme.text,
         borderTop: `1px solid ${theme.borderColor}`,
         borderBottom: `1px solid ${theme.borderColor}`,
@@ -402,7 +361,7 @@ const CarTechSlider = ({
               <div
                 className="h-1 transition-all duration-700 ease-out"
                 style={{
-                  backgroundColor: theme.accent,
+                  backgroundColor: theme.primary,
                   width: isInView ? "96px" : "0",
                 }}
               ></div>
@@ -466,7 +425,7 @@ const CarTechSlider = ({
               {slides.map((slide, index) => (
                 <SwiperSlide key={slide.id || index} className="h-auto">
                   <div
-                    className={`h-full flex flex-col backdrop-blur-sm transition-all duration-300 ${
+                    className={`h-full flex flex-col backdrop-blur-sm transition-all duration-300 rounded-sm ${
                       layout === "fullscreen" ? "p-0" : "p-3"
                     }`}
                     style={{
@@ -474,7 +433,8 @@ const CarTechSlider = ({
                       border: layout === "fullscreen" ? "none" : `1px solid ${theme.borderColor}`,
                       transform: `perspective(1000px) rotateY(${isInView ? "0" : slideChangeDirection === "next" ? "5deg" : "-5deg"})`,
                       opacity: isInView ? 1 : 0.8,
-                      transition: "transform 0.5s ease, opacity 0.5s ease",
+                      transition: "transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)"
                     }}
                   >
                     <div 
@@ -499,16 +459,15 @@ const CarTechSlider = ({
                             )}
                           </div>
                         ) : (
-                          <ImagePlaceholder currentTheme={currentTheme} />
+                          <ImagePlaceholder />
                         )
                       ) : slide.videoUrl ? (
                         <VideoPlayer
                           src={slide.videoUrl}
                           poster={slide.videoPoster}
-                          currentTheme={currentTheme}
                         />
                       ) : (
-                        <ImagePlaceholder currentTheme={currentTheme} />
+                        <ImagePlaceholder />
                       )}
 
                       {/* Fullscreen layout caption overlay */}
@@ -560,13 +519,11 @@ const CarTechSlider = ({
                   activeIndex={activeIndex}
                   totalSlides={slides.length}
                   onDotClick={handleDotClick}
-                  currentTheme={currentTheme}
                 />
 
                 <NavigationButtons
                   onPrev={handlePrev}
                   onNext={handleNext}
-                  currentTheme={currentTheme}
                 />
               </div>
             )}
