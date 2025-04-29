@@ -6,43 +6,16 @@ import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 const CarColorSwitcher = () => {
-  // Enhanced color options with improved hex values from design system
+  // Updated color options based on the Tiggo 8 Pro brochure
   const colorOptions = useMemo(() => [
     { 
-      name: 'Phantom Gray', 
-      bgColor: '#6B717A', 
-      gradient: 'linear-gradient(145deg, #7a8185, #5d636b)',
-      textColor: 'text-white', 
-      image: '/images/tiggo8pro/colors/chery-gray.png',
-      description: 'Sophisticated urban style with a modern edge',
-      colorCode: 'G19'
-    },
-    { 
-      name: 'Silver Blue', 
-      bgColor: '#A8B8CF', 
-      gradient: 'linear-gradient(145deg, #b6c6dd, #98aac1)',
-      textColor: 'text-gray-900', 
-      image: '/images/tiggo8pro/colors/chery-silver-blue.png',
-      description: 'Elegant blend of silver and blue for a distinctive look',
-      colorCode: 'SB3'
-    },
-    { 
-      name: 'Rhine Blue', 
-      bgColor: '#1A3BB3', 
-      gradient: 'linear-gradient(145deg, #2a4bc3, #0a2ba3)',
-      textColor: 'text-white', 
-      image: '/images/tiggo8pro/colors/chery-blue.png',
-      description: 'Deep lustrous blue inspired by European landscapes',
-      colorCode: 'RB5'
-    },
-    { 
-      name: 'Khaki White', 
-      bgColor: '#EAEDEF', 
-      gradient: 'linear-gradient(145deg, #f8fbff, #dcdfe1)',
+      name: 'Pearl White', 
+      bgColor: '#FFFFFF', 
+      gradient: 'linear-gradient(145deg, #ffffff, #f0f0f0)',
       textColor: 'text-gray-900', 
       image: '/images/tiggo8pro/colors/chery-pearl-white.png',
-      description: 'Pure and pristine white with subtle warm undertones',
-      colorCode: 'KW2'
+      description: 'Pure elegance with a brilliant finish that enhances the vehicle\'s sculptural form',
+      colorCode: 'PW1'
     },
     { 
       name: 'Carbon Crystal Black', 
@@ -50,13 +23,31 @@ const CarColorSwitcher = () => {
       gradient: 'linear-gradient(145deg, #1a1f25, #05090d)',
       textColor: 'text-white', 
       image: '/images/tiggo8pro/colors/chery-black.png',
-      description: 'Profound depth with subtle mineral highlights',
+      description: 'Profound depth with subtle mineral highlights for a sophisticated presence',
       colorCode: 'CB1'
+    },
+    { 
+      name: 'Tech Grey', 
+      bgColor: '#707375', 
+      gradient: 'linear-gradient(145deg, #7a8185, #606568)',
+      textColor: 'text-white', 
+      image: '/images/tiggo8pro/colors/chery-gray.png',
+      description: 'Modern and understated with a technical edge perfect for urban environments',
+      colorCode: 'TG3'
+    },
+    { 
+      name: 'Aurora Green', 
+      bgColor: '#2E4A46', 
+      gradient: 'linear-gradient(145deg, #38544f, #24403d)',
+      textColor: 'text-white', 
+      image: '/images/tiggo8pro/colors/chery-green.png',
+      description: 'Rich and distinctive tone inspired by the mystical northern lights',
+      colorCode: 'AG7'
     },
   ], []);
 
-  // State management with default to Khaki White
-  const [selectedColor, setSelectedColor] = useState(colorOptions[3])
+  // State management with default to Pearl White
+  const [selectedColor, setSelectedColor] = useState(colorOptions[0])
   const [previousColor, setPreviousColor] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isInView, setIsInView] = useState(false)
@@ -159,14 +150,14 @@ const CarColorSwitcher = () => {
     }
   }
 
-  // Helper to get the car specs display based on color
+  // Helper to get the car specs display based on specs from the brochure
   const getCarSpecs = useCallback(() => {
     const specs = [
-      { label: 'Engine', value: '1.6T GDI' },
-      { label: 'Power', value: '197 HP' },
+      { label: 'Engine', value: '1.6T Turbocharged' },
+      { label: 'Power', value: '195 BHP' },
       { label: 'Torque', value: '290 Nm' },
       { label: 'Transmission', value: '7-Speed DCT' },
-      { label: 'Acceleration', value: '8.5s (0-100 km/h)' },
+      { label: 'Ground Clearance', value: '207 mm' },
     ];
     
     return specs;
@@ -286,7 +277,7 @@ const CarColorSwitcher = () => {
                 >
                   <Image
                     src={selectedColor.image}
-                    alt={`Chery SUV in ${selectedColor.name}`}
+                    alt={`Chery Tiggo 8 Pro in ${selectedColor.name}`}
                     fill
                     className="object-contain"
                     priority
@@ -330,7 +321,7 @@ const CarColorSwitcher = () => {
               {/* Color options */}
               <motion.div variants={itemVariants} className="mb-10">
                 <h4 className="text-sm uppercase tracking-wider text-gray-500 mb-4">Select Color:</h4>
-                <div className="grid grid-cols-5 gap-4">
+                <div className="grid grid-cols-4 gap-4">
                   {colorOptions.map((color, index) => (
                     <button
                       key={index}
@@ -401,7 +392,7 @@ const CarColorSwitcher = () => {
           </div>
         </div>
         
-        {/* Bottom Feature List */}
+        {/* Bottom Feature List - Updated based on brochure */}
         <motion.div 
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -414,8 +405,8 @@ const CarColorSwitcher = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Premium Paint Quality</h3>
-            <p className="text-gray-600">Advanced multi-layer coating technology provides exceptional depth and durability.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">First Class Luxury</h3>
+            <p className="text-gray-600">Our premium finishes perfectly complement the plush leather interior for a true first-class experience.</p>
           </div>
           
           <div className="flex flex-col items-center text-center">
@@ -424,8 +415,8 @@ const CarColorSwitcher = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Fading Resistant</h3>
-            <p className="text-gray-600">Our special formulation resists fading and maintains its vibrant finish for years.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Diamond-Shaped Grille</h3>
+            <p className="text-gray-600">Each color option beautifully highlights our signature diamond-shaped grille with illuminated logo.</p>
           </div>
           
           <div className="flex flex-col items-center text-center">
@@ -434,8 +425,8 @@ const CarColorSwitcher = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Matched Interior Options</h3>
-            <p className="text-gray-600">Each exterior color is thoughtfully paired with complementary interior trim packages.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Premium Interior Pairing</h3>
+            <p className="text-gray-600">Each exterior color is thoughtfully paired with our premium brown leather interior trim package.</p>
           </div>
         </motion.div>
       </div>
