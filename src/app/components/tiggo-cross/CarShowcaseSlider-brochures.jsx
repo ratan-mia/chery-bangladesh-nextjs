@@ -20,17 +20,17 @@ const defaultVehicles = [
     description: "Experience the perfect blend of style, performance and technology with the Tiggo Cross",
     images: [
       {
-        src: "/images/tiggocross/hero/1.webp",
+        src: "/images/tiggocross/hero/front.webp",
         alt: "Tiggo Cross exterior front view",
         type: "exterior"
       },
       {
-        src: "/images/tiggocross/hero/2.webp",
+        src: "/images/tiggocross/hero/side.webp",
         alt: "Tiggo Cross exterior side view",
         type: "exterior"
       },
       {
-        src: "/images/tiggocross/hero/1.webp",
+        src: "/images/tiggocross/hero/rear.webp",
         alt: "Tiggo Cross exterior rear view",
         type: "exterior"
       }
@@ -76,17 +76,17 @@ const defaultVehicles = [
     description: "Advanced driver assistance and premium luxury in every detail",
     images: [
       {
-        src: "/images/tiggocross/hero/1.webp",
+        src: "/images/tiggocross/hero/dashboard.webp",
         alt: "Tiggo Cross interior dashboard view",
         type: "interior"
       },
       {
-        src: "/images/tiggocross/hero/2.webp",
+        src: "/images/tiggocross/hero/seats.webp",
         alt: "Tiggo Cross interior seats view",
         type: "interior"
       },
       {
-        src: "/images/tiggocross/hero/1.webp",
+        src: "/images/tiggocross/hero/rear-cabin.webp",
         alt: "Tiggo Cross interior rear cabin view",
         type: "interior"
       }
