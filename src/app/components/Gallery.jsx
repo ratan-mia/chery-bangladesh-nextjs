@@ -172,7 +172,7 @@ const CheryGallery = ({
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.3, // Fast transition per design guidelines
+        duration: 0.3,
         staggerChildren: 0.1,
         delayChildren: 0.1
       }
@@ -184,7 +184,7 @@ const CheryGallery = ({
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.2 } // Fast transition per design guidelines
+      transition: { duration: 0.2 }
     }
   };
 
@@ -194,7 +194,7 @@ const CheryGallery = ({
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5 } // Medium transition per design guidelines
+      transition: { duration: 0.5 }
     }
   };
 
@@ -317,7 +317,7 @@ const CheryGallery = ({
           overflow: 'hidden',
         }}
       >
-        {/* Main image display - Content Focus principle */}
+        {/* Main image display - Content Focus principle - FIXED HERE */}
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={currentIndex}
@@ -328,7 +328,7 @@ const CheryGallery = ({
             exit="exit"
             transition={{ 
               x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.3 } // Fast transition per design guidelines
+              opacity: { duration: 0.3 }
             }}
             className="absolute inset-0 flex items-center justify-center p-4 md:p-8"
             style={{ 
@@ -344,23 +344,23 @@ const CheryGallery = ({
               }}
             />
             
+            {/* FIXED: This container now properly maintains aspect ratio and centers the image */}
             <div 
-              className={`relative ${isZoomed ? 'cursor-zoom-out overflow-auto' : 'overflow-hidden'}`}
+              className={`relative flex items-center justify-center ${isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
               style={{ 
-                maxWidth: '100%',
-                maxHeight: '100%',
-                width: isZoomed ? '150%' : '100%',
-                height: isZoomed ? '150%' : '100%',
-                transition: 'width 0.3s ease, height 0.3s ease', // Medium transition per design guidelines
+                width: '100%',
+                height: '100%',
               }}
             >
+              {/* FIXED: Image rendering with proper dimensions and scaling */}
               <img
                 ref={el => imageRefs.current[currentIndex] = el}
                 src={images[currentIndex].src}
                 alt={images[currentIndex].alt || `Gallery image ${currentIndex + 1}`}
-                className={`object-contain w-full h-full ${isZoomed ? 'scale-150' : 'scale-100'}`}
+                className="max-h-full max-w-full object-contain"
                 style={{ 
-                  transition: 'transform 0.5s ease', // Medium transition per design guidelines
+                  transform: isZoomed ? 'scale(1.5)' : 'scale(1)',
+                  transition: 'transform 0.5s ease',
                   opacity: loadedImages[currentIndex] ? 1 : 0.3,
                 }}
               />
@@ -387,13 +387,13 @@ const CheryGallery = ({
             style={{ 
               color: theme.primary.main,
               border: `1px solid ${theme.neutral.gray200}`,
-              transition: 'all 0.2s ease', // Fast transition per design guidelines
+              transition: 'all 0.2s ease',
             }}
             aria-label="Previous image"
           >
             <ChevronLeft 
               size={24} 
-              className="transition-all duration-300" // Medium transition per design guidelines
+              className="transition-all duration-300"
             />
           </button>
           
@@ -403,13 +403,13 @@ const CheryGallery = ({
             style={{ 
               color: theme.primary.main,
               border: `1px solid ${theme.neutral.gray200}`,
-              transition: 'all 0.2s ease', // Fast transition per design guidelines
+              transition: 'all 0.2s ease',
             }}
             aria-label="Next image"
           >
             <ChevronRight 
               size={24} 
-              className="transition-all duration-300" // Medium transition per design guidelines
+              className="transition-all duration-300"
             />
           </button>
         </div>
@@ -421,7 +421,7 @@ const CheryGallery = ({
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.3 }} // Fast transition per design guidelines
+              transition={{ duration: 0.3 }}
               className="absolute bottom-0 left-0 right-0 z-20"
               style={{ 
                 backgroundColor: theme.neutral.white,
@@ -486,7 +486,7 @@ const CheryGallery = ({
               color: isInfoVisible ? theme.neutral.white : theme.primary.main,
               backgroundColor: isInfoVisible ? theme.primary.main : theme.neutral.white,
               border: `1px solid ${isInfoVisible ? theme.primary.main : theme.neutral.gray200}`,
-              transition: 'all 0.2s ease', // Fast transition per design guidelines
+              transition: 'all 0.2s ease',
             }}
             aria-label={isInfoVisible ? "Hide image information" : "Show image information"}
           >
@@ -500,7 +500,7 @@ const CheryGallery = ({
               color: isZoomed ? theme.neutral.white : theme.primary.main,
               backgroundColor: isZoomed ? theme.primary.main : theme.neutral.white,
               border: `1px solid ${isZoomed ? theme.primary.main : theme.neutral.gray200}`,
-              transition: 'all 0.2s ease', // Fast transition per design guidelines
+              transition: 'all 0.2s ease',
             }}
             aria-label={isZoomed ? "Zoom out" : "Zoom in"}
           >
@@ -514,7 +514,7 @@ const CheryGallery = ({
               color: isFullscreen ? theme.neutral.white : theme.primary.main,
               backgroundColor: isFullscreen ? theme.primary.main : theme.neutral.white,
               border: `1px solid ${isFullscreen ? theme.primary.main : theme.neutral.gray200}`,
-              transition: 'all 0.2s ease', // Fast transition per design guidelines
+              transition: 'all 0.2s ease',
             }}
             aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
           >
@@ -557,7 +557,7 @@ const CheryGallery = ({
                   border: currentIndex === index 
                     ? `2px solid ${theme.primary.main}` 
                     : `1px solid ${theme.neutral.gray200}`,
-                  transition: 'all 0.2s ease', // Fast transition per design guidelines
+                  transition: 'all 0.2s ease',
                   opacity: currentIndex === index ? 1 : 0.7,
                 }}
               >
