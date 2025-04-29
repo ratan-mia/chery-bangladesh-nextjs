@@ -2,7 +2,6 @@
 
 import tiggoCrossData from "@/data/vehicles/tiggocross";
 import CarFeaturesSlider from "@components/CarFeaturesSlider";
-import Gallery from "@components/Gallery";
 import SimpleBanner from "@components/SimpleBanner";
 import CarColorSwitcher from "@components/tiggo-cross/CarColorSwitcher";
 import CarShowcaseSlider from "@components/tiggo-cross/CarShowcaseSlider";
@@ -117,12 +116,12 @@ export default function TiggoCrossPage() {
       {/* =========================================
           GALLERY SECTION
           ========================================= */}
-      <Gallery 
+      {/* <Gallery 
         images={gallery.images}
         title={gallery.config.title}
         subtitle={gallery.config.subtitle}
         aspectRatio={gallery.config.aspectRatio}
-      />
+      /> */}
     </main>
   );
 }

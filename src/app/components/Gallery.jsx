@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Camera, ChevronLeft, ChevronRight, Info, X, ZoomIn, ZoomOut } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Chery Bangladesh Design System colors
 const theme = {
@@ -34,39 +34,42 @@ const theme = {
   }
 };
 
+// Sample images using consistent placeholders with Chery Brand colors
+const galleryImages = [
+  { 
+    src: 'https://placehold.co/1920x1080/c4b19c/524336?text=Tiggo+8+Pro+MAX', 
+    alt: 'Chery Tiggo 8 Pro MAX', 
+    caption: 'Tiggo 8 Pro MAX - Front Perspective',
+    description: 'The Tiggo 8 Pro MAX showcases Chery\'s signature design language with its bold front grille and dynamic LED headlights, creating a commanding road presence with premium proportions.'
+  },
+  { 
+    src: 'https://placehold.co/1920x1080/8c735d/FFFFFF?text=Tiggo+7+Pro', 
+    alt: 'Chery Tiggo 7 Pro Side Profile', 
+    caption: 'Tiggo 7 Pro - Elegant Side Profile',
+    description: 'The sleek silhouette of the Tiggo 7 Pro emphasizes its athletic stance while maintaining elegant proportions that reflect premium craftsmanship and attention to detail.'
+  },
+  { 
+    src: 'https://placehold.co/1920x1080/b7a99a/524336?text=Tiggo+4+Pro', 
+    alt: 'Chery Tiggo 4 Pro', 
+    caption: 'Tiggo 4 Pro - Urban Compact SUV',
+    description: 'The Tiggo 4 Pro offers a perfect balance of style and functionality, with a compact footprint ideal for urban environments while retaining the confidence of an SUV.'
+  },
+  { 
+    src: 'https://placehold.co/1920x1080/524336/FFFFFF?text=Premium+Interior', 
+    alt: 'Chery Premium Interior', 
+    caption: 'Premium Interior - Luxury Materials',
+    description: 'The meticulously crafted interior combines premium materials with state-of-the-art technology, offering both comfort and convenience with a focus on driver and passenger experience.'
+  },
+  { 
+    src: 'https://placehold.co/1920x1080/c4b19c/524336?text=Alloy+Wheels', 
+    alt: 'Chery Premium Alloy Wheels', 
+    caption: 'Exclusive Alloy Wheel Design',
+    description: 'The exclusive alloy wheel design combines sophistication with sportiness, perfectly complementing the overall aesthetic while providing outstanding performance.'
+  },
+];
+
 const CheryGallery = ({
-  images = [
-    { 
-      src: 'https://placehold.co/1920x1080/c4b19c/111827?text=Chery+Vehicle+1', 
-      alt: 'Chery SUV Front View', 
-      caption: 'Tiggo 8 Pro - Front Perspective',
-      description: 'The Tiggo 8 Pro showcases Chery\'s signature design language with its bold front grille and dynamic LED headlights, creating a commanding road presence.'
-    },
-    { 
-      src: 'https://placehold.co/1920x1080/8c735d/FFFFFF?text=Chery+Vehicle+2', 
-      alt: 'Chery SUV Side Profile', 
-      caption: 'Tiggo 8 Pro - Elegant Side Profile',
-      description: 'The sleek silhouette of the Tiggo 8 Pro emphasizes its athletic stance while maintaining elegant proportions that reflect premium craftsmanship.'
-    },
-    { 
-      src: 'https://placehold.co/1920x1080/b7a99a/111827?text=Chery+Vehicle+3', 
-      alt: 'Chery SUV Interior', 
-      caption: 'Tiggo 8 Pro - Luxury Interior',
-      description: 'The meticulously crafted interior combines premium materials with state-of-the-art technology, offering both comfort and convenience to all passengers.'
-    },
-    { 
-      src: 'https://placehold.co/1920x1080/524336/FFFFFF?text=Chery+Vehicle+4', 
-      alt: 'Chery SUV Rear View', 
-      caption: 'Tiggo 8 Pro - Distinctive Rear Design',
-      description: 'The rear design features LED taillights connected by a refined chrome accent, emphasizing the vehicle\'s width and creating a memorable visual signature.'
-    },
-    { 
-      src: 'https://placehold.co/1920x1080/c4b19c/111827?text=Chery+Vehicle+5', 
-      alt: 'Chery SUV Wheels', 
-      caption: 'Tiggo 8 Pro - Premium Alloy Wheels',
-      description: 'The exclusive alloy wheel design combines sophistication with sportiness, perfectly complementing the overall aesthetic of the vehicle.'
-    },
-  ],
+  images = galleryImages,
   title = 'Experience Chery',
   subtitle = 'Premium Design & Innovation',
   description = 'Explore our gallery showcasing every detail of Chery vehicles, highlighting our commitment to elegant design, premium craftsmanship, and innovative technology.',
@@ -195,19 +198,85 @@ const CheryGallery = ({
     }
   };
 
+  // Content image display - premium look preview section
+  const FullWidthImagePreview = () => (
+    <div className="relative w-full mb-20 px-4 md:px-0">
+      <div className="max-w-6xl mx-auto">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-lg shadow-lg">
+          <img 
+            src={images[0].src} 
+            alt={images[0].alt}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-primary-900/20 to-transparent">
+            <div className="absolute bottom-0 left-0 p-6 md:p-8">
+              <h3 className="text-white text-2xl md:text-3xl font-bold mb-2">
+                {images[0].caption}
+              </h3>
+              <p className="text-white/80 max-w-lg">
+                {images[0].description.substring(0, 100)}...
+              </p>
+              <button 
+                className="mt-4 inline-flex items-center px-6 py-2 bg-primary-700 text-white font-medium rounded hover:bg-primary-800 transition-all duration-300"
+                style={{ backgroundColor: theme.primary.main }}
+                onClick={() => {
+                  setCurrentIndex(0);
+                  const galleryElement = document.getElementById('gallery-section');
+                  if (galleryElement) {
+                    galleryElement.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                View Gallery <ArrowRight size={16} className="ml-2" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Thumbnails for featured display
+  const FeaturedThumbnails = () => (
+    <div className="w-full mb-12 px-4 md:px-0">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {images.slice(1).map((image, index) => (
+            <div 
+              key={index} 
+              className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group"
+              onClick={() => {
+                setCurrentIndex(index + 1);
+                const galleryElement = document.getElementById('gallery-section');
+                if (galleryElement) {
+                  galleryElement.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              <img 
+                src={image.src} 
+                alt={image.alt}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 left-0 p-3">
+                  <p className="text-white text-sm font-medium">
+                    {image.caption}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div 
-      ref={containerRef}
-      className={`w-full font-sans ${isFullscreen ? 'fixed inset-0 z-50' : 'relative'}`}
-      style={{ 
-        backgroundColor: theme.neutral.white,
-        height: isFullscreen ? '100vh' : '90vh', 
-        overflow: 'hidden',
-        fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto', // Typography from design system
-      }}
-    >
-      {/* Header Section - Following Section Headers pattern */}
-      {!isFullscreen && (
+    <div className="w-full font-sans" style={{ fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto' }}>
+      {/* Full page experience with preview */}
+      <div>
+        {/* Header Section - Following Section Headers pattern */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -229,10 +298,25 @@ const CheryGallery = ({
             </p>
           </div>
         </motion.div>
-      )}
 
+        {/* Featured image preview */}
+        <FullWidthImagePreview />
+        
+        {/* Featured thumbnails */}
+        <FeaturedThumbnails />
+      </div>
+      
       {/* Main gallery container */}
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div 
+        id="gallery-section"
+        ref={containerRef}
+        className={`w-full relative ${isFullscreen ? 'fixed inset-0 z-50' : 'relative'}`}
+        style={{ 
+          backgroundColor: theme.neutral.white,
+          height: isFullscreen ? '100vh' : '90vh', 
+          overflow: 'hidden',
+        }}
+      >
         {/* Main image display - Content Focus principle */}
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
@@ -508,27 +592,8 @@ const CheryGallery = ({
           </div>
         </div>
       </div>
-      
-      {/* Keyboard shortcuts guide - using Info Box pattern */}
-      {!isFullscreen && (
-        <div className="absolute bottom-24 left-0 right-0 z-10 px-6">
-          <div 
-            className="mx-auto max-w-md p-3 text-center rounded hide-scrollbar"
-            style={{ 
-              backgroundColor: theme.primary.light,
-              backgroundColor: `${theme.primary.light}40`, // Using opacity as in design system
-              border: `1px solid ${theme.neutral.gray200}`,
-              color: theme.neutral.gray600,
-              fontSize: '0.875rem', // text-sm
-            }}
-          >
-            Use arrow keys to navigate, press 'i' for info, 'z' to zoom, and 'f' for fullscreen
-          </div>
-        </div>
-      )}
     </div>
   );
 };
-
 
 export default CheryGallery;
