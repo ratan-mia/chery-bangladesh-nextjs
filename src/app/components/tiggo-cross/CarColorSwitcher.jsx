@@ -10,12 +10,12 @@ const CarColorSwitcher = () => {
   // Color options for Chery Tiggo Cross with nature-inspired names
   const colorOptions = useMemo(() => [
     { 
-      name: 'Nasdaq Silver', 
-      colorCode: 'PG19',
+      name: 'Phantom Grey', 
+      colorCode: 'PG8',
       bgColor: '#A2A2A2', 
       dotColor: '#A2A2A2',
-      image: '/images/tiggocross/colors/phantom-grey.webp',
-      carImage: '/images/tiggocross/phantom-grey.webp',
+      // Using only one image variable
+      image: '/images/tiggocross/colors/phantom-grey.png',
       description: 'Urban sophistication in metallic form. The perfect blend of elegance and practicality for city driving.',
       highlights: [
         'Perfect for urban environments',
@@ -25,12 +25,11 @@ const CarColorSwitcher = () => {
       ]
     },
     { 
-      name: 'Glacier Blue', 
-      colorCode: 'GB12',
-      bgColor: '#B8C5D6', 
-      dotColor: '#B8C5D6',
-      image: '/images/tiggocross/colors/glacier-blue.webp',
-      carImage: '/images/tiggocross/glacier-blue.webp',
+      name: 'Blodd Stone Red', 
+      colorCode: 'BSR',
+      bgColor: '#C72A2A', 
+      dotColor: '#C72A2A',
+      image: '/images/tiggocross/colors/blood-stone-red.png',
       description: 'Cool and composed like a mountain lake. A sophisticated hue that brings a sense of calm and clarity.',
       highlights: [
         'Distinctive and refined appearance',
@@ -40,27 +39,26 @@ const CarColorSwitcher = () => {
       ]
     },
     { 
-      name: 'Royal Blue', 
-      colorCode: 'RB5',
-      bgColor: '#1A34B8', 
-      dotColor: '#1A34B8',
-      image: '/images/tiggocross/colors/royal-blue.webp',
-      carImage: '/images/tiggocross/royal-blue.webp',
-      description: 'Bold elegance with vibrant personality. A statement color that commands attention on the road.',
-      highlights: [
-        'Eye-catching, vibrant appearance',
-        'Rare and exclusive look',
-        'Striking presence day and night',
-        'Special multi-layer paint finish'
-      ]
-    },
+        name: 'Carbon Crystal Black', 
+        colorCode: 'CCB',
+        bgColor: '#121722', 
+        dotColor: '#121722',
+        image: '/images/tiggocross/colors/carbon-black.png',
+        description: 'Commanding presence with sleek sophistication. Timeless, powerful, and always in style.',
+        highlights: [
+          'Sleek and sophisticated appearance',
+          'Deep metallic flake for dimension',
+          'Executive and versatile aesthetic',
+          'Hides dirt between washes'
+        ]
+      },
+ 
     { 
       name: 'Pearl White', 
       colorCode: 'PW2',
       bgColor: '#F5F5F5', 
       dotColor: '#FFFFFF',
-      image: '/images/tiggocross/colors/pearl-white.webp',
-      carImage: '/images/tiggocross/pearl-white.webp',
+      image: '/images/tiggocross/colors/pearl-white.png',
       description: 'Pristine beauty that stands out. A classic choice that reflects luxury and creates a sense of space.',
       highlights: [
         'Classic and elegant appearance',
@@ -69,28 +67,13 @@ const CarColorSwitcher = () => {
         'Premium pearl finish with depth'
       ]
     },
-    { 
-      name: 'Carbon Black', 
-      colorCode: 'CB1',
-      bgColor: '#121722', 
-      dotColor: '#121722',
-      image: '/images/tiggocross/colors/carbon-black.webp',
-      carImage: '/images/tiggocross/carbon-black.webp',
-      description: 'Commanding presence with sleek sophistication. Timeless, powerful, and always in style.',
-      highlights: [
-        'Sleek and sophisticated appearance',
-        'Deep metallic flake for dimension',
-        'Executive and versatile aesthetic',
-        'Hides dirt between washes'
-      ]
-    },
+
   ], []);
 
   // State for currently selected color and visibility tracking
   const [selectedColor, setSelectedColor] = useState(colorOptions[0]);
   const [isInView, setIsInView] = useState(false);
   const [activeTab, setActiveTab] = useState('highlights');
-  const [showSpecs, setShowSpecs] = useState(false);
   const sectionRef = useRef(null);
 
   // Detect when section is in view
@@ -118,11 +101,6 @@ const CarColorSwitcher = () => {
   // Change color handler
   const handleColorChange = (color) => {
     setSelectedColor(color);
-  };
-
-  // Toggle specs visibility
-  const toggleSpecs = () => {
-    setShowSpecs(!showSpecs);
   };
   
   // Animation variants
@@ -159,11 +137,11 @@ const CarColorSwitcher = () => {
       ref={sectionRef}
       className="w-full bg-[#F5F4F2] py-16 md:py-24 lg:py-32 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-2 lg:px-2">
         {/* Main content - Top section with headline, car image, and color selection */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
           {/* Left side: text and headline */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          <div className="lg:col-span-4 flex flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -184,11 +162,10 @@ const CarColorSwitcher = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="hidden md:block"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div 
-                      className="w-8 h-8 rounded-full"
+                      className="w-8 h-8 rounded-full border border-gray-300 shadow-sm"
                       style={{ backgroundColor: selectedColor.dotColor }}
                     />
                     <div>
@@ -201,29 +178,9 @@ const CarColorSwitcher = () => {
                   </p>
                 </motion.div>
               </AnimatePresence>
-              
-              {/* Color dots selection - Mobile only */}
-              <div className="flex items-center space-x-4 md:hidden mb-8">
-                {colorOptions.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => handleColorChange(color)}
-                    className={`w-8 h-8 rounded-full border-2 transition-all duration-300 ${
-                      selectedColor.name === color.name 
-                        ? 'border-[#7A6A58] scale-110' 
-                        : 'border-transparent scale-100'
-                    }`}
-                    style={{ 
-                      backgroundColor: color.dotColor,
-                      boxShadow: selectedColor.name === color.name ? '0 0 0 2px rgba(122, 106, 88, 0.2)' : 'none'
-                    }}
-                    aria-label={`Select ${color.name} color`}
-                  />
-                ))}
-              </div>
 
-              {/* CTA buttons - visible on larger screens */}
-              <div className="hidden md:flex flex-col sm:flex-row gap-4 mt-8">
+              {/* CTA buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link 
                   href="#contact" 
                   className="group inline-flex items-center px-8 py-3 bg-[#7A6A58] text-white font-medium hover:bg-[#65584A] transition-colors duration-300"
@@ -245,25 +202,35 @@ const CarColorSwitcher = () => {
             </motion.div>
           </div>
           
-          {/* Center: Empty space on desktop */}
-          <div className="hidden lg:block lg:col-span-1"></div>
-          
-          {/* Right side: Car image and color selection */}
-          <div className="lg:col-span-6 relative">
-            {/* Car image with color */}
+          {/* Right side: Car image - Almost full width (8 columns) */}
+          <div className="lg:col-span-8 relative">
+            {/* Color switcher positioned at top right */}
+            <div className="absolute top-4 right-4 z-30 flex items-center space-x-3">
+              {colorOptions.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => handleColorChange(color)}
+                  className={`w-10 h-10 rounded-full border-2 transition-all duration-300 ${
+                    selectedColor.name === color.name 
+                      ? 'border-[#7A6A58] scale-110' 
+                      : 'border-transparent scale-100 hover:scale-105'
+                  }`}
+                  style={{ 
+                    backgroundColor: color.dotColor,
+                    boxShadow: selectedColor.name === color.name ? '0 0 0 2px rgba(122, 106, 88, 0.2)' : 'none'
+                  }}
+                  aria-label={`Select ${color.name} color`}
+                />
+              ))}
+            </div>
+            
+            {/* Car image with color - Full width container */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative w-full aspect-[16/9] bg-[#ADADAD] rounded-lg overflow-hidden shadow-md"
+              className="relative w-full aspect-[16/9] bg-gradient-to-br from-gray-200 to-gray-100 rounded-lg overflow-hidden shadow-lg"
             >
-              {/* Color name tag that appears on desktop */}
-              <div className="absolute top-4 right-4 z-20 hidden md:block">
-                <div className="bg-white/90 backdrop-blur-sm py-2 px-4 shadow-sm">
-                  <p className="text-lg font-medium text-[#7A6A58]">{selectedColor.name}</p>
-                </div>
-              </div>
-              
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedColor.name}
@@ -274,54 +241,17 @@ const CarColorSwitcher = () => {
                   className="absolute inset-0"
                 >
                   <Image
-                    src={selectedColor.carImage}
+                    src={selectedColor.image}
                     alt={`Chery SUV in ${selectedColor.name}`}
                     fill
                     priority
                     className="object-contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 700px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
                   />
                 </motion.div>
               </AnimatePresence>
             </motion.div>
-            
-            {/* Color name and CTA buttons - Mobile only */}
-            <div className="mt-4 md:hidden">
-              <p className="text-xl font-medium text-[#7A6A58] mb-4">{selectedColor.name}</p>
-              <div className="flex flex-col gap-3">
-                <Link 
-                  href="#contact" 
-                  className="group inline-flex items-center justify-center px-6 py-3 bg-[#7A6A58] text-white font-medium hover:bg-[#65584A] transition-colors duration-300 text-sm"
-                >
-                  Schedule Your Viewing
-                  <ArrowRight
-                    size={16}
-                    className="ml-2 group-hover:ml-3 transition-all duration-300"
-                  />
-                </Link>
-              </div>
-            </div>
           </div>
-        </div>
-        
-        {/* Color dots selection - Desktop only, positioned at top right */}
-        <div className="absolute top-16 right-8 md:right-16 lg:right-24 hidden md:flex items-center space-x-4">
-          {colorOptions.map((color) => (
-            <button
-              key={color.name}
-              onClick={() => handleColorChange(color)}
-              className={`w-10 h-10 rounded-full border-2 transition-all duration-300 ${
-                selectedColor.name === color.name 
-                  ? 'border-[#7A6A58] scale-110' 
-                  : 'border-transparent scale-100 hover:scale-105'
-              }`}
-              style={{ 
-                backgroundColor: color.dotColor,
-                boxShadow: selectedColor.name === color.name ? '0 0 0 4px rgba(122, 106, 88, 0.2)' : 'none'
-              }}
-              aria-label={`Select ${color.name} color`}
-            />
-          ))}
         </div>
         
         {/* Additional Content Below */}
