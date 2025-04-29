@@ -4,6 +4,7 @@ import tiggoCrossData from "@/data/vehicles/tiggocross";
 import CarFeaturesSlider from "@components/CarFeaturesSlider";
 import Gallery from "@components/Gallery";
 import SimpleBanner from "@components/SimpleBanner";
+import CarColorSwitcher from "@components/tiggo-cross/CarColorSwitcher";
 import CarShowcaseSlider from "@components/tiggo-cross/CarShowcaseSlider";
 import CarTechSlider from "@components/tiggo-cross/CarTechSlider";
 import VehicleSpecs from "@components/VehicleSpecs";
@@ -18,6 +19,8 @@ export default function TiggoCrossPage() {
           HERO SECTION
           ========================================= */}
       <CarShowcaseSlider />
+
+      <CarColorSwitcher />
 
       {/* =========================================
           APPEARANCE & EXTERIOR SECTION
