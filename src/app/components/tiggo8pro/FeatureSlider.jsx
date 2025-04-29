@@ -1,18 +1,19 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Autoplay, EffectFade, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import tiggo8proData from "@/data/vehicles/tiggo8pro";
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/effect-fade'
-import 'swiper/css/navigation'
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
 
-// Enhanced slide data with more comprehensive fields
+// Enhanced slide data with more comprehensive fields using Tiggo 8 Pro data
 const slides = [
   {
     id: 'slide1',
@@ -22,13 +23,13 @@ const slides = [
     logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
     logoAlt: 'Tiggo 8 Pro Logo',
     title: 'ENJOY YOUR FIRST CLASS',
-    subtitle: 'LED Matrix Headlights',
-    description: 'Intelligent lighting system that automatically adapts to driving conditions for optimal visibility and safety.',
-    ariaLabel: 'Tiggo 8 Pro featuring LED Matrix Headlights',
+    subtitle: 'T1X Platform with Dynamic Styling',
+    description: 'The epitome of luxury that transcends the bounds of a mere vehicle; a masterpiece that commands centre stage presence.',
+    ariaLabel: 'Tiggo 8 Pro featuring premium design and comfort',
     ctaText: 'Download Brochure',
     ctaLink: '/brochures/tiggo-8pro-brochure.pdf',
     specs: [
-      { label: 'Engine', value: '1.6T GDI' },
+      { label: 'Engine', value: '1.6T Turbocharged' },
       { label: 'Power', value: '195 BHP' },
       { label: 'Torque', value: '290 Nm' }
     ]
@@ -39,16 +40,52 @@ const slides = [
     src: '/images/tiggo8pro/hero-slider/tiggo8pro-banner.jpg',
     logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
     logoAlt: 'Tiggo 8 Pro Logo',
-    title: 'BOLD PRESENCE',
-    subtitle: 'Dynamic Exterior Design',
-    description: 'Striking aesthetics with premium details that command attention on every journey.',
-    ariaLabel: 'Tiggo 8 Pro showcasing its dynamic exterior design',
+    title: 'INTELLIGENT COCKPIT',
+    subtitle: 'Dual 12.3-inch Curved Screens',
+    description: 'Immersive dual LCD driver cluster and centre control screen with Sony 8-speaker HD sound system for crystal-clear audio quality.',
+    ariaLabel: 'Tiggo 8 Pro showcasing its intelligent entertainment system',
     ctaText: 'Download Brochure',
     ctaLink: '/brochures/tiggo-8pro-brochure.pdf',
     specs: [
-      { label: 'Length', value: '4,722 mm' },
-      { label: 'Width', value: '1,860 mm' },
-      { label: 'Height', value: '1,705 mm' }
+      { label: 'Touchscreen', value: '12.3-inch' },
+      { label: 'Speakers', value: '8 Sony HD' },
+      { label: 'Voice Assistant', value: 'Hello Chery' }
+    ]
+  },
+  {
+    id: 'slide3',
+    type: 'image',
+    src: '/images/tiggo8pro/hero-slider/tiggo8pro-interior.jpg',
+    logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
+    logoAlt: 'Tiggo 8 Pro Logo',
+    title: 'FIRST CLASS CABIN',
+    subtitle: 'Premium Comfort Experience',
+    description: 'Plush leather upholstery that\'s hand-stitched to perfection with Queen Co-pilot seats, ventilation, and ambient lighting for a sophisticated atmosphere.',
+    ariaLabel: 'Tiggo 8 Pro showcasing its luxurious interior',
+    ctaText: 'Download Brochure',
+    ctaLink: '/brochures/tiggo-8pro-brochure.pdf',
+    specs: [
+      { label: 'Seats', value: 'Plush Leather' },
+      { label: 'Ambient Lighting', value: 'Multi-Color' },
+      { label: 'Sound Insulation', value: 'Mute Glass' }
+    ]
+  },
+  {
+    id: 'slide4',
+    type: 'image',
+    src: '/images/tiggo8pro/hero-slider/tiggo8pro-safety.jpg',
+    logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
+    logoAlt: 'Tiggo 8 Pro Logo',
+    title: 'ULTIMATE SECURITY',
+    subtitle: 'Advanced Safety Systems',
+    description: 'Comprehensive protection with 9 airbags, ISOFIX, and 15 Advanced Driver Assistance Systems including AEB, ACC, and BSD.',
+    ariaLabel: 'Tiggo 8 Pro showcasing its safety features',
+    ctaText: 'Download Brochure',
+    ctaLink: '/brochures/tiggo-8pro-brochure.pdf',
+    specs: [
+      { label: 'Airbags', value: '9' },
+      { label: 'ADAS Functions', value: '15' },
+      { label: 'Camera', value: '540° Panoramic' }
     ]
   },
 ]
@@ -133,6 +170,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
               exit="exit"
               custom={0.2}
               className="h-1 bg-primary-700 mb-8"
+              style={{ backgroundColor: tiggo8proData.styling.accentColor }}
             />
 
             {/* Title and subtitle */}
@@ -184,6 +222,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
               <Link
                 href={slide.ctaLink}
                 className="inline-flex items-center bg-primary-700 hover:bg-primary-900 text-white font-medium py-3.5 px-8 transition-all duration-300 text-sm md:text-base tracking-wide group"
+                style={{ backgroundColor: tiggo8proData.styling.accentColor }}
                 target='_blank'
               >
                 <span>{slide.ctaText}</span>
@@ -208,6 +247,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
               <button
                 onClick={onSpecsToggle}
                 className="hidden md:inline-flex items-center cursor-pointer text-white bg-transparent border border-primary-700 hover:border-primary-light py-3.5 px-6 transition-all duration-300 group"
+                style={{ borderColor: tiggo8proData.styling.accentColor }}
               >
                 <span>{showSpecs ? 'Hide Specifications' : 'View Specifications'}</span>
                 <svg
@@ -241,6 +281,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
           animate="visible"
           exit="exit"
           className="hidden md:flex w-1/3 h-full flex-col justify-center bg-black/60 backdrop-blur-md border-l border-primary-700"
+          style={{ borderColor: tiggo8proData.styling.accentColor }}
         >
           <div className="p-12">
             <h3 className="text-2xl font-light text-primary-light uppercase tracking-wider mb-8">Specifications</h3>
@@ -464,7 +505,7 @@ const FeatureSlider = () => {
             transition={{ duration: 0.8 }}
             className="absolute inset-0 z-50 bg-gray-900 flex flex-col items-center justify-center"
           >
-            <div className="w-32 h-1 bg-primary-700 mb-4 overflow-hidden">
+            <div className="w-32 h-1 bg-primary-700 mb-4 overflow-hidden" style={{ backgroundColor: tiggo8proData.styling.accentColor }}>
               <motion.div
                 initial={{ x: '-100%' }}
                 animate={{ x: '100%' }}
@@ -484,7 +525,7 @@ const FeatureSlider = () => {
       </AnimatePresence>
 
       {/* Model badge in top left */}
-      <div className="absolute top-8 left-8 z-20 bg-black/20 backdrop-blur-sm px-5 py-2.5 border-l-2 border-primary-700 flex items-center">
+      <div className="absolute top-8 left-8 z-20 bg-black/20 backdrop-blur-sm px-5 py-2.5 border-l-2 border-primary-700 flex items-center" style={{ borderColor: tiggo8proData.styling.accentColor }}>
         <span className="text-white text-sm font-medium tracking-widest">TIGGO 8 PRO</span>
       </div>
 
@@ -574,7 +615,10 @@ const FeatureSlider = () => {
                 className="group flex flex-col items-start gap-2 text-white/60 hover:text-white transition-colors duration-300"
               >
                 <div className="flex items-center gap-2">
-                  <div className={`w-1.5 h-1.5 ${activeIndex === index ? 'bg-primary-700' : 'bg-white/30'}`}></div>
+                  <div 
+                    className={`w-1.5 h-1.5 ${activeIndex === index ? 'bg-primary-700' : 'bg-white/30'}`}
+                    style={{ backgroundColor: activeIndex === index ? tiggo8proData.styling.accentColor : '' }}
+                  ></div>
                   <span className={`text-xs font-medium ${activeIndex === index ? 'text-white' : 'text-white/60'}`}>
                     {`0${index + 1}`}
                   </span>
@@ -582,8 +626,9 @@ const FeatureSlider = () => {
                 <div className="w-12 h-0.5 bg-white/20 overflow-hidden">
                   <div
                     className="h-full bg-primary-700 transition-all duration-300"
-                    style={{
+                    style={{ 
                       width: `${progressBars[index].progress}%`,
+                      backgroundColor: tiggo8proData.styling.accentColor 
                     }}
                   ></div>
                 </div>
@@ -597,6 +642,10 @@ const FeatureSlider = () => {
             <button
               onClick={toggleAutoplay}
               className="flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-primary-700 border border-white/10 hover:border-primary-700 text-white transition-all duration-300"
+              style={{ 
+                '--hover-bg': tiggo8proData.styling.accentColor,
+                '--hover-border': tiggo8proData.styling.accentColor  
+              }}
               aria-label={isAutoplayPaused ? "Resume slideshow" : "Pause slideshow"}
             >
               {isAutoplayPaused ? (
@@ -614,6 +663,10 @@ const FeatureSlider = () => {
             {/* Navigation arrows */}
             <button
               className="swiper-button-prev flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-primary-700 border border-white/10 hover:border-primary-700 text-white transition-all duration-300"
+              style={{ 
+                '--hover-bg': tiggo8proData.styling.accentColor,
+                '--hover-border': tiggo8proData.styling.accentColor  
+              }}
               aria-label="Previous slide"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -623,6 +676,10 @@ const FeatureSlider = () => {
 
             <button
               className="swiper-button-next flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-primary-700 border border-white/10 hover:border-primary-700 text-white transition-all duration-300"
+              style={{ 
+                '--hover-bg': tiggo8proData.styling.accentColor,
+                '--hover-border': tiggo8proData.styling.accentColor  
+              }}
               aria-label="Next slide"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -647,6 +704,9 @@ const FeatureSlider = () => {
                   ? 'bg-primary-700'
                   : 'bg-white/30 group-hover:bg-white/50'
                 }`}
+              style={{ 
+                backgroundColor: index === activeIndex ? tiggo8proData.styling.accentColor : '' 
+              }}
             />
           </button>
         ))}
@@ -673,8 +733,25 @@ const FeatureSlider = () => {
         /* Focus states for accessibility */
         button:focus-visible,
         a:focus-visible {
-          outline: 1px solid #8c735d;
+          outline: 1px solid ${tiggo8proData.styling.accentColor};
           outline-offset: 2px;
+        }
+        
+        /* Hover styles for buttons */
+        button.hover\\:bg-primary-700:hover, 
+        a.hover\\:bg-primary-700:hover {
+          background-color: var(--hover-bg, #8c735d);
+          border-color: var(--hover-border, #8c735d);
+        }
+        
+        button.hover\\:border-primary-700:hover, 
+        a.hover\\:border-primary-700:hover {
+          border-color: var(--hover-border, #8c735d);
+        }
+        
+        .text-primary-light {
+          color: ${tiggo8proData.styling.accentColor};
+          opacity: 0.9;
         }
       `}</style>
     </section>
