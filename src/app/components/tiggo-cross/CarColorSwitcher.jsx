@@ -14,7 +14,6 @@ const CarColorSwitcher = () => {
       colorCode: 'PG8',
       bgColor: '#A2A2A2', 
       dotColor: '#A2A2A2',
-      // Using only one image variable
       image: '/images/tiggocross/colors/phantom-grey.png',
       description: 'Urban sophistication in metallic form. The perfect blend of elegance and practicality for city driving.',
       highlights: [
@@ -25,34 +24,33 @@ const CarColorSwitcher = () => {
       ]
     },
     { 
-      name: 'Blodd Stone Red', 
+      name: 'Blood Stone Red', 
       colorCode: 'BSR',
       bgColor: '#C72A2A', 
       dotColor: '#C72A2A',
       image: '/images/tiggocross/colors/blood-stone-red.png',
-      description: 'Cool and composed like a mountain lake. A sophisticated hue that brings a sense of calm and clarity.',
+      description: 'Bold and passionate red that commands attention. A statement color with dramatic presence on the road.',
       highlights: [
-        'Distinctive and refined appearance',
-        'Enhances vehicle contours',
-        'Appears different in varying light',
-        'Premium and upscale look'
+        'Eye-catching, vibrant appearance',
+        'Makes a bold statement',
+        'Striking presence day and night',
+        'Special multi-layer paint finish'
       ]
     },
     { 
-        name: 'Carbon Crystal Black', 
-        colorCode: 'CCB',
-        bgColor: '#121722', 
-        dotColor: '#121722',
-        image: '/images/tiggocross/colors/carbon-black.png',
-        description: 'Commanding presence with sleek sophistication. Timeless, powerful, and always in style.',
-        highlights: [
-          'Sleek and sophisticated appearance',
-          'Deep metallic flake for dimension',
-          'Executive and versatile aesthetic',
-          'Hides dirt between washes'
-        ]
-      },
- 
+      name: 'Carbon Crystal Black', 
+      colorCode: 'CCB',
+      bgColor: '#121722', 
+      dotColor: '#121722',
+      image: '/images/tiggocross/colors/carbon-black.png',
+      description: 'Commanding presence with sleek sophistication. Timeless, powerful, and always in style.',
+      highlights: [
+        'Sleek and sophisticated appearance',
+        'Deep metallic flake for dimension',
+        'Executive and versatile aesthetic',
+        'Hides dirt between washes'
+      ]
+    },
     { 
       name: 'Pearl White', 
       colorCode: 'PW2',
@@ -67,7 +65,6 @@ const CarColorSwitcher = () => {
         'Premium pearl finish with depth'
       ]
     },
-
   ], []);
 
   // State for currently selected color and visibility tracking
@@ -135,22 +132,71 @@ const CarColorSwitcher = () => {
   return (
     <section 
       ref={sectionRef}
-      className="w-full bg-[#F5F4F2] py-16 md:py-24 lg:py-32 relative overflow-hidden"
+      className="w-full bg-[#F5F4F2] py-16 md:py-24 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-2 lg:px-2">
-        {/* Main content - Top section with headline, car image, and color selection */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
-          {/* Left side: text and headline */}
-          <div className="lg:col-span-4 flex flex-col justify-center">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main content layout - Full width image with text overlay */}
+        <div className="relative mb-16">
+          {/* Color switcher positioned at top right - Fixed position */}
+          <div className="absolute top-6 right-6 z-30 flex items-center space-x-4">
+            {colorOptions.map((color) => (
+              <button
+                key={color.name}
+                onClick={() => handleColorChange(color)}
+                className={`w-12 h-12 rounded-full border-2 transition-all duration-300 ${
+                  selectedColor.name === color.name 
+                    ? 'border-[#7A6A58] scale-110' 
+                    : 'border-transparent scale-100 hover:scale-105'
+                }`}
+                style={{ 
+                  backgroundColor: color.dotColor,
+                  boxShadow: selectedColor.name === color.name ? '0 0 0 2px rgba(122, 106, 88, 0.2)' : 'none'
+                }}
+                aria-label={`Select ${color.name} color`}
+              />
+            ))}
+          </div>
+          
+          {/* Full-width car image container */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative w-full aspect-[21/9] bg-gradient-to-br from-gray-200 to-gray-100 overflow-hidden"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedColor.name}
+                variants={fadeVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="absolute inset-0"
+              >
+                <Image
+                  src={selectedColor.image}
+                  alt={`Chery SUV in ${selectedColor.name}`}
+                  fill
+                  priority
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 100vw"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+          
+          {/* Text overlay on the left */}
+          <div className="absolute bottom-0 left-0 z-20 p-6 md:p-10 lg:p-16 max-w-lg">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.7 }}
+              className="bg-white/90 backdrop-blur-sm p-6 md:p-8 shadow-lg"
             >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#7A6A58] mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#7A6A58] mb-2">
                 Brand new colors
               </h2>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-[#7A6A58] mb-8 md:mb-12">
+              <h3 className="text-xl md:text-2xl font-medium text-[#7A6A58] mb-6">
                 Nature whispers, your car listens
               </h3>
               
@@ -163,103 +209,48 @@ const CarColorSwitcher = () => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div 
-                      className="w-8 h-8 rounded-full border border-gray-300 shadow-sm"
-                      style={{ backgroundColor: selectedColor.dotColor }}
-                    />
+                  <div className="flex items-center gap-3 mb-4 border-l-4 border-[#7A6A58] pl-3">
                     <div>
                       <p className="text-lg font-medium text-[#7A6A58]">{selectedColor.name}</p>
                       <p className="text-sm text-[#7A6A58]">Color Code: {selectedColor.colorCode}</p>
                     </div>
                   </div>
-                  <p className="text-lg text-[#7A6A58] mb-8">
+                  <p className="text-[#7A6A58] mb-6">
                     {selectedColor.description}
                   </p>
                 </motion.div>
               </AnimatePresence>
 
               {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   href="#contact" 
-                  className="group inline-flex items-center px-8 py-3 bg-[#7A6A58] text-white font-medium hover:bg-[#65584A] transition-colors duration-300"
+                  className="group inline-flex items-center px-6 py-3 bg-[#7A6A58] text-white font-medium hover:bg-[#65584A] transition-colors duration-300"
                 >
                   Schedule Your Viewing
                   <ArrowRight
-                    size={18}
+                    size={16}
                     className="ml-2 group-hover:ml-3 transition-all duration-300"
                   />
                 </Link>
                 
                 <Link 
                   href="#dealerships" 
-                  className="inline-flex items-center justify-center bg-transparent border border-[#7A6A58] text-[#7A6A58] hover:text-white hover:bg-[#7A6A58] px-6 py-3 font-medium transition-colors duration-300"
+                  className="inline-flex items-center justify-center bg-transparent border border-[#7A6A58] text-[#7A6A58] hover:text-white hover:bg-[#7A6A58] px-4 py-3 font-medium transition-colors duration-300"
                 >
                   Download Brochure
                 </Link>
               </div>
             </motion.div>
           </div>
-          
-          {/* Right side: Car image - Almost full width (8 columns) */}
-          <div className="lg:col-span-8 relative">
-            {/* Color switcher positioned at top right */}
-            <div className="absolute top-4 right-4 z-30 flex items-center space-x-3">
-              {colorOptions.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={() => handleColorChange(color)}
-                  className={`w-10 h-10 rounded-full border-2 transition-all duration-300 ${
-                    selectedColor.name === color.name 
-                      ? 'border-[#7A6A58] scale-110' 
-                      : 'border-transparent scale-100 hover:scale-105'
-                  }`}
-                  style={{ 
-                    backgroundColor: color.dotColor,
-                    boxShadow: selectedColor.name === color.name ? '0 0 0 2px rgba(122, 106, 88, 0.2)' : 'none'
-                  }}
-                  aria-label={`Select ${color.name} color`}
-                />
-              ))}
-            </div>
-            
-            {/* Car image with color - Full width container */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative w-full aspect-[16/9] bg-gradient-to-br from-gray-200 to-gray-100 rounded-lg overflow-hidden shadow-lg"
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedColor.name}
-                  variants={fadeVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={selectedColor.image}
-                    alt={`Chery SUV in ${selectedColor.name}`}
-                    fill
-                    priority
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
-          </div>
         </div>
         
-        {/* Additional Content Below */}
+        {/* Additional Content Below - More compact layout */}
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={slideUpVariants}
-          className="mt-8 md:mt-0"
+          className="max-w-7xl mx-auto"
         >
           {/* Tab navigation for highlights and specifications */}
           <div className="flex border-b border-[#D3C9BF] mb-8">
@@ -296,7 +287,7 @@ const CarColorSwitcher = () => {
                 transition={{ duration: 0.5 }}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                  <div className="bg-white rounded-lg shadow-sm p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-6 border border-[#E5E0DB]">
                     <h4 className="text-xl font-medium text-[#7A6A58] mb-4">Color Features</h4>
                     <ul className="space-y-3">
                       {selectedColor.highlights.map((highlight, index) => (
@@ -312,7 +303,7 @@ const CarColorSwitcher = () => {
                     </ul>
                   </div>
                   
-                  <div className="bg-white rounded-lg shadow-sm p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-6 border border-[#E5E0DB]">
                     <h4 className="text-xl font-medium text-[#7A6A58] mb-4">Paint Technology</h4>
                     <p className="text-[#7A6A58] mb-4">
                       Our premium paint technology features multiple layers for exceptional durability and a brilliant finish:
@@ -348,7 +339,7 @@ const CarColorSwitcher = () => {
               >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                   {/* Engine & Performance */}
-                  <div className="bg-white rounded-lg shadow-sm p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-6 border border-[#E5E0DB]">
                     <h4 className="text-xl font-medium text-[#7A6A58] mb-4">Engine & Performance</h4>
                     <ul className="space-y-3">
                       <li className="border-b border-[#E5E0DB] pb-2">
@@ -371,7 +362,7 @@ const CarColorSwitcher = () => {
                   </div>
                   
                   {/* Transmission & Drivetrain */}
-                  <div className="bg-white rounded-lg shadow-sm p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-6 border border-[#E5E0DB]">
                     <h4 className="text-xl font-medium text-[#7A6A58] mb-4">Transmission</h4>
                     <ul className="space-y-3">
                       <li className="border-b border-[#E5E0DB] pb-2">
@@ -390,7 +381,7 @@ const CarColorSwitcher = () => {
                   </div>
                   
                   {/* Dimensions */}
-                  <div className="bg-white rounded-lg shadow-sm p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-6 border border-[#E5E0DB]">
                     <h4 className="text-xl font-medium text-[#7A6A58] mb-4">Dimensions</h4>
                     <ul className="space-y-3">
                       <li className="border-b border-[#E5E0DB] pb-2">
