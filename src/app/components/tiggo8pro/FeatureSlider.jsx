@@ -20,16 +20,16 @@ const slides = [
     src: '/videos/tiggo8pro-hero.mp4',
     poster: '/images/tiggo8pro/hero-slider/video-frame.png',
     logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
-    logoAlt: 'Tiggo 8 Pro Max Logo',
+    logoAlt: 'Tiggo 8 Pro Logo',
     title: 'ENJOY YOUR FIRST CLASS',
     subtitle: 'LED Matrix Headlights',
     description: 'Intelligent lighting system that automatically adapts to driving conditions for optimal visibility and safety.',
     ariaLabel: 'Tiggo 8 Pro featuring LED Matrix Headlights',
-    ctaText: 'Explore Features',
-    ctaLink: '/features',
+    ctaText: 'Download Brochure',
+    ctaLink: '/brochures/tiggo-8pro-brochure.pdf',
     specs: [
       { label: 'Engine', value: '1.6T GDI' },
-      { label: 'Power', value: '197 HP' },
+      { label: 'Power', value: '195 BHP' },
       { label: 'Torque', value: '290 Nm' }
     ]
   },
@@ -38,17 +38,17 @@ const slides = [
     type: 'image',
     src: '/images/tiggo8pro/hero-slider/tiggo8pro-banner.jpg',
     logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
-    logoAlt: 'Tiggo 8 Pro Max Logo',
+    logoAlt: 'Tiggo 8 Pro Logo',
     title: 'BOLD PRESENCE',
     subtitle: 'Dynamic Exterior Design',
     description: 'Striking aesthetics with premium details that command attention on every journey.',
     ariaLabel: 'Tiggo 8 Pro showcasing its dynamic exterior design',
-    ctaText: 'View Gallery',
-    ctaLink: '/gallery',
+    ctaText: 'Download Brochure',
+    ctaLink: '/brochures/tiggo-8pro-brochure.pdf',
     specs: [
       { label: 'Length', value: '4,722 mm' },
       { label: 'Width', value: '1,860 mm' },
-      { label: 'Height', value: '1,746 mm' }
+      { label: 'Height', value: '1,705 mm' }
     ]
   },
 ]
@@ -145,7 +145,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
               custom={0.3}
               className="mb-4"
             >
-              <h2 className="text-2xl md:text-4xl lg:text-5xl uppercase tracking-wider font-light mb-3">
+              <h2 className="text-2xl md:text-4xl lg:text-5xl uppercase tracking-wider font-bold mb-3">
                 {slide.title}
               </h2>
               {slide.subtitle && (
@@ -181,20 +181,21 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
               className="flex flex-col md:flex-row items-start md:items-center gap-6"
             >
               {/* Primary CTA */}
-              <Link 
+              <Link
                 href={slide.ctaLink}
                 className="inline-flex items-center bg-primary-700 hover:bg-primary-900 text-white font-medium py-3.5 px-8 transition-all duration-300 text-sm md:text-base tracking-wide group"
+                target='_blank'
               >
                 <span>{slide.ctaText}</span>
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="18" 
-                  height="18" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                   strokeLinejoin="round"
                   className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                 >
@@ -206,18 +207,18 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
               {/* Specs toggle button - visible on md and larger */}
               <button
                 onClick={onSpecsToggle}
-                className="hidden md:inline-flex items-center text-white bg-transparent border border-primary-700 hover:border-primary-light py-3.5 px-6 transition-all duration-300 group"
+                className="hidden md:inline-flex items-center cursor-pointer text-white bg-transparent border border-primary-700 hover:border-primary-light py-3.5 px-6 transition-all duration-300 group"
               >
                 <span>{showSpecs ? 'Hide Specifications' : 'View Specifications'}</span>
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="18" 
-                  height="18" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                   strokeLinejoin="round"
                   className={`ml-2 transition-transform duration-300 ${showSpecs ? 'rotate-180' : ''}`}
                 >
@@ -243,11 +244,11 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
         >
           <div className="p-12">
             <h3 className="text-2xl font-light text-primary-light uppercase tracking-wider mb-8">Specifications</h3>
-            
+
             {/* Specs items with staggered animation */}
             <div className="space-y-8">
               {slide.specs.map((spec, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -261,7 +262,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => (
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Additional info for mobile (specs summary) */}
             <div className="md:hidden mt-8">
               <div className="border-t border-white/20 pt-4 flex flex-wrap gap-4">
@@ -332,28 +333,28 @@ const FeatureSlider = () => {
   // Reset and animate progress bars
   const resetProgressBars = useCallback((activeIndex) => {
     clearInterval(progressTimerRef.current)
-    
+
     // Reset all progress bars
     setProgressBars(slides.map((_, index) => ({
       progress: index < activeIndex ? 100 : 0,
       active: index === activeIndex
     })))
-    
+
     if (!isAutoplayPaused) {
       progressTimerRef.current = setInterval(() => {
         setProgressBars(prev => {
           const updated = [...prev]
-          
+
           if (updated[activeIndex].progress >= 100) {
             clearInterval(progressTimerRef.current)
             return updated
           }
-          
+
           updated[activeIndex] = {
-            ...updated[activeIndex], 
+            ...updated[activeIndex],
             progress: updated[activeIndex].progress + 0.4
           }
-          
+
           return updated
         })
       }, 25)
@@ -363,32 +364,32 @@ const FeatureSlider = () => {
   // Toggle autoplay pause/resume
   const toggleAutoplay = useCallback(() => {
     if (!swiperRef.current) return
-    
+
     const swiper = swiperRef.current.swiper
-    
+
     if (isAutoplayPaused) {
       swiper.autoplay.start()
       resetProgressBars(activeIndex)
-      
+
       // Resume video if current slide is a video
       const currentSlide = slides[activeIndex]
       if (currentSlide?.type === 'video') {
         const videoElement = videoRefs.current[activeIndex]
         if (videoElement) {
-          videoElement.play().catch(() => {})
+          videoElement.play().catch(() => { })
         }
       }
     } else {
       swiper.autoplay.stop()
       clearInterval(progressTimerRef.current)
-      
+
       // Pause video if the current slide is a video
       const videoElement = videoRefs.current[activeIndex]
       if (videoElement) {
         videoElement.pause()
       }
     }
-    
+
     setIsAutoplayPaused(!isAutoplayPaused)
   }, [isAutoplayPaused, activeIndex, resetProgressBars])
 
@@ -397,7 +398,7 @@ const FeatureSlider = () => {
     // Set loading state until first video/image is ready
     const timeout = setTimeout(() => {
       setIsLoading(false)
-      
+
       if (slides[0]?.type === 'video') {
         const videoElement = videoRefs.current[0]
         if (videoElement) {
@@ -406,7 +407,7 @@ const FeatureSlider = () => {
           })
         }
       }
-      
+
       resetProgressBars(0)
     }, 1000)
 
@@ -424,7 +425,7 @@ const FeatureSlider = () => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!swiperRef.current) return
-      
+
       const swiper = swiperRef.current.swiper
       if (e.key === 'ArrowLeft') {
         swiper.slidePrev()
@@ -450,28 +451,28 @@ const FeatureSlider = () => {
   }
 
   return (
-    <section 
-      className="w-full h-screen relative overflow-hidden" 
+    <section
+      className="w-full h-screen relative overflow-hidden"
       aria-label="Tiggo 8 Pro Feature Showcase"
     >
       {/* Loading overlay */}
       <AnimatePresence>
         {isLoading && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
             className="absolute inset-0 z-50 bg-gray-900 flex flex-col items-center justify-center"
           >
             <div className="w-32 h-1 bg-primary-700 mb-4 overflow-hidden">
-              <motion.div 
+              <motion.div
                 initial={{ x: '-100%' }}
                 animate={{ x: '100%' }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                 className="h-full w-full bg-primary-light"
               />
             </div>
-            <Image 
+            <Image
               src="/images/tiggo8pro/hero-slider/tiggo8-logo.png"
               alt="Loading"
               width={200}
@@ -512,9 +513,9 @@ const FeatureSlider = () => {
         className="h-full w-full"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide 
-            key={slide.id} 
-            className="relative" 
+          <SwiperSlide
+            key={slide.id}
+            className="relative"
             aria-label={slide.ariaLabel}
           >
             {/* Background media */}
@@ -545,15 +546,15 @@ const FeatureSlider = () => {
                   aria-hidden="true"
                 />
               )}
-              
+
               {/* Content overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
             </div>
 
             {/* Slide Content */}
-            <SlideContent 
-              slide={slide} 
-              isActive={index === activeIndex} 
+            <SlideContent
+              slide={slide}
+              isActive={index === activeIndex}
               onSpecsToggle={handleSpecsToggle}
               showSpecs={showSpecs}
             />
@@ -579,9 +580,9 @@ const FeatureSlider = () => {
                   </span>
                 </div>
                 <div className="w-12 h-0.5 bg-white/20 overflow-hidden">
-                  <div 
-                    className="h-full bg-primary-700 transition-all duration-300" 
-                    style={{ 
+                  <div
+                    className="h-full bg-primary-700 transition-all duration-300"
+                    style={{
                       width: `${progressBars[index].progress}%`,
                     }}
                   ></div>
@@ -611,7 +612,7 @@ const FeatureSlider = () => {
             </button>
 
             {/* Navigation arrows */}
-            <button 
+            <button
               className="swiper-button-prev flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-primary-700 border border-white/10 hover:border-primary-700 text-white transition-all duration-300"
               aria-label="Previous slide"
             >
@@ -619,8 +620,8 @@ const FeatureSlider = () => {
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
-            
-            <button 
+
+            <button
               className="swiper-button-next flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-primary-700 border border-white/10 hover:border-primary-700 text-white transition-all duration-300"
               aria-label="Next slide"
             >
@@ -641,12 +642,11 @@ const FeatureSlider = () => {
             className={`group w-2 h-10 flex flex-col items-center justify-center focus:outline-none`}
             aria-label={`Go to slide ${index + 1}`}
           >
-            <div 
-              className={`w-0.5 h-10 transition-all duration-300 ${
-                index === activeIndex 
-                  ? 'bg-primary-700' 
+            <div
+              className={`w-0.5 h-10 transition-all duration-300 ${index === activeIndex
+                  ? 'bg-primary-700'
                   : 'bg-white/30 group-hover:bg-white/50'
-              }`}
+                }`}
             />
           </button>
         ))}
