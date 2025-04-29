@@ -1,3 +1,4 @@
+
 export const tiggo8proData = {
     name: "Tiggo 8 Pro",
     
@@ -14,7 +15,6 @@ export const tiggo8proData = {
           { name: "Width", value: "1860", unit: "mm" },
           { name: "Height", value: "1705", unit: "mm" },
           { name: "Wheelbase", value: "2710", unit: "mm" },
-          { name: "Ground Clearance", value: "207", unit: "mm" },
         ]
       },
       features: [
@@ -22,31 +22,31 @@ export const tiggo8proData = {
           id: 1,
           image: "/images/tiggo8pro/features/pic01_01.jpg",
           title: "Dynamic lighting combination+Concierge lights",
-          text: "LED Headlights with automatic dual-sensing functionality",
+          text: "Advanced camera system for complete visibility",
         },
         {
           id: 2,
           image: "/images/tiggo8pro/features/pic01_02.jpg",
-          title: '19" Aluminium Alloy Rim Wheels',
-          text: "Stylish wheels that punctuate its presence with dynamic rhythm",
+          title: '19 "glossy sport hub"',
+          text: "Fast and convenient charging for all your devices",
         },
         {
           id: 3,
           image: "/images/tiggo8pro/features/pic01_03.jpg",
-          title: "Diamond-shaped Front Grille",
-          text: "Illuminating Chery front logo that gleams like a finely cut jewel",
+          title: "Matrix Diamond Front Grille",
+          text: "Cutting-edge heads-up display technology",
         },
         {
           id: 4,
           image: "/images/tiggo8pro/features/pic01_03.jpg",
-          title: "Panoramic Power Sunroof",
-          text: "Expansive sunroof for an enhanced driving experience",
+          title: "Matrix Diamond Front Grille",
+          text: "Cutting-edge heads-up display technology",
         },
         {
           id: 5,
           image: "/images/tiggo8pro/features/pic01_01.jpg",
-          title: "LED Rear Light Bar",
-          text: "Distinctive lighting signature that enhances visibility and style",
+          title: "Dynamic lighting combination+Concierge lights",
+          text: "Advanced camera system for complete visibility",
         },
       ],
       banner: [
@@ -69,7 +69,6 @@ export const tiggo8proData = {
         title: "Chery Power-1.6T",
         subtitle: "Supreme power, easy elegance",
         details: [
-          { name: "Engine", value: "1600cc Turbocharged", unit: "" },
           { name: "Maximum Power", value: "195", unit: "BHP" },
           { name: "Maximum Torque", value: "290", unit: "Nm" },
           { name: "Transmission", value: "7", unit: "Speed Dual Clutch" },
@@ -80,20 +79,20 @@ export const tiggo8proData = {
         {
           id: 1,
           image: "/images/tiggo8pro/features/pic02_01.jpg",
-          title: "1.6T Turbocharged Engine",
-          text: "High compression engine that pulses with 195 BHP and 290Nm of torque",
+          title: "1.6T Engine",
+          text: "Powerful and efficient turbocharged performance",
         },
         {
           id: 2,
           image: "/images/tiggo8pro/features/pic02_02.jpg",
-          title: "Selectable Drive Modes",
-          text: "Customizable driving experience to suit your preferences",
+          title: "ZF All-scene intelligent 4-wheel drive",
+          text: "Superior traction and control in all driving conditions",
         },
         {
           id: 3,
           image: "/images/tiggo8pro/features/pic02_03.jpg",
           title: "7DCT High-efficiency Transmission",
-          text: "Smooth shifting and responsive performance for precise control",
+          text: "Smooth shifting and responsive performance",
         },
       ],
       banner: [
@@ -118,18 +117,16 @@ export const tiggo8proData = {
         details: [
           { name: "Speakers (Sony HD)", value: "8", unit: "" },
           { name: "Dual Curved Screen", value: "24.6", unit: "inch" },
-          { name: "LCD Driver Cluster", value: "12.3", unit: "inch" },
-          { name: "Centre Control LCD Screen", value: "12.3", unit: "inch" },
-          { name: "Panoramic Camera", value: "540", unit: "°" },
-          { name: "Intelligent Voice Assistant", value: "Hello Chery", unit: "" },
+          { name: "Panoramic Image", value: "360", unit: "°" },
+          { name: "Intelligent Voice Assistant", value: "N", unit: "+" },
         ]
       },
       features: [
         {
           id: 1,
           image: "/images/tiggo8pro/features/pic03_01.jpg",
-          title: "Dual 12.3-inch Curved Screen",
-          text: "High-resolution Dual Curve Screen with driver cluster and control center",
+          title: "10.25-inch Dual Screen Setup",
+          text: "Intuitive controls and clear information display",
         },
         {
           id: 2,
@@ -140,20 +137,20 @@ export const tiggo8proData = {
         {
           id: 3,
           image: "/images/tiggo8pro/features/pic03_03.jpg",
-          title: "8-Speaker SONY™ HD Sound System",
-          text: "Immersive audio experience with crystal-clear sound quality",
+          title: "Sony Premium Sound System",
+          text: "Immersive audio experience with 8 high-quality speakers",
         },
         {
           id: 4,
           image: "/images/tiggo8pro/features/pic03_04.jpg",
-          title: "Intelligent Voice Assistant",
-          text: "Control vehicle functions with 'Hello Chery' natural voice commands",
+          title: "Voice Command System",
+          text: "Control vehicle functions with natural voice commands",
         },
         {
           id: 5,
           image: "/images/tiggo8pro/features/pic03_05.jpg",
-          title: "Wireless Charging (50kW)",
-          text: "Fast and convenient charging for compatible devices",
+          title: "Smart Connectivity Suite",
+          text: "Stay connected with advanced mobile integration",
         },
       ],
       banner: [
@@ -191,19 +188,19 @@ export const tiggo8proData = {
           id: 2,
           image: "/images/tiggo8pro/features/pic04_02.jpg",
           title: "Advanced Driver Assistance Systems (ADAS)",
-          text: "15 advanced safety features including AEB, ACC, FCW, BSD, and LDW",
+          text: "Comprehensive suite of safety technologies",
         },
         {
           id: 3,
           image: "/images/tiggo8pro/features/pic04_03.jpg",
-          title: "540° HD Panoramic Camera System",
-          text: "Comprehensive view of the vehicle's surroundings for enhanced safety",
+          title: "Intelligent Embedded Driving Recorder",
+          text: "Automatic recording for added security and peace of mind",
         },
         {
           id: 4,
           image: "/images/tiggo8pro/features/pic04_04.jpg",
           title: "9 Safety Airbags",
-          text: "Comprehensive protection including ISOFIX for all occupants",
+          text: "Comprehensive protection for all occupants",
         },
       ],
       banner: [
@@ -213,127 +210,6 @@ export const tiggo8proData = {
           description: 'Comprehensive protection systems that keep you and your passengers secure.',
           ctaText: 'Explore Safety',
           ctaLink: '/features/safety',
-        }
-      ]
-    },
-    
-    // =========================================
-    // COMFORT SECTION DATA
-    // =========================================
-    comfort: {
-      specs: {
-        category: "Comfort",
-        title: "First Class Cabin",
-        subtitle: "Luxurious comfort for all occupants",
-        details: [
-          { name: "Seats", value: "Plush Leather Upholstery", unit: "" },
-          { name: "Front Seats", value: "Queen Co-pilot with Memory & Ventilation", unit: "" },
-          { name: "Climate Control", value: "Multi-zone", unit: "" },
-          { name: "Ambient Lighting", value: "Multi-Color with Music Rhythm", unit: "" },
-        ]
-      },
-      features: [
-        {
-          id: 1,
-          image: "/images/tiggo8pro/features/comfort_01.jpg",
-          title: "Plush Leather Upholstery",
-          text: "Hand-stitched to perfection on seats, steering wheel, and touchpoints",
-        },
-        {
-          id: 2,
-          image: "/images/tiggo8pro/features/comfort_02.jpg",
-          title: "Spacious Seating",
-          text: "Premium comfort with Queen Co-pilot seats and ample rear cabin space",
-        },
-        {
-          id: 3,
-          image: "/images/tiggo8pro/features/comfort_03.jpg",
-          title: "Multi-Color Ambient Lighting",
-          text: "Sophisticated atmosphere with music rhythm synchronization",
-        },
-        {
-          id: 4,
-          image: "/images/tiggo8pro/features/comfort_04.jpg",
-          title: "Sound-dampening Mute Glass",
-          text: "Enhanced cabin quietness for a serene driving experience",
-        },
-      ],
-      banner: [
-        {
-          image: '/images/tiggo8pro/banners/comfort.jpg',
-          title: 'First Class Comfort',
-          description: 'Premium materials and thoughtful design create a superior cabin experience.',
-          ctaText: 'Explore Comfort',
-          ctaLink: '/features/comfort',
-        }
-      ]
-    },
-    
-    // =========================================
-    // COLORS SECTION DATA
-    // =========================================
-    colors: {
-      options: [
-        { 
-          name: "Pearl White", 
-          code: "#FFFFFF",
-          image: "/images/tiggo8pro/colors/pearl_white.jpg"
-        },
-        { 
-          name: "Carbon Crystal Black", 
-          code: "#1D1D1D",
-          image: "/images/tiggo8pro/colors/carbon_crystal_black.jpg"
-        },
-        { 
-          name: "Tech Grey", 
-          code: "#707375",
-          image: "/images/tiggo8pro/colors/tech_grey.jpg"
-        },
-        { 
-          name: "Aurora Green", 
-          code: "#2E4A46",
-          image: "/images/tiggo8pro/colors/aurora_green.jpg"
-        }
-      ],
-      interiors: [
-        {
-          name: "Premium Brown Leather Interior",
-          image: "/images/tiggo8pro/interiors/brown_interior.jpg"
-        }
-      ]
-    },
-    
-    // =========================================
-    // SERVICE SECTION DATA
-    // =========================================
-    service: {
-      warranty: {
-        years: 5,
-        kilometers: 100000,
-        description: "5 years or 100,000 km warranty, whichever comes first"
-      },
-      highlights: [
-        "Foreign experts",
-        "Reliable maintenance service",
-        "Latest diagnostic technologies",
-        "Emergency roadside assistance",
-        "Buy-back option available"
-      ],
-      centers: [
-        {
-          city: "Dhaka",
-          address: "277, Tejgaon I/A, Dhaka, Bangladesh",
-          phone: "09639-119977"
-        },
-        {
-          city: "Chittagong",
-          address: "",
-          phone: "09639-119977"
-        },
-        {
-          city: "Khulna",
-          address: "",
-          phone: "09639-119977"
         }
       ]
     },
