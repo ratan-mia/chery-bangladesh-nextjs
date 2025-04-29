@@ -37,7 +37,7 @@ const defaultVehicles = [
     description: "Experience the perfect blend of style, performance and technology",
     images: [
       {
-        src: "/images/tiggocross/hero/1.webp",
+        src: "/images/tiggocross/hero/exterior.jpg",
         alt: "Vehicle exterior view",
         type: "exterior"
       }
@@ -75,7 +75,7 @@ const defaultVehicles = [
     description: "Advanced driver assistance and premium luxury in every detail",
     images: [
       {
-        src: "/images/tiggocross/hero/2.webp",
+        src: "/images/tiggocross/hero/interior.jpg",
         alt: "Vehicle interior view",
         type: "interior"
       }
@@ -328,7 +328,7 @@ const VehicleShowcase = ({
                   <div 
                     className="absolute inset-0 z-10 pointer-events-none" 
                     style={{
-                      background: `linear-gradient(to top, rgba(45, 42, 38, 0.85), rgba(45, 42, 38, 0.4) 50%, rgba(45, 42, 38, 0.5))`
+                      background: `linear-gradient(to top, rgba(45, 42, 38, 0.20), rgba(45, 42, 38, 0.1) 10%, rgba(45, 42, 38, 0.2))`
                     }}
                   ></div>
 
