@@ -49,7 +49,7 @@ export default function CheryTiggoSection() {
       link: '/models/tiggo8pro',
       image: '/images/models/tiggo-8.png',
       specs: [
-        { label: 'Engine', value: '1.6 TGDI' },
+        { label: 'Engine', value: '1.6T' },
         { label: 'Power', value: '195 BHP' },
         { label: 'Torque', value: '290 Nm' },
         { label: 'Transmission', value: '7-Speed Dual Clutch (Wet Type)' }

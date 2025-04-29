@@ -45,7 +45,7 @@ export default function Home() {
     {
       id: 1,
       image: "/images/tiggo8pro/features/pic02_01.jpg",
-      title: "2.0TGDI Engine",
+      title: "1.6T Engine",
       text: "",
     },
     {
@@ -168,13 +168,6 @@ export default function Home() {
   ];
 
 
-
-
-
-
-
-
-
   return (
     <main>
       <FeatureSlider />
@@ -184,7 +177,7 @@ export default function Home() {
         title="Dynamic/Energetic Appearance"
         subtitle="See style, see grace"
         specs={[
-          { name: "Length", value: "4720", unit: "mm" },
+          { name: "Length", value: "4722", unit: "mm" },
           { name: "Width", value: "1860", unit: "mm" },
           { name: "Height", value: "1705", unit: "mm" },
           { name: "Wheelbase", value: "2710", unit: "mm" },
@@ -206,13 +199,13 @@ export default function Home() {
       />
       <VehicleSpecs
         category="Power"
-        title="Chery Power-2.0TGDI"
+        title="Chery Power-1.6T"
         subtitle="Supreme power, easy elegance"
         specs={[
-          { name: "Maximum Power", value: "145", unit: "kw" },
-          { name: "Maximum Torque", value: "375", unit: "N-m" },
-          { name: "Fuel consumption", value: "7.39", unit: "L/100km" },
-          { name: "Driving modes", value: "6", unit: "" },
+          { name: "Maximum Power", value: "195", unit: "BHP" },
+          { name: "Maximum Torque", value: "290", unit: "Nm" },
+          { name: "Transmission", value: "7", unit: "Speed Dual Clutch" },
+          { name: "Fuel Tank Capacity", value: "51", unit: "L" },
         ]}
       />
       <SimpleBanner
@@ -234,10 +227,10 @@ export default function Home() {
         title="Intelligent/Entertainment cockpit"
         subtitle="Smart Comfort for Every Smooth Drive"
         specs={[
-          { name: "Speakers", value: "10", unit: "" },
-          { name: "Dual screen", value: "24.6", unit: "inch" },
-          { name: "Panoramic image", value: "540", unit: "°" },
-          { name: "Multilingual intelligent voice interaction", value: "N", unit: "+" },
+          { name: "Speakers (Sony HD)", value: "8", unit: "" },
+          { name: "Dual Curved screen", value: "24.6", unit: "inch" },
+          { name: "Panoramic image", value: "360", unit: "°" },
+          { name: "Intelligent voice assistant", value: "N", unit: "+" },
         ]}
       />
       <SimpleBanner
