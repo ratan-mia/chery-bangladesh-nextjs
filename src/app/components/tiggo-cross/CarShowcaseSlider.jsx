@@ -350,7 +350,7 @@ const VehicleShowcase = ({
                       variants={slideUpVariants}
                       initial="hidden"
                       animate={isInView ? "visible" : "hidden"}
-                      className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8"
+                      className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8"
                     >
                       {/* Left side: Vehicle details with enhanced readability */}
                       <div className="flex flex-col justify-end md:col-span-7 bg-black/40 p-6 md:p-8 rounded-lg backdrop-blur-sm border-l-4" style={{ borderColor: theme.primary }}>
@@ -369,7 +369,7 @@ const VehicleShowcase = ({
                         </p>
 
                         {/* Feature list with improved visibility */}
-                        <div className="mb-8 hidden md:block">
+                        {/* <div className="mb-8 hidden md:block">
                           <h3 className="text-sm uppercase tracking-wider text-white/90 font-semibold mb-4">Key Features</h3>
                           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {image.vehicleInfo.features.slice(0, 4).map((feature, idx) => (
@@ -383,7 +383,7 @@ const VehicleShowcase = ({
                               </li>
                             ))}
                           </ul>
-                        </div>
+                        </div> */}
 
                         {/* CTA Buttons with improved design */}
                         <div className="flex flex-wrap gap-4 mt-2">
@@ -407,7 +407,7 @@ const VehicleShowcase = ({
                       </div>
 
                       {/* Right side: Vehicle specs with enhanced design */}
-                      {showSpecs && (
+                      {/* {showSpecs && (
                         <div className="flex flex-col justify-end md:col-span-5">
                           <div className="grid grid-cols-2 gap-4 p-6 md:p-8 rounded-lg backdrop-blur-sm shadow-lg" style={{ backgroundColor: theme.cardBg, borderLeft: `4px solid ${theme.primary}` }}>
                             {image.vehicleInfo.specs && Object.entries(image.vehicleInfo.specs).map(([key, value], idx) => (
@@ -422,7 +422,7 @@ const VehicleShowcase = ({
                             ))}
                           </div>
                         </div>
-                      )}
+                      )} */}
                     </motion.div>
                   </div>
                 </div>
