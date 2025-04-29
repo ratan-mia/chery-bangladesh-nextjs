@@ -15,13 +15,6 @@ const CAR_DATA = {
       defaultModel: 'tiggo8pro',
       // Series categories
       categories: [
-        // {
-        //   id: 'tiggo8series',
-        //   name: 'TIGGO 8 SERIES',
-        //   models: ['tiggo8'],
-        //   defaultExpanded: false
-        // },
-
         {
           id: 'tiggo8pro',
           name: 'TIGGO 8 PRO',
@@ -34,7 +27,6 @@ const CAR_DATA = {
           models: [],
           defaultExpanded: false
         },
-
       ]
     },
     // To add Arrizo back, just uncomment this section
@@ -155,7 +147,7 @@ export default function ModelsMegaMenu({
 
   const [expandedSeries, setExpandedSeries] = useState(initialExpandedState);
   const [hoveredModel, setHoveredModel] = useState(null);
-  const [isSpectVisible, setIsSpecVisible] = useState(false);
+  const [isSpecVisible, setIsSpecVisible] = useState(false);
 
   const menuRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -188,6 +180,18 @@ export default function ModelsMegaMenu({
 
     window.addEventListener('keydown', handleEscKey);
     return () => window.removeEventListener('keydown', handleEscKey);
+  }, [isOpen, onClose]);
+
+  // Handle clicks outside menu to close it
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target) && isOpen) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onClose]);
 
   // Prevent body scroll when menu is open
@@ -262,8 +266,14 @@ export default function ModelsMegaMenu({
     }
   };
 
-  const handleModelClick = (model) => {
+  const handleModelClick = (model, shouldNavigate = false) => {
     setActiveModel(model);
+    
+    // If shouldNavigate is true, navigate to the model page instead of closing the menu
+    if (!shouldNavigate) {
+      // Close the menu after selecting a model
+      onClose();
+    }
   };
 
   const handleModelHover = (model) => {
@@ -396,6 +406,7 @@ export default function ModelsMegaMenu({
                   }
                 }}
               >
+                {/* <span className="font-medium">{series.name}</span> */}
                 <Link href={`/models/${activeModel}`}>
                   <span className="font-medium">{series.name}</span>
                 </Link>
@@ -496,7 +507,7 @@ export default function ModelsMegaMenu({
                 {/* Engine */}
                 <div>
                   <div className="text-sm text-neutral-500">Engine</div>
-                  {isSpectVisible && specs && (
+                  {isSpecVisible && specs && (
                     <AnimatedCounter value={specs.engine} suffix="T" />
                   )}
                 </div>
@@ -504,7 +515,7 @@ export default function ModelsMegaMenu({
                 {/* Length */}
                 <div>
                   <div className="text-sm text-neutral-500">Length</div>
-                  {isSpectVisible && specs && (
+                  {isSpecVisible && specs && (
                     <AnimatedCounter value={specs.length} suffix="mm" />
                   )}
                 </div>
@@ -512,7 +523,7 @@ export default function ModelsMegaMenu({
                 {/* Wheelbase */}
                 <div>
                   <div className="text-sm text-neutral-500">Wheelbase</div>
-                  {isSpectVisible && specs && (
+                  {isSpecVisible && specs && (
                     <AnimatedCounter value={specs.wheelbase} suffix="mm" />
                   )}
                 </div>
@@ -520,7 +531,7 @@ export default function ModelsMegaMenu({
                 {/* Power */}
                 <div>
                   <div className="text-sm text-neutral-500">Power</div>
-                  {isSpectVisible && specs && (
+                  {isSpecVisible && specs && (
                     <AnimatedCounter value={specs.power} suffix="hp" />
                   )}
                 </div>
@@ -528,7 +539,7 @@ export default function ModelsMegaMenu({
                 {/* Torque */}
                 <div>
                   <div className="text-sm text-neutral-500">Torque</div>
-                  {isSpectVisible && specs && (
+                  {isSpecVisible && specs && (
                     <AnimatedCounter value={specs.torque} suffix="Nm" />
                   )}
                 </div>
@@ -536,7 +547,7 @@ export default function ModelsMegaMenu({
 
               {/* Action buttons */}
               <div className="mt-8 flex gap-4">
-                <Link href={`/models/${activeModel}`}>
+                <Link href={`/models/${activeModel}`} onClick={() => onClose()}>
                   <button
                     className="px-10 py-4 cursor-pointer text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors"
                     style={{
@@ -551,7 +562,7 @@ export default function ModelsMegaMenu({
                   </button>
                 </Link>
 
-                <Link href="/contact">
+                <Link href="/contact" onClick={() => onClose()}>
                   <button
                     className="px-10 py-4 cursor-pointer text-center font-medium uppercase tracking-wider text-sm inline-block transition-colors border-2"
                     style={{
