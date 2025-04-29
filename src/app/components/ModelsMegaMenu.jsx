@@ -55,7 +55,7 @@ const CAR_DATA = {
   specs: {
     'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
     'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
-    'tiggo8pro': { engine: '2.0', length: '4722', wheelbase: '2710', power: '187', torque: '300' },
+    'tiggo8pro': { engine: '1.6', length: '4722', wheelbase: '2710', power: '195', torque: '290' },
     'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
     'tiggocross': { engine: '1.5', length: '4318', wheelbase: '2610', power: '145', torque: '210' },
     'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555', power: '126', torque: '180' },
@@ -82,7 +82,7 @@ const AnimatedCounter = ({ value, suffix, duration = 1000 }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const counterRef = useRef(null);
   const initialValue = useRef(0);
-  const targetValue = parseInt(value, 10);
+  const targetValue = parseFloat(value);
 
   useEffect(() => {
     let startTime;
