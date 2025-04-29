@@ -56,49 +56,49 @@ const defaultVehicles = [
       }
     ]
   },
-  {
-    id: "tiggo-pro-1",
-    modelName: "EXTERIOR",
-    modelYear: "2025",
-    tagline: "DESIGNED FOR THE FUTURE",
-    description: "Advanced driver assistance and premium luxury in every detail",
-    images: [
-      {
-        src: "/images/tiggocross/hero/1.webp", // These would be different images in a real implementation
-        alt: "TIGGO CROSS exterior front view",
-        type: "exterior"
-      },
-      {
-        src: "/images/tiggocross/hero/2.webp", // These would be different images in a real implementation
-        type: "interior"
-      }
-    ],
-    specs: {
-      engine: "2.0T GDI",
-      power: "192 HP",
-      torque: "290 Nm",
-      transmission: "8-DCT",
-      acceleration: "7.8s",
-      fuelEconomy: "7.2L/100km"
-    },
-    buttons: [
-      {
-        label: "Explore Features",
-        url: "#features",
-        variant: "primary"
-      },
-      {
-        label: "Book Test Drive",
-        url: "#test-drive",
-        variant: "secondary"
-      },
-      {
-        label: "Download Brochure",
-        url: "#brochure",
-        variant: "outline"
-      }
-    ]
-  }
+  // {
+  //   id: "tiggo-pro-1",
+  //   modelName: "EXTERIOR",
+  //   modelYear: "2025",
+  //   tagline: "DESIGNED FOR THE FUTURE",
+  //   description: "Advanced driver assistance and premium luxury in every detail",
+  //   images: [
+  //     {
+  //       src: "/images/tiggocross/hero/1.webp", // These would be different images in a real implementation
+  //       alt: "TIGGO CROSS exterior front view",
+  //       type: "exterior"
+  //     },
+  //     {
+  //       src: "/images/tiggocross/hero/2.webp", // These would be different images in a real implementation
+  //       type: "interior"
+  //     }
+  //   ],
+  //   specs: {
+  //     engine: "2.0T GDI",
+  //     power: "192 HP",
+  //     torque: "290 Nm",
+  //     transmission: "8-DCT",
+  //     acceleration: "7.8s",
+  //     fuelEconomy: "7.2L/100km"
+  //   },
+  //   buttons: [
+  //     {
+  //       label: "Explore Features",
+  //       url: "#features",
+  //       variant: "primary"
+  //     },
+  //     {
+  //       label: "Book Test Drive",
+  //       url: "#test-drive",
+  //       variant: "secondary"
+  //     },
+  //     {
+  //       label: "Download Brochure",
+  //       url: "#brochure",
+  //       variant: "outline"
+  //     }
+  //   ]
+  // }
 ];
 
 const VehicleShowcase = ({
