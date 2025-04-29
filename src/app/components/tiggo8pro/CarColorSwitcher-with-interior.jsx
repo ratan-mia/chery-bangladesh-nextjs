@@ -61,6 +61,7 @@ const CarColorSwitcher = () => {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isInView, setIsInView] = useState(false)
   const [isImageLoaded, setIsImageLoaded] = useState(false)
+  const [activeView, setActiveView] = useState('exterior')
   const sectionRef = useRef(null)
 
   // Detect when component is in view
@@ -238,6 +239,26 @@ const CarColorSwitcher = () => {
           transform: translateX(100%);
         }
         
+        .tab-button {
+          position: relative;
+        }
+        
+        .tab-button::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background-color: #8c735d;
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+        
+        .tab-button.active::after {
+          transform: scaleX(1);
+        }
+        
         /* Soft shadow for image */
         .car-image-wrapper {
           position: relative;
@@ -301,10 +322,21 @@ const CarColorSwitcher = () => {
           
           {/* Right Side: Color Selection and Info - 5 columns */}
           <div className="lg:col-span-5 order-1 lg:order-2 flex flex-col">
-            {/* Section heading for exterior colors */}
-            <h3 className="text-xl font-medium text-gray-900 mb-6 pb-3 border-b border-gray-200">
-              Exterior Colors
-            </h3>
+            {/* View Switch Tabs */}
+            <div className="flex mb-8 border-b border-gray-200">
+              <button 
+                className={`tab-button py-3 px-6 text-gray-900 font-medium ${activeView === 'exterior' ? 'active' : ''}`}
+                onClick={() => setActiveView('exterior')}
+              >
+                Exterior Colors
+              </button>
+              <button 
+                className={`tab-button py-3 px-6 text-gray-900 font-medium ${activeView === 'interior' ? 'active' : ''}`}
+                onClick={() => setActiveView('interior')}
+              >
+                Interior Options
+              </button>
+            </div>
           
             <motion.div
               initial="hidden"
