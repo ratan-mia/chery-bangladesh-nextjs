@@ -309,7 +309,7 @@ const CarTechSlider = ({
       0: { slidesPerView: 1, spaceBetween: 16 },
       640: { slidesPerView: 2, spaceBetween: 20 },
       1024: { slidesPerView: 3, spaceBetween: 24 },
-      1280: { slidesPerView: 4, spaceBetween: 30 },
+      1280: { slidesPerView: 3, spaceBetween: 30 },
     };
   };
 
@@ -474,7 +474,7 @@ const CarTechSlider = ({
                       {showCaptions && layout === "fullscreen" && (
                         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
                           <h3
-                            className="text-2xl font-semibold mb-2 text-white"
+                            className="text-3xl font-bold mb-2 text-white"
                           >
                             {slide.title}
                           </h3>
@@ -491,16 +491,16 @@ const CarTechSlider = ({
 
                     {/* Standard caption for grid layout */}
                     {showCaptions && layout !== "fullscreen" && (
-                      <div className="mt-4 px-1">
+                      <div className="mt-4 px-1 py-3">
                         <h3
-                          className="text-lg font-semibold mb-2"
+                          className="text-3xl font-bold mb-2"
                           style={{ color: theme.text }}
                         >
                           {slide.title}
                         </h3>
                         {slide.description && (
                           <p
-                            className="text-sm line-clamp-2"
+                            className="text-lg line-clamp-2"
                             style={{ color: theme.textSecondary }}
                           >
                             {slide.description}
