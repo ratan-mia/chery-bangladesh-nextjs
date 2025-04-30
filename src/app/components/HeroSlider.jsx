@@ -21,13 +21,13 @@ export default function HeroSlider() {
   const navigationPrevRef = useRef(null)
   const navigationNextRef = useRef(null)
 
-  // Hero slides data
+  // Hero slides data - enhanced with information from the brochures
   const heroSlides = [
     {
       id: 'tiggo8pro',
       title: 'TIGGO 8 PRO',
       subtitle: 'Enjoy Your First Class',
-      description: 'Premium 7-seater SUV with luxury features and advanced tech',
+      description: 'The epitome of luxury with 195 BHP and premium 7-seat configuration',
       image: '/images/tiggo8pro/hero-slider/tiggo-8pro-banner.jpg',
       color: '#b7a99a', 
       link: '/models/tiggo8pro'
@@ -35,26 +35,26 @@ export default function HeroSlider() {
     {
       id: 'tiggocross',
       title: 'TIGGO CROSS',
-      subtitle: 'Cross wonderful life',
-      description: 'Compact SUV with sporty design and advanced technology',
+      subtitle: 'For Every Kind Of You',
+      description: 'Modern, safe, comfortable and stylish crossover with biomimetic design',
       image: '/images/tiggocross/slider.jpg',
-      color: '#b7a99a', // Teal color
-      link: '/models/tiggo9'
+      color: '#b7a99a',
+      link: '/models/tiggocross'
     },
     {
       id: 'tiggocross2',
       title: 'TIGGO CROSS',
-      subtitle: 'The Ultimate Urban SUV',
-      description: 'Compact SUV with sporty design and advanced technology',
+      subtitle: 'Wonderful Urban SUV',
+      description: 'Sleek and aerodynamic with tiger face styling and advanced safety features',
       image: '/images/tiggocross/slider2.jpg',
-      color: '#b7a99a', // Teal color
-      link: '/models/tiggo9'
+      color: '#b7a99a',
+      link: '/models/tiggocross'
     },
     {
       id: 'tiggo8pro2',
       title: 'TIGGO 8 PRO',
-      subtitle: 'Enjoy Your First Class',
-      description: 'Premium 7-seater SUV with luxury features and advanced tech',
+      subtitle: 'First Class Cabin',
+      description: 'Luxurious leather interior with dual 12.3" screens and panoramic sunroof',
       image: '/images/tiggo8pro/hero-slider/tiggo-8-pro.jpg',
       color: '#b7a99a', 
       link: '/models/tiggo8pro'

@@ -41,46 +41,47 @@ export default function CheryTiggoSection() {
     setCurrentTheme(currentTheme === 'dark' ? 'light' : 'dark')
   }
 
-  // Models data - enhanced with information from the brochures
+  // Models data - simplified
   const models = [
     {
       name: 'Tiggo 8 Pro',
-      subtitle: 'Premium 7-Seater Luxury SUV',
+      subtitle: 'Premium 7-Seater SUV',
       link: '/models/tiggo8pro',
-      image: '/images/tiggo8pro/colors/chery-green.png',
+      image: '/images/models/tiggo-8.png',
       specs: [
-        { label: 'Engine', value: '1.6T Turbocharged' },
+        { label: 'Engine', value: '1.6T' },
         { label: 'Power', value: '195 BHP' },
         { label: 'Torque', value: '290 Nm' },
-        { label: 'Transmission', value: '7-Speed Dual Clutch' }
+        { label: 'Transmission', value: '7-Speed Dual Clutch (Wet Type)' }
       ],
-      features: [
-        'Premium Luxury 7-seat SUV', 
-        'Panoramic Sunroof', 
-        'Multi-color Ambient System with Music Rhythm',
-        '12.3" Dual Curve Screen'
-      ],
-      description: 'The epitome of luxury that transcends the bounds of a mere vehicle; a masterpiece that commands centre stage presence with a diamond-shaped front grille and illuminated logo that radiates elegance.'
+      features: ['Premium Luxury 7-seat SUV', 'Panoramic Sunroof', 'Dual zone automatic climate control system', 'Multi-color ambient system with music rhythm']
     },
+    // {
+    //   name: 'Tiggo 7 Pro',
+    //   subtitle: 'Stylish Compact SUV',
+    //   link: '/models/tiggo/tiggo7',
+    //   image: '/images/models/tiggo-7.png',
+    //   specs: [
+    //     { label: 'Engine', value: '1.5T GDI' },
+    //     { label: 'Power', value: '156 HP' },
+    //     { label: 'Torque', value: '230 Nm' },
+    //     { label: 'Transmission', value: 'CVT' }
+    //   ],
+    //   features: ['LED Headlights', 'Digital Cluster', 'Wireless Charging', 'Auto Parking']
+    // },
     {
       name: 'Tiggo Cross',
-      subtitle: 'Modern Crossover SUV',
+      subtitle: 'Ultimate Crossover',
       link: '/models/tiggocross',
-      image: '/images/models/tiggo-cross.png',
+      image: '/images/models/tiggo-4.png',
       specs: [
-        { label: 'Engine', value: '1.5L Turbocharged' },
+        { label: 'Engine', value: '1.5L' },
         { label: 'Power', value: '145 BHP' },
         { label: 'Torque', value: '210 Nm' },
         { label: 'Transmission', value: '6-Speed Dual Clutch' }
       ],
-      features: [
-        'Biomimetic Tiger Face Design', 
-        '10.25" Ultra-Clear LCD Screen', 
-        'Voice-Activated Panoramic Sunroof',
-        '360° Panoramic Camera View'
-      ],
-      description: 'Sleek and aerodynamic - ready for adventure with its biomimetic tiger face design. Features a distinctive diamond-shaped grille pattern, tiger claw style headlight trim, and vertical crystal-edged marker lamps.'
-    }
+      features: ['Premium Interior', 'Rain Sensor Wipers', 'Sporty Back Cockpit', '360° Panoramic Camera View']
+    },
   ]
 
   // Set up intersection observer
@@ -116,7 +117,7 @@ export default function CheryTiggoSection() {
         <div className="flex justify-end mb-6">
           <button
             onClick={toggleTheme}
-            className="p-2 transition-all duration-300"
+            className="p-2  transition-all duration-300"
             style={{
               backgroundColor: `${theme.surfaceHighlight}`,
               border: `1px solid ${theme.border}`,
@@ -158,7 +159,7 @@ export default function CheryTiggoSection() {
             className="text-base md:text-lg max-w-2xl mx-auto"
             style={{ color: theme.textSecondary }}
           >
-            Enjoy your first class driving experience with cutting-edge technology and luxury features
+            Versatile SUVs designed for every lifestyle with cutting-edge technology
           </p>
         </motion.div>
 
@@ -174,7 +175,7 @@ export default function CheryTiggoSection() {
             <select 
               value={activeIndex} 
               onChange={(e) => setActiveIndex(Number(e.target.value))}
-              className="w-full p-3"
+              className="w-full p-3 "
               style={{ 
                 backgroundColor: theme.surface,
                 borderColor: theme.border,
@@ -189,12 +190,12 @@ export default function CheryTiggoSection() {
           </div>
 
           {/* Desktop tabs */}
-          <div className="hidden md:flex space-x-1 bg-opacity-50 p-1" style={{ backgroundColor: theme.surfaceHighlight }}>
+          <div className="hidden md:flex space-x-1 bg-opacity-50 p-1 " style={{ backgroundColor: theme.surfaceHighlight }}>
             {models.map((model, index) => (
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`px-6 py-2 transition-all duration-200 ${activeIndex === index ? 'font-medium' : ''}`}
+                className={`px-6 py-2  transition-all duration-200 ${activeIndex === index ? 'font-medium' : ''}`}
                 style={{
                   backgroundColor: activeIndex === index ? theme.surface : 'transparent',
                   color: activeIndex === index ? theme.primary : theme.textSecondary,
@@ -218,7 +219,7 @@ export default function CheryTiggoSection() {
           >
             <div className="relative w-full aspect-[4/3] max-w-lg">
               {/* Subtle platform effect */}
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 h-[2px]" 
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 h-[2px] " 
                 style={{ backgroundColor: theme.primary, opacity: 0.3 }}></div>
               
               {/* Subtle glow */}
@@ -268,16 +269,9 @@ export default function CheryTiggoSection() {
               </p>
             </div>
 
-            {/* Description */}
-            <div className="mb-6">
-              <p style={{ color: theme.text }}>
-                {models[activeIndex].description}
-              </p>
-            </div>
-
             {/* Specifications Card */}
             <div 
-              className="p-6 mb-6"
+              className="p-6  mb-6"
               style={{ 
                 backgroundColor: theme.surface,
                 boxShadow: theme.shadow
@@ -288,7 +282,7 @@ export default function CheryTiggoSection() {
                 style={{ color: theme.text }}
               >
                 <span 
-                  className="inline-block w-3 h-3 mr-2"
+                  className="inline-block w-3 h-3 mr-2 "
                   style={{ backgroundColor: theme.primary }}
                 ></span>
                 Key Specifications
@@ -321,7 +315,7 @@ export default function CheryTiggoSection() {
                 style={{ color: theme.text }}
               >
                 <span 
-                  className="inline-block w-3 h-3 mr-2"
+                  className="inline-block w-3 h-3 mr-2 "
                   style={{ backgroundColor: theme.primary }}
                 ></span>
                 Featured Highlights
@@ -331,7 +325,7 @@ export default function CheryTiggoSection() {
                 {models[activeIndex].features.map((feature, index) => (
                   <div 
                     key={index} 
-                    className="flex items-center p-3"
+                    className="flex items-center p-3 "
                     style={{ backgroundColor: theme.surfaceHighlight }}
                   >
                     <svg 
@@ -354,7 +348,7 @@ export default function CheryTiggoSection() {
             {/* CTA Button - Clean and professional */}
             <Link href={models[activeIndex].link || "#"}>
               <span 
-                className="inline-flex items-center px-6 py-3 font-medium transition-all duration-200 hover:opacity-90"
+                className="inline-flex items-center px-6 py-3  font-medium transition-all duration-200 hover:opacity-90"
                 style={{ 
                   backgroundColor: theme.primary,
                   color: currentTheme === 'dark' ? '#121212' : '#ffffff',
@@ -370,7 +364,7 @@ export default function CheryTiggoSection() {
           </motion.div>
         </div>
 
-        {/* Bottom Feature Cards - Updated with information from brochures */}
+        {/* Bottom Feature Cards - Minimal and clean */}
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-16"
           initial={{ opacity: 0, y: 20 }}
@@ -378,21 +372,21 @@ export default function CheryTiggoSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           {[
-            { title: 'Performance', desc: 'Powerful turbocharged engines with excellent handling characteristics' },
-            { title: 'Safety', desc: 'Comprehensive passive and active safety systems with up to 9 airbags' },
-            { title: 'Technology', desc: 'Dual 12.3" screens with smartphone connectivity and voice assistant' },
-            { title: 'Warranty', desc: 'Exceptional 5-year/100,000 km warranty with buy-back option' }
+            { title: 'Performance', desc: 'Powerful and efficient engines for optimal driving' },
+            { title: 'Safety', desc: 'Advanced driver assistance systems for peace of mind' },
+            { title: 'Technology', desc: 'Intuitive infotainment and connectivity features' },
+            { title: 'Warranty', desc: 'Comprehensive 5-year/100,000 km coverage' }
           ].map((item, index) => (
             <div 
               key={index}
-              className="p-5 flex flex-col h-full transition-transform duration-200 hover:transform hover:translate-y-[-5px]"
+              className="p-5  flex flex-col h-full transition-transform duration-200 hover:transform hover:translate-y-[-5px]"
               style={{ 
                 backgroundColor: theme.surface,
                 boxShadow: theme.shadow
               }}
             >
               <div 
-                className="w-8 h-1 mb-4"
+                className="w-8 h-1 mb-4 "
                 style={{ backgroundColor: theme.primary }}
               ></div>
               <h4 
@@ -417,7 +411,7 @@ export default function CheryTiggoSection() {
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
-              className="w-2 h-2 transition-all duration-200"
+              className="w-2 h-2  transition-all duration-200"
               style={{
                 backgroundColor: index === activeIndex ? theme.primary : theme.surfaceHighlight,
                 transform: index === activeIndex ? 'scale(1.5)' : 'scale(1)'
