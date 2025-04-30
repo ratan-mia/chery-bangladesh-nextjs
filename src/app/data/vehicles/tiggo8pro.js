@@ -69,7 +69,7 @@ export const tiggo8proData = {
         title: "Chery Power-1.6T",
         subtitle: "Supreme power, easy elegance",
         details: [
-          { name: "Engine", value: "1600cc Turbocharged", unit: "" },
+          { name: "Engine", value: "1600", unit: "cc Turbocharged" },
           { name: "Maximum Power", value: "195", unit: "BHP" },
           { name: "Maximum Torque", value: "290", unit: "Nm" },
           { name: "Transmission", value: "7", unit: "Speed Dual Clutch" },
