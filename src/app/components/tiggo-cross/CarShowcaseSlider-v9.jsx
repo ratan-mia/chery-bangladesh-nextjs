@@ -65,53 +65,59 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
   
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row p-0 text-white z-10">
-      {/* Left content panel - Enhanced text visibility with stronger background */}
-      <div className="w-full md:w-2/3 h-full flex flex-col justify-end md:justify-center p-4 sm:p-6 md:p-12 lg:p-16 relative">
-        <div className="relative p-4 sm:p-6 md:p-8 rounded-md bg-black/60 backdrop-blur-sm md:max-w-xl transition-opacity duration-700 ease-in-out">
+      {/* Left content panel */}
+      <div className="w-full md:w-2/3 h-full flex flex-col justify-end md:justify-center p-8 md:p-16 relative">
+        <div className={`md:max-w-xl transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
           {/* Car logo */}
-          <div className="mb-4 sm:mb-6 transform transition-all duration-700 ease-out">
+          <div className="mb-6 transform transition-all duration-700 ease-out">
             <img
               src="/images/tiggocross/logo.webp"
               alt="Tiggo Cross Logo"
-              className="object-contain h-8 sm:h-10 md:h-12"
+              className="object-contain"
               width={180}
               height={50}
             />
           </div>
 
+          {/* Decorative line */}
+          <div 
+            className="h-1 bg-amber-700 mb-8 transition-all duration-1000 ease-out"
+            style={{ width: isActive ? '100%' : '0%', backgroundColor: tiggoCrossData.accentColor }}
+          />
+
           {/* Title and subtitle */}
-          <div className="mb-3 sm:mb-4 transform transition-all duration-700 ease-out">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-wider font-bold mb-2 text-white">
+          <div className="mb-4 transform transition-all duration-700 ease-out">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl uppercase tracking-wider font-bold mb-3">
               {slide.title}
             </h2>
             {slide.subtitle && (
-              <p className="text-base sm:text-lg md:text-xl text-amber-200 font-medium">
+              <p className="text-lg md:text-2xl text-amber-200 font-medium">
                 {slide.subtitle}
               </p>
             )}
           </div>
 
-          {/* Description - Improved visibility */}
+          {/* Description */}
           {slide.description && (
-            <p className="text-white text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed transform transition-all duration-700 ease-out">
+            <p className="text-white/80 mb-8 max-w-lg leading-relaxed hidden md:block transform transition-all duration-700 ease-out">
               {slide.description}
             </p>
           )}
 
           {/* Actions row with CTA and specs toggle */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transform transition-all duration-700 ease-out">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 transform transition-all duration-700 ease-out">
             {/* Primary CTA */}
             <Link
               href="/brochures/tiggo-cross-brochure.pdf"
-              className="inline-flex items-center text-white font-medium py-2.5 sm:py-3 px-4 sm:px-6 transition-all duration-300 text-sm tracking-wide group w-full sm:w-auto justify-center sm:justify-start"
+              className="inline-flex items-center bg-amber-800 hover:bg-amber-900 text-white font-medium py-3.5 px-8 transition-all duration-300 text-sm md:text-base tracking-wide group"
               style={{ backgroundColor: tiggoCrossData.accentColor }}
               target='_blank'
             >
               <span>Download Brochure</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -125,17 +131,17 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
               </svg>
             </Link>
 
-            {/* Specs toggle button - Mobile friendly */}
+            {/* Specs toggle button */}
             <button
               onClick={onSpecsToggle}
-              className="inline-flex items-center cursor-pointer text-white bg-transparent border py-2.5 sm:py-3 px-4 sm:px-6 transition-all duration-300 group w-full sm:w-auto justify-center"
+              className="hidden md:inline-flex items-center cursor-pointer text-white bg-transparent border border-amber-700 hover:border-amber-500 py-3.5 px-6 transition-all duration-300 group"
               style={{ borderColor: tiggoCrossData.accentColor }}
             >
-              <span className="text-sm">{showSpecs ? 'Hide Specifications' : 'View Specifications'}</span>
+              <span>{showSpecs ? 'Hide Specifications' : 'View Specifications'}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -148,30 +154,29 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
               </svg>
             </button>
           </div>
-   
         </div>
       </div>
 
-      {/* Right specifications panel - Now responsive for mobile */}
+      {/* Right specifications panel */}
       {showSpecs && isActive && slide.specs && (
         <div
-          className="w-full md:w-1/3 flex flex-col justify-center bg-black/70 backdrop-blur-md border-t md:border-t-0 md:border-l transition-all duration-700 ease-out p-4 sm:p-6"
+          className="hidden md:flex w-1/3 h-full flex-col justify-center bg-black/60 backdrop-blur-md border-l border-amber-700 transition-all duration-700 ease-out"
           style={{ borderColor: tiggoCrossData.accentColor }}
         >
-          <div className="p-4 sm:p-6 md:p-8 lg:p-12">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-light text-amber-200 uppercase tracking-widest mb-4 sm:mb-6">Specifications</h3>
+          <div className="p-12">
+            <h3 className="text-2xl font-light text-amber-200 uppercase tracking-wider mb-8">Specifications</h3>
 
             {/* Specs items with staggered animation */}
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-8">
               {slide.specs.map((spec, index) => (
                 <div
                   key={index}
-                  className="border-b border-white/20 pb-3 transition-all duration-500"
+                  className="border-b border-white/10 pb-4 transition-all duration-500"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="flex justify-between items-center">
-                    <span className="text-white/70 text-xs sm:text-sm uppercase tracking-wider">{spec.label}</span>
-                    <span className="text-white font-medium text-sm sm:text-base md:text-lg">{spec.value}</span>
+                    <span className="text-white/60 text-sm uppercase tracking-wider">{spec.label}</span>
+                    <span className="text-white font-medium text-lg">{spec.value}</span>
                   </div>
                 </div>
               ))}
@@ -189,7 +194,6 @@ const VehicleShowcase = ({ className = "" }) => {
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showSpecs, setShowSpecs] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [progressBars, setProgressBars] = useState(
     tiggoCrossData.slides.map(() => ({ progress: 0, active: false }))
   );
@@ -197,23 +201,6 @@ const VehicleShowcase = ({ className = "" }) => {
   const swiperRef = useRef(null);
   const progressTimerRef = useRef(null);
   const sectionRef = useRef(null);
-
-  // Detect mobile devices
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Listen for resize events
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
 
   // Toggle specifications panel
   const handleSpecsToggle = () => {
@@ -301,13 +288,13 @@ const VehicleShowcase = ({ className = "" }) => {
   return (
     <section
       ref={sectionRef}
-      className={`w-full overflow-hidden h-screen md:h-screen ${className} relative`}
+      className={`w-full overflow-hidden h-screen ${className} relative`}
       aria-label="Tiggo Cross Vehicle Showcase"
     >
       {/* Loading overlay */}
       {isLoading && (
         <div className="absolute inset-0 z-50 bg-gray-900 flex flex-col items-center justify-center transition-opacity duration-800">
-          <div className="w-24 sm:w-32 h-1 bg-amber-700 mb-4 overflow-hidden" style={{ backgroundColor: tiggoCrossData.accentColor }}>
+          <div className="w-32 h-1 bg-amber-700 mb-4 overflow-hidden" style={{ backgroundColor: tiggoCrossData.accentColor }}>
             <div 
               className="h-full w-1/3 bg-amber-200 animate-[loading_1.5s_ease-in-out_infinite]"
               style={{animation: "translateX(-100%) translateX(300%)"}}
@@ -316,16 +303,16 @@ const VehicleShowcase = ({ className = "" }) => {
           <img
             src="/images/tiggocross/logo.webp"
             alt="Loading"
-            width={160}
-            height={45}
-            className="object-contain h-8 sm:h-10"
+            width={180}
+            height={50}
+            className="object-contain"
           />
         </div>
       )}
 
       {/* Model badge in top left */}
-      <div className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-20 bg-black/40 backdrop-blur-sm px-3 sm:px-4 py-2 border-l-2 flex items-center" style={{ borderColor: tiggoCrossData.accentColor }}>
-        <span className="text-white text-xs sm:text-sm font-medium tracking-widest">{tiggoCrossData.modelName}</span>
+      <div className="absolute top-8 left-8 z-20 bg-black/20 backdrop-blur-sm px-5 py-2.5 border-l-2 border-amber-700 flex items-center" style={{ borderColor: tiggoCrossData.accentColor }}>
+        <span className="text-white text-sm font-medium tracking-widest">{tiggoCrossData.modelName}</span>
       </div>
 
       {/* Main slider */}
@@ -363,13 +350,13 @@ const VehicleShowcase = ({ className = "" }) => {
                 />
               </div>
 
-              {/* Content overlay - Stronger gradient for better text visibility */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/10"></div>
+              {/* Content overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent"></div>
             </div>
 
             {/* Type indicator (interior/exterior) */}
             <div 
-              className={`absolute top-4 sm:top-6 md:top-8 right-4 sm:right-6 md:right-8 z-30 py-1.5 sm:py-2 px-3 sm:px-4 uppercase text-xs sm:text-sm tracking-widest rounded-sm text-white font-semibold shadow-lg transition-all duration-500 ${
+              className={`absolute top-8 right-8 z-30 py-2 px-4 uppercase text-sm tracking-widest rounded-sm text-white font-semibold shadow-lg transition-all duration-500 ${
                 slide.type === 'interior' ? 'bg-amber-700' : 'bg-amber-900'
               }`}
             >
@@ -387,83 +374,101 @@ const VehicleShowcase = ({ className = "" }) => {
         ))}
       </Swiper>
 
-      {/* MOVED: Center navigation arrows - Added to the middle of the screen instead of bottom */}
-      <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 z-20 flex justify-between px-2 sm:px-4 md:px-8 pointer-events-none">
-        <button
-          className="swiper-button-prev flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-black/30 hover:bg-amber-700 border border-white/10 hover:border-amber-700 text-white transition-all duration-300 rounded-full pointer-events-auto"
-          aria-label="Previous slide"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-
-        <button
-          className="swiper-button-next flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-black/30 hover:bg-amber-700 border border-white/10 hover:border-amber-700 text-white transition-all duration-300 rounded-full pointer-events-auto"
-          aria-label="Next slide"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-      </div>
-
-      {/* Bottom navigation with progress bars - Improved and simplified */}
-      <div className="absolute left-0 right-0 bottom-0 z-20 bg-black/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            {/* Progress indicators and slide dots - Improved visibility */}
-            <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto scrollbar-hide">
-              {tiggoCrossData.slides.map((slide, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className="group flex items-center gap-2 text-white/60 hover:text-white transition-colors duration-300 flex-shrink-0"
-                >
+      {/* Bottom navigation with progress bars */}
+      <div className="absolute left-0 right-0 bottom-0 z-20 bg-black/20 backdrop-blur-sm">
+        <div className="container mx-auto max-w-7xl px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Progress indicators and slide dots */}
+          <div className="flex items-center gap-6 w-full md:w-auto">
+            {tiggoCrossData.slides.map((slide, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className="group flex flex-col items-start gap-2 text-white/60 hover:text-white transition-colors duration-300"
+              >
+                <div className="flex items-center gap-2">
                   <div 
-                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${activeIndex === index ? '' : 'bg-white/30'}`}
+                    className={`w-1.5 h-1.5 ${activeIndex === index ? 'bg-amber-700' : 'bg-white/30'}`}
                     style={{ backgroundColor: activeIndex === index ? tiggoCrossData.accentColor : '' }}
                   ></div>
-                  <span className={`text-xs sm:text-sm font-medium ${activeIndex === index ? 'text-white' : 'text-white/60'}`}>
-                    {slide.type}
+                  <span className={`text-xs font-medium ${activeIndex === index ? 'text-white' : 'text-white/60'}`}>
+                    {`0${index + 1}`}
                   </span>
-                  <div className="w-12 sm:w-16 h-1 bg-white/20 overflow-hidden">
-                    <div
-                      className="h-full transition-all duration-300"
-                      style={{ 
-                        width: `${progressBars[index].progress}%`,
-                        backgroundColor: tiggoCrossData.accentColor 
-                      }}
-                    ></div>
-                  </div>
-                </button>
-              ))}
-            </div>
+                </div>
+                <div className="w-12 h-0.5 bg-white/20 overflow-hidden">
+                  <div
+                    className="h-full bg-amber-700 transition-all duration-300"
+                    style={{ 
+                      width: `${progressBars[index].progress}%`,
+                      backgroundColor: tiggoCrossData.accentColor 
+                    }}
+                  ></div>
+                </div>
+              </button>
+            ))}
+          </div>
 
-            {/* Play/Pause button - Simplified interface */}
+          {/* Controls */}
+          <div className="flex items-center gap-4">
+            {/* Play/Pause button */}
             <button
               onClick={toggleAutoplay}
-              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-black/30 rounded-full hover:bg-amber-700 text-white transition-all duration-300"
+              className="flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-amber-700 border border-white/10 hover:border-amber-700 text-white transition-all duration-300"
               aria-label={isAutoplayPaused ? "Resume slideshow" : "Pause slideshow"}
-              style={{ 
-                backgroundColor: isAutoplayPaused ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.3)" 
-              }}
             >
               {isAutoplayPaused ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="6" y="4" width="4" height="16"></rect>
                   <rect x="14" y="4" width="4" height="16"></rect>
                 </svg>
               )}
             </button>
+
+            {/* Navigation arrows */}
+            <button
+              className="swiper-button-prev flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-amber-700 border border-white/10 hover:border-amber-700 text-white transition-all duration-300"
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+
+            <button
+              className="swiper-button-next flex items-center justify-center w-10 h-10 bg-white/5 hover:bg-amber-700 border border-white/10 hover:border-amber-700 text-white transition-all duration-300"
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
           </div>
         </div>
+      </div>
+
+      {/* Side navigation indicators */}
+      <div className="absolute right-8 top-1/2 transform -translate-y-1/2 z-20 hidden md:flex flex-col gap-8">
+        {tiggoCrossData.slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`group w-2 h-10 flex flex-col items-center justify-center focus:outline-none`}
+            aria-label={`Go to slide ${index + 1}`}
+          >
+            <div
+              className={`w-0.5 h-10 transition-all duration-300 ${index === activeIndex
+                  ? 'bg-amber-700'
+                  : 'bg-white/30 group-hover:bg-white/50'
+                }`}
+              style={{ 
+                backgroundColor: index === activeIndex ? tiggoCrossData.accentColor : '' 
+              }}
+            />
+          </button>
+        ))}
       </div>
     </section>
   );
