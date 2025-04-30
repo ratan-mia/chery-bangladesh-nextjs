@@ -186,7 +186,7 @@ export default function HeroSlider() {
                 {/* CTA button with accent color */}
                 <Link href={slide.link}>
                   <button 
-                    className="group px-6 sm:px-8 md:px-10 py-2 sm:py-3 text-white uppercase tracking-wider text-xs sm:text-sm font-medium transition-all duration-300 flex items-center"
+                    className="group px-6 sm:px-8 md:px-10 py-2 sm:py-3 cursor-pointer text-white uppercase tracking-wider text-xs sm:text-sm font-medium transition-all duration-300 flex items-center"
                     style={{ backgroundColor: slide.color }}
                   >
                     Explore
