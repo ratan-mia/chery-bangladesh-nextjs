@@ -5,7 +5,7 @@ import CarFeaturesSlider from "@components/CarFeaturesSlider";
 import SimpleBanner from "@components/SimpleBanner";
 import CarColorSwitcher from "@components/tiggo8pro/CarColorSwitcher";
 import ContactBanner from "@components/tiggo8pro/ContactBanner";
-import FeatureSlider from "@components/tiggo8pro/FeatureSlider";
+import VehicleShowcase from "@components/tiggo8pro/VehicleShowcase";
 import VehicleSpecs from "@components/VehicleSpecs";
 
 export default function Tiggo8ProPage() {
@@ -17,7 +17,8 @@ export default function Tiggo8ProPage() {
       {/* =========================================
           HERO SECTION
           ========================================= */}
-      <FeatureSlider />
+      {/* <FeatureSlider /> */}
+      <VehicleShowcase/>
       
       {/* =========================================
           APPEARANCE SECTION
