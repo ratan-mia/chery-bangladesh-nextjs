@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Calendar, ChevronDown, ChevronUp, Download } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -71,6 +71,8 @@ const CarColorSwitcher = () => {
   const [selectedColor, setSelectedColor] = useState(colorOptions[0]);
   const [isInView, setIsInView] = useState(false);
   const [activeTab, setActiveTab] = useState('highlights');
+  const [isMobileColorMenuOpen, setIsMobileColorMenuOpen] = useState(false);
+  const [isMobileInfoExpanded, setIsMobileInfoExpanded] = useState(false);
   const sectionRef = useRef(null);
 
   // Detect when section is in view
@@ -98,6 +100,7 @@ const CarColorSwitcher = () => {
   // Change color handler
   const handleColorChange = (color) => {
     setSelectedColor(color);
+    setIsMobileColorMenuOpen(false); // Close dropdown after selection on mobile
   };
   
   // Animation variants
@@ -134,14 +137,14 @@ const CarColorSwitcher = () => {
       ref={sectionRef}
       className="w-full bg-[#F5F4F2] py-8 md:py-16 lg:py-24 relative overflow-hidden"
     >
-      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 ">
-        {/* Main content layout - Flex container for side-by-side layout */}
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main content layout - Responsive hero section */}
         <div className="relative mb-8 md:mb-16">
-          {/* Color switcher positioned at top right - Fixed position */}
-          <div className="absolute top-6 right-6 z-30 hidden md:flex items-center space-x-4">
+          {/* Desktop Color Switcher (positioned on right side) */}
+          <div className="hidden md:flex absolute top-6 right-6 z-30 items-center space-x-4">
             {colorOptions.map((color) => (
               <button
-                key={color.name}
+                key={`desktop-${color.name}`}
                 onClick={() => handleColorChange(color)}
                 className={`w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 transition-all duration-300 ${
                   selectedColor.name === color.name 
@@ -156,95 +159,160 @@ const CarColorSwitcher = () => {
               />
             ))}
           </div>
-
-          {/* Mobile color selector */}
-          <div className="flex md:hidden justify-center mb-4 space-x-3">
-            {colorOptions.map((color) => (
-              <button
-                key={`mobile-${color.name}`}
-                onClick={() => handleColorChange(color)}
-                className={`w-8 h-8 rounded-full border-2 transition-all duration-300 ${
-                  selectedColor.name === color.name 
-                    ? 'border-[#7A6A58] scale-110' 
-                    : 'border-transparent scale-100'
-                }`}
-                style={{ 
-                  backgroundColor: color.dotColor,
-                  boxShadow: selectedColor.name === color.name ? '0 0 0 2px rgba(122, 106, 88, 0.2)' : 'none'
-                }}
-                aria-label={`Select ${color.name} color`}
-              />
-            ))}
+          
+          {/* Mobile Color Dropdown Menu */}
+          <div className="md:hidden absolute top-4 right-4 z-30">
+            <div className="relative">
+              <button 
+                onClick={() => setIsMobileColorMenuOpen(!isMobileColorMenuOpen)}
+                className="flex items-center justify-between w-full bg-white px-3 py-2 border border-[#E5E0DB] rounded shadow-sm"
+                aria-expanded={isMobileColorMenuOpen}
+                aria-haspopup="true"
+              >
+                <div className="flex items-center">
+                  <div
+                    className="w-6 h-6 rounded-full mr-2"
+                    style={{ backgroundColor: selectedColor.dotColor }}
+                  ></div>
+                  <span className="text-sm font-medium text-[#7A6A58] mr-1">{selectedColor.name}</span>
+                </div>
+                <ChevronDown size={16} className="text-[#7A6A58]" />
+              </button>
+              
+              {isMobileColorMenuOpen && (
+                <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg z-40 border border-[#E5E0DB]">
+                  <div className="py-1">
+                    {colorOptions.map((color) => (
+                      <button
+                        key={`mobile-${color.name}`}
+                        onClick={() => handleColorChange(color)}
+                        className={`flex items-center w-full px-4 py-2 text-left text-sm ${
+                          selectedColor.name === color.name ? 'bg-[#F5F4F2]' : ''
+                        }`}
+                      >
+                        <div
+                          className={`w-5 h-5 rounded-full mr-3 border ${
+                            selectedColor.name === color.name ? 'border-[#7A6A58]' : 'border-transparent'
+                          }`}
+                          style={{ backgroundColor: color.dotColor }}
+                        ></div>
+                        <span className="text-[#7A6A58]">{color.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           
-          {/* Flex container for text and image */}
-          <div className="flex flex-col md:flex-row items-center">
-            {/* Text content - Left side on desktop */}
-            <div className="w-full md:w-5/12 lg:w-4/12 order-2 md:order-1 md:pr-6 lg:pr-10">
+          {/* Side-by-side layout for desktop, stacked for mobile */}
+          <div className="flex flex-col md:flex-row md:items-center md:gap-6 lg:gap-10">
+            {/* Text content on the left side */}
+            <div className="w-full md:w-5/12 lg:w-4/12 order-2 md:order-1 z-10 bg-gradient-to-br from-gray-200 to-gray-100">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.7 }}
-                className="bg-white/90 backdrop-blur-sm p-6 md:p-8 shadow-lg mt-4 md:mt-0"
+                className="bg-white/90 backdrop-blur-sm p-4 md:p-6 lg:p-8 shadow-lg mt-4 md:mt-0"
               >
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#7A6A58] mb-2">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#7A6A58] mb-1 md:mb-2">
                   Brand new colors
                 </h2>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-[#7A6A58] mb-6">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-medium text-[#7A6A58] mb-4 md:mb-6">
                   Nature whispers, your car listens
                 </h3>
                 
-                {/* Selected color information */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selectedColor.name + '-info'}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="flex items-center gap-3 mb-4 border-l-4 border-[#7A6A58] pl-3">
-                      <div>
-                        <p className="text-base sm:text-lg font-medium text-[#7A6A58]">{selectedColor.name}</p>
-                        <p className="text-xs sm:text-sm text-[#7A6A58]">Color Code: {selectedColor.colorCode}</p>
-                      </div>
+                {/* Mobile: Color & Description with expand/collapse */}
+                <div className="md:hidden">
+                  <div className="flex items-center justify-between gap-3 mb-2 border-l-4 border-[#7A6A58] pl-3">
+                    <div>
+                      <p className="text-base font-medium text-[#7A6A58]">{selectedColor.name}</p>
+                      <p className="text-xs text-[#7A6A58]">Color Code: {selectedColor.colorCode}</p>
                     </div>
-                    <p className="text-sm sm:text-base text-[#7A6A58] mb-6">
-                      {selectedColor.description}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
+                    <button 
+                      onClick={() => setIsMobileInfoExpanded(!isMobileInfoExpanded)}
+                      className="p-1"
+                      aria-label={isMobileInfoExpanded ? "Show less" : "Show more"}
+                    >
+                      {isMobileInfoExpanded ? 
+                        <ChevronUp size={18} className="text-[#7A6A58]" /> : 
+                        <ChevronDown size={18} className="text-[#7A6A58]" />
+                      }
+                    </button>
+                  </div>
+                  
+                  <AnimatePresence>
+                    {isMobileInfoExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-sm text-[#7A6A58] mb-4">
+                          {selectedColor.description}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                
+                {/* Desktop: Selected color information */}
+                <div className="hidden md:block">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={selectedColor.name + '-info'}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="flex items-center gap-3 mb-4 border-l-4 border-[#7A6A58] pl-3">
+                        <div>
+                          <p className="text-lg font-medium text-[#7A6A58]">{selectedColor.name}</p>
+                          <p className="text-sm text-[#7A6A58]">Color Code: {selectedColor.colorCode}</p>
+                        </div>
+                      </div>
+                      <p className="text-[#7A6A58] mb-6">
+                        {selectedColor.description}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
 
-                {/* CTA buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                {/* CTA buttons - Responsive layout */}
+                <div className="flex flex-row xs:flex-row gap-3 mt-3 md:mt-0">
                   <Link 
                     href="#contact" 
-                    className="group inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-[#7A6A58] text-white text-sm sm:text-base font-medium hover:bg-[#65584A] transition-colors duration-300"
+                    className="group inline-flex items-center justify-center px-4 py-2.5 bg-[#7A6A58] text-white text-sm md:text-base font-medium hover:bg-[#65584A] transition-colors duration-300 rounded-sm"
                   >
-                    Schedule Your Viewing
+                    <Calendar size={16} className="mr-2 flex-shrink-0" />
+                    Schedule Viewing
                     <ArrowRight
-                      size={16}
-                      className="ml-2 group-hover:ml-3 transition-all duration-300"
+                      size={14}
+                      className="ml-2 group-hover:translate-x-1 transition-all duration-300"
                     />
                   </Link>
                   
                   <Link 
                     href="#dealerships" 
-                    className="inline-flex items-center justify-center bg-transparent border border-[#7A6A58] text-[#7A6A58] hover:text-white hover:bg-[#7A6A58] px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium transition-colors duration-300"
+                    className="inline-flex items-center justify-center bg-transparent border border-[#7A6A58] text-[#7A6A58] hover:text-white hover:bg-[#7A6A58] px-4 py-2.5 text-sm md:text-base font-medium transition-colors duration-300 rounded-sm"
                   >
+                    <Download size={16} className="mr-2 flex-shrink-0" />
                     Download Brochure
                   </Link>
                 </div>
               </motion.div>
             </div>
             
-            {/* Car image container - Right side on desktop */}
-            <div className="w-full md:w-7/12 lg:w-8/12 order-1 md:order-2">
+            {/* Car image on the right side */}
+            <div className="w-full md:w-7/12 lg:w-8/12 order-1 md:order-2 relative">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden"
+                className="relative w-full aspect-[16/9] md:aspect-[4/3] lg:aspect-[16/9] overflow-hidden rounded-md"
               >
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -261,7 +329,7 @@ const CarColorSwitcher = () => {
                       fill
                       priority
                       className="object-contain"
-                      sizes="(max-width: 768px) 100vw, 60vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 65vw"
                     />
                   </motion.div>
                 </AnimatePresence>
@@ -270,15 +338,15 @@ const CarColorSwitcher = () => {
           </div>
         </div>
         
-        {/* Additional Content Below - More compact layout */}
+        {/* Additional Content - Fully responsive tabs */}
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={slideUpVariants}
           className="max-w-7xl mx-auto"
         >
-          {/* Tab navigation for highlights and specifications - Scrollable on mobile */}
-          <div className="flex border-b border-[#D3C9BF] mb-6 md:mb-8 overflow-x-auto no-scrollbar">
+          {/* Tab navigation - Sticky on mobile */}
+          <div className="flex border-b border-[#D3C9BF] mb-6 md:mb-8 sticky top-0 bg-[#F5F4F2] z-10 overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveTab('highlights')}
               className={`py-2.5 md:py-3 px-4 md:px-6 font-medium transition-colors whitespace-nowrap ${
@@ -301,7 +369,7 @@ const CarColorSwitcher = () => {
             </button>
           </div>
           
-          {/* Tab content */}
+          {/* Tab content with responsive grids */}
           <AnimatePresence mode="wait">
             {activeTab === 'highlights' ? (
               <motion.div
@@ -311,8 +379,8 @@ const CarColorSwitcher = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
-                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mb-8 md:mb-12">
+                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB] rounded-md">
                     <h4 className="text-lg md:text-xl font-medium text-[#7A6A58] mb-4">Color Features</h4>
                     <ul className="space-y-2 md:space-y-3">
                       {selectedColor.highlights.map((highlight, index) => (
@@ -328,7 +396,7 @@ const CarColorSwitcher = () => {
                     </ul>
                   </div>
                   
-                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB] rounded-md">
                     <h4 className="text-lg md:text-xl font-medium text-[#7A6A58] mb-4">Paint Technology</h4>
                     <p className="text-sm md:text-base text-[#7A6A58] mb-4">
                       Our premium paint technology features multiple layers for exceptional durability and a brilliant finish:
@@ -364,7 +432,7 @@ const CarColorSwitcher = () => {
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
                   {/* Engine & Performance */}
-                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB] rounded-md">
                     <h4 className="text-lg md:text-xl font-medium text-[#7A6A58] mb-4">Engine & Performance</h4>
                     <ul className="space-y-3">
                       <li className="border-b border-[#E5E0DB] pb-2">
@@ -387,7 +455,7 @@ const CarColorSwitcher = () => {
                   </div>
                   
                   {/* Transmission & Drivetrain */}
-                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB]">
+                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB] rounded-md">
                     <h4 className="text-lg md:text-xl font-medium text-[#7A6A58] mb-4">Transmission</h4>
                     <ul className="space-y-3">
                       <li className="border-b border-[#E5E0DB] pb-2">
@@ -406,7 +474,7 @@ const CarColorSwitcher = () => {
                   </div>
                   
                   {/* Dimensions */}
-                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB] sm:col-span-2 lg:col-span-1">
+                  <div className="bg-white shadow-sm p-4 md:p-6 border border-[#E5E0DB] rounded-md sm:col-span-2 lg:col-span-1">
                     <h4 className="text-lg md:text-xl font-medium text-[#7A6A58] mb-4">Dimensions</h4>
                     <ul className="space-y-3">
                       <li className="border-b border-[#E5E0DB] pb-2">
@@ -429,7 +497,6 @@ const CarColorSwitcher = () => {
           </AnimatePresence>
         </motion.div>
       </div>
-      
     </section>
   )
 }
