@@ -132,21 +132,21 @@ export default function HeroBanner() {
             variants={itemVariants}
             className="inline-block text-primary-500 font-medium mb-3"
           >
-            Next Generation Vehicles
+            Enjoy Your First Class
           </motion.span>
           
           <motion.h1 
             variants={itemVariants}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
           >
-            Redefining Automotive Excellence
+            The Face of First Class
           </motion.h1>
           
           <motion.p 
             variants={itemVariants}
             className="text-lg text-white/80 mb-8"
           >
-            Discover the perfect blend of innovation, style, and performance in every Chery vehicle. Designed for the future, built for today.
+            Discover the Chery Tiggo family - an engineering marvel offering symphony of stability and handling. With ground clearance that rises above the ordinary, gliding effortlessly over any terrain.
           </motion.p>
           
           <motion.div 
@@ -219,7 +219,7 @@ export default function HeroBanner() {
               </div>
               
               <h3 className="text-xl font-bold text-white mt-4">Chery Brand Film</h3>
-              <p className="text-sm text-white/60">Experience the next generation of automotive excellence</p>
+              <p className="text-sm text-white/60">Experience the luxury that transcends the bounds of a mere vehicle</p>
             </div>
           </motion.div>
         )}
