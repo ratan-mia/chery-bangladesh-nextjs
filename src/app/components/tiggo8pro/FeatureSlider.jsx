@@ -37,7 +37,7 @@ const slides = [
   {
     id: 'slide2',
     type: 'image',
-    src: '/images/tiggo8pro/hero-slider/tiggo8pro-banner.jpg',
+    src: '/images/tiggo8pro/hero-slider/intelligent-cockpit.jpg',
     logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
     logoAlt: 'Tiggo 8 Pro Logo',
     title: 'INTELLIGENT COCKPIT',
@@ -589,7 +589,7 @@ const FeatureSlider = () => {
               )}
 
               {/* Content overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent"></div>
             </div>
 
             {/* Slide Content */}
