@@ -12,7 +12,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Theme configuration using Chery Bangladesh design system guidelines
+// ============= THEME CONFIGURATION =============
 const getTheme = (customPrimaryColor) => {
   return {
     primaryLight: customPrimaryColor || '#c4b19c', // Primary Light from design system
@@ -31,11 +31,12 @@ const getTheme = (customPrimaryColor) => {
 // Helper function to adjust color shades
 const adjustColorShade = (hex, percent) => {
   // This is a simplified version - in production you'd want a more robust color manipulation
-  // For now, just return the original color since we can't manipulate colors at runtime in this context
   return hex;
 };
 
-// Media placeholder component with design system aesthetics
+// ============= SUBCOMPONENTS =============
+
+// Media placeholder component
 const ImagePlaceholder = ({ theme }) => {
   return (
     <div
@@ -63,7 +64,7 @@ const ImagePlaceholder = ({ theme }) => {
   );
 };
 
-// Enhanced video player with optimized loading and autoplay controls
+// Video player component
 const VideoPlayer = ({ src, poster, theme }) => {
   const videoRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -126,17 +127,18 @@ const VideoPlayer = ({ src, poster, theme }) => {
   );
 };
 
-// Enhanced navigation buttons with improved positioning and design
+// Navigation buttons component
 const NavigationButtons = ({ onPrev, onNext, theme }) => {
   return (
     <div className="flex items-center justify-center space-x-4 mt-6">
       <button
         onClick={onPrev}
-        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-full focus:outline-none focus:ring-2 focus:ring-primary-700 focus:ring-offset-2 group"
+        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 group"
         style={{
           backgroundColor: "#FFFFFF",
           color: theme.primary900,
           border: `1px solid ${theme.borderColor}`,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
         }}
         aria-label="Previous slide"
       >
@@ -157,10 +159,11 @@ const NavigationButtons = ({ onPrev, onNext, theme }) => {
       </button>
       <button
         onClick={onNext}
-        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-full focus:outline-none focus:ring-2 focus:ring-primary-900 focus:ring-offset-2 group"
+        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 group"
         style={{
           backgroundColor: theme.primary700,
           color: "#FFFFFF",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
         }}
         aria-label="Next slide"
       >
@@ -183,7 +186,7 @@ const NavigationButtons = ({ onPrev, onNext, theme }) => {
   );
 };
 
-// Enhanced pagination indicator with refined styling and better accessibility
+// Pagination indicator component
 const PaginationIndicator = ({ activeIndex, totalSlides, onDotClick, theme }) => {
   const slideIndices = Array.from({ length: totalSlides }, (_, i) => i);
 
@@ -209,7 +212,7 @@ const PaginationIndicator = ({ activeIndex, totalSlides, onDotClick, theme }) =>
   );
 };
 
-// Main component with comprehensive design system integration
+// ============= MAIN COMPONENT =============
 const CarTechSlider = ({
   slides = [],
   className = "",
@@ -225,8 +228,9 @@ const CarTechSlider = ({
   backgroundOverlay = true,
   showReadMoreLinks = true, // Option to show/hide "Read more" links
   primaryColor, // Optional custom primary color
-  customStyles = {}, // Optional custom styles object for additional customization
+  customStyles = {}, // Optional custom styles object
 }) => {
+  // Component state
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState(null);
@@ -248,6 +252,7 @@ const CarTechSlider = ({
     }
   };
 
+  // ============= EVENT HANDLERS =============
   const handlePrev = useCallback(() => {
     setSlideChangeDirection("prev");
     swiperInstance?.slidePrev();
@@ -275,6 +280,7 @@ const CarTechSlider = ({
     [swiperInstance, activeIndex]
   );
 
+  // ============= EFFECTS =============
   // Observer for section visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -306,6 +312,8 @@ const CarTechSlider = ({
     }
   }, [isHovering, autoplay, swiperInstance]);
 
+  // ============= HELPER FUNCTIONS =============
+  // Return early if no slides
   if (!slides.length) {
     return null;
   }
@@ -343,6 +351,7 @@ const CarTechSlider = ({
     return "container mx-auto px-4";
   };
 
+  // ============= COMPONENT RENDER =============
   return (
     <section
       ref={sectionRef}
@@ -373,7 +382,7 @@ const CarTechSlider = ({
 
       <div className={getContainerClass()}>
         <div className="max-w-[1920px] mx-auto">
-          {/* Enhanced section header with animation sequence */}
+          {/* Section header */}
           {title && (
             <div className="flex flex-col items-center mb-8 md:mb-12">
               {/* Top accent line with animation */}
@@ -436,205 +445,22 @@ const CarTechSlider = ({
 
           {/* Main slider component */}
           <div className="relative mx-auto">
-            <Swiper
-              onSwiper={setSwiperInstance}
-              modules={[Navigation, Pagination, A11y, Autoplay, EffectFade]}
-              slidesPerView={getSlidesPerView()}
-              spaceBetween={24}
-              loop={slides.length > 1}
-              effect={layout === "fullscreen" ? "fade" : undefined}
-              autoplay={
-                autoplay
-                  ? {
-                      delay: autoplaySpeed,
-                      disableOnInteraction: false,
-                    }
-                  : false
-              }
-              breakpoints={getBreakpoints()}
-              onSlideChange={handleSlideChange}
-              className="mb-6 md:mb-8"
-              a11y={{
-                prevSlideMessage: "Previous slide",
-                nextSlideMessage: "Next slide",
-                firstSlideMessage: "This is the first slide",
-                lastSlideMessage: "This is the last slide",
-              }}
-              watchSlidesProgress={true}
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={slide.id || index} className="h-auto">
-                  <div
-                    className={`h-full flex flex-col backdrop-blur-sm transition-all duration-300 rounded-md overflow-hidden ${
-                      layout === "fullscreen" ? "p-0" : "p-0" // Changed to p-0 for better design
-                    }`}
-                    style={{
-                      backgroundColor: layout === "fullscreen" ? "transparent" : theme.cardBg,
-                      border: layout === "fullscreen" ? "none" : `1px solid ${theme.borderColor}`,
-                      transform: `perspective(1000px) rotateY(${isInView ? "0" : slideChangeDirection === "next" ? "5deg" : "-5deg"})`,
-                      opacity: isInView ? 1 : 0.8,
-                      transition: "transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease",
-                      boxShadow: isHovering ? "0 10px 25px rgba(0, 0, 0, 0.08)" : "0 4px 12px rgba(0, 0, 0, 0.05)"
-                    }}
-                  >
-                    {/* Media container (image or video) */}
-                    <div 
-                      className={`relative overflow-hidden flex-grow ${
-                        layout === "fullscreen" ? "w-full h-64 sm:h-80 md:h-96 lg:h-[500px]" : ""
-                      }`} 
-                      style={{ aspectRatio: layout !== "fullscreen" ? aspectRatio : "auto" }}
-                    >
-                      {slide.mediaType === "image" ? (
-                        slide.image ? (
-                          <div className="relative w-full h-full group">
-                            <Image
-                              src={slide.image}
-                              alt={slide.title || "Feature image"}
-                              className="object-cover transition-transform duration-700 group-hover:scale-105"
-                              fill
-                              priority={index < 3}
-                              sizes={layout === "fullscreen" ? "100vw" : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"}
-                            />
-                            {layout === "fullscreen" && (
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                            )}
-                          </div>
-                        ) : (
-                          <ImagePlaceholder theme={theme} />
-                        )
-                      ) : slide.videoUrl ? (
-                        <VideoPlayer
-                          src={slide.videoUrl}
-                          poster={slide.videoPoster}
-                          theme={theme}
-                        />
-                      ) : (
-                        <ImagePlaceholder theme={theme} />
-                      )}
-
-                      {/* Improved fullscreen layout caption overlay */}
-                      {showCaptions && layout === "fullscreen" && (
-                        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10">
-                          {/* Background overlay with gradient */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
-                          
-                          {/* Caption content */}
-                          <div className="relative z-10 max-w-3xl">
-                            {/* Optional decorative accent line */}
-                            <div 
-                              className="w-12 h-1 mb-4 bg-white opacity-80"
-                            ></div>
-                            
-                            <h3
-                              className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 md:mb-4 text-white"
-                            >
-                              {slide.title}
-                            </h3>
-                            
-                            {slide.description && (
-                              <p
-                                className="text-sm md:text-base text-gray-200 line-clamp-2 md:line-clamp-3 lg:line-clamp-none max-w-xl leading-relaxed"
-                              >
-                                {slide.description}
-                              </p>
-                            )}
-                            
-                            {/* CTA button for fullscreen layout */}
-                            {showReadMoreLinks && slide.link && (
-                              <a
-                                href={slide.link}
-                                className="inline-flex items-center mt-6 px-6 py-2 bg-white text-primary-900 font-medium text-sm rounded hover:bg-primary-700 hover:text-white transition-all duration-300 group"
-                              >
-                                Learn More
-                                <svg 
-                                  className="w-4 h-4 ml-2 group-hover:ml-3 transition-all duration-300"
-                                  viewBox="0 0 24 24" 
-                                  fill="none" 
-                                  stroke="currentColor" 
-                                  strokeWidth="2" 
-                                  strokeLinecap="round" 
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M5 12h14"></path>
-                                  <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Enhanced caption styling for grid/showcase layout */}
-                    {showCaptions && layout !== "fullscreen" && (
-                      <div className="px-5 py-5 bg-white border-t border-gray-100">
-                        {/* Decorative accent line on top of caption */}
-                        <div 
-                          className="w-10 h-1 mb-4 transition-all duration-500"
-                          style={{ 
-                            backgroundColor: theme.primary700,
-                            transform: isInView ? 'scaleX(1)' : 'scaleX(0)',
-                            transformOrigin: 'left',
-                            opacity: isInView ? 1 : 0
-                          }}
-                        ></div>
-                        
-                        <h3
-                          className="text-lg md:text-xl lg:text-2xl font-bold mb-3 line-clamp-1 transition-all duration-300 hover:text-primary-700"
-                          style={{ color: theme.text }}
-                        >
-                          {slide.title}
-                        </h3>
-                        
-                        {slide.description && (
-                          <p
-                            className="text-sm md:text-base line-clamp-2 mb-4"
-                            style={{ color: theme.textSecondary }}
-                          >
-                            {slide.description}
-                          </p>
-                        )}
-                        
-                        {/* Read more link with enhanced styling */}
-                        {showReadMoreLinks && slide.link && (
-                          <a 
-                            href={slide.link}
-                            className="group inline-flex items-center text-sm font-medium mt-2 transition-all duration-300 uppercase tracking-wider"
-                            style={{ color: theme.primary700 }}
-                          >
-                            Learn more
-                            <svg 
-                              className="w-4 h-4 ml-2 group-hover:ml-3 transition-all duration-300"
-                              viewBox="0 0 24 24" 
-                              fill="none" 
-                              stroke="currentColor" 
-                              strokeWidth="2" 
-                              strokeLinecap="round" 
-                              strokeLinejoin="round"
-                            >
-                              <path d="M5 12h14"></path>
-                              <path d="M12 5l7 7-7 7"></path>
-                            </svg>
-                          </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            {/* Improved navigation layout and positioning */}
+            {/* Navigation arrows - Fixed position outside of slider (visible only when multiple slides) */}
             {slides.length > 1 && (
-              <>
-                {/* Absolute positioned navigation arrows for larger screens */}
-                <div className="hidden md:block">
+              <div className="absolute top-0 left-0 right-0 bottom-0 z-10 pointer-events-none">
+                <div className="relative h-full flex items-center justify-between px-2 md:px-6">
                   <button
                     onClick={handlePrev}
-                    className="absolute left-2 top-1/2 z-10 flex items-center justify-center w-12 h-12 -mt-6 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-full focus:outline-none focus:ring-2 focus:ring-primary-700 focus:ring-offset-2 bg-white bg-opacity-80 backdrop-blur-sm group"
+                    className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 transition-all duration-300 
+                    hover:scale-105 hover:shadow-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 
+                    bg-white bg-opacity-90 backdrop-blur-sm pointer-events-auto transform translate-x-0 md:-translate-x-3 
+                    lg:-translate-x-5 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100"
                     style={{
                       color: theme.primary900,
                       border: `1px solid ${theme.borderColor}`,
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                      opacity: isHovering ? 0.95 : 0.5,
+                      transition: "all 0.3s ease"
                     }}
                     aria-label="Previous slide"
                   >
@@ -653,12 +479,19 @@ const CarTechSlider = ({
                       />
                     </svg>
                   </button>
+                  
                   <button
                     onClick={handleNext}
-                    className="absolute right-2 top-1/2 z-10 flex items-center justify-center w-12 h-12 -mt-6 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-full focus:outline-none focus:ring-2 focus:ring-primary-900 focus:ring-offset-2 group"
+                    className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 transition-all duration-300 
+                    hover:scale-105 hover:shadow-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 
+                    pointer-events-auto transform translate-x-0 md:translate-x-3 lg:translate-x-5 opacity-0 
+                    group-hover:opacity-100 hover:opacity-100 focus:opacity-100"
                     style={{
                       backgroundColor: theme.primary700,
                       color: "#FFFFFF",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                      opacity: isHovering ? 0.95 : 0.5,
+                      transition: "all 0.3s ease"
                     }}
                     aria-label="Next slide"
                   >
@@ -678,26 +511,221 @@ const CarTechSlider = ({
                     </svg>
                   </button>
                 </div>
+              </div>
+            )}
+
+            {/* Swiper component */}
+            <div className="group">
+              <Swiper
+                onSwiper={setSwiperInstance}
+                modules={[Navigation, Pagination, A11y, Autoplay, EffectFade]}
+                slidesPerView={getSlidesPerView()}
+                spaceBetween={24}
+                loop={slides.length > 1}
+                effect={layout === "fullscreen" ? "fade" : undefined}
+                autoplay={
+                  autoplay && slides.length > 1
+                    ? {
+                        delay: autoplaySpeed,
+                        disableOnInteraction: false,
+                      }
+                    : false
+                }
+                breakpoints={getBreakpoints()}
+                onSlideChange={handleSlideChange}
+                className="mb-6 md:mb-8"
+                a11y={{
+                  prevSlideMessage: "Previous slide",
+                  nextSlideMessage: "Next slide",
+                  firstSlideMessage: "This is the first slide",
+                  lastSlideMessage: "This is the last slide",
+                }}
+                watchSlidesProgress={true}
+              >
+                {slides.map((slide, index) => (
+                  <SwiperSlide key={slide.id || index} className="h-auto">
+                    <div
+                      className={`h-full flex flex-col backdrop-blur-sm transition-all duration-300 overflow-hidden ${
+                        layout === "fullscreen" ? "p-0" : "p-0"
+                      }`}
+                      style={{
+                        backgroundColor: layout === "fullscreen" ? "transparent" : theme.cardBg,
+                        border: layout === "fullscreen" ? "none" : `1px solid ${theme.borderColor}`,
+                        transform: `perspective(1000px) rotateY(${isInView ? "0" : slideChangeDirection === "next" ? "5deg" : "-5deg"})`,
+                        opacity: isInView ? 1 : 0.8,
+                        transition: "transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease",
+                        boxShadow: isHovering ? "0 10px 25px rgba(0, 0, 0, 0.08)" : "0 4px 12px rgba(0, 0, 0, 0.05)"
+                      }}
+                    >
+                      {/* Media container (image or video) */}
+                      <div 
+                        className={`relative overflow-hidden flex-grow ${
+                          layout === "fullscreen" ? "w-full h-64 sm:h-80 md:h-96 lg:h-[500px]" : ""
+                        }`} 
+                        style={{ aspectRatio: layout !== "fullscreen" ? aspectRatio : "auto" }}
+                      >
+                        {slide.mediaType === "image" ? (
+                          slide.image ? (
+                            <div className="relative w-full h-full group">
+                              <Image
+                                src={slide.image}
+                                alt={slide.title || "Feature image"}
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                fill
+                                priority={index < 3}
+                                sizes={layout === "fullscreen" ? "100vw" : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"}
+                              />
+                              {layout === "fullscreen" && (
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                              )}
+                            </div>
+                          ) : (
+                            <ImagePlaceholder theme={theme} />
+                          )
+                        ) : slide.videoUrl ? (
+                          <VideoPlayer
+                            src={slide.videoUrl}
+                            poster={slide.videoPoster}
+                            theme={theme}
+                          />
+                        ) : (
+                          <ImagePlaceholder theme={theme} />
+                        )}
+
+                        {/* Fullscreen layout caption overlay */}
+                        {showCaptions && layout === "fullscreen" && (
+                          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10">
+                            {/* Background overlay with gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+                            
+                            {/* Caption content */}
+                            <div className="relative z-10 max-w-3xl">
+                              {/* Optional decorative accent line */}
+                              <div 
+                                className="w-12 h-1 mb-4 bg-white opacity-80"
+                              ></div>
+                              
+                              <h3
+                                className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 md:mb-4 text-white"
+                              >
+                                {slide.title}
+                              </h3>
+                              
+                              {slide.description && (
+                                <p
+                                  className="text-sm md:text-base text-gray-200 line-clamp-2 md:line-clamp-3 lg:line-clamp-none max-w-xl leading-relaxed"
+                                >
+                                  {slide.description}
+                                </p>
+                              )}
+                              
+                              {/* CTA button for fullscreen layout */}
+                              {showReadMoreLinks && slide.link && (
+                                <a
+                                  href={slide.link}
+                                  className="inline-flex items-center mt-6 px-6 py-2 bg-white text-primary-900 font-medium text-sm rounded hover:bg-primary-700 hover:text-white transition-all duration-300 group"
+                                >
+                                  Learn More
+                                  <svg 
+                                    className="w-4 h-4 ml-2 group-hover:ml-3 transition-all duration-300"
+                                    viewBox="0 0 24 24" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                  </svg>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Caption styling for grid/showcase layout */}
+                      {showCaptions && layout !== "fullscreen" && (
+                        <div className="px-5 py-5 bg-white border-t border-gray-100">
+                          {/* Decorative accent line on top of caption */}
+                          <div 
+                            className="w-10 h-1 mb-4 transition-all duration-500"
+                            style={{ 
+                              backgroundColor: theme.primary700,
+                              transform: isInView ? 'scaleX(1)' : 'scaleX(0)',
+                              transformOrigin: 'left',
+                              opacity: isInView ? 1 : 0
+                            }}
+                          ></div>
+                          
+                          <h3
+                            className="text-lg md:text-xl lg:text-2xl font-bold mb-3 line-clamp-1 transition-all duration-300 hover:text-primary-700"
+                            style={{ color: theme.text }}
+                          >
+                            {slide.title}
+                          </h3>
+                          
+                          {slide.description && (
+                            <p
+                              className="text-sm md:text-base line-clamp-2 mb-4"
+                              style={{ color: theme.textSecondary }}
+                            >
+                              {slide.description}
+                            </p>
+                          )}
+                          
+                          {/* Read more link with enhanced styling */}
+                          {showReadMoreLinks && slide.link && (
+                            <a 
+                              href={slide.link}
+                              className="group inline-flex items-center text-sm font-medium mt-2 transition-all duration-300 uppercase tracking-wider"
+                              style={{ color: theme.primary700 }}
+                            >
+                              Learn more
+                              <svg 
+                                className="w-4 h-4 ml-2 group-hover:ml-3 transition-all duration-300"
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                              >
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            {/* Pagination indicator (only visible when multiple slides) */}
+            {slides.length > 1 && (
+              <div className="flex flex-col items-center mt-4">
+                <PaginationIndicator
+                  activeIndex={activeIndex}
+                  totalSlides={slides.length}
+                  onDotClick={handleDotClick}
+                  theme={theme}
+                />
                 
-                {/* Centered pagination and navigation for all screens */}
-                <div className="flex flex-col items-center mt-4">
-                  <PaginationIndicator
-                    activeIndex={activeIndex}
-                    totalSlides={slides.length}
-                    onDotClick={handleDotClick}
-                    theme={theme}
-                  />
-                  
-                  {/* Navigation buttons only shown on mobile */}
-                  <div className="md:hidden">
+                {/* Mobile-only navigation buttons */}
+                <div className="md:hidden mt-4">
+                  {slides.length > 1 && (
                     <NavigationButtons
                       onPrev={handlePrev}
                       onNext={handleNext}
                       theme={theme}
                     />
-                  </div>
+                  )}
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
