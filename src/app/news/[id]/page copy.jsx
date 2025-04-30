@@ -18,6 +18,15 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { allNewsItems } from '../data';
 
+// This function needs to be exported at the module level, outside of your component
+export async function generateStaticParams() {
+  // Return an array of objects where each object has an 'id' property
+  // that corresponds to the [id] in your dynamic route
+  return allNewsItems.map((item) => ({
+    id: item.slug,
+  }));
+}
+
 const SingleNewsPage = () => {
   const router = useRouter();
   const [newsItem, setNewsItem] = useState(null);
