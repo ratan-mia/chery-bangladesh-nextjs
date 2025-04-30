@@ -218,7 +218,7 @@ const CarColorSwitcher = () => {
                 {/* CTA buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link 
-                    href="#contact" 
+                    href="/contact" 
                     className="group inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-[#7A6A58] text-white text-sm sm:text-base font-medium hover:bg-[#65584A] transition-colors duration-300"
                   >
                     Schedule Your Viewing
@@ -229,8 +229,9 @@ const CarColorSwitcher = () => {
                   </Link>
                   
                   <Link 
-                    href="#dealerships" 
+                    href="/brochures/tiggo-cross-brochure.pdf" 
                     className="inline-flex items-center justify-center bg-transparent border border-[#7A6A58] text-[#7A6A58] hover:text-white hover:bg-[#7A6A58] px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium transition-colors duration-300"
+                  target='_blank'
                   >
                     Download Brochure
                   </Link>
