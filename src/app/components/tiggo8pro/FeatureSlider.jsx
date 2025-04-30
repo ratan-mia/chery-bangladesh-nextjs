@@ -73,7 +73,7 @@ const slides = [
   {
     id: 'slide4',
     type: 'image',
-    src: '/images/tiggo8pro/hero-slider/tiggo8pro-safety.jpg',
+    src: '/images/tiggo8pro/hero-slider/tiggo8pro-safety.webp',
     logoSrc: '/images/tiggo8pro/hero-slider/tiggo8-logo.png',
     logoAlt: 'Tiggo 8 Pro Logo',
     title: 'ULTIMATE SECURITY',
