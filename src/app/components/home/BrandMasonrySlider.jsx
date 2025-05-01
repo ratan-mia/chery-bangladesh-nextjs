@@ -308,7 +308,7 @@ export default function CheryBrandMasonrySlider({
                       {slide.content.subtitle}
                     </motion.p>
                     
-                    <motion.p
+                    {/* <motion.p
                       custom={2}
                       variants={textVariants}
                       initial="hidden"
@@ -316,9 +316,9 @@ export default function CheryBrandMasonrySlider({
                       className="text-sm sm:text-base text-white/80 mb-4 md:mb-8 max-w-lg line-clamp-3 md:line-clamp-none"
                     >
                       {slide.content.description}
-                    </motion.p>
+                    </motion.p> */}
                     
-                    <div className="space-y-2 md:space-y-3 mb-4 md:mb-8 hidden sm:block">
+                    {/* <div className="space-y-2 md:space-y-3 mb-4 md:mb-8 hidden sm:block">
                       {slide.content.highlights.slice(0, isMobile ? 2 : 4).map((item, idx) => (
                         <motion.div 
                           key={idx}
@@ -332,7 +332,7 @@ export default function CheryBrandMasonrySlider({
                           <p className="text-sm md:text-base text-white/70">{item}</p>
                         </motion.div>
                       ))}
-                    </div>
+                    </div> */}
                     
                     <motion.button
                       className="group inline-flex items-center px-6 sm:px-8 md:px-10 py-3 md:py-4 bg-primary-700 text-white text-sm md:text-base font-medium hover:bg-primary-800 transition-all duration-300 tracking-wide"
