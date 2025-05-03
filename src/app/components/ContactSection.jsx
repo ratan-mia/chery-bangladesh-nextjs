@@ -54,7 +54,7 @@ const ContactSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <Image 
-          src="/images/banners/contact.jpg" 
+          src="/images/tiggo8pro/banners/contact.jpg" 
           alt="Chery SUV by a pool" 
           fill 
           className="object-cover"
