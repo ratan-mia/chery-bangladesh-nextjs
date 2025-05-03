@@ -1,5 +1,6 @@
 'use client'
 
+import BrochureDownloadButton from '@/components/BrochureDownloadButton';
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Autoplay, EffectFade, Keyboard, Navigation } from "swiper/modules";
@@ -97,7 +98,7 @@ const vehicleData = {
 // Slide Content component
 const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
   if (!isActive) return null;
-  
+
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row p-0 text-white z-10">
       {/* Left content panel with improved text visibility */}
@@ -116,7 +117,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
           </div>
 
           {/* Decorative line */}
-          <div 
+          <div
             className="h-1 mb-4 md:mb-6 transition-all duration-1000 ease-out"
             style={{ width: isActive ? '100%' : '0%', backgroundColor: vehicleData.accentColor }}
           />
@@ -166,6 +167,14 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </Link>
+
+            <BrochureDownloadButton
+              brochureUrl="/brochures/tiggo-8pro-brochure.pdf"
+              brochureName="Tiggo 8 Pro"
+              buttonText="Download Brochure"
+              buttonClassName="ml-2 transform group-hover:translate-x-1 transition-transform duration-300" // optional
+            />
+
 
             {/* Specs toggle button - visible on all screen sizes */}
             <button
@@ -233,7 +242,7 @@ const VehicleShowcase = ({ className = "" }) => {
   const [progressBars, setProgressBars] = useState(
     vehicleData.slides.map(() => ({ progress: 0, active: false }))
   );
-  
+
   const swiperRef = useRef(null);
   const videoRefs = useRef([]);
   const progressTimerRef = useRef(null);
@@ -249,7 +258,7 @@ const VehicleShowcase = ({ className = "" }) => {
     const newIndex = swiper.realIndex;
     setActiveIndex(newIndex);
     resetProgressBars(newIndex);
-    
+
     // Reset specs panel on slide change
     setShowSpecs(false);
 
@@ -316,19 +325,19 @@ const VehicleShowcase = ({ className = "" }) => {
     if (isAutoplayPaused) {
       swiper.autoplay.start();
       resetProgressBars(activeIndex);
-      
+
       // Resume video if current slide is a video
       const currentSlide = vehicleData.slides[activeIndex];
       if (currentSlide?.type === 'video') {
         const videoElement = videoRefs.current[activeIndex];
         if (videoElement) {
-          videoElement.play().catch(() => {});
+          videoElement.play().catch(() => { });
         }
       }
     } else {
       swiper.autoplay.stop();
       clearInterval(progressTimerRef.current);
-      
+
       // Pause video if current slide is a video
       const currentSlide = vehicleData.slides[activeIndex];
       if (currentSlide?.type === 'video') {
@@ -347,7 +356,7 @@ const VehicleShowcase = ({ className = "" }) => {
     // Set loading state until first media is ready
     const timeout = setTimeout(() => {
       setIsLoading(false);
-      
+
       // Auto-play first video if it's a video slide
       if (vehicleData.slides[0]?.type === 'video') {
         const videoElement = videoRefs.current[0];
@@ -357,7 +366,7 @@ const VehicleShowcase = ({ className = "" }) => {
           });
         }
       }
-      
+
       resetProgressBars(0);
     }, 1000);
 
@@ -410,7 +419,7 @@ const VehicleShowcase = ({ className = "" }) => {
       {isLoading && (
         <div className="absolute inset-0 z-50 bg-gray-900 flex flex-col items-center justify-center transition-opacity duration-800">
           <div className="w-32 h-1 bg-amber-700 mb-4 overflow-hidden" style={{ backgroundColor: vehicleData.accentColor }}>
-            <div 
+            <div
               className="h-full w-1/3 bg-amber-200 animate-pulse"
             />
           </div>
@@ -486,7 +495,7 @@ const VehicleShowcase = ({ className = "" }) => {
             </div>
 
             {/* Feature type indicator */}
-            <div 
+            <div
               className="absolute top-4 md:top-8 right-4 md:right-8 z-30 py-1.5 md:py-2 px-3 md:px-4 uppercase text-xs md:text-sm tracking-widest rounded-sm text-white font-semibold shadow-lg transition-all duration-500 bg-amber-800"
               style={{ backgroundColor: vehicleData.accentColor }}
             >
@@ -539,7 +548,7 @@ const VehicleShowcase = ({ className = "" }) => {
                 className="group flex flex-col items-start gap-1 md:gap-2 text-white/60 hover:text-white transition-colors duration-300"
               >
                 <div className="flex items-center gap-1 md:gap-2">
-                  <div 
+                  <div
                     className={`w-1.5 h-1.5 rounded-full ${activeIndex === index ? 'bg-amber-700' : 'bg-white/30'}`}
                     style={{ backgroundColor: activeIndex === index ? vehicleData.accentColor : '' }}
                   ></div>
@@ -553,9 +562,9 @@ const VehicleShowcase = ({ className = "" }) => {
                 <div className="w-12 h-1 bg-white/20 overflow-hidden rounded-full">
                   <div
                     className="h-full bg-amber-700 transition-all duration-300"
-                    style={{ 
+                    style={{
                       width: `${progressBars[index].progress}%`,
-                      backgroundColor: vehicleData.accentColor 
+                      backgroundColor: vehicleData.accentColor
                     }}
                   ></div>
                 </div>
@@ -597,13 +606,12 @@ const VehicleShowcase = ({ className = "" }) => {
             aria-label={`Go to slide ${index + 1}`}
           >
             <div
-              className={`w-1 h-8 transition-all duration-300 rounded-full ${
-                index === activeIndex
+              className={`w-1 h-8 transition-all duration-300 rounded-full ${index === activeIndex
                   ? 'bg-amber-700'
                   : 'bg-white/40 group-hover:bg-white/60'
-              }`}
-              style={{ 
-                backgroundColor: index === activeIndex ? vehicleData.accentColor : '' 
+                }`}
+              style={{
+                backgroundColor: index === activeIndex ? vehicleData.accentColor : ''
               }}
             />
           </button>

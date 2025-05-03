@@ -2,6 +2,7 @@
 
 import tiggo8proData from "@/data/vehicles/tiggo8pro";
 import CarFeaturesSlider from "@components/CarFeaturesSlider";
+import DownloadBrochureCTA from "@components/DownloadBrochureCTA";
 import SimpleBanner from "@components/SimpleBanner";
 import CarColorSwitcher from "@components/tiggo8pro/CarColorSwitcher";
 import ContactBanner from "@components/tiggo8pro/ContactBanner";
@@ -11,20 +12,27 @@ import VehicleSpecs from "@components/VehicleSpecs";
 export default function Tiggo8ProPage() {
   // Destructure data for easier access
   const { appearance, power, intelligence, security, styling } = tiggo8proData;
-  
+
   return (
     <main>
       {/* =========================================
           HERO SECTION
           ========================================= */}
       {/* <FeatureSlider /> */}
-      <VehicleShowcase/>
-      
+      <VehicleShowcase />
+      <DownloadBrochureCTA
+        brochureUrl="/brochures/tiggo-8pro-brochure.pdf"
+        brochureName="Tiggo 8 Pro"
+        title="Get Complete|Information"
+        subtitle="Download our comprehensive brochure to explore features, specifications, and pricing"
+      />
+
+
       {/* =========================================
           APPEARANCE SECTION
           ========================================= */}
       <CarColorSwitcher />
-      
+
       <VehicleSpecs
         category={appearance.specs.category}
         title={appearance.specs.title}
@@ -38,7 +46,7 @@ export default function Tiggo8ProPage() {
         height={styling.bannerHeight}
         showControls={false}
       />
-      
+
       <CarFeaturesSlider
         title="Premium Exterior Features"
         subtitle="Discover our range of elegant design elements that enhance both style and performance"
@@ -46,7 +54,7 @@ export default function Tiggo8ProPage() {
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
       />
-      
+
       {/* =========================================
           POWER & PERFORMANCE SECTION
           ========================================= */}
@@ -56,7 +64,7 @@ export default function Tiggo8ProPage() {
         subtitle={power.specs.subtitle}
         specs={power.specs.details}
       />
-      
+
       <SimpleBanner
         slides={power.banner}
         accentColor={styling.accentColor}
@@ -71,7 +79,7 @@ export default function Tiggo8ProPage() {
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
       />
-      
+
       {/* =========================================
           INTELLIGENCE & TECHNOLOGY SECTION
           ========================================= */}
@@ -81,14 +89,14 @@ export default function Tiggo8ProPage() {
         subtitle={intelligence.specs.subtitle}
         specs={intelligence.specs.details}
       />
-      
+
       <SimpleBanner
         slides={intelligence.banner}
         accentColor={styling.accentColor}
         height={styling.bannerHeight}
         showControls={false}
       />
-      
+
       <CarFeaturesSlider
         title="Intelligent Features"
         subtitle="Advanced technology that enhances comfort, convenience, and entertainment"
@@ -96,7 +104,7 @@ export default function Tiggo8ProPage() {
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
       />
-      
+
       {/* =========================================
           SECURITY & SAFETY SECTION
           ========================================= */}
@@ -106,7 +114,7 @@ export default function Tiggo8ProPage() {
         subtitle={security.specs.subtitle}
         specs={security.specs.details}
       />
-      
+
       <SimpleBanner
         slides={security.banner}
         accentColor={styling.accentColor}
@@ -121,7 +129,7 @@ export default function Tiggo8ProPage() {
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
       />
-      
+
       {/* =========================================
           CONTACT SECTION
           ========================================= */}
