@@ -237,6 +237,7 @@ const CarTechSlider = ({
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [shouldShowNavigation, setShouldShowNavigation] = useState(false);
+  const [currentBreakpoint, setCurrentBreakpoint] = useState('desktop');
 
   // Apply theme
   const theme = getTheme(primaryColor);
@@ -291,6 +292,40 @@ const CarTechSlider = ({
     };
   }, []);
 
+  // Handle breakpoint changes and navigation visibility
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      let breakpoint = 'desktop';
+      let slidesPerView = 3;
+      
+      if (width < 640) {
+        breakpoint = 'mobile';
+        slidesPerView = 1;
+      } else if (width < 768) {
+        breakpoint = 'tablet-sm';
+        slidesPerView = 2;
+      } else if (width < 1024) {
+        breakpoint = 'tablet';
+        slidesPerView = 2;
+      } else if (width < 1280) {
+        breakpoint = 'desktop-sm';
+        slidesPerView = 3;
+      } else {
+        breakpoint = 'desktop';
+        slidesPerView = fullWidth ? 3 : 3;
+      }
+      
+      setCurrentBreakpoint(breakpoint);
+      setShouldShowNavigation(slides.length > slidesPerView);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, [slides.length, fullWidth]);
+
   useEffect(() => {
     if (swiperInstance && autoplay) {
       if (isHovering) {
@@ -301,11 +336,22 @@ const CarTechSlider = ({
     }
   }, [isHovering, autoplay, swiperInstance]);
 
-  // Update navigation state when swiper instance is created
+  // Update navigation state when swiper instance is created or changes
   useEffect(() => {
     if (swiperInstance) {
       setIsBeginning(swiperInstance.isBeginning);
       setIsEnd(swiperInstance.isEnd);
+      
+      // Handle responsive update
+      const onResize = () => {
+        swiperInstance.update();
+      };
+      
+      swiperInstance.on('resize', onResize);
+      
+      return () => {
+        swiperInstance.off('resize', onResize);
+      };
     }
   }, [swiperInstance]);
 
@@ -314,13 +360,23 @@ const CarTechSlider = ({
   }
 
   const getBreakpoints = () => {
-    return {
+    const breakpoints = {
       0: { slidesPerView: 1, spaceBetween: 16 },
       640: { slidesPerView: 2, spaceBetween: 20 },
       768: { slidesPerView: 2, spaceBetween: 24 },
       1024: { slidesPerView: 3, spaceBetween: 24 },
       1280: { slidesPerView: fullWidth ? 3 : 3, spaceBetween: 30 },
     };
+
+    // If we have fewer slides than the max slidesPerView for any breakpoint, adjust it
+    Object.keys(breakpoints).forEach(key => {
+      const config = breakpoints[key];
+      if (slides.length < config.slidesPerView) {
+        config.slidesPerView = slides.length;
+      }
+    });
+
+    return breakpoints;
   };
 
   const getContainerClass = () => {
@@ -421,7 +477,7 @@ const CarTechSlider = ({
               spaceBetween={24}
               loop={false}
               autoplay={
-                autoplay && slides.length > 1
+                autoplay && shouldShowNavigation
                   ? {
                       delay: autoplaySpeed,
                       disableOnInteraction: false,
@@ -431,7 +487,7 @@ const CarTechSlider = ({
               }
               breakpoints={getBreakpoints()}
               onSlideChange={handleSlideChange}
-              className={slides.length > 1 ? "!px-12 md:!px-16" : ""}
+              className={shouldShowNavigation ? "!px-12 md:!px-16" : ""}
               a11y={{
                 prevSlideMessage: "Previous slide",
                 nextSlideMessage: "Next slide",
@@ -536,8 +592,8 @@ const CarTechSlider = ({
               ))}
             </Swiper>
 
-            {/* Desktop Navigation Arrows - Only show when there are multiple slides */}
-            {slides.length > 1 && (
+            {/* Navigation Arrows - Only show when needed based on breakpoint */}
+            {shouldShowNavigation && (
               <div className="hidden md:block">
                 <div className="absolute top-1/2 -translate-y-1/2 left-0 z-10">
                   <NavArrowButton 
@@ -559,8 +615,8 @@ const CarTechSlider = ({
             )}
           </div>
 
-          {/* Navigation Controls - Only show when there are multiple slides */}
-          {slides.length > 1 && (
+          {/* Navigation Controls - Only show when navigation is needed */}
+          {shouldShowNavigation && (
             <div className="mt-8">
               {/* Pagination Dots */}
               <div className="flex items-center justify-center gap-2 mb-6">

@@ -36,18 +36,18 @@ export const tiggo8proData = {
           title: "Diamond-shaped Front Grille",
           text: "Illuminating Chery front logo that gleams like a finely cut jewel",
         },
-        {
-          id: 4,
-          image: "/images/tiggo8pro/features/pic01_03.jpg",
-          title: "Panoramic Power Sunroof",
-          text: "Expansive sunroof for an enhanced driving experience",
-        },
-        {
-          id: 5,
-          image: "/images/tiggo8pro/features/pic01_01.jpg",
-          title: "LED Rear Light Bar",
-          text: "Distinctive lighting signature that enhances visibility and style",
-        },
+        // {
+        //   id: 4,
+        //   image: "/images/tiggo8pro/features/pic01_03.jpg",
+        //   title: "Panoramic Power Sunroof",
+        //   text: "Expansive sunroof for an enhanced driving experience",
+        // },
+        // {
+        //   id: 5,
+        //   image: "/images/tiggo8pro/features/pic01_01.jpg",
+        //   title: "LED Rear Light Bar",
+        //   text: "Distinctive lighting signature that enhances visibility and style",
+        // },
       ],
       banner: [
         {
