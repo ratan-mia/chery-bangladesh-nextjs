@@ -66,7 +66,7 @@ const vehicleData = [
           value: '207mm'
         }
       ],
-      ctaLink: '/vehicles/tiggo-8-pro'
+      ctaLink: '/models/tiggo8pro'
     }
   },
   {
@@ -121,7 +121,7 @@ const vehicleData = [
           value: '4 Options'
         }
       ],
-      ctaLink: '/vehicles/tiggo-cross'
+      ctaLink: '/models/tiggocross'
     }
   }
 ]
