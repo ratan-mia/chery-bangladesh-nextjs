@@ -116,12 +116,15 @@ export const tiggo8proData = {
         title: "Intelligent Entertainment Cockpit",
         subtitle: "Smart Comfort for Every Smooth Drive",
         details: [
-          { name: "Speakers (Sony HD)", value: "8", unit: "" },
-          { name: "Dual Curved Screen", value: "24.6", unit: "inch" },
+          { name: "Intelligent Voice Assistant", value: "Hello Chery", unit: "" },
           { name: "LCD Driver Cluster", value: "12.3", unit: "inch" },
           { name: "Centre Control LCD Screen", value: "12.3", unit: "inch" },
+          { name: "Wireless Charging", value: "50", unit: "kW" },
+          { name: "Wireless CarPlay & Android Auto", value: "Yes", unit: "" },
           { name: "Panoramic Camera", value: "540", unit: "°" },
-          { name: "Intelligent Voice Assistant", value: "Hello Chery", unit: "" },
+          { name: "Ambient Lighting", value: "Multi-Color", unit: "" },
+          { name: "Rain Sensing Wipers", value: "Yes", unit: "" },
+    
         ]
       },
       features: [
@@ -178,15 +181,22 @@ export const tiggo8proData = {
         details: [
           { name: "Safety Airbags", value: "9", unit: "" },
           { name: "ADAS Functions", value: "15", unit: "" },
+          { name: "Panoramic Camera", value: "540", unit: "°" },
+          { name: "Electronic Stability Control", value: "Yes", unit: "" },
+          { name: "Tire Pressure Monitoring System", value: "Yes", unit: "" },
+          { name: "Electronic Stability Program", value: "Yes", unit: "" },
+          { name: "Auto Speed Locking", value: "Yes", unit: "" },
+          { name: "Emergency Brake Assist", value: "Yes", unit: "" },
+
         ]
       },
       features: [
-        {
-          id: 1,
-          image: "/images/tiggo8pro/features/pic04_01.jpg",
-          title: "T1X Platform",
-          text: "Advanced architecture for superior safety and stability",
-        },
+        // {
+        //   id: 1,
+        //   image: "/images/tiggo8pro/features/pic04_01.jpg",
+        //   title: "T1X Platform",
+        //   text: "Advanced architecture for superior safety and stability",
+        // },
         {
           id: 2,
           image: "/images/tiggo8pro/features/pic04_02.jpg",
