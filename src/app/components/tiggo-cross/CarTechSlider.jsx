@@ -339,7 +339,7 @@ const CarTechSlider = ({
       640: { slidesPerView: 2, spaceBetween: 20 },
       768: { slidesPerView: 2, spaceBetween: 24 },
       1024: { slidesPerView: 3, spaceBetween: 24 },
-      1280: { slidesPerView: fullWidth ? 4 : 3, spaceBetween: 30 },
+      1280: { slidesPerView: fullWidth ? 3 : 3, spaceBetween: 30 },
     };
   };
 

@@ -70,13 +70,6 @@ export const tiggoCrossData = {
           title: "LED Dual-Sensing Headlamps",
           description: "Advanced lighting system with Tiger Claw Style design.",
         },
-        {
-          mediaType: "video",
-          videoUrl: "/videos/tiggo-cross/slider1/sunroof.mp4",
-          videoPoster: "/videos/tiggo-cross/slider1/sunroof.jpg",
-          title: "Black Tiger Claw Accents on Tail Lights",
-          description: "Distinctive rear lighting signature with CHERY branded light bar.",
-        },
       ],
       banner: [
         {
