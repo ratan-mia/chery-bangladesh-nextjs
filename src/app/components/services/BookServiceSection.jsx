@@ -366,7 +366,9 @@ const BookServiceSection = () => {
                       </p>
                       <div className="mt-4 flex items-center">
                         <Phone size={20} className="mr-2" />
+                        <a href="tel:09639119977" className="text-white/80 hover:text-white transition-colors">
                         <span className="font-bold">09639119977</span>
+                        </a>
                       </div>
                     </div>
                   </div>
