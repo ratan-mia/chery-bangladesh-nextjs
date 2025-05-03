@@ -586,7 +586,7 @@ const CheryFeaturesAccordion = () => {
               <button
                 key={`nav-${feature.id}`}
                 onClick={() => toggleSection(index)}
-                className={`px-3 py-2 text-sm whitespace-nowrap rounded transition-colors duration-300 ${
+                className={`px-3 py-2 text-sm whitespace-nowrap  transition-colors duration-300 ${
                   activeSection === index 
                     ? 'bg-primary-700 text-white' 
                     : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
@@ -645,7 +645,7 @@ const CheryFeaturesAccordion = () => {
                   aria-controls={`feature-content-${feature.id}`}
                 >
                   <div className="flex items-center mb-3">
-                    <div className={`mr-4 p-3 rounded transition-colors duration-300 ${
+                    <div className={`mr-4 p-3  transition-colors duration-300 ${
                       activeSection === index ? 'bg-primary-700 text-white' : 'bg-primary-light bg-opacity-40 text-primary-900'
                     }`}>
                       <FeatureIcon type={feature.icon} />
