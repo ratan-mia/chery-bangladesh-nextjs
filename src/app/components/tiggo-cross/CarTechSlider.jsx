@@ -236,6 +236,7 @@ const CarTechSlider = ({
   const [isEnd, setIsEnd] = useState(false);
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const [shouldShowNavigation, setShouldShowNavigation] = useState(false);
 
   // Apply theme
   const theme = getTheme(primaryColor);
@@ -430,7 +431,7 @@ const CarTechSlider = ({
               }
               breakpoints={getBreakpoints()}
               onSlideChange={handleSlideChange}
-              className="!px-12 md:!px-16"
+              className={slides.length > 1 ? "!px-12 md:!px-16" : ""}
               a11y={{
                 prevSlideMessage: "Previous slide",
                 nextSlideMessage: "Next slide",
