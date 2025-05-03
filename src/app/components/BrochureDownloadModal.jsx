@@ -119,37 +119,26 @@ const BrochureDownloadModal = ({ isOpen, onClose, brochureUrl, brochureName }) =
   };
 
   const modalVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    hidden: { 
+      x: '-100%',
+      opacity: 0
+    },
     visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: { duration: 0.3, ease: "easeOut" }
+      x: 0,
+      opacity: 1,
+      transition: { 
+        type: "spring",
+        damping: 25,
+        stiffness: 300,
+        duration: 0.5
+      }
     },
     exit: { 
-      opacity: 0, 
-      y: 50, 
-      scale: 0.95,
-      transition: { duration: 0.2, ease: "easeIn" }
-    }
-  };
-
-  const formVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.1
+      x: '-100%',
+      opacity: 0,
+      transition: { 
+        duration: 0.3 
       }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
     }
   };
 
@@ -157,303 +146,278 @@ const BrochureDownloadModal = ({ isOpen, onClose, brochureUrl, brochureName }) =
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex min-h-screen items-center justify-center p-4">
-            {/* Backdrop */}
-            <motion.div 
-              className="fixed inset-0 bg-primary-900 bg-opacity-60 backdrop-blur-sm"
-              variants={backdropVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              onClick={onClose}
-            />
+          {/* Backdrop */}
+          <motion.div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            onClick={onClose}
+          />
 
-            {/* Modal */}
-            <motion.div 
-              className="relative w-full max-w-md transform overflow-hidden bg-white shadow-2xl rounded-2xl"
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              {/* Decorative top gradient */}
-              <div className="h-2 bg-gradient-to-r from-primary-700 via-primary-800 to-primary-700" />
-              
-              {/* Close button */}
-              <button
-                onClick={onClose}
-                className="absolute right-4 top-4 z-10 text-gray-400 hover:text-gray-600 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full"
-              >
-                <X className="h-5 w-5" />
-              </button>
+          {/* Modal */}
+          <motion.div 
+            className="fixed inset-y-0 left-0 w-full max-w-md bg-white shadow-2xl"
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <div className="h-full flex flex-col">
+              {/* Header with close button */}
+              <div className="absolute right-4 top-4 z-10">
+                <button
+                  onClick={onClose}
+                  className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
 
-              {/* Hero section */}
-              <div className="relative overflow-hidden bg-gradient-to-br from-primary-light/20 via-primary-light/10 to-transparent px-8 pt-8 pb-6">
-                {/* Background pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 2px 2px, ${String('#8c735d')} 1px, transparent 1px)`,
-                    backgroundSize: '32px 32px'
-                  }} />
-                </div>
-                
-                <div className="relative">
-                  <motion.div
+              {/* Decorative header */}
+              <div className="relative bg-gradient-to-r from-primary-700 to-primary-900 px-8 pt-16 pb-20">
+                <div className="relative z-10">
+                  <motion.div 
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 bg-primary-700 bg-opacity-10 rounded-2xl flex items-center justify-center mb-4 mx-auto"
+                    className="w-16 h-16 bg-white/10 backdrop-blur-sm flex items-center justify-center mb-6"
                   >
-                    <FileText className="h-8 w-8 text-primary-900" />
+                    <FileText className="w-8 h-8 text-white" />
                   </motion.div>
-                  
-                  <motion.div 
+                  <motion.h2 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-center"
+                    className="text-3xl font-bold text-white mb-2"
                   >
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                      Download Brochure
-                    </h3>
-                    <p className="text-gray-600">
-                      Get complete information about <span className="font-medium text-primary-900">{brochureName}</span>
-                    </p>
-                  </motion.div>
+                    Download Brochure
+                  </motion.h2>
+                  <motion.p 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-white/80"
+                  >
+                    Get complete information about {brochureName}
+                  </motion.p>
+                </div>
+                
+                {/* Decorative bottom edge */}
+                <div className="absolute bottom-0 left-0 right-0">
+                  <svg 
+                    viewBox="0 0 1440 120" 
+                    className="w-full h-12 fill-white"
+                    preserveAspectRatio="none"
+                  >
+                    <path d="M0,0 L1440,0 L1440,60 Q1080,120 720,60 Q360,0 0,60 Z"></path>
+                  </svg>
                 </div>
               </div>
 
-              {/* Success message with animation */}
-              <AnimatePresence>
-                {success && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="mx-8 mt-4"
-                  >
-                    <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center">
-                      <div className="flex-shrink-0">
-                        <CheckCircle className="h-5 w-5 text-green-600" />
+              {/* Form content */}
+              <div className="flex-1 overflow-y-auto px-8 py-6">
+                {/* Success message */}
+                <AnimatePresence>
+                  {success && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      className="mb-6"
+                    >
+                      <div className="bg-green-50 border-l-4 border-green-500 p-4">
+                        <div className="flex items-center">
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                          <div>
+                            <h3 className="text-green-800 font-medium">Success!</h3>
+                            <p className="text-green-700 text-sm">Your download is starting...</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="ml-3">
-                        <p className="text-sm font-medium text-green-800">
-                          Success! Your download is starting...
-                        </p>
-                        <p className="text-xs text-green-600 mt-1">
-                          Check your downloads folder
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-              {/* Error message with animation */}
-              <AnimatePresence>
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="mx-8 mt-4"
-                  >
-                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center">
-                      <div className="flex-shrink-0">
-                        <AlertCircle className="h-5 w-5 text-red-600" />
+                {/* Error message */}
+                <AnimatePresence>
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      className="mb-6"
+                    >
+                      <div className="bg-red-50 border-l-4 border-red-500 p-4">
+                        <div className="flex items-center">
+                          <AlertCircle className="w-5 h-5 text-red-500 mr-3" />
+                          <div>
+                            <h3 className="text-red-800 font-medium">Error</h3>
+                            <p className="text-red-700 text-sm">{error}</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="ml-3">
-                        <p className="text-sm font-medium text-red-800">
-                          {error}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-              {/* Form section */}
-              <div className="px-8 py-6">
-                <motion.form 
-                  onSubmit={handleSubmit} 
-                  className="space-y-4"
-                  variants={formVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name field */}
-                  <motion.div variants={itemVariants}>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <div className="relative">
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                      focusedField === 'name' ? 'bg-primary-700' : 'bg-gray-200'
+                    }`}></div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 pl-4">
                       Full Name
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <User className={`h-5 w-5 ${focusedField === 'name' ? 'text-primary-700' : 'text-gray-400'} transition-colors duration-200`} />
-                      </div>
+                    <div className="relative pl-4">
+                      <User className={`absolute left-8 top-3 w-5 h-5 transition-colors duration-200 ${
+                        focusedField === 'name' ? 'text-primary-700' : 'text-gray-400'
+                      }`} />
                       <input
                         type="text"
                         name="name"
-                        id="name"
                         required
                         value={formData.name}
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField('name')}
                         onBlur={() => setFocusedField(null)}
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-700 focus:border-primary-700 transition-all duration-200 outline-none"
+                        className="w-full pl-12 pr-4 py-3 border border-gray-200 focus:border-primary-700 focus:ring-0 outline-none transition-colors"
                         placeholder="Enter your full name"
                       />
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* Email field */}
-                  <motion.div variants={itemVariants}>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <div className="relative">
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                      focusedField === 'email' ? 'bg-primary-700' : 'bg-gray-200'
+                    }`}></div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 pl-4">
                       Email Address
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Mail className={`h-5 w-5 ${focusedField === 'email' ? 'text-primary-700' : 'text-gray-400'} transition-colors duration-200`} />
-                      </div>
+                    <div className="relative pl-4">
+                      <Mail className={`absolute left-8 top-3 w-5 h-5 transition-colors duration-200 ${
+                        focusedField === 'email' ? 'text-primary-700' : 'text-gray-400'
+                      }`} />
                       <input
                         type="email"
                         name="email"
-                        id="email"
                         required
                         value={formData.email}
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField('email')}
                         onBlur={() => setFocusedField(null)}
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-700 focus:border-primary-700 transition-all duration-200 outline-none"
+                        className="w-full pl-12 pr-4 py-3 border border-gray-200 focus:border-primary-700 focus:ring-0 outline-none transition-colors"
                         placeholder="your.email@example.com"
                       />
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* Phone field */}
-                  <motion.div variants={itemVariants}>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <div className="relative">
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                      focusedField === 'phone' ? 'bg-primary-700' : 'bg-gray-200'
+                    }`}></div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 pl-4">
                       Phone Number
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Phone className={`h-5 w-5 ${focusedField === 'phone' ? 'text-primary-700' : 'text-gray-400'} transition-colors duration-200`} />
-                      </div>
+                    <div className="relative pl-4">
+                      <Phone className={`absolute left-8 top-3 w-5 h-5 transition-colors duration-200 ${
+                        focusedField === 'phone' ? 'text-primary-700' : 'text-gray-400'
+                      }`} />
                       <input
                         type="tel"
                         name="phone"
-                        id="phone"
                         required
                         value={formData.phone}
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField('phone')}
                         onBlur={() => setFocusedField(null)}
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-700 focus:border-primary-700 transition-all duration-200 outline-none"
+                        className="w-full pl-12 pr-4 py-3 border border-gray-200 focus:border-primary-700 focus:ring-0 outline-none transition-colors"
                         placeholder="+880 1XXX-XXXXXX"
                       />
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* Company field */}
-                  <motion.div variants={itemVariants}>
-                    <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Company <span className="text-gray-400 text-xs">(Optional)</span>
+                  <div className="relative">
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                      focusedField === 'company' ? 'bg-primary-700' : 'bg-gray-200'
+                    }`}></div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 pl-4">
+                      Company <span className="text-gray-400">(Optional)</span>
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Building2 className={`h-5 w-5 ${focusedField === 'company' ? 'text-primary-700' : 'text-gray-400'} transition-colors duration-200`} />
-                      </div>
+                    <div className="relative pl-4">
+                      <Building2 className={`absolute left-8 top-3 w-5 h-5 transition-colors duration-200 ${
+                        focusedField === 'company' ? 'text-primary-700' : 'text-gray-400'
+                      }`} />
                       <input
                         type="text"
                         name="company"
-                        id="company"
                         value={formData.company}
                         onChange={handleInputChange}
                         onFocus={() => setFocusedField('company')}
                         onBlur={() => setFocusedField(null)}
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-700 focus:border-primary-700 transition-all duration-200 outline-none"
+                        className="w-full pl-12 pr-4 py-3 border border-gray-200 focus:border-primary-700 focus:ring-0 outline-none transition-colors"
                         placeholder="Your company name"
                       />
                     </div>
-                  </motion.div>
-                </motion.form>
+                  </div>
+                </form>
               </div>
 
-              {/* Footer with enhanced buttons */}
-              <div className="px-8 pb-8">
-                <motion.div 
-                  className="space-y-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+              {/* Footer */}
+              <div className="border-t border-gray-100 px-8 py-6 bg-gray-50">
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className={`w-full flex items-center justify-center px-6 py-4 bg-primary-700 hover:bg-primary-800 text-white font-medium transition-all duration-300 group ${
+                    isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+                  }`}
                 >
-                  {/* Primary action button */}
-                  <button
-                    type="submit"
-                    onClick={handleSubmit}
-                    disabled={isSubmitting}
-                    className="w-full group relative inline-flex items-center justify-center px-8 py-4 bg-primary-700 text-white font-medium rounded-xl hover:bg-primary-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
-                  >
-                    {/* Button background animation */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-900 to-primary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Button content */}
-                    <span className="relative flex items-center">
-                      {isSubmitting ? (
-                        <>
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Processing...
-                        </>
-                      ) : (
-                        <>
-                          <Download className="mr-2 h-5 w-5" />
-                          Download {brochureName} Brochure
-                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                        </>
-                      )}
-                    </span>
-                  </button>
-
-                  {/* Secondary action button */}
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="w-full px-6 py-3 text-gray-700 font-medium rounded-xl border border-gray-200 hover:bg-gray-50 transition-all duration-200"
-                  >
-                    Cancel
-                  </button>
-                </motion.div>
-
-                {/* Privacy notice */}
-                <motion.p 
-                  className="text-xs text-center text-gray-500 mt-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-5 h-5 mr-2" />
+                      Download {brochureName} Brochure
+                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+                
+                <p className="text-xs text-gray-500 text-center mt-4">
                   By downloading, you agree to our{' '}
-                  <a href="/privacy" className="text-primary-700 hover:text-primary-900 underline">
+                  <a href="/privacy" className="text-primary-700 hover:text-primary-800">
                     Privacy Policy
                   </a>
-                </motion.p>
+                </p>
               </div>
 
-              {/* Loading progress bar */}
+              {/* Loading bar */}
               <AnimatePresence>
                 {isSubmitting && (
                   <motion.div
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     exit={{ scaleX: 0 }}
-                    transition={{ duration: 2, ease: "linear" }}
-                    className="h-1 bg-primary-700 origin-left"
+                    transition={{ duration: 2 }}
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-primary-700 origin-left"
                   />
                 )}
               </AnimatePresence>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       )}
     </AnimatePresence>
