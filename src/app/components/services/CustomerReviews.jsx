@@ -419,7 +419,7 @@ const CustomerReviews = () => {
         </div>
         
         {/* Leave Review CTA */}
-        <motion.div 
+        {/* <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -436,7 +436,7 @@ const CustomerReviews = () => {
               <Star size={20} className="ml-2 group-hover:ml-3 transition-all duration-300" />
             </button>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
