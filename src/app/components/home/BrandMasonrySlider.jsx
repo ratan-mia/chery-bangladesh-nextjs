@@ -464,7 +464,7 @@ export default function CheryBrandMasonrySlider({
                     </motion.p>
                     
                     {/* Vehicle description with adaptive line clamping */}
-                    <motion.p
+                    {/* <motion.p
                       custom={2}
                       variants={animations.text}
                       initial="hidden"
@@ -472,7 +472,7 @@ export default function CheryBrandMasonrySlider({
                       className={`${isMobile ? "text-xs line-clamp-2" : isTablet ? "text-sm line-clamp-3" : "text-sm md:text-base line-clamp-none"} text-white/80 mb-3 md:mb-6 max-w-lg`}
                     >
                       {vehicle.content.description}
-                    </motion.p>
+                    </motion.p> */}
                     
                     {/* Feature highlights - hidden on mobile in portrait */}
                     {!(isMobile && orientation === "portrait") && (
