@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Import Swiper React components and styles
 import 'swiper/css';
@@ -14,10 +14,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const HeroSection = () => {
   // Workshop images - add more as needed
   const workshopImages = [
-    '/images/services/workshop.webp',
-    '/images/services/workshop-2.webp',
-    '/images/services/workshop-3.webp',
-    '/images/services/workshop-4.webp',
+    '/images/services/service-working.jpg',
+    '/images/services/service-working2.jpg',
+    '/images/services/service-working3.jpg',
   ];
 
   // Add responsive state management
@@ -68,8 +67,8 @@ const HeroSection = () => {
                   backgroundImage: `url(${image})`,
                 }}
               >
-                {/* Overlay gradient - more pronounced on mobile for better text readability */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/60 to-gray-900/40 md:from-gray-900/70 md:via-gray-900/50 md:to-gray-900/30"></div>
+                {/* Enhanced overlay gradient for better text visibility */}
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/75 to-gray-900/60 md:from-gray-900/85 md:via-gray-900/70 md:to-gray-900/50"></div>
               </div>
             </SwiperSlide>
           ))}
@@ -78,10 +77,10 @@ const HeroSection = () => {
 
       {/* Custom navigation arrows - hidden on mobile, visible on tablets and up */}
       <div className="absolute z-20 w-full top-1/2 -translate-y-1/2 px-4 md:px-10 hidden md:flex justify-between pointer-events-none">
-        <button className="swiper-button-prev-custom w-12 h-12 bg-white/20 backdrop-blur-sm text-white flex items-center justify-center border border-white/20 pointer-events-auto hover:bg-primary-700 transition-all duration-300">
+        <button className="swiper-button-prev-custom w-12 h-12 bg-white/30 backdrop-blur-sm text-white flex items-center justify-center border border-white/40 pointer-events-auto hover:bg-primary-700 transition-all duration-300">
           <ChevronLeft size={24} />
         </button>
-        <button className="swiper-button-next-custom w-12 h-12 bg-white/20 backdrop-blur-sm text-white flex items-center justify-center border border-white/20 pointer-events-auto hover:bg-primary-700 transition-all duration-300">
+        <button className="swiper-button-next-custom w-12 h-12 bg-white/30 backdrop-blur-sm text-white flex items-center justify-center border border-white/40 pointer-events-auto hover:bg-primary-700 transition-all duration-300">
           <ChevronRight size={24} />
         </button>
       </div>
@@ -101,7 +100,7 @@ const HeroSection = () => {
             >
               {/* Badge */}
               <motion.span 
-                className="inline-block bg-primary-light/30 text-gray-200 py-1 px-3 text-xs sm:text-sm font-medium backdrop-blur-sm border border-primary/30"
+                className="inline-block bg-primary-light/40 text-white py-1 px-3 text-xs sm:text-sm font-semibold backdrop-blur-sm border border-primary/40"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -109,40 +108,40 @@ const HeroSection = () => {
                 Professional Services
               </motion.span>
               
-              {/* Heading - responsive text sizes */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              <span className="text-primary-700">Chery Service</span><br />
+              {/* Heading - enhanced text visibility */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
+              <span className="text-primary-700 drop-shadow-lg">Chery Service</span><br />
               Expert Auto Repair Services You Can Trust
               </h1>
               
-              {/* Description - responsive text */}
-              <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-full md:max-w-2xl">
+              {/* Description - improved contrast */}
+              <p className="text-base sm:text-lg md:text-xl text-gray-100 max-w-full md:max-w-2xl drop-shadow-md">
                 Our certified technicians provide comprehensive auto repair and maintenance services to keep your vehicle running smoothly and safely.
               </p>
               
-              {/* Features - stacked on mobile, flex on larger screens */}
-              <div className="flex flex-col sm:flex-row flex-wrap gap-y-2 sm:gap-y-3 gap-x-6 text-gray-200 text-sm md:text-base">
+              {/* Features - better visibility */}
+              <div className="flex flex-col sm:flex-row flex-wrap gap-y-2 sm:gap-y-3 gap-x-6 text-gray-100 text-sm md:text-base">
                 <div className="flex items-center">
-                  <ShieldCheck size={isMobile ? 16 : 18} className="text-primary-700 mr-2" />
-                  <span>Certified Mechanics</span>
+                  <ShieldCheck size={isMobile ? 16 : 18} className="text-primary-700 mr-2 drop-shadow-md" />
+                  <span className="drop-shadow-sm">Certified Mechanics</span>
                 </div>
                 <div className="flex items-center">
-                  <Check size={isMobile ? 16 : 18} className="text-primary-700 mr-2" />
-                  <span>Transparent Pricing</span>
+                  <Check size={isMobile ? 16 : 18} className="text-primary-700 mr-2 drop-shadow-md" />
+                  <span className="drop-shadow-sm">Transparent Pricing</span>
                 </div>
                 <div className="flex items-center">
-                  <Check size={isMobile ? 16 : 18} className="text-primary-700 mr-2" />
-                  <span>Warranty on Services</span>
+                  <Check size={isMobile ? 16 : 18} className="text-primary-700 mr-2 drop-shadow-md" />
+                  <span className="drop-shadow-sm">Warranty on Services</span>
                 </div>
               </div>
               
-              {/* CTA buttons - full width on mobile, auto on larger screens */}
+              {/* CTA buttons - enhanced contrast */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 w-full">
-                <Link href="#book-service" className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-all duration-300 flex items-center justify-center sm:justify-start group">
+                <Link href="#book-service" className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-semibold transition-all duration-300 flex items-center justify-center sm:justify-start group drop-shadow-lg">
                   Book Appointment
                   <Calendar className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
-                <Link href="#locations" className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium border border-white/30 transition-all duration-300 flex items-center justify-center sm:justify-start group">
+                <Link href="#locations" className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold border border-white/40 transition-all duration-300 flex items-center justify-center sm:justify-start group drop-shadow-lg">
                   Find Us on Map
                   <MapPin className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:ml-3 transition-all duration-300" />
                 </Link>
@@ -152,21 +151,21 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Custom Swiper styles - CSS for pagination lines */}
+      {/* Custom Swiper styles - Enhanced CSS for pagination lines */}
       <style jsx global>{`
         .swiper-pagination-custom .swiper-pagination-bullet {
-          width: 20px;
-          height: 3px;
-          background: rgba(255, 255, 255, 0.5);
+          width: 24px;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.7);
           opacity: 1;
-          border-radius: 0;
+          border-radius: 2px;
           transition: all 0.3s ease;
-          margin: 0 3px;
+          margin: 0 4px;
           cursor: pointer;
         }
         
         .swiper-pagination-custom .swiper-pagination-bullet-active {
-          width: 30px;
+          width: 36px;
           transition: all 0.3s ease;
           background: rgba(196, 177, 156, 1); /* primary-light color */
         }
@@ -174,11 +173,11 @@ const HeroSection = () => {
         @media (min-width: 768px) {
           .swiper-pagination-custom .swiper-pagination-bullet {
             width: 30px;
-            margin: 0 4px;
+            margin: 0 5px;
           }
           
           .swiper-pagination-custom .swiper-pagination-bullet-active {
-            width: 40px;
+            width: 42px;
           }
         }
       `}</style>

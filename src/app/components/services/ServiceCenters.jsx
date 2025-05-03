@@ -29,7 +29,7 @@ const ServiceCenter = () => {
       "Body & Paint Shop",
       "Warranty Service",
     ],
-    image: "/images/services/service-center.jpg",
+    image: "/images/services/workshop.webp",
     mapUrl:
       "https://www.google.com/maps/place/CHERY+Bangladesh+Service+Centre/@23.766803,90.4020546,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c70b22989101:0x3d1dc47b72fb00b!8m2!3d23.7667981!4d90.4046295!16s%2Fg%2F11vjh52nmq?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D",
   };
