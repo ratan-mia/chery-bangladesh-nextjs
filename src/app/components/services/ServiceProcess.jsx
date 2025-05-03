@@ -82,7 +82,7 @@ const ServiceProcess = () => {
         
         {/* Process Steps */}
         <motion.div 
-          className="relative max-w-5xl mx-auto"
+          className="relative max-w-full mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

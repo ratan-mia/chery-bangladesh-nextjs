@@ -153,12 +153,11 @@ const BookServiceSection = () => {
                       required
                     >
                       <option value="">Select Your Vehicle</option>
-                      <option value="tiggo4pro">Tiggo 4 Pro</option>
+                      <option value="tiggo9">Tiggo 9</option>
+                      <option value="tiggo7pro">Tiggo 8 Pro</option>
                       <option value="tiggo7pro">Tiggo 7 Pro</option>
-                      <option value="tiggo8pro">Tiggo 8 Pro</option>
-                      <option value="arrizo6">Arrizo 6</option>
-                      <option value="omoda">Omoda</option>
-                      <option value="jaccoo">Jaccoo</option>
+                      <option value="tiggocross">Tiggo Cross</option>
+                 
                     </select>
                   </div>
                   
@@ -352,16 +351,8 @@ const BookServiceSection = () => {
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex justify-between items-center pb-3 border-b border-white/20">
-                    <span>Monday - Friday</span>
-                    <span className="font-medium">8:00 AM - 8:00 PM</span>
-                  </li>
-                  <li className="flex justify-between items-center pb-3 border-b border-white/20">
-                    <span>Saturday</span>
-                    <span className="font-medium">9:00 AM - 7:00 PM</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Sunday</span>
-                    <span className="font-medium">10:00 AM - 6:00 PM</span>
+                    <span>Saturday - Friday</span>
+                    <span className="font-medium">10:00 AM - 8:00 PM</span>
                   </li>
                 </ul>
                 

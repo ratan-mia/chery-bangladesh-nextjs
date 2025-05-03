@@ -135,7 +135,7 @@ const PremiumServices = () => {
                     
                     {/* Price */}
                     <div className="md:col-span-2 text-right md:text-center">
-                      <span className="text-lg font-bold text-primary-700">{service.price}</span>
+                      {/* <span className="text-lg font-bold text-primary-700">{service.price}</span> */}
                     </div>
                     
                     {/* Action Button */}

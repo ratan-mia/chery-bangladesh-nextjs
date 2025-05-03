@@ -275,12 +275,11 @@ const EmergencyAssistance = () => {
                     required
                   >
                     <option value="">Select Your Vehicle</option>
-                    <option value="tiggo4pro">Tiggo 4 Pro</option>
-                    <option value="tiggo7pro">Tiggo 7 Pro</option>
+                    <option value="tiggo9">Tiggo 9</option>
                     <option value="tiggo8pro">Tiggo 8 Pro</option>
-                    <option value="arrizo6">Arrizo 6</option>
-                    <option value="omoda">Omoda</option>
-                    <option value="jaccoo">Jaccoo</option>
+                    <option value="tiggo7pro">Tiggo 7 Pro</option>
+                    <option value="tiggocross">Tiggo Cross</option>
+
                     <option value="other">Other</option>
                   </select>
                 </div>

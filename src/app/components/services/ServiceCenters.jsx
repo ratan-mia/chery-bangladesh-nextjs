@@ -17,10 +17,10 @@ const ServiceCenter = () => {
   const center = {
     name: "Chery Bangladesh Service Center",
     address:
-      "206/1-207/1 Bir Uttam Mir Shawkat Sarak, Tejgaon Gulshan Link Road, Dhaka",
+      "277,Tejgaon I, A Quarter School Rd, Dhaka 1208",
     phone: "09639119977",
     email: "info@cherybd.com",
-    hours: "8:00 AM - 8:00 PM (Everyday)",
+    hours: "10:00 AM - 8:00 PM (Everyday)",
     features: [
       "24/7 Emergency Support",
       "Advanced Diagnostics",
@@ -31,7 +31,7 @@ const ServiceCenter = () => {
     ],
     image: "/images/services/service-center.jpg",
     mapUrl:
-      "https://maps.google.com/?q=206/1-207/1+Bir+Uttam+Mir+Shawkat+Sarak+Tejgaon+Gulshan+Link+Road+Dhaka",
+      "https://www.google.com/maps/place/CHERY+Bangladesh+Service+Centre/@23.766803,90.4020546,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c70b22989101:0x3d1dc47b72fb00b!8m2!3d23.7667981!4d90.4046295!16s%2Fg%2F11vjh52nmq?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D",
   };
 
   return (
@@ -243,7 +243,7 @@ const ServiceCenter = () => {
 
                 <div className="flex-grow relative min-h-[400px]">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.8872559347437!2d90.41250227609233!3d23.7614267937581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b88c060ee28d%3A0x5edd747595ad35b3!2s206%2F1-207%2F1%20Bir%20Uttam%20Mir%20Shawkat%20Sarak%2C%20Tejgaon%20-%20Gulshan%20Link%20Rd%2C%20Dhaka%2C%20Bangladesh!5e0!3m2!1sen!2sus!4v1712940325293!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.455103751314!2d90.40205457589745!3d23.76680298814539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70b22989101%3A0x3d1dc47b72fb00b!2sCHERY%20Bangladesh%20Service%20Centre!5e0!3m2!1sen!2sbd!4v1746251679158!5m2!1sen!2sbd"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -279,17 +279,10 @@ const ServiceCenter = () => {
 
               <div className="space-y-4">
                 <div className="flex justify-between py-3 border-b border-gray-200">
-                  <span className="text-gray-700">Monday - Friday</span>
-                  <span className="text-gray-900">8:00 AM - 8:00 PM</span>
+                  <span className="text-gray-700">Saturday - Friday</span>
+                  <span className="text-gray-900">10:00 AM - 8:00 PM</span>
                 </div>
-                <div className="flex justify-between py-3 border-b border-gray-200">
-                  <span className="text-gray-700">Saturday - Sunday</span>
-                  <span className="text-gray-900">9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span className="text-gray-700">Holidays</span>
-                  <span className="text-gray-900">10:00 AM - 4:00 PM</span>
-                </div>
+
               </div>
             </div>
 
