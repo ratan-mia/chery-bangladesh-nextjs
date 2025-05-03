@@ -11,7 +11,7 @@ import VehicleSpecs from "@components/VehicleSpecs";
 export default function TiggoCrossPage() {
   // Destructure data for easier access
   const { appearance, comfort, intelligence, security, gallery, styling } = tiggoCrossData;
-  
+
   return (
     <main>
       {/* =========================================
@@ -24,7 +24,6 @@ export default function TiggoCrossPage() {
       {/* =========================================
           APPEARANCE & EXTERIOR SECTION
           ========================================= */}
-      <CarTechSlider slides={appearance.techSlides} />
 
       <VehicleSpecs
         category={appearance.specs.category}
@@ -32,8 +31,22 @@ export default function TiggoCrossPage() {
         subtitle={appearance.specs.subtitle}
         specs={appearance.specs.details}
       />
-
       <SimpleBanner
+        slides={appearance.banner}
+        accentColor={styling.accentColor}
+        height={styling.bannerHeight}
+        showSectionHeader={false}
+        showContents={false}
+        showControls={false}
+        sectionTitle='Striking Lines'
+        sectionSubtitle='Appearance'
+        sectionText='Make a memorable entrance every time, with design that goes beyond the ordinary.'
+      />
+      <CarTechSlider slides={appearance.techSlides} />
+
+
+
+      {/* <SimpleBanner
         slides={appearance.banner}
         accentColor={styling.accentColor}
         height={styling.bannerHeight}
@@ -42,15 +55,15 @@ export default function TiggoCrossPage() {
         sectionTitle='Striking Lines'
         sectionSubtitle='Appearance'
         sectionText='Make a memorable entrance every time, with design that goes beyond the ordinary.'
-      />
+      /> */}
 
-      <CarFeaturesSlider
+      {/* <CarFeaturesSlider
         title="Premium Exterior Features"
         subtitle="Discover our range of elegant design elements that enhance both style and performance"
         features={appearance.features}
         accentColor="bg-primary-700"
         backgroundColor="bg-gray-200"
-      />
+      /> */}
 
       {/* =========================================
           COMFORT SECTION
@@ -77,7 +90,7 @@ export default function TiggoCrossPage() {
         subtitle={intelligence.specs.subtitle}
         specs={intelligence.specs.details}
       />
- 
+
       <SimpleBanner
         slides={intelligence.banner}
         accentColor={styling.accentColor}

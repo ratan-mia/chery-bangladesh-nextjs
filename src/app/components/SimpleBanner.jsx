@@ -13,9 +13,23 @@ const SimpleBanner = ({
   showControls = true,
   showContents = false,
   onSlideChange = null,
+  
+  // Enhanced section content controls
+  showSectionHeader = true,
   sectionTitle = '',
   sectionSubtitle = '',
   sectionText = '',
+  sectionTitleSize = 'text-4xl md:text-5xl',
+  sectionSubtitleSize = 'text-xl md:text-2xl',
+  sectionTextSize = 'text-2xl md:text-xl',
+  sectionMaxWidth = 'max-w-3xl',
+  sectionHeaderAlignment = 'left', // 'left', 'center', 'right'
+  sectionHeaderPadding = 'pt-8 pb-4 md:pt-12 md:pb-8',
+  showAccentLine = true,
+  accentLineWidth = '100px',
+  accentLinePosition = 'top-10',
+  customSectionContent = null, // Optional custom content
+  
   layout = 'standard', // 'standard', 'split', 'overlay-left', 'overlay-right', 'minimal'
   fullWidth = true,
   backgroundColor = '#FFFFFF',
@@ -261,10 +275,18 @@ const SimpleBanner = ({
     right: 'items-end text-right'
   };
 
+  // Section header alignment classes
+  const headerAlignmentClasses = {
+    left: 'text-left',
+    center: 'text-center',
+    right: 'text-right'
+  };
+
   // Get current layout config
   const currentLayout = layoutConfig[layout] || layoutConfig.standard;
   const contentWidthClass = contentWidthClasses[contentWidth] || contentWidthClasses.medium;
   const alignmentClass = contentAlignmentClasses[contentAlignment] || contentAlignmentClasses.center;
+  const headerAlignmentClass = headerAlignmentClasses[sectionHeaderAlignment] || headerAlignmentClasses.left;
 
   // Overlay style based on layout
   const getOverlayStyle = () => {
@@ -278,6 +300,70 @@ const SimpleBanner = ({
     }
   };
 
+  // Render section header content
+  const renderSectionHeader = () => {
+    if (customSectionContent) {
+      return customSectionContent;
+    }
+
+    return (
+      <div className={`${currentLayout.headerWidth} ${headerAlignmentClass}`}>
+        <div className="relative">
+          {/* Subtitle */}
+          {sectionSubtitle && (
+            <motion.h3
+              className={`${sectionSubtitleSize} font-medium mt-4`}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              style={{ color: currentTheme.accent }}
+            >
+              {sectionSubtitle}
+            </motion.h3>
+          )}
+
+          {/* Subtle horizontal accent line */}
+          {showAccentLine && sectionTitle && (
+            <motion.div
+              className={`absolute ${accentLinePosition} ${sectionHeaderAlignment === 'right' ? 'right-0' : sectionHeaderAlignment === 'center' ? 'left-1/2 -translate-x-1/2' : 'left-0'} h-px bg-gradient-to-r`}
+              style={{
+                backgroundImage: `linear-gradient(to right, ${currentTheme.accent} 0%, ${currentTheme.accent}40 100%)`,
+                width: isInView ? accentLineWidth : '0px',
+                transition: 'width 0.8s ease-out 0.2s'
+              }}
+            />
+          )}
+
+          {/* Title with subtle accent line */}
+          {sectionTitle && (
+            <motion.h2
+              className={`${sectionTitleSize} mt-5 text-primary-700 font-bold mb-6`}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              style={{ color: currentTheme.text }}
+            >
+              {sectionTitle}
+            </motion.h2>
+          )}
+
+          {/* Description text */}
+          {sectionText && (
+            <motion.p
+              className={`${sectionTextSize} ${sectionMaxWidth} mt-6 ${sectionHeaderAlignment === 'center' ? 'mx-auto' : sectionHeaderAlignment === 'right' ? 'ml-auto' : ''}`}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              style={{ color: currentTheme.textSecondary }}
+            >
+              {sectionText}
+            </motion.p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -286,60 +372,10 @@ const SimpleBanner = ({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Section Header - Only shown if sectionTitle is provided */}
-      {sectionTitle && (
-        <div className={`container mx-auto px-4 pt-8 pb-4 md:pt-12 md:pb-8 ${currentLayout.headerPosition}`}>
-          <div className={currentLayout.headerWidth}>
-            <div className="relative">
-              {/* Subtitle */}
-              {sectionSubtitle && (
-                <motion.h3
-                  className="text-xl md:text-2xl font-medium mt-4"
-                  variants={sectionVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  style={{ color: currentTheme.accent }}
-                >
-                  {sectionSubtitle}
-                </motion.h3>
-              )}
-
-              {/* Subtle horizontal accent line */}
-              <motion.div
-                className="absolute top-10 left-0 h-px bg-gradient-to-r"
-                style={{
-                  backgroundImage: `linear-gradient(to right, ${currentTheme.accent} 0%, ${currentTheme.accent}40 100%)`,
-                  width: isInView ? '100px' : '0px',
-                  transition: 'width 0.8s ease-out 0.2s'
-                }}
-              ></motion.div>
-              {/* Title with subtle accent line */}
-              <motion.h2
-                className="text-4xl md:text-5xl mt-5 text-primary-700 font-bold mb-6"
-                variants={sectionVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                style={{ color: currentTheme.text }}
-              >
-                {sectionTitle}
-              </motion.h2>
-
-
-              {/* Description text */}
-              {sectionText && (
-                <motion.p
-                  className="text-2xl md:text-xl max-w-3xl mt-6"
-                  variants={sectionVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  style={{ color: currentTheme.textSecondary }}
-                >
-                  {sectionText}
-                </motion.p>
-              )}
-
-            </div>
-          </div>
+      {/* Section Header - Only shown if enabled */}
+      {showSectionHeader && (sectionTitle || sectionSubtitle || sectionText || customSectionContent) && (
+        <div className={`container mx-auto px-4 ${sectionHeaderPadding} ${currentLayout.headerPosition}`}>
+          {renderSectionHeader()}
         </div>
       )}
 

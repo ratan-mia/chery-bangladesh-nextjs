@@ -7,8 +7,8 @@ export const tiggoCrossData = {
     appearance: {
       specs: {
         category: "Appearance",
-        title: "Dynamic & Energetic Appearance",
-        subtitle: "See style, see grace",
+        title: "Striking Lines",
+        subtitle: "Make a memorable entrance every time, with design that goes beyond the ordinary.",
         details: [
           { name: "Length", value: "4351", unit: "mm" },
           { name: "Width", value: "1831", unit: "mm" },
@@ -80,7 +80,7 @@ export const tiggoCrossData = {
       ],
       banner: [
         {
-          image: "/images/tiggo8pro/banners/banner1.jpg",
+          image: "/images/tiggocross/appearance/banner.webp",
           title: "Striking Design",
           description: "Bold lines and dynamic styling that stand out in any environment.",
           ctaText: "Explore Design",
