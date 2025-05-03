@@ -59,9 +59,9 @@ const CAR_DATA = {
   imagePaths: {
     'tiggo9': '/images/cars/tiggo9.png',
     'tiggo8': '/images/cars/tiggo8.png',
-    'tiggo8pro': '/images/cars/tiggo8.png',
+    'tiggo8pro': '/images/cars/tiggo8pro.webp',
     'tiggo7': '/images/cars/tiggo7.png',
-    'tiggocross': '/images/cars/tiggocross.png',
+    'tiggocross': '/images/cars/tiggocross2025.png',
     'tiggo2pro': '/images/cars/tiggo2pro.png',
     'arrizo8': '/images/cars/arrizo8.png',
     'arrizo7': '/images/cars/arrizo7.png',
