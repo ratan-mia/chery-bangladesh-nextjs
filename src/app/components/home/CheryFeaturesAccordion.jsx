@@ -485,7 +485,7 @@ const CheryFeaturesAccordion = () => {
             <div className="flex space-x-4 mb-8">
               <button 
                 onClick={() => handleModelSwitch("tiggo8")}
-                className={`px-6 py-3 rounded transition-colors duration-300 font-medium ${
+                className={`px-6 py-3 cursor-pointer  transition-colors duration-300 font-medium ${
                   activeModel === "tiggo8" 
                     ? "bg-primary-700 text-white" 
                     : "bg-white/20 text-white hover:bg-white/30"
@@ -496,7 +496,7 @@ const CheryFeaturesAccordion = () => {
               </button>
               <button 
                 onClick={() => handleModelSwitch("tiggoCross")}
-                className={`px-6 py-3 rounded transition-colors duration-300 font-medium ${
+                className={`px-6 py-3 cursor-pointer  transition-colors duration-300 font-medium ${
                   activeModel === "tiggoCross" 
                     ? "bg-primary-700 text-white" 
                     : "bg-white/20 text-white hover:bg-white/30"
@@ -510,7 +510,7 @@ const CheryFeaturesAccordion = () => {
             {/* CTA button - desktop only */}
             <div className="hidden md:block">
               <a 
-                href="/test-drive" 
+                href="/testdrive" 
                 className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300"
               >
                 Schedule Your Test Drive
