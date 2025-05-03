@@ -562,9 +562,9 @@ export default function CheryBrandMasonrySlider({
                             transition={{ duration: 0.3 }}
                           >
                             <div className="bg-black/60 backdrop-blur-sm py-1 px-2">
-                              <p className={`${isMobile ? "text-xs" : isTablet ? "text-xs sm:text-sm" : "text-sm"} text-white font-medium text-right`}>
+                              {/* <p className={`${isMobile ? "text-xs" : isTablet ? "text-xs sm:text-sm" : "text-sm"} text-white font-medium text-right`}>
                                 {isMobile ? image.alt.split(' ')[0] : image.alt}
-                              </p>
+                              </p> */}
                             </div>
                           </motion.div>
                         )}
