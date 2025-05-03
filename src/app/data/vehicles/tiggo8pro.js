@@ -191,12 +191,12 @@ export const tiggo8proData = {
         ]
       },
       features: [
-        // {
-        //   id: 1,
-        //   image: "/images/tiggo8pro/features/pic04_01.jpg",
-        //   title: "T1X Platform",
-        //   text: "Advanced architecture for superior safety and stability",
-        // },
+        {
+          id: 1,
+          image: "/images/tiggo8pro/features/pic04_01.jpg",
+          title: "ANCAP 5-Star Safety Rating",
+          text: "Advanced architecture for superior safety and stability",
+        },
         {
           id: 2,
           image: "/images/tiggo8pro/features/pic04_02.jpg",
