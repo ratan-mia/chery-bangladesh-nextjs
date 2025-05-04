@@ -392,8 +392,8 @@ export default function Header() {
           </div>
         </div>
       </header>
-      
-      <div className="h-16 md:h-20"></div> {/* Responsive spacer for fixed header */}
+      {/* Responsive spacer for fixed header */}
+      {/* <div className="h-16 md:h-20"></div>  */}
       
       {/* Backdrop for menus - separate from the menus themselves */}
       {(isMegaMenuOpen || isAboutSubMenuOpen) && (
