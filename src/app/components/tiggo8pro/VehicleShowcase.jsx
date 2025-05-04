@@ -1,6 +1,5 @@
 'use client'
 
-import BrochureDownloadButton from '@/components/BrochureDownloadButton';
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Autoplay, EffectFade, Keyboard, Navigation } from "swiper/modules";
@@ -168,12 +167,12 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
               </svg>
             </Link>
 
-            <BrochureDownloadButton
+            {/* <BrochureDownloadButton
               brochureUrl="/brochures/tiggo-8pro-brochure.pdf"
               brochureName="Tiggo 8 Pro"
               buttonText="Download Brochure"
               buttonClassName="ml-2 transform group-hover:translate-x-1 transition-transform duration-300" // optional
-            />
+            /> */}
 
 
             {/* Specs toggle button - visible on all screen sizes */}
