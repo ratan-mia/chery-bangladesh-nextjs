@@ -94,7 +94,7 @@ const GlobalPresenceBanner = () => {
         </video>
         
         {/* Gradient overlay using brand colors */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-900/60 via-primary-900/40 to-black/70 backdrop-filter backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-900/60 via-primary-900/40 to-black/70 backdrop-filter backdrop-blur-xs"></div>
       </div>
       
       {/* Content container */}
@@ -114,7 +114,7 @@ const GlobalPresenceBanner = () => {
             
             {/* Subtitle with brand styling */}
             <motion.span 
-              className="inline-block text-primary-light font-medium mb-3 text-sm tracking-wider uppercase"
+              className="inline-block text-white font-medium mb-3 text-sm tracking-wider uppercase"
               variants={itemVariants}
             >
               Excellence & Innovation Across Continents
@@ -125,12 +125,12 @@ const GlobalPresenceBanner = () => {
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
               variants={itemVariants}
             >
-              Global <span className="text-primary-light">Presence</span>
+              Global <span className="text-white">Presence</span>
             </motion.h2>
             
             {/* Description with better typography and contrast */}
             <motion.p
-              className="text-base md:text-lg text-white/80 leading-normal mb-10 max-w-3xl mx-auto"
+              className="text-base md:text-lg text-white leading-normal mb-10 max-w-3xl mx-auto"
               variants={itemVariants}
             >
               Chery International maintains a distinguished global presence in over 100 countries 
