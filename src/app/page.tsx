@@ -1,5 +1,6 @@
 "use client";
 
+import BrandValuesSection from "@components/home/BrandValuesSection";
 import CheryBanner from "./components/CheryBanner";
 import CheryTiggoSection from "./components/CheryTiggoSection";
 import ContactSection from "./components/ContactSection";
@@ -15,6 +16,7 @@ export default function Home() {
 
       <HeroSlider />
       <CheryTiggoSection />
+      <BrandValuesSection />
       <GlobalPresenceBanner />
       <CheryFeaturesAccordion />
       <CheryBanner />

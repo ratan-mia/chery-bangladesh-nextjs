@@ -1,6 +1,5 @@
 'use client'
 
-import BrandValuesSection from '@components/home/BrandValuesSection'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Car, Check, ChevronLeft, ChevronRight, Cpu, Eye, Sparkles, X, Zap } from 'lucide-react'
 import Image from 'next/image'
@@ -443,8 +442,6 @@ export default function CheryTiggoSection() {
           </Swiper>
         </motion.div>
       </div>
-      {/* Brand Values Section */}
-      <BrandValuesSection />
       {/* Slide-out Panel for Quick View */}
       <AnimatePresence>
         {selectedModel && (
