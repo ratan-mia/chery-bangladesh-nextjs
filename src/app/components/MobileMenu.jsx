@@ -56,7 +56,7 @@ const CAR_DATA = {
   specs: {
     'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
     'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
-    'tiggo8pro': { engine: '2.0', length: '4722', wheelbase: '2710', power: '187', torque: '300' },
+    'tiggo8pro': { engine: '1.6', length: '4722', wheelbase: '2710', power: '195', torque: '290' },
     'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
     'tiggocross': { engine: '1.5', length: '4318', wheelbase: '2610', power: '145', torque: '210' },
     'tiggo2pro': { engine: '1.5', length: '4200', wheelbase: '2555', power: '126', torque: '180' },
@@ -70,7 +70,7 @@ const CAR_DATA = {
     'tiggo8': '/images/cars/tiggo8.png',
     'tiggo8pro': '/images/cars/tiggo8.png',
     'tiggo7': '/images/cars/tiggo7.png',
-    'tiggocross': '/images/cars/tiggocross.png',
+    'tiggocross': '/images/cars/tiggocross2025.png',
     'tiggo2pro': '/images/cars/tiggo2pro.png',
     'arrizo8': '/images/cars/arrizo8.png',
     'arrizo7': '/images/cars/arrizo7.png',
