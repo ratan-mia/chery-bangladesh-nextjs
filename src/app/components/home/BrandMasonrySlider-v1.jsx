@@ -341,13 +341,6 @@ export default function CheryBrandMasonrySlider({
   const highlightCount = getHighlightCount()
   const isMobile = breakpoint === "mobile"
   const isTablet = breakpoint === "tablet"
-
-  // Custom overlay colors - deeper and more prominent for better text visibility
-  const overlayColors = {
-    base: "#8c735d", // Deeper brown color
-    text: "#ffffff", // White text for contrast
-    accent: "#e8d5bf" // Light accent for highlights
-  }
   
   return (
     <div 
@@ -408,14 +401,11 @@ export default function CheryBrandMasonrySlider({
             aria-label={`${slideIndex + 1} of ${vehicleData.length}: ${vehicle.content.title}`}
             aria-roledescription="slide"
           >
-            {/* Responsive layout container - Customized grid with 1/3 text and 2/3 image grid */}
-            <div className={`grid ${breakpoint === "mobile" || (breakpoint === "tablet" && orientation === "portrait") 
-              ? "grid-cols-1" 
-              : "lg:grid-cols-3"}`}>
-              
-              {/* Left column - Hero image */}
+            {/* Responsive layout container */}
+            <div className={`flex flex-col ${breakpoint === "mobile" || (breakpoint === "tablet" && orientation === "portrait") ? "flex-col" : "lg:flex-row"}`}>
+              {/* Hero image with content overlay */}
               <div 
-                className={`${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:col-span-1" : ""} relative overflow-hidden`} 
+                className={`w-full ${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:w-[40%]" : ""} relative overflow-hidden`} 
                 style={{ height: heights.hero }}
               >
                 {/* Main background image */}
@@ -432,158 +422,116 @@ export default function CheryBrandMasonrySlider({
                   role="presentation"
                 />
                 
-                {/* Improved overlay for hero image */}
-                <motion.div 
-                  className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.6 }}
-                  transition={{ duration: 0.5 }}
-                  style={{ 
-                    background: `linear-gradient(to top, 
-                      ${overlayColors.base}ee 0%, 
-                      ${overlayColors.base}cc 50%, 
-                      ${overlayColors.base}88 75%,
-                      transparent 100%)`,
-                  }}
-                />
-                
+                {/* Text content overlay */}
                 <div 
-                  className="absolute inset-0 flex items-center justify-center"
+                  className={`absolute inset-x-0 bottom-0 ${isMobile ? "p-3" : isTablet ? "p-5" : "p-8"}`}
                   onMouseEnter={() => !isMobile && setHoveredSection('hero')}
                   onMouseLeave={() => !isMobile && setHoveredSection(null)}
                 >
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center"
-                  >
-                    <img 
-                      src="/images/logo.png" 
-                      alt="Chery Logo" 
-                      className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                  {/* Background panel for text */}
+                  <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+                  
+                  <div className="relative z-10">
+                    {/* Accent bar */}
+                    <motion.div 
+                      className="h-1 mb-3 md:mb-6"
+                      style={{ backgroundColor: primary700 }}
+                      initial={{ width: 0 }}
+                      animate={{ width: isMobile ? '40px' : isTablet ? '60px' : '80px' }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
                     />
-                  </motion.div>
-                </div>
-                
-              {/* Middle column - Text content */}
-              <div 
-                className={`${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:col-span-1" : ""} relative overflow-hidden flex flex-col justify-center`}
-                style={{ 
-                  height: breakpoint === "mobile" ? "auto" : heights.hero,
-                  backgroundColor: overlayColors.base,
-                  padding: isMobile ? "1.5rem" : isTablet ? "2rem" : "3rem"
-                }}
-              >
-                <div className="relative z-10">
-                  {/* Accent bar */}
-                  <motion.div 
-                    className="h-1 mb-3 md:mb-6"
-                    style={{ backgroundColor: overlayColors.accent }}
-                    initial={{ width: 0 }}
-                    animate={{ width: isMobile ? '40px' : isTablet ? '60px' : '80px' }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                  />
-                  
-                  {/* Vehicle title */}
-                  <motion.h2
-                    custom={0}
-                    variants={animations.text}
-                    initial="hidden"
-                    animate="visible"
-                    className={`${isMobile ? "text-xl" : isTablet ? "text-2xl md:text-3xl" : "text-3xl md:text-4xl lg:text-5xl"} font-bold mb-1 md:mb-2`}
-                    style={{ color: overlayColors.text }}
-                  >
-                    {vehicle.content.title}
-                  </motion.h2>
-                  
-                  {/* Vehicle subtitle */}
-                  <motion.p
-                    custom={1}
-                    variants={animations.text}
-                    initial="hidden"
-                    animate="visible"
-                    className={`${isMobile ? "text-sm" : isTablet ? "text-base md:text-lg" : "text-lg md:text-xl lg:text-2xl"} font-light mb-2 md:mb-4`}
-                    style={{ color: overlayColors.text }}
-                  >
-                    {vehicle.content.subtitle}
-                  </motion.p>
-                  
-                  {/* Vehicle description - now visible on all devices */}
-                  <motion.p
-                    custom={2}
-                    variants={animations.text}
-                    initial="hidden"
-                    animate="visible"
-                    className={`${isMobile ? "text-xs" : isTablet ? "text-sm" : "text-sm md:text-base"} mb-4 md:mb-6`}
-                    style={{ color: overlayColors.text }}
-                  >
-                    {vehicle.content.description}
-                  </motion.p>
-                  
-                  {/* Feature highlights */}
-                  <div className="space-y-1 md:space-y-2 mb-3 md:mb-6">
-                    {vehicle.content.highlights.slice(0, highlightCount).map((item, idx) => (
-                      <motion.div 
-                        key={idx}
-                        custom={idx}
-                        variants={animations.highlight}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex items-center"
-                      >
-                        <div 
-                          className={`${isMobile ? "w-1 h-1" : "w-1.5 h-1.5"} rounded-full mr-2`} 
-                          style={{ backgroundColor: overlayColors.accent }}
-                          aria-hidden="true"
-                        ></div>
-                        <p 
-                          className={`${isMobile ? "text-xs" : isTablet ? "text-xs md:text-sm" : "text-sm md:text-base"}`}
-                          style={{ color: overlayColors.text }}
-                        >
-                          {item}
-                        </p>
-                      </motion.div>
-                    ))}
+                    
+                    {/* Vehicle title */}
+                    <motion.h2
+                      custom={0}
+                      variants={animations.text}
+                      initial="hidden"
+                      animate="visible"
+                      className={`${isMobile ? "text-xl" : isTablet ? "text-2xl md:text-3xl" : "text-3xl md:text-4xl lg:text-5xl"} font-bold text-white mb-1 md:mb-2`}
+                    >
+                      {vehicle.content.title}
+                    </motion.h2>
+                    
+                    {/* Vehicle subtitle */}
+                    <motion.p
+                      custom={1}
+                      variants={animations.text}
+                      initial="hidden"
+                      animate="visible"
+                      className={`${isMobile ? "text-sm" : isTablet ? "text-base md:text-lg" : "text-lg md:text-xl lg:text-2xl"} font-light text-white/90 mb-2 md:mb-4`}
+                    >
+                      {vehicle.content.subtitle}
+                    </motion.p>
+                    
+                    {/* Vehicle description with adaptive line clamping */}
+                    {/* <motion.p
+                      custom={2}
+                      variants={animations.text}
+                      initial="hidden"
+                      animate="visible"
+                      className={`${isMobile ? "text-xs line-clamp-2" : isTablet ? "text-sm line-clamp-3" : "text-sm md:text-base line-clamp-none"} text-white/80 mb-3 md:mb-6 max-w-lg`}
+                    >
+                      {vehicle.content.description}
+                    </motion.p> */}
+                    
+                    {/* Feature highlights - hidden on mobile in portrait */}
+                    {!(isMobile && orientation === "portrait") && (
+                      <div className="space-y-1 md:space-y-2 mb-3 md:mb-6">
+                        {vehicle.content.highlights.slice(0, highlightCount).map((item, idx) => (
+                          <motion.div 
+                            key={idx}
+                            custom={idx}
+                            variants={animations.highlight}
+                            initial="hidden"
+                            animate="visible"
+                            className="flex items-center"
+                          >
+                            <div 
+                              className={`${isMobile ? "w-1 h-1" : "w-1.5 h-1.5"} rounded-full mr-2`} 
+                              style={{ backgroundColor: primary700 }}
+                              aria-hidden="true"
+                            ></div>
+                            <p className={`${isMobile ? "text-xs" : isTablet ? "text-xs md:text-sm" : "text-sm md:text-base"} text-white/70`}>
+                              {item}
+                            </p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* CTA button */}
+                    <motion.a
+                      href={vehicle.content.ctaLink}
+                      className={`group inline-flex items-center ${isMobile ? "px-4 py-2 text-xs" : isTablet ? "px-5 py-2.5 text-sm" : "px-8 py-3 text-base"} bg-primary-700 text-white font-medium hover:bg-primary-800 transition-all duration-300 tracking-wide`}
+                      style={{ backgroundColor: primary700 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1, duration: 0.5 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      aria-label={`Learn more about ${vehicle.content.title}`}
+                    >
+                      LEARN MORE
+                      <ArrowRight
+                        size={isMobile ? 12 : 16}
+                        className="ml-2 group-hover:ml-3 transition-all duration-300"
+                        aria-hidden="true"
+                      />
+                    </motion.a>
                   </div>
-                  
-                  {/* CTA button - improved contrast */}
-                  <motion.a
-                    href={vehicle.content.ctaLink}
-                    className={`group inline-flex items-center ${isMobile ? "px-4 py-2 text-xs" : isTablet ? "px-5 py-2.5 text-sm" : "px-8 py-3 text-base"} font-medium transition-all duration-300 tracking-wide shadow-md`}
-                    style={{ 
-                      backgroundColor: primary900,
-                      color: overlayColors.text 
-                    }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1, duration: 0.5 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    aria-label={`Learn more about ${vehicle.content.title}`}
-                  >
-                    LEARN MORE
-                    <ArrowRight
-                      size={isMobile ? 12 : 16}
-                      className="ml-2 group-hover:ml-3 transition-all duration-300"
-                      aria-hidden="true"
-                    />
-                  </motion.a>
                 </div>
-              </div>
               </div>
               
-              {/* Right column - Grid images (2/3 width) */}
+              {/* Grid images - responsive layout */}
               <div 
-                className={`${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:col-span-2" : ""}`}
-                style={{ height: breakpoint === "mobile" ? "auto" : heights.grid }}
+                className={`w-full ${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:w-[60%]" : ""}`}
+                style={{ height: heights.grid }}
               >
-                {/* Full 2x2 grid */}
-                <div className="grid grid-cols-2 grid-rows-2 h-full">
+                <div className="grid grid-cols-2 grid-rows-2 h-full border border-gray-200">
                   {vehicle.images.map((image, idx) => (
                     <motion.div
                       key={idx}
-                      className="relative overflow-hidden"
+                      className="relative overflow-hidden border border-gray-200"
                       custom={idx}
                       variants={animations.image}
                       initial="hidden"
@@ -593,10 +541,6 @@ export default function CheryBrandMasonrySlider({
                       tabIndex={0}
                       role="img"
                       aria-label={image.alt}
-                      style={{ 
-                        height: '100%',
-                        minHeight: isMobile ? '25vh' : isTablet ? '30vh' : '35vh'
-                      }}
                     >
                       {/* Image */}
                       <div 
@@ -607,43 +551,21 @@ export default function CheryBrandMasonrySlider({
                         }}
                       />
                       
-                      {/* Improved overlay with deeper gradient fade effect */}
-                      <AnimatePresence>
-                        {hoveredSection === `image-${idx}` && (
-                          <motion.div 
-                            className="absolute inset-0"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.8 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            style={{ 
-                              background: `linear-gradient(to top, 
-                                ${overlayColors.base}ff 0%, 
-                                ${overlayColors.base}ee 40%, 
-                                ${overlayColors.base}dd 65%, 
-                                ${overlayColors.base}aa 85%,
-                                transparent 100%)`,
-                            }}
-                          />
-                        )}
-                      </AnimatePresence>
-                      
                       {/* Caption overlay - responsive visibility */}
                       <AnimatePresence>
-                        {(hoveredSection === `image-${idx}`) && (
+                        {(isMobile || isTablet || hoveredSection === `image-${idx}`) && (
                           <motion.div 
-                            className={`absolute inset-0 flex items-end justify-start ${isMobile ? "p-2" : "p-4"}`}
+                            className={`absolute inset-0 flex items-end justify-end ${isMobile ? "p-1" : "p-3"}`}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <p 
-                              className={`${isMobile ? "text-xs" : isTablet ? "text-xs sm:text-sm" : "text-sm"} font-medium bg-transparent px-2 py-1`}
-                              style={{ color: overlayColors.text }}
-                            >
-                              {isMobile ? image.alt.split(' ')[0] : image.alt}
-                            </p>
+                            <div className="bg-black/60 backdrop-blur-sm py-1 px-2">
+                              {/* <p className={`${isMobile ? "text-xs" : isTablet ? "text-xs sm:text-sm" : "text-sm"} text-white font-medium text-right`}>
+                                {isMobile ? image.alt.split(' ')[0] : image.alt}
+                              </p> */}
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
