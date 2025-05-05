@@ -1,6 +1,6 @@
 // CheryFeaturesAccordion.jsx
 import { AnimatePresence, motion } from 'framer-motion';
-import { Award, ChevronRight, Engine, Layout, Monitor, Shield } from 'lucide-react';
+import { Award, ChevronRight, Layout, Monitor, Shield, Wrench } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
@@ -352,7 +352,7 @@ const CheryFeaturesAccordion = () => {
         );
       case 'engine':
         return (
-          <Engine className="w-6 h-6" />
+          <Wrench className="w-6 h-6" />
         );
       case 'technology':
         return (
