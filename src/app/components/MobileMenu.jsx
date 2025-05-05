@@ -98,7 +98,7 @@ const CAR_DATA = {
 const AnimatedCounter = ({ value, suffix, duration = 800 }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const initialValue = useRef(0);
-  const targetValue = parseInt(value, 10);
+  const targetValue = parseFloat(value);
   
   useEffect(() => {
     let startTime;
