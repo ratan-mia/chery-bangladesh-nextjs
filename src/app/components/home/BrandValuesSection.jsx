@@ -1,8 +1,6 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { ArrowRight, Award, Cpu, Shield, Zap } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion';
+import { Award, ChevronRight, CornerRightDown, Cpu, Shield, Zap } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 // Container animation variants
 const containerVariants = {
@@ -11,12 +9,12 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.2
+      delayChildren: 0.3
     }
   }
-}
+};
 
-// Item animation variants with spring physics for premium feel
+// Item animation variants
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
@@ -25,118 +23,132 @@ const itemVariants = {
     transition: {
       type: "spring",
       stiffness: 70,
-      damping: 14,
-      duration: 0.5
+      damping: 14
     }
   }
-}
+};
 
-export default function CheryFeaturesGrid() {
+// Header animation variants
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6,
+      ease: "easeOut"
+    } 
+  }
+};
+
+// Line animation variant
+const lineVariants = {
+  hidden: { width: 0 },
+  visible: { 
+    width: '100%',
+    transition: { 
+      duration: 0.8,
+      ease: "easeInOut"
+    }
+  }
+};
+
+const CheryFeaturesGrid = () => {
   // State management
-  const [hoveredFeature, setHoveredFeature] = useState(null)
-  const [windowWidth, setWindowWidth] = useState(0)
-  const [isInView, setIsInView] = useState(false)
-  const sectionRef = useRef(null)
+  const [hoveredFeature, setHoveredFeature] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef(null);
   
-  // Handle window resize for responsive breakpoints
+  // Handle window resize for responsive design
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
+      setWindowWidth(window.innerWidth);
+    };
     
     // Set initial width
-    handleResize()
+    handleResize();
     
     // Add event listener
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
     
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   
-  // Parallax effect for background images
+  // Parallax effect for background elements
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return
+      if (!sectionRef.current) return;
       
-      const rect = sectionRef.current.getBoundingClientRect()
-      const isVisible = rect.top < window.innerHeight && rect.bottom >= 0
+      const rect = sectionRef.current.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
       
       if (isVisible) {
-        setIsInView(true)
-        const scrollPosition = window.scrollY
-        const parallaxElements = sectionRef.current.querySelectorAll('.parallax-bg')
+        setIsInView(true);
+        const scrollPosition = window.scrollY;
+        const parallaxElements = sectionRef.current.querySelectorAll('.parallax-bg');
         
         parallaxElements.forEach(element => {
-          const speed = element.dataset.speed || 0.15
-          const yPos = -(scrollPosition * speed)
-          element.style.transform = `translate3d(0, ${yPos}px, 0)`
-        })
+          const speed = element.dataset.speed || 0.15;
+          const yPos = -(scrollPosition * speed);
+          element.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
       }
-    }
+    };
     
-    window.addEventListener('scroll', handleScroll)
-    handleScroll() // Initial check
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
     
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
-  // Feature data
+  // Feature data - updated with correct brand colors
   const features = [
     { 
       title: 'Superior Performance', 
-      desc: 'Experience power and efficiency with our advanced turbocharged engines that deliver responsive acceleration and impressive fuel economy.',
+      desc: 'Experience thrilling power with our 1.6T turbocharged engine delivering 195 BHP and 290Nm of torque, paired with a responsive 7-speed dual-clutch transmission for seamless acceleration.',
       icon: Zap,
-      accent: '#8c735d' // primary-700
+      accent: '#8c735d' // Updated to Primary-700
     },
     { 
       title: 'Advanced Safety', 
-      desc: 'Comprehensive safety systems with intelligent collision prevention technology and reinforced body structure to protect what matters most.',
+      desc: 'Drive with confidence thanks to our comprehensive 7-airbag system, ADAS features including Automatic Emergency Braking, Blind Spot Detection, and 360° HD panoramic camera system.',
       icon: Shield,
-      accent: '#8c735d' // primary-700
+      accent: '#8c735d' // Updated to Primary-700
     },
     { 
       title: 'Smart Technology', 
-      desc: 'Stay connected with cutting-edge infotainment systems and sophisticated driver assistance features for a more intelligent driving experience.',
+      desc: 'Enjoy seamless connectivity with our 10.25-inch touchscreen featuring Apple CarPlay™ and Android Auto™, voice-activated controls, and Sony™ premium sound system for an immersive experience.',
       icon: Cpu,
-      accent: '#8c735d' // primary-700
+      accent: '#8c735d' // Updated to Primary-700
     },
     { 
-      title: 'Premium Warranty', 
-      desc: 'Enjoy complete peace of mind with our exceptional 5-year comprehensive warranty coverage, including 24/7 roadside assistance.',
+      title: 'Premium Comfort', 
+      desc: 'Indulge in luxury with hand-stitched leather upholstery, panoramic sunroof, dual-zone climate control, and ambient lighting that creates a sophisticated atmosphere for every journey.',
       icon: Award,
-      accent: '#8c735d' // primary-700
+      accent: '#8c735d' // Updated to Primary-700
     }
-  ]
+  ];
   
   // Determine if mobile view
-  const isMobile = windowWidth < 640
-  const isTablet = windowWidth >= 640 && windowWidth < 1024
+  const isMobile = windowWidth < 640;
+  const isTablet = windowWidth >= 640 && windowWidth < 1024;
 
   return (
     <section 
       ref={sectionRef} 
-      className="py-12 md:py-20 lg:py-24 relative overflow-hidden"
+      className="py-16 md:py-24 lg:py-28 relative overflow-hidden"
       style={{ backgroundColor: '#f8f5f1' }}
     >
       {/* Background elements */}
-         {/* Background car image with parallax effect - hidden on mobile */}
-         {/* <div className="absolute left-0 right-0 bottom-0 w-full h-full md:h-full opacity-0 md:opacity-15 lg:opacity-20 parallax-bg" data-speed="0.08">
-          <Image 
-            src="/images/car-silhouette.png" 
-            alt="Luxury car silhouette" 
-            fill 
-            className="object-cover"
-            priority={false}
-          />
-        </div> */}
       <div className="absolute inset-0 z-0">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-5 mix-blend-overlay">
           <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
             <pattern id="grid-pattern" width="16" height="16" patternUnits="userSpaceOnUse">
-              <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#8c735d" strokeWidth="0.5" opacity="0.5" />
+              <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#524336" strokeWidth="0.5" opacity="0.5" />
             </pattern>
             <rect width="100%" height="100%" fill="url(#grid-pattern)" />
           </svg>
@@ -144,17 +156,15 @@ export default function CheryFeaturesGrid() {
         
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-48 md:w-80 h-48 md:h-80 bg-primary-light opacity-20 filter blur-3xl -translate-x-20 md:-translate-x-40 -translate-y-20 md:-translate-y-40 parallax-bg" data-speed="0.05"></div>
-        <div className="absolute top-1/4 right-0 w-64 md:w-96 h-64 md:h-96 bg-primary-700 opacity-10 filter blur-3xl translate-x-1/3 md:translate-x-1/2 parallax-bg" data-speed="0.1"></div>
-        <div className="absolute bottom-0 left-1/3 w-48 md:w-64 h-48 md:h-64 bg-primary-800 opacity-15 filter blur-2xl translate-y-1/3 md:translate-y-1/2 parallax-bg" data-speed="0.15"></div>
-        
-     
+        <div className="absolute top-1/4 right-0 w-64 md:w-96 h-64 md:h-96 bg-primary-900 opacity-10 filter blur-3xl translate-x-1/3 md:translate-x-1/2 parallax-bg" data-speed="0.1"></div>
+        <div className="absolute bottom-0 left-1/3 w-48 md:w-64 h-48 md:h-64 bg-gray-800 opacity-15 filter blur-2xl translate-y-1/3 md:translate-y-1/2 parallax-bg" data-speed="0.15"></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-10 md:mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <motion.p
-            className="text-primary-900 font-medium text-xs sm:text-sm md:text-base uppercase tracking-wider mb-2 md:mb-3"
+            className="text-primary-700 font-medium text-xs sm:text-sm md:text-base uppercase tracking-wider mb-2 md:mb-3"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -170,7 +180,7 @@ export default function CheryFeaturesGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Exceptional <span className="text-primary-900">Features</span>
+            First Class <span className="text-primary-900">Features</span>
           </motion.h2>
           
           {/* Accent bar with enhanced animation */}
@@ -189,8 +199,8 @@ export default function CheryFeaturesGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            Discover what makes our vehicles stand out from the crowd with these extraordinary features
-            designed to elevate your driving experience to new heights.
+            Discover what makes our vehicles stand out with these premium features
+            designed to elevate your driving experience to unexpected heights.
           </motion.p>
         </div>
         
@@ -203,7 +213,7 @@ export default function CheryFeaturesGrid() {
           viewport={{ once: true, amount: 0.1 }}
         >
           {features.map((feature, index) => {
-            const IconComponent = feature.icon
+            const IconComponent = feature.icon;
             return (
               <motion.div
                 key={index}
@@ -213,7 +223,7 @@ export default function CheryFeaturesGrid() {
                 onMouseLeave={() => setHoveredFeature(null)}
               >
                 <div 
-                  className="border border-gray-200 bg-white shadow-sm overflow-hidden group-hover:border-primary-700 hover:shadow-lg transition-all duration-500 h-full backdrop-blur-sm bg-white/95"
+                  className="border border-gray-200 shadow-sm overflow-hidden rounded-sm group-hover:border-primary-700 hover:shadow-lg transition-all duration-500 h-full backdrop-blur-sm bg-white/95"
                   style={{ 
                     transform: hoveredFeature === index ? 'translateY(-8px)' : 'none',
                     transition: 'transform 0.5s ease-out, border-color 0.3s ease, box-shadow 0.5s ease'
@@ -243,22 +253,22 @@ export default function CheryFeaturesGrid() {
                     
                     {/* Icon container with responsive sizing */}
                     <div 
-                      className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 sm:mb-5 md:mb-6 relative z-10 transition-all duration-300"
+                      className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 sm:mb-5 md:mb-6 relative z-10 transition-all duration-300 rounded-sm"
                       style={{ 
-                        backgroundColor: hoveredFeature === index ? `${feature.accent}20` : '#f0ece6',
+                        backgroundColor: hoveredFeature === index ? `${feature.accent}20` : '#c4b19c20', // Primary-light with opacity
                         transform: hoveredFeature === index ? 'scale(1.05)' : 'scale(1)',
                       }}
                     >
                       <IconComponent 
                         className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-colors duration-300" 
-                        style={{ color: hoveredFeature === index ? feature.accent : '#524336' }} 
+                        style={{ color: hoveredFeature === index ? feature.accent : '#524336' }} // Primary-900 for non-hovered
                       />
                     </div>
                     
                     {/* Responsive typography */}
                     <h3 
                       className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 md:mb-4 relative z-10 transition-colors duration-300"
-                      style={{ color: hoveredFeature === index ? feature.accent : '#111827' }}
+                      style={{ color: hoveredFeature === index ? '#524336' : '#111827' }} // Primary-900 on hover, Gray-900 default
                     >
                       {feature.title}
                     </h3>
@@ -277,7 +287,7 @@ export default function CheryFeaturesGrid() {
                       }}
                     >
                       <span>Learn more</span>
-                      <ArrowRight 
+                      <ChevronRight 
                         size={isMobile ? 14 : 16} 
                         className="ml-1 sm:ml-2 transition-all duration-300"
                         style={{ 
@@ -311,22 +321,128 @@ export default function CheryFeaturesGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          {/* Mobile button */}
           <a 
             href="#explore-features"
-            className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-3 md:px-10 md:py-4 bg-primary-700 text-white text-sm sm:text-base font-medium hover:bg-primary-900 transition-all duration-300 group"
+            className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-3 md:px-10 md:py-4 bg-primary-700 text-white text-sm sm:text-base font-medium hover:bg-primary-900 transition-all duration-300 group rounded-sm"
           >
             Explore All Features
-            <ArrowRight 
+            <ChevronRight 
               size={isMobile ? 16 : 20} 
               className="ml-2 group-hover:ml-3 transition-all duration-300"
             />
           </a>
         </motion.div>
+        
+        {/* Specs highlight section */}
+        <div className="mt-20 md:mt-32">
+          <motion.div 
+            className="bg-white p-6 md:p-8 lg:p-12 shadow-md rounded-sm border border-gray-100"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              <div>
+                <motion.h3 
+                  className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-900"
+                  variants={headerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  Technical <span className="text-primary-900">Excellence</span>
+                </motion.h3>
+                
+                <motion.div 
+                  className="h-1 w-16 md:w-20 bg-primary-700 mb-6"
+                  variants={lineVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                />
+                
+                <p className="text-gray-600 mb-6">
+                  Our vehicles combine power, efficiency, and cutting-edge technology to deliver an extraordinary driving experience that exceeds expectations.
+                </p>
+                
+                <ul className="space-y-3">
+                  {[
+                    '1.6T Turbocharged Engine with 195 BHP',
+                    '290Nm of Torque for Responsive Acceleration',
+                    '7-Speed Dual Clutch Transmission',
+                    'Selectable Drive Modes for Every Condition',
+                    '207mm Ground Clearance for Versatile Handling'
+                  ].map((item, idx) => (
+                    <motion.li 
+                      key={idx}
+                      className="flex items-start text-gray-700"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 * idx, duration: 0.5 }}
+                    >
+                      <CornerRightDown size={18} className="text-primary-700 mt-1 mr-2 flex-shrink-0" />
+                      <span>{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div>
+                <motion.h3 
+                  className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-900"
+                  variants={headerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  Premium <span className="text-primary-900">Comfort</span>
+                </motion.h3>
+                
+                <motion.div 
+                  className="h-1 w-16 md:w-20 bg-primary-700 mb-6"
+                  variants={lineVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                />
+                
+                <p className="text-gray-600 mb-6">
+                  Immerse yourself in luxury with our carefully crafted interior that combines sophisticated design with thoughtful convenience features.
+                </p>
+                
+                <ul className="space-y-3">
+                  {[
+                    'Hand-stitched Premium Leather Upholstery',
+                    'Panoramic Sunroof with Voice Control',
+                    '10.25-inch HD Touchscreen Infotainment System',
+                    'Sony™ Premium Sound System',
+                    'Multi-color Ambient Lighting with Music Rhythm'
+                  ].map((item, idx) => (
+                    <motion.li 
+                      key={idx}
+                      className="flex items-start text-gray-700"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 * idx, duration: 0.5 }}
+                    >
+                      <CornerRightDown size={18} className="text-primary-700 mt-1 mr-2 flex-shrink-0" />
+                      <span>{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
       
       {/* Decorative bottom border */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary-800 opacity-30"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary-700 opacity-30"></div>
     </section>
-  )
-}
+  );
+};
+
+export default CheryFeaturesGrid;
