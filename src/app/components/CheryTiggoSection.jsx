@@ -1,7 +1,8 @@
 'use client'
 
+import BrandValuesSection from '@components/home/BrandValuesSection'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Award, Car, Check, ChevronLeft, ChevronRight, Cpu, Eye, Shield, Sparkles, X, Zap } from 'lucide-react'
+import { ArrowRight, Car, Check, ChevronLeft, ChevronRight, Cpu, Eye, Sparkles, X, Zap } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
@@ -151,8 +152,8 @@ export default function CheryTiggoSection() {
         { label: 'Transmission', value: '7-Speed Dual Clutch', icon: Cpu }
       ],
       features: [
-        'Premium Luxury 7-seat SUV', 
-        'Panoramic Sunroof', 
+        'Premium Luxury 7-seat SUV',
+        'Panoramic Sunroof',
         'Multi-color Ambient System with Music Rhythm',
         '12.3" Dual Curve Screen',
         'Ventilated and Heated Front Seats',
@@ -174,8 +175,8 @@ export default function CheryTiggoSection() {
         { label: 'Transmission', value: '6-Speed Dual Clutch', icon: Cpu }
       ],
       features: [
-        'Biomimetic Tiger Face Design', 
-        '10.25" Ultra-Clear LCD Screen', 
+        'Biomimetic Tiger Face Design',
+        '10.25" Ultra-Clear LCD Screen',
         'Voice-Activated Panoramic Sunroof',
         '360° Panoramic Camera View',
         'LED Matrix Headlights',
@@ -241,27 +242,27 @@ export default function CheryTiggoSection() {
     const styleElement = document.createElement('style')
     styleElement.textContent = swiperStyles
     document.head.appendChild(styleElement)
-    
+
     return () => {
       document.head.removeChild(styleElement)
     }
   }, [])
 
   return (
-    <section 
-      ref={sectionRef} 
+    <section
+      ref={sectionRef}
       id='explore'
       className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden"
     >
       <div ref={containerRef} className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Section Header - Following design system */}
-        <motion.div 
+        <motion.div
           className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.7 }}
         >
-          <motion.div 
+          <motion.div
             className="inline-block mb-4"
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : { scale: 0 }}
@@ -271,7 +272,7 @@ export default function CheryTiggoSection() {
               <Car className="w-6 h-6 text-primary-900" />
             </div>
           </motion.div>
-          
+
           <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
             Experience the <span className="text-primary-900">Tiggo Legacy</span>
           </h2>
@@ -282,7 +283,7 @@ export default function CheryTiggoSection() {
         </motion.div>
 
         {/* Model Cards Swiper */}
-        <motion.div 
+        <motion.div
           className="mb-12 md:mb-16 lg:mb-20"
           variants={containerVariants}
           initial="hidden"
@@ -299,7 +300,7 @@ export default function CheryTiggoSection() {
               prevEl: '.swiper-button-prev',
               nextEl: '.swiper-button-next',
             }}
-            pagination={{ 
+            pagination={{
               clickable: true,
               dynamicBullets: false,
             }}
@@ -331,20 +332,18 @@ export default function CheryTiggoSection() {
                   variants={itemVariants}
                   className="h-full"
                 >
-                  <div 
-                    className={`group relative bg-white border  overflow-hidden transition-all duration-300 h-full ${
-                      activeIndex === index 
-                        ? 'border-primary-700 shadow-2xl' 
+                  <div
+                    className={`group relative bg-white border  overflow-hidden transition-all duration-300 h-full ${activeIndex === index
+                        ? 'border-primary-700 shadow-2xl'
                         : 'border-gray-200 shadow-sm hover:border-primary-700 hover:shadow-xl'
-                    }`}
+                      }`}
                   >
                     {/* Top accent bar */}
-                    <div 
-                      className={`h-1 w-full bg-primary-800 transition-opacity duration-300 ${
-                        activeIndex === index ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'
-                      }`}
+                    <div
+                      className={`h-1 w-full bg-primary-800 transition-opacity duration-300 ${activeIndex === index ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'
+                        }`}
                     />
-                    
+
                     {/* Badge */}
                     <div className="absolute top-4 right-4 md:top-6 md:right-6 z-10">
                       <span className="px-3 py-1 bg-primary-900 text-white text-xs font-medium uppercase tracking-wider rounded-sm">
@@ -355,7 +354,7 @@ export default function CheryTiggoSection() {
                     {/* Image Container */}
                     <div className="relative h-48 md:h-56 bg-gradient-to-b from-gray-100 to-white">
                       <motion.div
-                        animate={{ 
+                        animate={{
                           scale: activeIndex === index ? 1.05 : 1,
                         }}
                         transition={{ duration: 0.5 }}
@@ -380,13 +379,13 @@ export default function CheryTiggoSection() {
                         {model.name}
                       </h3>
                       <p className="text-primary-700 font-medium mb-4">{model.subtitle}</p>
-                      
+
                       <div className="h-px bg-gray-200 mb-4 md:mb-6"></div>
-                      
+
                       <p className="text-gray-600 text-sm leading-normal mb-6 md:mb-8 line-clamp-3">
                         {model.description}
                       </p>
-                      
+
                       {/* Quick Specs */}
                       <div className="grid grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
                         {model.specs.slice(0, 2).map((spec, idx) => (
@@ -404,17 +403,17 @@ export default function CheryTiggoSection() {
 
                       {/* CTA Buttons */}
                       <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                        <Link 
+                        <Link
                           href={model.link}
                           className="group/btn flex-1 inline-flex items-center justify-center py-3 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300 rounded-sm"
                         >
                           Explore
-                          <ArrowRight 
-                            size={20} 
-                            className="ml-2 transition-all duration-300 group-hover/btn:ml-3" 
+                          <ArrowRight
+                            size={20}
+                            className="ml-2 transition-all duration-300 group-hover/btn:ml-3"
                           />
                         </Link>
-                        <button 
+                        <button
                           onClick={() => setSelectedModel(model)}
                           className="flex-1 inline-flex items-center justify-center py-3 border border-primary-700 text-primary-700 font-medium hover:bg-primary-700 hover:text-white transition-all duration-300 rounded-sm"
                         >
@@ -426,7 +425,7 @@ export default function CheryTiggoSection() {
 
                     {/* Bottom accent line */}
                     <div className="h-0.5 w-full bg-gray-200 mt-auto">
-                      <div 
+                      <div
                         className="h-full bg-primary-700 w-0 group-hover:w-full transition-all duration-700 ease-out"
                       />
                     </div>
@@ -443,71 +442,9 @@ export default function CheryTiggoSection() {
             </div>
           </Swiper>
         </motion.div>
-
-        {/* Brand Values Section */}
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-12 md:mt-16 lg:mt-20"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          {[
-            { 
-              title: 'Superior Performance', 
-              desc: 'Experience power and efficiency with our advanced turbocharged engines',
-              icon: Zap
-            },
-            { 
-              title: 'Advanced Safety', 
-              desc: 'Comprehensive safety systems that protect what matters most',
-              icon: Shield
-            },
-            { 
-              title: 'Smart Technology', 
-              desc: 'Stay connected with cutting-edge infotainment and driver assistance',
-              icon: Cpu
-            },
-            { 
-              title: 'Premium Warranty', 
-              desc: '5-year warranty coverage for complete peace of mind',
-              icon: Award
-            }
-          ].map((item, index) => {
-            const IconComponent = item.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="relative group"
-              >
-                <div className="border  border-gray-200 bg-white shadow-sm overflow-hidden group hover:border-primary-700 hover:shadow-lg transition-all duration-300 h-full">
-                  {/* Top accent */}
-                  <div className="h-1 w-full bg-primary-800 opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  <div className="p-6 md:p-8">
-                    <div className="w-12 h-12 md:w-16 md:h-16 bg-primary-light bg-opacity-40  flex items-center justify-center mb-4 md:mb-6 group-hover:bg-opacity-60 transition-all duration-300">
-                      <IconComponent className="w-6 h-6 md:w-8 md:h-8 text-primary-900" />
-                    </div>
-                    
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4 group-hover:text-primary-900 transition-colors duration-300">{item.title}</h3>
-                    <p className="text-gray-600 text-sm md:text-base leading-normal mb-6 md:mb-8">{item.desc}</p>
-                    
-                    <div className="flex items-center text-primary-700 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span>Learn more</span>
-                      <ArrowRight 
-                        size={16} 
-                        className="ml-2 group-hover:ml-3 transition-all duration-300"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
       </div>
-
+      {/* Brand Values Section */}
+      <BrandValuesSection />
       {/* Slide-out Panel for Quick View */}
       <AnimatePresence>
         {selectedModel && (
@@ -520,7 +457,7 @@ export default function CheryTiggoSection() {
               className="fixed inset-0 backdrop-blur-sm bg-black/30 z-50"
               onClick={() => setSelectedModel(null)}
             />
-            
+
             {/* Slide Panel */}
             <motion.div
               initial={{ x: '100%' }}
@@ -538,7 +475,7 @@ export default function CheryTiggoSection() {
                       <h3 className="text-xl md:text-2xl font-bold text-gray-900">{selectedModel.name}</h3>
                       <p className="text-primary-700 font-medium">{selectedModel.subtitle}</p>
                     </div>
-                    <button 
+                    <button
                       onClick={() => setSelectedModel(null)}
                       className="p-2 hover:bg-gray-100 hover:text-primary bg-primary transition-colors duration-200 "
                       aria-label="Close panel"
@@ -580,8 +517,8 @@ export default function CheryTiggoSection() {
                         <h4 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wider">Specifications</h4>
                         <div className="grid grid-cols-2 gap-3">
                           {selectedModel.specs.map((spec, idx) => (
-                            <div 
-                              key={idx} 
+                            <div
+                              key={idx}
                               className="flex items-center space-x-3 p-3 bg-gray-50 rounded-sm border border-gray-200"
                             >
                               <div className="w-10 h-10 bg-primary-light bg-opacity-40  flex items-center justify-center flex-shrink-0">
@@ -601,8 +538,8 @@ export default function CheryTiggoSection() {
                         <h4 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wider">Key Features</h4>
                         <div className="grid grid-cols-2 gap-2">
                           {selectedModel.features.map((feature, idx) => (
-                            <div 
-                              key={idx} 
+                            <div
+                              key={idx}
                               className="flex items-center space-x-3 p-1"
                             >
                               <div className="w-5 h-5 bg-primary-light bg-opacity-40  flex items-center justify-center flex-shrink-0">
@@ -618,7 +555,7 @@ export default function CheryTiggoSection() {
 
                   {/* CTA Section */}
                   <div className="p-4 md:p-6 border-t border-gray-200 bg-gray-50">
-                    <Link 
+                    <Link
                       href={selectedModel.link}
                       className="group inline-flex items-center justify-center w-full py-3 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300 rounded-sm"
                     >
