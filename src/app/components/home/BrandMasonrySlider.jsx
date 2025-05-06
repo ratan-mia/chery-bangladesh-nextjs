@@ -629,7 +629,7 @@ export default function CheryBrandMasonrySlider({
                       </AnimatePresence>
                       
                       {/* Caption overlay - responsive visibility */}
-                      <AnimatePresence>
+                      {/* <AnimatePresence>
                         {(hoveredSection === `image-${idx}`) && (
                           <motion.div 
                             className={`absolute inset-0 flex items-end justify-start ${isMobile ? "p-2" : "p-4"}`}
@@ -646,7 +646,7 @@ export default function CheryBrandMasonrySlider({
                             </p>
                           </motion.div>
                         )}
-                      </AnimatePresence>
+                      </AnimatePresence> */}
                     </motion.div>
                   ))}
                 </div>
