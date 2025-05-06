@@ -1,6 +1,7 @@
 'use client'
 
-import { Music, Pause } from 'lucide-react'
+import { useModal } from '@/contexts/ModalContext'
+import { Download, Music, Pause } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -59,6 +60,7 @@ const useAudio = (url) => {
 };
 
 export default function Header() {
+  const { openBrochureModal } = useModal();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
   const [isAboutSubMenuOpen, setIsAboutSubMenuOpen] = useState(false)
@@ -390,6 +392,15 @@ export default function Header() {
             >
               TEST DRIVE
             </Link>
+            <button
+              onClick={() => openBrochureModal()}
+              className="bg-[#8c735d] hover:bg-[#524336] text-white text-sm uppercase font-medium px-4 py-2 flex items-center transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              <span>Downloads</span>
+            </button>
+
+
           </div>
         </div>
       </header>

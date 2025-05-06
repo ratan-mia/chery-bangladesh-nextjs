@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import BrochureModalWrapper from "./components/BrochureModalWrapper";
 import CookiesConsent from "./components/CookiesConsent"; // We'll create this
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import { ModalProvider } from './contexts/ModalContext';
 
 import "./globals.css";
 
@@ -32,16 +34,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
-        <ScrollToTopButton />
-        {/* <ClientLoadingWrapper /> */}
-        <CookiesConsent />
+        <ModalProvider>
+          <Header />
+          {children}
+          <Footer />
+          <ScrollToTopButton />
+          {/* <ClientLoadingWrapper /> */}
+          <CookiesConsent />
 
-        <script src="https://static.elfsight.com/platform/platform.js" async></script>
-        <div className="elfsight-app-2830778b-7002-437a-9a38-62689e615b39" data-elfsight-app-lazy></div>
-
+          <script src="https://static.elfsight.com/platform/platform.js" async></script>
+          <div className="elfsight-app-2830778b-7002-437a-9a38-62689e615b39" data-elfsight-app-lazy></div>
+          <BrochureModalWrapper />
+        </ModalProvider>
       </body>
     </html>
   );
