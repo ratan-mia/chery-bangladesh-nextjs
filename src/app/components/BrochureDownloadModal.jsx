@@ -137,25 +137,25 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
     }
   };
 
-      const renderField = (field) => {
+  const renderField = (field) => {
     const commonInputClasses = `
       w-full pl-12 pr-4 py-3 bg-white 
       border border-gray-200  
       text-gray-900 transition-colors duration-300
       focus:outline-none focus:ring-2 focus:ring-primary-700 focus:border-transparent
-      hover:border-primary-light rounded-md text-sm sm:text-base
+      hover:border-primary-light
     `;
     
     return (
-      <div key={field.name} className="relative mb-4 sm:mb-5">
+      <div key={field.name} className="relative mb-4">
         <div 
-          className={`absolute left-0 top-4 bottom-4 w-1 rounded-l-md transition-colors duration-300 ${
+          className={`absolute left-0 top-0 bottom-0 w-0.5 transition-colors duration-300 ${
             focusedField === field.name ? 'bg-primary-700' : 'bg-gray-200'
           }`}
         />
         <label 
           htmlFor={field.name}
-          className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-1.5 pl-4"
+          className="block text-sm font-medium text-gray-700 mb-1.5 pl-4"
         >
           {field.label}
           {field.optional && (
@@ -163,7 +163,7 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
           )}
         </label>
         <div className="relative pl-4">
-          <field.icon className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-200 ${
+          <field.icon className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
             focusedField === field.name ? 'text-primary-700' : 'text-gray-400'
           }`} />
           
@@ -260,7 +260,7 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-start md:items-center md:justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-start">
           {/* Backdrop overlay */}
           <motion.div 
             className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm"
@@ -272,10 +272,10 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
 
           {/* Modal panel */}
           <motion.div 
-            className="relative w-full md:w-auto md:max-w-md h-screen md:h-auto md:max-h-[85vh] bg-white shadow-xl overflow-hidden flex flex-col"
-            initial={{ x: '-100%', y: 0 }}
-            animate={{ x: 0, y: 0 }}
-            exit={{ x: '-100%', y: 0 }}
+            className="relative w-full max-w-md h-screen bg-white shadow-xl overflow-hidden flex flex-col"
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
           >
             {/* Decorative top accent */}
@@ -291,19 +291,19 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
             </button>
 
             {/* Header */}
-            <div className="bg-white px-4 sm:px-6 md:px-8 pt-10 md:pt-14 pb-4 md:pb-6 relative overflow-hidden">
+            <div className="bg-white px-8 pt-14 pb-6 relative overflow-hidden">
               <motion.div 
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 className="relative z-10"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center mb-4 md:mb-6">
-                  <div className="flex-shrink-0 mr-4 p-3 bg-primary-light/20 rounded-lg mb-3 sm:mb-0">
+                <div className="flex items-center mb-6">
+                  <div className="flex-shrink-0 mr-4 p-3 bg-primary-light/20 rounded-lg">
                     <FileText className="w-6 h-6 text-primary-900" />
                   </div>
                   <div>
-                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl font-bold text-gray-900">
                       Download Documents
                     </h2>
                     <p className="text-gray-600 text-sm">
@@ -317,19 +317,19 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
             </div>
 
             {/* Form content */}
-            <div className="px-4 sm:px-6 md:px-8 py-4 md:py-6 flex-1 overflow-y-auto">
+            <div className="px-8 py-6 flex-1 overflow-y-auto">
               <AnimatePresence>
                 {success && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="mb-4 md:mb-6 overflow-hidden"
+                    className="mb-6 overflow-hidden"
                   >
                     <div className="bg-white p-4 border-l-4 border-l-emerald-500 border-t border-r border-b border-gray-100 shadow-sm rounded-r">
                       <div className="flex items-center text-emerald-700">
                         <CheckCircle className="w-5 h-5 mr-3 flex-shrink-0" />
-                        <p className="font-medium text-sm sm:text-base">Document request submitted successfully! Check your email for the download link.</p>
+                        <p className="font-medium">Document request submitted successfully! Check your email for the download link.</p>
                       </div>
                     </div>
                   </motion.div>
@@ -340,39 +340,36 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="mb-4 md:mb-6 overflow-hidden"
+                    className="mb-6 overflow-hidden"
                   >
                     <div className="bg-white p-4 border-l-4 border-l-red-500 border-t border-r border-b border-gray-100 shadow-sm rounded-r">
                       <div className="flex items-center text-red-700">
                         <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
-                        <p className="font-medium text-sm sm:text-base">{error}</p>
+                        <p className="font-medium">{error}</p>
                       </div>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              <form onSubmit={handleSubmit}>
-                <div className="space-y-2">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-2">
-                    {formFields.slice(0, 2).map(renderField)}
-                  </div>
-                  {formFields.slice(2).map(renderField)}
+              <form onSubmit={handleSubmit} className="space-y-2">
+                <div>
+                  {formFields.map(renderField)}
                 </div>
               </form>
             </div>
 
             {/* Footer with submit button */}
-            <div className="border-t border-gray-200 px-4 sm:px-6 md:px-8 py-4 sm:py-6 bg-white">
+            <div className="border-t border-gray-200 px-8 py-6 bg-white">
               <button
                 type="submit"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center px-4 sm:px-6 py-3 sm:py-3.5 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-colors duration-300 group disabled:opacity-70 disabled:cursor-not-allowed shadow-sm rounded-md text-sm sm:text-base"
+                className="w-full flex items-center justify-center px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-colors duration-300 group disabled:opacity-70 disabled:cursor-not-allowed shadow-sm rounded"
               >
                 {isSubmitting ? (
                   <div className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
@@ -380,16 +377,16 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                   </div>
                 ) : (
                   <div className="flex items-center">
-                    <Download className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                    <Download className="w-5 h-5 mr-2" />
                     Request Document
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </div>
                 )}
               </button>
 
               <p className="text-xs text-gray-600 text-center mt-4">
                 By downloading, you agree to our{' '}
-                <a href="/privacy" className="text-primary-700 hover:text-primary-900 underline font-medium">
+                <a href="/privacy" className="text-primary-700 hover:text-primary-900 underline">
                   Privacy Policy
                 </a>
               </p>
