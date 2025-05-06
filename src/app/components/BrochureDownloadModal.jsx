@@ -139,31 +139,32 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
 
   const renderField = (field) => {
     const commonInputClasses = `
-      w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 
-      border border-gray-200 dark:border-gray-700  
-      text-gray-900 dark:text-gray-100 transition-colors
-      focus:outline-none focus:ring-2 focus:ring-[#8c735d] focus:border-transparent
+      w-full pl-12 pr-4 py-3 bg-white 
+      border border-gray-200  
+      text-gray-900 transition-colors duration-300
+      focus:outline-none focus:ring-2 focus:ring-primary-700 focus:border-transparent
+      hover:border-primary-light
     `;
     
     return (
-      <div key={field.name} className="relative">
+      <div key={field.name} className="relative mb-4">
         <div 
           className={`absolute left-0 top-0 bottom-0 w-0.5 transition-colors duration-300 ${
-            focusedField === field.name ? 'bg-[#8c735d]' : 'bg-gray-200 dark:bg-gray-700'
+            focusedField === field.name ? 'bg-primary-700' : 'bg-gray-200'
           }`}
         />
         <label 
           htmlFor={field.name}
-          className="block text-sm font-medium text-gray-900 dark:text-gray-200 mb-1.5 pl-4"
+          className="block text-sm font-medium text-gray-700 mb-1.5 pl-4"
         >
           {field.label}
           {field.optional && (
-            <span className="text-gray-500 dark:text-gray-400 ml-1">(Optional)</span>
+            <span className="text-gray-500 ml-1">(Optional)</span>
           )}
         </label>
         <div className="relative pl-4">
           <field.icon className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
-            focusedField === field.name ? 'text-[#8c735d]' : 'text-gray-400 dark:text-gray-500'
+            focusedField === field.name ? 'text-primary-700' : 'text-gray-400'
           }`} />
           
           {field.type === 'select' ? (
@@ -259,7 +260,7 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end">
+        <div className="fixed inset-0 z-50 flex items-center justify-start">
           {/* Backdrop overlay */}
           <motion.div 
             className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm"
@@ -271,45 +272,45 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
 
           {/* Modal panel */}
           <motion.div 
-            className="relative w-full max-w-md h-full max-h-screen bg-white shadow-xl dark:bg-gray-900 overflow-hidden flex flex-col"
-            initial={{ x: '100%' }}
+            className="relative w-full max-w-md h-screen bg-white shadow-xl overflow-hidden flex flex-col"
+            initial={{ x: '-100%' }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
+            exit={{ x: '-100%' }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
           >
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 z-10 p-2 rounded-full bg-white/10 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+              className="absolute right-4 top-4 z-10 p-2 rounded-full bg-gray-100 text-gray-600 hover:text-primary-900 hover:bg-primary-light/20 transition-colors duration-300"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Header */}
-            <div className="bg-gradient-to-br from-[#8c735d] to-[#524336] px-8 pt-16 pb-12 relative overflow-hidden">
+            <div className="bg-white px-8 pt-16 pb-8 relative overflow-hidden border-b border-gray-100">
               <motion.div 
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 className="relative z-10"
               >
-                <div className="inline-flex p-3 bg-white/10 backdrop-blur  mb-6">
-                  <FileText className="w-8 h-8 text-white" />
+                <div className="inline-flex p-3 bg-primary-light/20 rounded mb-6">
+                  <FileText className="w-8 h-8 text-primary-900" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
                   Download Documents
                 </h2>
-                <p className="text-white/80">
+                <p className="text-gray-600">
                   Get complete information about our vehicles
                 </p>
               </motion.div>
               
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
             </div>
 
             {/* Form content */}
-            <div className="flex-1 overflow-y-auto px-8 py-6">
+            <div className="px-8 py-6 flex-1 bg-gray-50">
               <AnimatePresence>
                 {success && (
                   <motion.div
@@ -318,7 +319,7 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                     exit={{ height: 0, opacity: 0 }}
                     className="mb-6 overflow-hidden"
                   >
-                    <div className=" bg-emerald-100 p-4 border border-emerald-200">
+                    <div className="bg-white p-4 border-l-4 border-l-emerald-500 border-t border-r border-b border-gray-100 shadow-sm rounded-r">
                       <div className="flex items-center text-emerald-700">
                         <CheckCircle className="w-5 h-5 mr-3 flex-shrink-0" />
                         <p className="font-medium">Document request submitted successfully! Check your email for the download link.</p>
@@ -334,7 +335,7 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                     exit={{ height: 0, opacity: 0 }}
                     className="mb-6 overflow-hidden"
                   >
-                    <div className=" bg-red-100 p-4 border border-red-200">
+                    <div className="bg-white p-4 border-l-4 border-l-red-500 border-t border-r border-b border-gray-100 shadow-sm rounded-r">
                       <div className="flex items-center text-red-700">
                         <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
                         <p className="font-medium">{error}</p>
@@ -344,20 +345,20 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                 )}
               </AnimatePresence>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-2">
+                <div>
                   {formFields.map(renderField)}
                 </div>
               </form>
             </div>
 
             {/* Footer with submit button */}
-            <div className="border-t border-gray-200 dark:border-gray-700 px-8 py-6 bg-gray-50 dark:bg-gray-800/50">
+            <div className="border-t border-gray-200 px-8 py-6 bg-white">
               <button
                 type="submit"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center px-6 py-3 bg-[#8c735d] hover:bg-[#524336] text-white font-medium  transition-colors group disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center px-6 py-3 bg-primary-700 hover:bg-primary-900 text-white font-medium transition-colors duration-300 group disabled:opacity-70 disabled:cursor-not-allowed shadow-sm rounded"
               >
                 {isSubmitting ? (
                   <div className="flex items-center">
@@ -371,14 +372,14 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                   <div className="flex items-center">
                     <Download className="w-5 h-5 mr-2" />
                     Request Document
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </div>
                 )}
               </button>
 
-              <p className="text-xs text-gray-600 dark:text-gray-400 text-center mt-4">
+              <p className="text-xs text-gray-600 text-center mt-4">
                 By downloading, you agree to our{' '}
-                <a href="/privacy" className="text-[#8c735d] hover:text-[#524336] dark:text-[#c4b19c] dark:hover:text-[#b7a99a] underline">
+                <a href="/privacy" className="text-primary-700 hover:text-primary-900 underline">
                   Privacy Policy
                 </a>
               </p>
@@ -392,7 +393,7 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
                   animate={{ scaleX: 1 }}
                   exit={{ scaleX: 0 }}
                   transition={{ duration: 2 }}
-                  className="absolute bottom-0 left-0 right-0 h-1 bg-[#8c735d] origin-left"
+                  className="absolute bottom-0 left-0 right-0 h-1 bg-primary-700 origin-left"
                 />
               )}
             </AnimatePresence>
