@@ -8,15 +8,12 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import MobileMenu from './MobileMenu'
 import ModelsMegaMenu from './ModelsMegaMenu'
 
-// Define theme colors
+// Define theme colors using Chery Design System
 const THEME = {
-  primary: '#b29980',        // Primary tan/beige color
-  primaryDark: '#a38a73',    // Darker tan for hover
+  primary: '#8c735d',        // Primary color from design system
+  primaryDark: '#524336',    // Darker shade for hover
+  primaryLight: '#c4b19c',   // Lighter shade for accents
   primaryText: 'white',      // Text on primary background
-
-  secondary: '#a38a73',      // Dark green for accents
-  secondaryDark: '#a38a73',  // Darker green
-  secondaryText: 'white',    // Text on secondary background
 }
 
 // Custom hook for audio functionality
@@ -28,7 +25,7 @@ const useAudio = (url) => {
     if (typeof window !== 'undefined') {
       const audioInstance = new Audio(url);
       audioInstance.loop = true;
-      audioInstance.volume = 0.5; // Set to 50% volume
+      audioInstance.volume = 0.4; // Set to 40% volume
       setAudio(audioInstance);
 
       return () => {
@@ -161,7 +158,7 @@ export default function Header() {
   // For mobile - we still need click functionality
   const toggleMegaMenu = () => {
     // Only respond to clicks on mobile
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       setIsMegaMenuOpen(!isMegaMenuOpen)
       setIsAboutSubMenuOpen(false)
       setIsMobileMenuOpen(false)
@@ -170,7 +167,7 @@ export default function Header() {
 
   const toggleAboutSubMenu = () => {
     // Only respond to clicks on mobile
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       setIsAboutSubMenuOpen(!isAboutSubMenuOpen)
       setIsMegaMenuOpen(false)
       setIsMobileMenuOpen(false)
@@ -179,15 +176,19 @@ export default function Header() {
 
   // Hover handlers for desktop
   const handleModelsMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsMegaMenuOpen(true)
-    setIsAboutSubMenuOpen(false)
+    if (window.innerWidth >= 1024) {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setIsMegaMenuOpen(true)
+      setIsAboutSubMenuOpen(false)
+    }
   }
 
   const handleAboutMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsAboutSubMenuOpen(true)
-    setIsMegaMenuOpen(false)
+    if (window.innerWidth >= 1024) {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setIsAboutSubMenuOpen(true)
+      setIsMegaMenuOpen(false)
+    }
   }
 
   const handleMouseLeave = () => {
@@ -235,49 +236,49 @@ export default function Header() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 w-full bg-white z-50 transition-shadow duration-300"
+        className="fixed top-0 left-0 right-0 w-full bg-white z-50 transition-all duration-300"
         style={{
           boxShadow: isScrolled ? '0 2px 10px rgba(0,0,0,0.1)' : 'none'
         }}
         role="banner"
       >
-        <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 md:py-4 w-full">
+        <div className="container mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-2 lg:py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="block" aria-label="Chery - Home">
-              <div className="h-8 w-32 relative">
+            <Link href="/" className="block flex-shrink-0" aria-label="Chery - Home">
+              <div className="h-8 w-24 md:w-32 relative">
                 <Image
                   src="/logo.png"
                   alt="Chery"
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 100vw, 128px"
+                  sizes="(max-width: 768px) 6rem, 8rem"
                 />
               </div>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - repositioned */}
           <button
-            className="flex flex-col justify-between w-8 h-5 md:hidden z-20 order-last ml-auto"
+            className="flex flex-col justify-between w-7 h-5 lg:hidden z-20 order-last"
             onClick={toggleMobileMenu}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            <span className={`block h-0.5 w-full bg-gray-800  transition-all duration-300 ${isMobileMenuOpen ? 'transform translate-y-2 rotate-45' : ''}`}></span>
-            <span className={`block h-0.5 w-full bg-gray-800  transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block h-0.5 w-full bg-gray-800  transition-all duration-300 ${isMobileMenuOpen ? 'transform -translate-y-2 -rotate-45' : ''}`}></span>
+            <span className={`block h-0.5 w-full bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? 'transform translate-y-2 rotate-45' : ''}`}></span>
+            <span className={`block h-0.5 w-full bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block h-0.5 w-full bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? 'transform -translate-y-2 -rotate-45' : ''}`}></span>
           </button>
 
-          {/* Main Navigation - Left aligned */}
-          <nav className="hidden md:flex items-center ml-10" aria-label="Main navigation">
+          {/* Main Navigation - Desktop */}
+          <nav className="hidden lg:flex items-center ml-10 flex-1" aria-label="Main navigation">
             <ul className="flex list-none">
               <li className="mr-5">
                 <Link
                   href="/"
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
                 >
                   HOME
                 </Link>
@@ -289,8 +290,8 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors
-                             ${isMegaMenuOpen ? 'text-gray-600 bg-gray-100' : ''}`}
+                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors
+                             ${isMegaMenuOpen ? 'text-primary-900 bg-gray-100' : ''}`}
                   onClick={toggleMegaMenu}
                   aria-expanded={isMegaMenuOpen}
                   aria-controls="models-mega-menu"
@@ -306,7 +307,7 @@ export default function Header() {
               <li className="mr-5">
                 <Link
                   href="/news"
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
                 >
                   NEWS
                 </Link>
@@ -318,8 +319,8 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors
-                             ${isAboutSubMenuOpen ? 'text-gray-600 bg-gray-100' : ''}`}
+                  className={`relative text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors
+                             ${isAboutSubMenuOpen ? 'text-primary-900 bg-gray-100' : ''}`}
                   onClick={toggleAboutSubMenu}
                   aria-expanded={isAboutSubMenuOpen}
                   aria-controls="about-sub-menu"
@@ -335,7 +336,7 @@ export default function Header() {
               <li className="mr-5">
                 <Link
                   href="/service"
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
                 >
                   SERVICE
                 </Link>
@@ -343,69 +344,68 @@ export default function Header() {
               <li className="mr-5">
                 <Link
                   href="/contact"
-                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300  transition-colors"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
                 >
                   CONTACT
                 </Link>
               </li>
-
             </ul>
           </nav>
 
           {/* Right side controls */}
-          <div className="flex items-center space-x-4 md:ml-auto">
+          <div className="flex items-center space-x-2 sm:space-x-4 ml-auto">
             {/* Music control */}
             <button
-              className={`p-2  transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300
-                        ${playing ? 'bg-gray-100 text-gray-800' : 'text-gray-600 hover:bg-gray-100'}`}
+              className={`p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-light rounded-full
+                        ${playing ? 'bg-gray-100 text-primary-900' : 'text-gray-600 hover:bg-gray-100 hover:text-primary-900'}`}
               onClick={toggleMusic}
               aria-label={playing ? "Pause background music" : "Play background music"}
             >
               {playing ? (
-                <Pause className="h-5 w-5" />
+                <Pause className="h-4 w-4 sm:h-5 sm:w-5" />
               ) : (
-                <Music className="h-5 w-5" />
+                <Music className="h-4 w-4 sm:h-5 sm:w-5" />
               )}
             </button>
 
-            {/* Search button */}
+            {/* Assistance button */}
             <Link
               href="/service#assistance"
-              className="p-2 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 hidden md:block"
+              className="p-2 transition-colors hover:bg-gray-100 hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light rounded-full hidden md:block"
               aria-label="Roadside Assistance"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </Link>
 
-            {/* CTA button */}
-            <Link
-              href="/testdrive"
-              className="text-white px-5 py-2  text-sm uppercase tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 hidden md:block"
-              style={{
-                backgroundColor: THEME.primary,
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = THEME.primaryDark}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = THEME.primary}
-            >
-              TEST DRIVE
-            </Link>
-            <button
-              onClick={() => openBrochureModal()}
-              className="bg-[#8c735d] hover:bg-[#524336] text-white text-sm uppercase font-medium px-4 py-2 flex items-center transition-colors"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              <span>Downloads</span>
-            </button>
+            {/* CTA buttons */}
+            <div className="flex items-center space-x-2">
+              <Link
+                href="/testdrive"
+                className="text-white px-4 py-2 text-xs sm:text-sm uppercase tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-900 hidden md:block whitespace-nowrap"
+                style={{ backgroundColor: THEME.primary }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = THEME.primaryDark}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = THEME.primary}
+              >
+                TEST DRIVE
+              </Link>
 
-
+              <button
+                onClick={() => openBrochureModal()}
+                className="bg-transparent lg:bg-[#8c735d] hover:bg-[#524336] text-[#8c735d] lg:text-white text-xs sm:text-sm uppercase font-medium lg:px-4 lg:py-2 p-2 flex items-center justify-center rounded-full lg:rounded-none transition-colors focus:outline-none focus:ring-2 focus:ring-primary-light lg:focus:ring-offset-2 lg:focus:ring-primary-900"
+                aria-label="Downloads"
+              >
+                <Download className="w-4 h-4 lg:mr-2" />
+                <span className="hidden lg:inline whitespace-nowrap">Downloads</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
+      
       {/* Responsive spacer for fixed header */}
-      {/* <div className="h-16 md:h-20"></div>  */}
+      <div className="h-12 sm:h-14 lg:h-16"></div>
 
       {/* Backdrop for menus - separate from the menus themselves */}
       {(isMegaMenuOpen || isAboutSubMenuOpen) && (
@@ -420,17 +420,17 @@ export default function Header() {
       {isAboutSubMenuOpen && (
         <div
           id="about-sub-menu"
-          className="fixed top-16 md:top-20 left-0 right-0 bg-gray-100 shadow-md z-40 transition-all duration-300 w-full"
+          className="fixed top-12 sm:top-14 lg:top-16 left-0 right-0 bg-gray-100 shadow-md z-40 transition-all duration-300 w-full"
           onMouseEnter={handleMenuMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="px-4 sm:px-6 lg:px-8 py-4">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <ul className="flex flex-wrap justify-start -mx-2">
               {aboutSubMenuItems.map((item, index) => (
-                <li key={index} className="px-2 py-1">
+                <li key={index} className="px-2 py-1 w-full md:w-auto">
                   <Link
                     href={item.href}
-                    className="text-gray-700 hover:text-gray-900 text-sm font-medium uppercase transition-colors block px-3 py-2 hover:bg-gray-200 "
+                    className="text-gray-700 hover:text-primary-900 text-sm font-medium uppercase transition-colors block px-3 py-2 hover:bg-white rounded"
                     onClick={closeAboutSubMenu}
                   >
                     {item.label}
