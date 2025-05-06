@@ -278,6 +278,9 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
             exit={{ x: '-100%' }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
           >
+            {/* Decorative top accent */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-700 to-primary-900"></div>
+            
             {/* Close button */}
             <button
               onClick={onClose}
@@ -288,29 +291,33 @@ const BrochureDownloadModal = ({ isOpen, onClose, defaultModel = null }) => {
             </button>
 
             {/* Header */}
-            <div className="bg-white px-8 pt-16 pb-8 relative overflow-hidden border-b border-gray-100">
+            <div className="bg-white px-8 pt-14 pb-6 relative overflow-hidden">
               <motion.div 
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 className="relative z-10"
               >
-                <div className="inline-flex p-3 bg-primary-light/20 rounded mb-6">
-                  <FileText className="w-8 h-8 text-primary-900" />
+                <div className="flex items-center mb-6">
+                  <div className="flex-shrink-0 mr-4 p-3 bg-primary-light/20 rounded-lg">
+                    <FileText className="w-6 h-6 text-primary-900" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      Download Documents
+                    </h2>
+                    <p className="text-gray-600 text-sm">
+                      Complete information about our vehicles
+                    </p>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Download Documents
-                </h2>
-                <p className="text-gray-600">
-                  Get complete information about our vehicles
-                </p>
               </motion.div>
               
               <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
             </div>
 
             {/* Form content */}
-            <div className="px-8 py-6 flex-1 bg-gray-50">
+            <div className="px-8 py-6 flex-1 overflow-y-auto">
               <AnimatePresence>
                 {success && (
                   <motion.div
