@@ -38,6 +38,10 @@ export default function RootLayout({
         <ScrollToTopButton />
         {/* <ClientLoadingWrapper /> */}
         <CookiesConsent />
+
+        <script src="https://static.elfsight.com/platform/platform.js" async></script>
+        <div className="elfsight-app-2830778b-7002-437a-9a38-62689e615b39" data-elfsight-app-lazy></div>
+
       </body>
     </html>
   );
