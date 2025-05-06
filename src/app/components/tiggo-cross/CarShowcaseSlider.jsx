@@ -1,7 +1,9 @@
-import Link from "next/link";
 import { useEffect, useRef, useState } from 'react';
 import { Autoplay, EffectFade, Keyboard, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { useModal } from '@/contexts/ModalContext';
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -61,8 +63,9 @@ const tiggoCrossData = {
 
 // Slide Content component
 const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
+  const { openBrochureModal } = useModal();
   if (!isActive) return null;
-  
+
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row p-0 text-white z-10">
       {/* Left content panel - Enhanced text visibility with stronger background */}
@@ -101,7 +104,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
           {/* Actions row with CTA and specs toggle */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transform transition-all duration-700 ease-out">
             {/* Primary CTA */}
-            <Link
+            {/* <Link
               href="/brochures/tiggo-cross-brochure.pdf"
               className="inline-flex items-center text-white font-medium py-2.5 sm:py-3 px-4 sm:px-6 transition-all duration-300 text-sm tracking-wide group w-full sm:w-auto justify-center sm:justify-start"
               style={{ backgroundColor: tiggoCrossData.accentColor }}
@@ -123,7 +126,29 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-            </Link>
+            </Link> */}
+
+            <button onClick={() => openBrochureModal()}
+              className="inline-flex items-center bg-amber-800 hover:bg-amber-900 text-white font-medium py-3 px-6 md:px-8 transition-all duration-300 text-sm md:text-base tracking-wide group w-full sm:w-auto justify-center sm:justify-start"
+              style={{ backgroundColor: tiggoCrossData.accentColor }}
+            >
+               <span>Download Brochure</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
 
             {/* Specs toggle button - Mobile friendly */}
             <button
@@ -148,7 +173,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
               </svg>
             </button>
           </div>
-   
+
         </div>
       </div>
 
@@ -185,6 +210,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
 
 const VehicleShowcase = ({ className = "" }) => {
   // Component state
+  const { openBrochureModal } = useModal();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -193,7 +219,7 @@ const VehicleShowcase = ({ className = "" }) => {
   const [progressBars, setProgressBars] = useState(
     tiggoCrossData.slides.map(() => ({ progress: 0, active: false }))
   );
-  
+
   const swiperRef = useRef(null);
   const progressTimerRef = useRef(null);
   const sectionRef = useRef(null);
@@ -203,13 +229,13 @@ const VehicleShowcase = ({ className = "" }) => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     // Initial check
     checkMobile();
-    
+
     // Listen for resize events
     window.addEventListener('resize', checkMobile);
-    
+
     return () => {
       window.removeEventListener('resize', checkMobile);
     };
@@ -308,9 +334,9 @@ const VehicleShowcase = ({ className = "" }) => {
       {isLoading && (
         <div className="absolute inset-0 z-50 bg-gray-900 flex flex-col items-center justify-center transition-opacity duration-800">
           <div className="w-24 sm:w-32 h-1 bg-amber-700 mb-4 overflow-hidden" style={{ backgroundColor: tiggoCrossData.accentColor }}>
-            <div 
+            <div
               className="h-full w-1/3 bg-amber-200 animate-[loading_1.5s_ease-in-out_infinite]"
-              style={{animation: "translateX(-100%) translateX(300%)"}}
+              style={{ animation: "translateX(-100%) translateX(300%)" }}
             />
           </div>
           <img
@@ -368,10 +394,9 @@ const VehicleShowcase = ({ className = "" }) => {
             </div>
 
             {/* Type indicator (interior/exterior) */}
-            <div 
-              className={`absolute top-4 sm:top-6 md:top-8 right-4 sm:right-6 md:right-8 z-30 py-1.5 sm:py-2 px-3 sm:px-4 uppercase text-xs sm:text-sm tracking-widest rounded-sm text-white font-semibold shadow-lg transition-all duration-500 ${
-                slide.type === 'interior' ? 'bg-amber-700' : 'bg-amber-900'
-              }`}
+            <div
+              className={`absolute top-4 sm:top-6 md:top-8 right-4 sm:right-6 md:right-8 z-30 py-1.5 sm:py-2 px-3 sm:px-4 uppercase text-xs sm:text-sm tracking-widest rounded-sm text-white font-semibold shadow-lg transition-all duration-500 ${slide.type === 'interior' ? 'bg-amber-700' : 'bg-amber-900'
+                }`}
             >
               {slide.type}
             </div>
@@ -422,7 +447,7 @@ const VehicleShowcase = ({ className = "" }) => {
                   onClick={() => goToSlide(index)}
                   className="group flex items-center gap-2 text-white/60 hover:text-white transition-colors duration-300 flex-shrink-0"
                 >
-                  <div 
+                  <div
                     className={`w-2 h-2 rounded-full transition-colors duration-300 ${activeIndex === index ? '' : 'bg-white/30'}`}
                     style={{ backgroundColor: activeIndex === index ? tiggoCrossData.accentColor : '' }}
                   ></div>
@@ -432,9 +457,9 @@ const VehicleShowcase = ({ className = "" }) => {
                   <div className="w-12 sm:w-16 h-1 bg-white/20 overflow-hidden">
                     <div
                       className="h-full transition-all duration-300"
-                      style={{ 
+                      style={{
                         width: `${progressBars[index].progress}%`,
-                        backgroundColor: tiggoCrossData.accentColor 
+                        backgroundColor: tiggoCrossData.accentColor
                       }}
                     ></div>
                   </div>
@@ -447,8 +472,8 @@ const VehicleShowcase = ({ className = "" }) => {
               onClick={toggleAutoplay}
               className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-black/30 rounded-full hover:bg-amber-700 text-white transition-all duration-300"
               aria-label={isAutoplayPaused ? "Resume slideshow" : "Pause slideshow"}
-              style={{ 
-                backgroundColor: isAutoplayPaused ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.3)" 
+              style={{
+                backgroundColor: isAutoplayPaused ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.3)"
               }}
             >
               {isAutoplayPaused ? (

@@ -1,6 +1,6 @@
 'use client'
 
-import Link from "next/link";
+import { useModal } from '@/contexts/ModalContext';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Autoplay, EffectFade, Keyboard, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -96,6 +96,7 @@ const vehicleData = {
 
 // Slide Content component
 const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
+  const { openBrochureModal } = useModal(); // Access the modal context
   if (!isActive) return null;
 
   return (
@@ -143,7 +144,7 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
           {/* Actions row with CTA and specs toggle */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 transform transition-all duration-700 ease-out translate-x-0">
             {/* Primary CTA */}
-            <Link
+            {/* <Link
               href={slide.ctaLink}
               className="inline-flex items-center bg-amber-800 hover:bg-amber-900 text-white font-medium py-3 px-6 md:px-8 transition-all duration-300 text-sm md:text-base tracking-wide group w-full sm:w-auto justify-center sm:justify-start"
               style={{ backgroundColor: vehicleData.accentColor }}
@@ -165,7 +166,29 @@ const SlideContent = ({ slide, isActive, onSpecsToggle, showSpecs }) => {
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-            </Link>
+            </Link> */}
+
+            <button onClick={() => openBrochureModal('Tiggo 8 Pro')}
+              className="inline-flex items-center bg-amber-800 hover:bg-amber-900 text-white font-medium py-3 px-6 md:px-8 transition-all duration-300 text-sm md:text-base tracking-wide group w-full sm:w-auto justify-center sm:justify-start"
+              style={{ backgroundColor: vehicleData.accentColor }}
+            >
+              <span>{slide.ctaText}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
 
             {/* <BrochureDownloadButton
               brochureUrl="/brochures/tiggo-8pro-brochure.pdf"

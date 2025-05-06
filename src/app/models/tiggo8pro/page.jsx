@@ -2,7 +2,6 @@
 
 import tiggo8proData from "@/data/vehicles/tiggo8pro";
 import CarFeaturesSlider from "@components/CarFeaturesSlider";
-import DownloadBrochureCTA from "@components/DownloadBrochureCTA";
 import SimpleBanner from "@components/SimpleBanner";
 import CarColorSwitcher from "@components/tiggo8pro/CarColorSwitcher";
 import ContactBanner from "@components/tiggo8pro/ContactBanner";
@@ -20,12 +19,7 @@ export default function Tiggo8ProPage() {
           ========================================= */}
       {/* <FeatureSlider /> */}
       <VehicleShowcase />
-      <DownloadBrochureCTA
-        brochureUrl="/brochures/tiggo-8pro-brochure.pdf"
-        brochureName="Tiggo 8 Pro"
-        title="Get Complete|Information"
-        subtitle="Download our comprehensive brochure to explore features, specifications, and pricing"
-      />
+  
 
 
       {/* =========================================
