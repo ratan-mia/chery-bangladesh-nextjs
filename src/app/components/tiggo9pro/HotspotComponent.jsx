@@ -1,13 +1,14 @@
 'use client';
 
-import { Plus, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, ChevronLeft, Plus } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 // Chery-specific hotspot data with full content from the original component
 const cheryHotspots = [
   {
-    position: { top: '25%', left: '15%' },
+    position: { top: '45%', left: '80%' },
     title: 'Matrix LED Headlights',
     subtitle: 'INTELLIGENT LIGHTING',
     description: 'Advanced Matrix LED technology provides exceptional illumination while automatically adjusting beam patterns to avoid dazzling other drivers.',
@@ -127,6 +128,7 @@ const HotspotComponent = ({
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [contentReady, setContentReady] = useState(false);
+  const [hoveredHotspot, setHoveredHotspot] = useState(null);
 
   useEffect(() => {
     const handleEscapeKey = (event) => {
@@ -138,7 +140,7 @@ const HotspotComponent = ({
     if (activeHotspot) {
       document.addEventListener('keydown', handleEscapeKey);
       // Delay content animation for smooth transition
-      setTimeout(() => setContentReady(true), 100);
+      setTimeout(() => setContentReady(true), 300);
     }
 
     return () => {
@@ -165,34 +167,69 @@ const HotspotComponent = ({
   // Design match shows single column layout (Image 2)
   const showSingleColumn = activeHotspot && !activeHotspot.features;
 
+  // Animation variants
+  const headerVariants = {
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+    hidden: { opacity: 0, x: -20, transition: { duration: 0.5, ease: "easeIn" } }
+  };
+
+  const contentVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
+
+  const staggerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const hotspotVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.15, transition: { duration: 0.3 } }
+  };
+
   return (
-    <div className={`relative w-full h-screen bg-gray-100 overflow-hidden ${className}`}>
+    <div className={`relative w-full h-screen bg-stone-100 overflow-hidden ${className}`}>
       {/* Header text - shown when no hotspot is active */}
-      {!activeHotspot && (
-        <div className={`absolute top-16 left-16 z-10 max-w-2xl transition-all duration-500 ${
-          activeHotspot ? 'opacity-0 -translate-x-8' : 'opacity-100 translate-x-0'
-        }`}>
-          <p className="text-sm font-medium mb-4 text-gray-600 tracking-wider">LUXURIOUS DESIGN</p>
-          <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight">
-            DECENT APPEARANCE<br />
-            DESIGN
-          </h1>
-          <h2 className="text-2xl mb-6 text-gray-700">Family style design languages of new series</h2>
-          <p className="text-gray-600 leading-relaxed text-lg max-w-xl">
-            THE HOWL OF TIGER BRINGS IMPOSING APPEARANCE. THE APPEARANCE
-            IMITATES THE OUTLINE OF A ROARING TIGER, WHICH APPEARS THE
-            POWER. A POWERFUL AND DISTINCTIVE VEHICLE.
-          </p>
-        </div>
-      )}
+      <AnimatePresence>
+        {!activeHotspot && (
+          <motion.div 
+            className="absolute top-16 left-16 z-10 max-w-2xl"
+            variants={headerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            <p className="text-sm font-medium mb-4 text-primary-700 tracking-wider uppercase">LUXURIOUS DESIGN</p>
+            <h1 className="text-4xl md:text-5xl font-black mb-6 text-primary-900 leading-tight tracking-tighter">
+              DECENT APPEARANCE<br />
+              DESIGN
+            </h1>
+            <div className="w-24 h-1 bg-primary-700 mb-6"></div>
+            <h2 className="text-xl md:text-2xl mb-6 text-gray-700">Family style design languages of new series</h2>
+            <p className="text-gray-600 leading-relaxed text-lg max-w-xl">
+              THE HOWL OF TIGER BRINGS IMPOSING APPEARANCE. THE APPEARANCE
+              IMITATES THE OUTLINE OF A ROARING TIGER, WHICH APPEARS THE
+              POWER. A POWERFUL AND DISTINCTIVE VEHICLE.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main layout container */}
       <div className="flex h-full w-full">
         {/* Vehicle image panel - keeps full width when hotspot is active */}
-        <div 
-          className={`relative transition-all duration-700 ease-in-out ${
-            activeHotspot ? 'w-1/2' : 'w-full'
-          }`}
+        <motion.div 
+          className="relative"
+          animate={{ 
+            width: activeHotspot ? '50%' : '100%' 
+          }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
         >
           <div className="relative h-full w-full">
             <Image
@@ -205,10 +242,12 @@ const HotspotComponent = ({
             
             {/* Hotspot Triggers - Always visible */}
             {hotspots.map((hotspot, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => !activeHotspot && openHotspot(hotspot)}
-                className={`absolute group transition-all duration-300 ${
+                onMouseEnter={() => setHoveredHotspot(hotspot)}
+                onMouseLeave={() => setHoveredHotspot(null)}
+                className={`absolute transition-all duration-300 ${
                   activeHotspot ? 'cursor-default opacity-50' : 'cursor-pointer opacity-100'
                 }`}
                 style={{ 
@@ -217,157 +256,298 @@ const HotspotComponent = ({
                 }}
                 aria-label={`View ${hotspot.title} details`}
                 disabled={!!activeHotspot}
+                variants={hotspotVariants}
+                initial="initial"
+                whileHover="hover"
               >
                 <div className="relative">
                   {/* Ripple effects */}
                   {!activeHotspot && (
                     <>
-                      <div className="absolute inset-0 w-12 h-12 -m-1 rounded-full border-2 border-white/30 animate-ping" />
-                      <div className="absolute inset-0 w-10 h-10 rounded-full border border-white/40 animate-pulse" />
+                      <div className="absolute inset-0 w-12 h-12 -m-1 rounded-full border-2 border-primary-light/60 animate-ping" />
+                      <div className="absolute inset-0 w-10 h-10 rounded-full border border-primary-light/80 animate-pulse" />
                     </>
                   )}
+                  {/* Hotspot label - appears on hover */}
+                  <AnimatePresence>
+                    {!activeHotspot && hoveredHotspot === hotspot && (
+                      <motion.div 
+                        className="absolute left-full ml-4 top-1/2 -translate-y-1/2 bg-primary-900/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg whitespace-nowrap z-20"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {hotspot.title}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   {/* Main button */}
-                  <div className={`relative w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center
-                               shadow-lg transition-all duration-300 ${
-                                !activeHotspot ? 'hover:bg-white hover:scale-110' : ''
-                               }`}>
-                    <Plus size={20} className="text-gray-800" />
+                  <div className="relative w-10 h-10 rounded-full bg-primary-light backdrop-blur-sm flex items-center justify-center shadow-lg">
+                    <Plus size={20} className="text-primary-900" />
                   </div>
                 </div>
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {/* Brand text */}
-          <div className={`absolute bottom-16 right-16 transition-all duration-500 ${
-            activeHotspot ? 'opacity-0' : 'opacity-100'
-          }`}>
-            <p className="text-3xl font-bold text-gray-800">CHERY</p>
-          </div>
-        </div>
-
-        {/* Detail panel - slides in from right */}
-        {activeHotspot && (
-          <div 
-            className={`flex-1 bg-gray-100 transition-all duration-700 ease-in-out ${
-              isAnimating ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-            }`}
+          <motion.div 
+            className="absolute bottom-16 right-16"
+            animate={{ opacity: activeHotspot ? 0 : 1 }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="h-full flex flex-col relative">
-              {/* Close button */}
+            <p className="text-3xl font-bold text-primary-900">CHERY</p>
+          </motion.div>
+        </motion.div>
+
+        {/* Close button positioned in the middle of the divider */}
+        <AnimatePresence>
+          {activeHotspot && (
+            <motion.div 
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+            >
               <button 
                 onClick={closeHotspot}
-                className="absolute right-8 top-8 p-3 rounded-full hover:bg-gray-200 transition-all duration-200 z-10"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-xl hover:bg-gray-100 transition-all duration-300 group border border-primary-700/20"
                 aria-label="Close panel"
               >
-                <X size={24} className="text-gray-800" />
+                <ChevronLeft size={24} className="text-primary-900 transition-all duration-300 group-hover:-translate-x-1" />
               </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-              {/* Content area - enhanced layout */}
-              {showSingleColumn ? (
-                // Single column layout (like Image 2) - with larger image
-                <div className="flex-1 p-16 flex flex-col justify-between h-full">
-                  {/* Text content */}
-                  <div className={`transition-all duration-700 delay-200 ${
-                    contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
-                    <p className="text-sm font-medium mb-6 text-gray-600 tracking-wider">{activeHotspot.subtitle}</p>
-                    <h2 className="text-4xl font-bold mb-4 text-gray-800 max-w-lg leading-tight">
-                      {activeHotspot.title}
-                    </h2>
-                  </div>
+        {/* Vertical divider line */}
+        <AnimatePresence>
+          {activeHotspot && (
+            <motion.div 
+              className="absolute left-1/2 top-0 h-full w-px bg-primary-700/30"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ transform: 'translateX(-50%)' }}
+            />
+          )}
+        </AnimatePresence>
 
-                  {/* Detail image - enlarged */}
-                  <div className={`w-full transition-all duration-700 delay-300 ${
-                    contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
-                    <div className="relative w-full h-96">
-                      <Image
-                        src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
-                        alt={activeHotspot.detailImageAlt || 'Feature detail'}
-                        fill
-                        className="object-cover rounded-xl shadow-2xl"
-                      />
-                    </div>
+        {/* Detail panel - slides in from right */}
+        <AnimatePresence>
+          {activeHotspot && (
+            <motion.div 
+              className="flex-1 bg-stone-100"
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+            >
+              <div className="h-full flex flex-col relative">
+                {/* Navigation indicator */}
+                <motion.div 
+                  className="absolute top-8 left-8 flex items-center"
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate={contentReady ? "visible" : "hidden"}
+                >
+                  <div className="flex items-center">
+                    <span className="text-sm text-primary-700">Explore Features</span>
+                    <span className="mx-2 text-gray-400">/</span>
+                    <span className="text-sm font-medium text-gray-900">{activeHotspot.title}</span>
                   </div>
-                </div>
-              ) : (
-                // Two column layout with features and specifications - with larger image
-                <div className="flex-1 p-16 flex">
-                  <div className="flex-1 pr-8">
+                </motion.div>
+
+                {/* Content area - enhanced layout */}
+                {showSingleColumn ? (
+                  // Single column layout (like Image 2) - with larger image
+                  <div className="flex-1 p-16 pt-24 flex flex-col justify-between h-full">
                     {/* Text content */}
-                    <div className={`transition-all duration-700 delay-200 ${
-                      contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                    }`}>
-                      <p className="text-sm font-medium mb-6 text-gray-600 tracking-wider">{activeHotspot.subtitle}</p>
-                      <h2 className="text-4xl font-bold mb-6 text-gray-800">
+                    <motion.div
+                      variants={contentVariants}
+                      initial="hidden"
+                      animate={contentReady ? "visible" : "hidden"}
+                    >
+                      <p className="text-sm font-medium mb-6 text-primary-700 tracking-wider uppercase">{activeHotspot.subtitle}</p>
+                      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 max-w-lg leading-tight tracking-tighter">
                         {activeHotspot.title}
                       </h2>
-                      <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-                        {activeHotspot.description}
-                      </p>
-                    </div>
+                      <div className="w-16 h-1 bg-primary-700 mb-6"></div>
+                      {activeHotspot.description && (
+                        <p className="text-gray-600 mb-8 leading-relaxed text-lg">
+                          {activeHotspot.description}
+                        </p>
+                      )}
+                    </motion.div>
 
-                    {/* Features */}
-                    {activeHotspot.features && (
-                      <div className={`transition-all duration-700 delay-300 ${
-                        contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      }`}>
-                        <h3 className="text-xl font-semibold mb-6 text-gray-800">Features</h3>
-                        <ul className="space-y-6">
-                          {activeHotspot.features.map((feature, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-4"></span>
-                              <div>
-                                <h4 className="font-medium text-gray-800 text-lg">{feature.title}</h4>
-                                <p className="text-gray-600">{feature.description}</p>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Right column - Image and specifications - enhanced */}
-                  <div className="w-1/2 pl-8">
                     {/* Detail image - enlarged */}
-                    <div className={`transition-all duration-700 delay-300 ${
-                      contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                    }`}>
-                      <div className="relative w-full h-96 mb-8">
+                    <motion.div
+                      variants={contentVariants}
+                      initial="hidden"
+                      animate={contentReady ? "visible" : "hidden"}
+                      transition={{ delay: 0.1 }}
+                    >
+                      <div className="relative w-full h-96 overflow-hidden rounded-lg group">
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <Image
                           src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
                           alt={activeHotspot.detailImageAlt || 'Feature detail'}
                           fill
-                          className="object-cover rounded-xl shadow-2xl"
+                          className="object-cover rounded-lg shadow-xl transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
+                    </motion.div>
+                  </div>
+                ) : (
+                  // Two column layout with features and specifications - with larger image
+                  <div className="flex-1 p-16 pt-24 flex">
+                    <div className="flex-1 pr-8">
+                      {/* Text content */}
+                      <motion.div
+                        variants={contentVariants}
+                        initial="hidden"
+                        animate={contentReady ? "visible" : "hidden"}
+                      >
+                        <p className="text-sm font-medium mb-6 text-primary-700 tracking-wider uppercase">{activeHotspot.subtitle}</p>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 leading-tight tracking-tighter">
+                          {activeHotspot.title}
+                        </h2>
+                        <div className="w-16 h-1 bg-primary-700 mb-6"></div>
+                        <p className="text-gray-600 mb-8 leading-relaxed text-lg">
+                          {activeHotspot.description}
+                        </p>
+                      </motion.div>
+
+                      {/* Features */}
+                      {activeHotspot.features && (
+                        <motion.div
+                          variants={staggerVariants}
+                          initial="hidden"
+                          animate={contentReady ? "visible" : "hidden"}
+                        >
+                          <h3 className="text-xl font-semibold mb-6 text-gray-900">Features</h3>
+                          <ul className="space-y-6">
+                            {activeHotspot.features.map((feature, index) => (
+                              <motion.li 
+                                key={index} 
+                                className="flex items-start"
+                                variants={contentVariants}
+                              >
+                                <span className="w-2 h-2 bg-primary-700 rounded-full mt-2 mr-4"></span>
+                                <div>
+                                  <h4 className="font-medium text-gray-900 text-lg">{feature.title}</h4>
+                                  <p className="text-gray-600">{feature.description}</p>
+                                </div>
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
                     </div>
 
-                    {/* Specifications */}
-                    {activeHotspot.specifications && (
-                      <div className={`transition-all duration-700 delay-400 ${
-                        contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      }`}>
-                        <h3 className="text-xl font-semibold mb-6 text-gray-800">Specifications</h3>
-                        <div className="space-y-4">
-                          {activeHotspot.specifications.map((spec, index) => (
-                            <div key={index} className="flex justify-between border-b border-gray-200 pb-3">
-                              <span className="text-gray-600 text-lg">{spec.label}</span>
-                              <span className="font-medium text-gray-800 text-lg">{spec.value}</span>
-                            </div>
-                          ))}
+                    {/* Right column - Image and specifications - enhanced */}
+                    <div className="w-1/2 pl-8">
+                      {/* Detail image - enlarged */}
+                      <motion.div
+                        variants={contentVariants}
+                        initial="hidden"
+                        animate={contentReady ? "visible" : "hidden"}
+                        transition={{ delay: 0.1 }}
+                      >
+                        <div className="relative w-full h-96 mb-8 overflow-hidden rounded-lg group">
+                          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <Image
+                            src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
+                            alt={activeHotspot.detailImageAlt || 'Feature detail'}
+                            fill
+                            className="object-cover rounded-lg shadow-xl transition-transform duration-700 group-hover:scale-105"
+                          />
                         </div>
-                      </div>
-                    )}
+                      </motion.div>
+
+                      {/* Specifications */}
+                      {activeHotspot.specifications && (
+                        <motion.div
+                          variants={staggerVariants}
+                          initial="hidden"
+                          animate={contentReady ? "visible" : "hidden"}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <h3 className="text-xl font-semibold mb-6 text-gray-900">Specifications</h3>
+                          <div className="space-y-4">
+                            {activeHotspot.specifications.map((spec, index) => (
+                              <motion.div 
+                                key={index} 
+                                className="flex justify-between border-b border-primary-light/50 pb-3"
+                                variants={contentVariants}
+                              >
+                                <span className="text-gray-600 text-lg">{spec.label}</span>
+                                <span className="font-medium text-gray-900 text-lg">{spec.value}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* View all features button */}
+                      <motion.div
+                        variants={contentVariants}
+                        initial="hidden"
+                        animate={contentReady ? "visible" : "hidden"}
+                        transition={{ delay: 0.3 }}
+                        className="mt-8"
+                      >
+                        <a
+                          href="#explore-more"
+                          className="group inline-flex items-center text-sm font-medium text-primary-700 tracking-wider uppercase hover:text-primary-900 transition-colors duration-300"
+                        >
+                          EXPLORE MORE FEATURES
+                          <ArrowRight
+                            size={16}
+                            className="ml-2 group-hover:ml-3 transition-all duration-300"
+                          />
+                        </a>
+                      </motion.div>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
+
+      {/* Feature navigation dots - visible when hotspot is active */}
+      <AnimatePresence>
+        {activeHotspot && (
+          <motion.div 
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {hotspots.map((hotspot, index) => (
+              <button 
+                key={index}
+                onClick={() => {
+                  if (activeHotspot !== hotspot) {
+                    closeHotspot();
+                    setTimeout(() => openHotspot(hotspot), 500);
+                  }
+                }}
+                className={`h-3 rounded-full transition-all duration-300 ${
+                  activeHotspot === hotspot ? 'bg-primary-700 w-6' : 'bg-gray-300 w-3 hover:bg-primary-700/50'
+                }`}
+                aria-label={`View ${hotspot.title}`}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
