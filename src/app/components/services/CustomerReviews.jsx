@@ -59,7 +59,7 @@ const CustomerReviews = () => {
       id: 8,
       name: "Zahid Hassan Khan",
       rating: 5,
-      comment: "My experience with Bangladesh Motor Service has been excellent. From booking to service completion, everything was streamlined. The staff's hospitality is exceptional.",
+      comment: "My experience with Chery Bangladesh Service has been excellent. From booking to service completion, everything was streamlined. The staff's hospitality is exceptional.",
       vehicle: "Tiggo 8 Pro"
     },
     {
@@ -90,7 +90,7 @@ const CustomerReviews = () => {
       comment: "During Eid travel season, their emergency hotline was a lifesaver. The response time was under 45 minutes despite traffic. Outstanding service commitment!",
       vehicle: "Tiggo Cross"
     }
-  ];
+];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
