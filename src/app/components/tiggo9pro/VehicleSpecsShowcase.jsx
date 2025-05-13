@@ -5,17 +5,17 @@ import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
-// Refined animated counter component with better performance
+// Professional animated counter with clean animation
 const AnimatedCounter = ({ value, duration = 2, suffix = '', decimal = false }) => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-50px" });
   const [displayValue, setDisplayValue] = useState("0");
 
   useEffect(() => {
     if (inView) {
       const controls = animate(0, value, {
         duration: duration,
-        ease: "easeOut",
+        ease: [0.16, 1, 0.3, 1], // Custom easing for professional feel
         onUpdate: (latest) => {
           if (decimal) {
             setDisplayValue(latest.toFixed(1));
@@ -30,7 +30,7 @@ const AnimatedCounter = ({ value, duration = 2, suffix = '', decimal = false }) 
   }, [inView, value, duration, decimal]);
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span ref={ref} className="tabular-nums font-bold">
       {displayValue}{suffix}
     </span>
   );
@@ -72,201 +72,226 @@ const VehicleSpecsShowcase = ({
       duration: 1.5
     }
   ],
-  enableParallax = true,
   className = ""
 }) => {
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check for mobile/tablet devices to adjust animations
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
+  // Enhanced scroll-based animations with refined parallax
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Content transforms
-  const contentY = useTransform(scrollYProgress, [0, 0.3], [100, 0]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
+  // Responsive animation adjustments
+  // Adjust scroll positions based on viewport size
+  const scrollFactorTitle = isMobile ? [0.05, 0.2, 0.65, 0.8] : [0.1, 0.25, 0.7, 0.9];
+  const scrollFactorSpecs = isMobile ? [0.25, 0.35, 0.75, 0.85] : [0.3, 0.45, 0.85, 0.95];
   
-  // Specs transforms
-  const specsY = useTransform(scrollYProgress, [0.4, 0.7], [80, 0]);
-  const specsOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+  // First content block - Title and description
+  const contentOpacity = useTransform(
+    scrollYProgress, 
+    scrollFactorTitle, 
+    [0, 1, 1, 0]
+  );
+  const contentY = useTransform(
+    scrollYProgress, 
+    scrollFactorTitle, 
+    [60, 0, 0, -30]
+  );
   
-  // Image parallax effects
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1.1, 1]);
+  // Second content block - Specifications panel
+  const specsOpacity = useTransform(
+    scrollYProgress, 
+    scrollFactorSpecs, 
+    [0, 1, 1, 0]
+  );
+  const specsY = useTransform(
+    scrollYProgress, 
+    scrollFactorSpecs, 
+    [50, 0, 0, -20]
+  );
   
-  // Line animation
-  const lineWidth = useTransform(scrollYProgress, [0.1, 0.25], [0, 96]);
+  // Enhanced image parallax effects for depth
+  // Reduced motion on mobile for better performance
+  const imageY = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    [0, isMobile ? -60 : -120]
+  );
+  const imageScale = useTransform(
+    scrollYProgress, 
+    [0, 0.5, 1], 
+    [1.05, 1.025, 1]
+  );
+  const imageBlur = useTransform(
+    scrollYProgress,
+    [0.8, 1],
+    [0, isMobile ? 1 : 3]
+  );
   
-  // Variants for staggered animation
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
-  };
+  // Line animation with eased timing
+  const lineWidth = useTransform(
+    scrollYProgress, 
+    [0.15, 0.3], 
+    [0, isMobile ? 80 : 120]
+  );
 
   return (
-    <section ref={containerRef} className={`relative w-full overflow-hidden bg-stone-900 ${className}`}>
-      {/* Main container */}
-      <div className="relative">
-        {/* Vehicle image with parallax */}
-        <div className="relative w-full h-[75vh] md:h-[85vh] lg:h-[95vh]">
-          <motion.div 
-            className="absolute inset-0"
-            style={enableParallax ? { 
-              y: imageY, 
-              scale: imageScale
-            } : {}}
-          >
-            <Image
-              src={imageSrc}
-              alt={imageAlt}
-              fill
-              className="object-cover object-center"
-              priority
-              sizes="100vw"
-              quality={95}
-            />
-          </motion.div>
+    <section 
+      ref={containerRef} 
+      className={`relative w-full overflow-hidden bg-stone-900 ${className}`}
+      style={{
+        height: isMobile ? 'calc(130vh)' : 'calc(120vh)'
+      }}
+    >
+      {/* Main container with enhanced parallax */}
+      <div className="relative h-full">
+        {/* Vehicle image with advanced parallax */}
+        <motion.div 
+          className="absolute inset-0"
+          style={{ 
+            y: imageY, 
+            scale: imageScale,
+            filter: `blur(${imageBlur}px)`,
+            transition: 'filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+          }}
+        >
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+            quality={95}
+          />
           
-          {/* Enhanced gradient overlay for better text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
-        </div>
+          {/* Responsive gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+        </motion.div>
 
-        {/* Content with parallax */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* First content block - Title area with responsive layout */}
+        <motion.div 
+          className="absolute inset-0 pointer-events-none"
+          style={{ 
+            opacity: contentOpacity
+          }}
+        >
           <div className="relative h-full max-w-[2000px] mx-auto px-4 md:px-6 lg:px-8">
             <motion.div 
-              className="absolute left-4 md:left-8 lg:left-12 bottom-48 md:bottom-56 lg:bottom-64 max-w-xl"
-              style={enableParallax ? { 
-                y: contentY,
-                opacity: contentOpacity
-              } : {}}
+              className="absolute left-0 right-0 md:left-8 lg:left-16 top-1/4 max-w-xl mx-auto md:mx-0 text-center md:text-left px-4 md:px-0"
+              style={{ 
+                y: contentY
+              }}
             >
-              {/* Overtitle */}
+              {/* Responsive typography */}
               <motion.p 
-                className="text-sm md:text-base font-medium tracking-wider text-primary-light mb-4 uppercase"
+                className="text-sm md:text-base font-medium tracking-wider text-primary-light mb-3 md:mb-4 uppercase"
               >
                 {overtitle}
               </motion.p>
               
-              {/* Main title */}
               <motion.h2 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tighter"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tighter"
               >
                 {title}
               </motion.h2>
               
-              {/* Decorative line */}
+              {/* Centered line on mobile, left-aligned on desktop */}
               <motion.div 
-                className="h-1 bg-primary-700 mt-6 mb-6"
+                className="h-1 bg-primary-700 mt-4 md:mt-6 mb-4 md:mb-6 mx-auto md:mx-0"
                 style={{ width: lineWidth }}
               />
 
-              {/* Description - added for better context */}
+              {/* Responsive description - visible on all devices */}
               <motion.p
-                className="text-lg text-white/90 leading-relaxed hidden md:block"
+                className="text-base md:text-lg text-white/90 leading-relaxed"
               >
                 {description}
               </motion.p>
 
-              {/* Call to action button */}
-              <motion.div className="mt-8 hidden md:block">
+              {/* Centered button on mobile */}
+              <motion.div className="mt-6 md:mt-8">
                 <a
                   href="#explore-performance"
-                  className="group inline-flex items-center px-6 py-3 bg-primary-700 text-white font-medium hover:bg-primary-800 transition-all duration-300 shadow-lg"
+                  className="group inline-flex items-center px-4 py-2 md:px-6 md:py-3 bg-primary-700 text-white text-sm md:text-base font-medium hover:bg-primary-800 transition-all duration-300"
                 >
                   Explore Performance
                   <ChevronRight 
-                    size={20}
+                    size={isMobile ? 16 : 20}
                     className="ml-2 group-hover:ml-3 transition-all duration-300"
                   />
                 </a>
               </motion.div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Specifications with improved styling */}
+        {/* Specifications - responsive grid */}
         <motion.div 
           className="absolute bottom-0 left-0 right-0"
-          style={enableParallax ? {
+          style={{
             y: specsY,
             opacity: specsOpacity
-          } : {}}
+          }}
         >
-          <div className="bg-primary-900/90 backdrop-blur-md border-t border-primary-light/10 shadow-lg">
+          <div className="bg-primary-900/80 backdrop-blur-md border-t border-primary-light/10">
             <div className="max-w-[2000px] mx-auto px-4 md:px-6 lg:px-8">
-              <motion.div 
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 py-8 md:py-10"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-              >
+              {/* 2 columns on mobile, 4 on desktop */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 py-6 md:py-8 lg:py-10">
                 {specs.map((spec, index) => (
                   <motion.div
                     key={spec.label}
-                    className="text-center md:text-left relative group"
-                    variants={itemVariants}
+                    className="text-center md:text-left relative"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      ease: "easeOut"
+                    }}
                   >
-                    {/* Decorative dot */}
-                    <div className="absolute -left-3 top-1/2 hidden md:block">
-                      <motion.div 
-                        className="w-1.5 h-1.5 rounded-full bg-primary-light"
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ 
-                          delay: index * 0.1 + 0.2,
-                          duration: 0.5,
-                          ease: "easeOut"
-                        }}
-                      />
-                    </div>
-                    
-                    {/* Label */}
-                    <div 
-                      className="text-xs md:text-sm font-medium text-primary-light/90 mb-2 tracking-wider uppercase transition-all duration-300 group-hover:text-primary-light"
-                    >
+                    {/* Responsive typography */}
+                    <div className="text-xs sm:text-sm font-medium text-primary-light/90 mb-1 md:mb-2 tracking-wider uppercase">
                       {spec.label}
                     </div>
                     
-                    {/* Value and Unit */}
-                    <div className="flex items-baseline justify-center md:justify-start gap-1 transition-all duration-300 group-hover:translate-x-1">
-                      <div 
-                        className="text-3xl md:text-4xl lg:text-5xl font-bold text-white"
-                      >
+                    {/* Adjusted font sizes for readability */}
+                    <div className="flex items-baseline justify-center md:justify-start gap-1">
+                      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
                         <AnimatedCounter
                           value={spec.value}
                           duration={spec.duration || 2}
                           decimal={spec.decimal}
                         />
                       </div>
-                      <span 
-                        className="text-xl md:text-2xl lg:text-3xl font-medium text-primary-light/90"
-                      >
+                      <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-primary-light/90">
                         {spec.unit}
                       </span>
                     </div>
                     
-                    {/* Hover underline effect */}
-                    <div className="h-0.5 w-0 bg-primary-700 mt-2 transition-all duration-300 group-hover:w-3/4 mx-auto md:mx-0" />
+                    {/* Center on mobile, left on desktop */}
+                    <div className="h-0.5 w-12 bg-primary-700/50 mt-2 md:mt-3 mx-auto md:mx-0" />
                   </motion.div>
                 ))}
-              </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>
