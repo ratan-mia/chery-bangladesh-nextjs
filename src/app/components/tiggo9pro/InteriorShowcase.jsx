@@ -3,132 +3,201 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const InteriorShowcase = () => {
   const [activeImage, setActiveImage] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    isMobile: false,
+    isTablet: false
+  });
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef(null);
   
-  // Check if device is mobile
+  // Handle responsive behavior
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setScreenSize({
+        width,
+        isMobile: width < 640,
+        isTablet: width >= 640 && width < 1024
+      });
     };
     
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
+    // Initial check
+    handleResize();
     
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
   
-  // Features data with updated descriptions
+  // Intersection observer to trigger animations when section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  // Updated features data with more detailed descriptions
   const features = [
     {
       id: "main",
       title: "INSTRUMENT CLUSTER WITH SUEDETTE",
-      description: "Premium materials blend comfort with modern technology",
+      description: "Premium suedette materials combine luxurious comfort with cutting-edge technology for an elevated driving experience",
       imageSrc: "/images/tiggo9pro/interior-main.jpg",
       alt: "Chery interior cabin with suedette instrument cluster"
     },
     {
       id: "knob",
       title: "EMBOSSED KNOB WITH DIAMOND-SHAPED ARGYLE",
-      description: "Precision craftsmanship with elegant details",
+      description: "Meticulously crafted control surfaces with elegant diamond patterning that reflects superior attention to detail",
       imageSrc: "/images/tiggo9pro/knob.jpg",
       alt: "Embossed knob with diamond-shaped argyle"
     },
     {
       id: "panels",
       title: "PANELS WITH WOOD GRAIN",
-      description: "Natural textures for a sophisticated ambiance",
+      description: "Natural wood grain textures create a warm, sophisticated cabin atmosphere that balances luxury with comfort",
       imageSrc: "/images/tiggo9pro/panels.jpg",
       alt: "Panels with wood grain"
     }
   ];
 
-  // Container variants for staggered animations
+  // Enhanced animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   };
 
-  // Item variants for children animations
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
     },
   };
 
-  // Enhanced image animation variants
   const imageVariants = {
-    hover: { scale: 1.03, transition: { duration: 0.5, ease: "easeOut" } },
-    initial: { scale: 1, transition: { duration: 0.3, ease: "easeInOut" } }
+    hover: { 
+      scale: 1.05, 
+      transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] } 
+    },
+    initial: { 
+      scale: 1, 
+      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } 
+    }
   };
   
-  // Text animation variants
   const textVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.4, 
+        ease: [0.25, 0.1, 0.25, 1] 
+      } 
+    }
   };
 
-  // On image click handler - for better mobile experience
-  const handleImageClick = (id) => {
-    if (isMobile) {
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  // Handle image interactions
+  const handleImageInteraction = (id) => {
+    if (screenSize.isMobile || screenSize.isTablet) {
       setActiveImage(activeImage === id ? null : id);
     }
   };
 
+  // Get appropriate image height based on screen size and position
+  const getImageHeight = (position) => {
+    if (position === 'main') {
+      if (screenSize.isMobile) return 'h-[50vh]';
+      if (screenSize.isTablet) return 'h-[60vh]';
+      return 'h-[75vh]';
+    } else {
+      if (screenSize.isMobile) return 'h-48';
+      if (screenSize.isTablet) return 'h-64';
+      return 'h-80';
+    }
+  };
+
   return (
-    <section className="w-full bg-stone-100 overflow-hidden">
-      <div className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-16 md:pt-16 md:pb-20">
-        {/* Header section with updated styling */}
+    <section 
+      ref={sectionRef}
+      className="w-full bg-stone-100 overflow-hidden py-8 sm:py-12 md:py-16 lg:py-20"
+    >
+      <div className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header section with improved responsive adjustments */}
         <motion.div 
-          className="mb-8 md:mb-12"
+          className="mb-6 sm:mb-8 lg:mb-12"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <p className="text-sm text-primary-700 font-medium uppercase mb-2 tracking-wider">
+          <p className="text-xs sm:text-sm text-primary-700 font-medium uppercase mb-1 sm:mb-2 tracking-wider">
             LUXURIOUS DESIGN
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-primary-900 leading-tight tracking-tighter">
-            EXTRA-WIDE<br />SURROUNDING CABIN
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-primary-900 leading-tight tracking-tighter">
+            EXTRA-WIDE<br className="md:block hidden" /> SURROUNDING CABIN
           </h2>
-          {/* Section divider line as per design system */}
-          <div className="w-24 h-1 bg-primary-700 mt-6 mb-8"></div>
-          <p className="text-gray-600 text-lg max-w-3xl">
+          {/* Section divider with responsive width */}
+          <div className="w-16 sm:w-20 lg:w-24 h-1 bg-primary-700 mt-4 sm:mt-5 lg:mt-6 mb-5 sm:mb-6 lg:mb-8"></div>
+          <p className="text-gray-600 text-base sm:text-lg max-w-3xl">
             Every detail of our interior showcases premium craftsmanship and attention to detail, 
-            creating a sophisticated driving environment.
+            creating a sophisticated driving environment designed for your comfort.
           </p>
         </motion.div>
 
-        {/* Main content container with staggered animations */}
+        {/* Main content container with improved responsive layout */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="space-y-3"
+          animate={isInView ? "visible" : "hidden"}
+          className="space-y-2 sm:space-y-3 lg:space-y-4"
         >
-          {/* Main image section */}
+          {/* Main image section with adaptive height */}
           <motion.div 
-            className="relative mb-3 overflow-hidden group"
+            className="relative mb-2 sm:mb-3 lg:mb-4 overflow-hidden rounded-sm group"
             variants={itemVariants}
-            onHoverStart={() => setActiveImage("main")}
-            onHoverEnd={() => setActiveImage(null)}
-            onClick={() => handleImageClick("main")}
+            onHoverStart={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage("main")}
+            onHoverEnd={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage(null)}
+            onClick={() => handleImageInteraction("main")}
           >
-            <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-[75vh]">
+            <div className={`relative w-full ${getImageHeight('main')}`}>
               <motion.div
                 className="w-full h-full"
                 variants={imageVariants}
@@ -138,150 +207,121 @@ const InteriorShowcase = () => {
                   src={features[0].imageSrc}
                   alt={features[0].alt}
                   fill
-                  sizes="100vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
                   className="object-cover"
                   priority
-                  quality={95}
+                  quality={90}
                 />
               </motion.div>
               
-              {/* Feature label overlay with updated styling */}
-              <div className="absolute bottom-0 left-0 bg-black/60 backdrop-blur-sm text-white py-3 px-4 md:px-5 w-full md:w-auto">
+              {/* Enhanced feature label overlay with better responsiveness */}
+              <div className={`absolute bottom-0 left-0 bg-black/70 backdrop-blur-sm text-white py-2 sm:py-3 px-3 sm:px-4 lg:px-5 
+                ${activeImage === "main" || screenSize.isMobile ? 'w-full' : 'w-auto'}`}>
                 <motion.div
                   variants={textVariants}
                   initial="hidden"
                   animate="visible"
                   key={activeImage === "main" ? "main-active" : "main-inactive"}
                 >
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold tracking-wide mb-1">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-wide mb-1">
                     {features[0].title}
                   </h3>
-                  {activeImage === "main" && (
-                    <p className="text-white/80 text-sm md:text-base">
+                  {(activeImage === "main" || screenSize.isMobile) && (
+                    <motion.p 
+                      variants={fadeInVariants}
+                      className="text-white/90 text-xs sm:text-sm md:text-base max-w-xl"
+                    >
                       {features[0].description}
-                    </p>
+                    </motion.p>
                   )}
                 </motion.div>
               </div>
               
-              {/* Gradient overlay for better image depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
+              {/* Gradient overlay with increased visibility on mobile */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15 pointer-events-none
+                ${screenSize.isMobile ? 'opacity-80' : 'opacity-60'}`}></div>
             </div>
           </motion.div>
 
-          {/* Two column grid for the bottom features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {/* Left feature */}
-            <motion.div 
-              className="relative overflow-hidden group"
-              variants={itemVariants}
-              onHoverStart={() => setActiveImage("knob")}
-              onHoverEnd={() => setActiveImage(null)}
-              onClick={() => handleImageClick("knob")}
-            >
-              <div className="relative w-full h-64 md:h-72 lg:h-80">
-                <motion.div
-                  className="w-full h-full"
-                  variants={imageVariants}
-                  animate={activeImage === "knob" ? "hover" : "initial"}
-                >
-                  <Image
-                    src={features[1].imageSrc}
-                    alt={features[1].alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                    quality={95}
-                  />
-                </motion.div>
-                
-                {/* Feature label overlay with updated styling */}
-                <div className="absolute bottom-0 left-0 bg-black/60 backdrop-blur-sm text-white py-3 px-4 md:px-5 w-full md:w-auto">
+          {/* Responsive grid layout for bottom features */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+            {/* Map through the remaining features */}
+            {features.slice(1).map((feature, index) => (
+              <motion.div 
+                key={feature.id}
+                className="relative overflow-hidden rounded-sm group"
+                variants={itemVariants}
+                onHoverStart={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage(feature.id)}
+                onHoverEnd={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage(null)}
+                onClick={() => handleImageInteraction(feature.id)}
+              >
+                <div className={`relative w-full ${getImageHeight('secondary')}`}>
                   <motion.div
-                    variants={textVariants}
-                    initial="hidden"
-                    animate="visible"
-                    key={activeImage === "knob" ? "knob-active" : "knob-inactive"}
+                    className="w-full h-full"
+                    variants={imageVariants}
+                    animate={activeImage === feature.id ? "hover" : "initial"}
                   >
-                    <h3 className="text-base sm:text-lg font-bold tracking-wide mb-1">
-                      {features[1].title}
-                    </h3>
-                    {activeImage === "knob" && (
-                      <p className="text-white/80 text-sm">
-                        {features[1].description}
-                      </p>
-                    )}
+                    <Image
+                      src={feature.imageSrc}
+                      alt={feature.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                      className="object-cover"
+                      loading="eager"
+                      quality={85}
+                    />
                   </motion.div>
+                  
+                  {/* Improved responsive label overlay */}
+                  <div className={`absolute bottom-0 left-0 bg-black/70 backdrop-blur-sm text-white py-2 sm:py-3 px-3 sm:px-4 
+                    ${activeImage === feature.id || screenSize.isMobile ? 'w-full' : 'w-auto'}`}>
+                    <motion.div
+                      variants={textVariants}
+                      initial="hidden"
+                      animate="visible"
+                      key={`${feature.id}-${activeImage === feature.id ? 'active' : 'inactive'}`}
+                    >
+                      <h3 className="text-sm sm:text-base md:text-lg font-bold tracking-wide mb-1">
+                        {feature.title}
+                      </h3>
+                      {(activeImage === feature.id || screenSize.isMobile) && (
+                        <motion.p 
+                          variants={fadeInVariants}
+                          className="text-white/90 text-xs sm:text-sm"
+                        >
+                          {feature.description}
+                        </motion.p>
+                      )}
+                    </motion.div>
+                  </div>
+                  
+                  {/* Gradient overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15 pointer-events-none
+                    ${screenSize.isMobile ? 'opacity-80' : 'opacity-60'}`}></div>
                 </div>
-                
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
-              </div>
-            </motion.div>
-            
-            {/* Right feature */}
-            <motion.div 
-              className="relative overflow-hidden group"
-              variants={itemVariants}
-              onHoverStart={() => setActiveImage("panels")}
-              onHoverEnd={() => setActiveImage(null)}
-              onClick={() => handleImageClick("panels")}
-            >
-              <div className="relative w-full h-64 md:h-72 lg:h-80">
-                <motion.div
-                  className="w-full h-full"
-                  variants={imageVariants}
-                  animate={activeImage === "panels" ? "hover" : "initial"}
-                >
-                  <Image
-                    src={features[2].imageSrc}
-                    alt={features[2].alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                    quality={95}
-                  />
-                </motion.div>
-                
-                {/* Feature label overlay with updated styling */}
-                <div className="absolute bottom-0 left-0 bg-black/60 backdrop-blur-sm text-white py-3 px-4 md:px-5 w-full md:w-auto">
-                  <motion.div
-                    variants={textVariants}
-                    initial="hidden"
-                    animate="visible"
-                    key={activeImage === "panels" ? "panels-active" : "panels-inactive"}
-                  >
-                    <h3 className="text-base sm:text-lg font-bold tracking-wide mb-1">
-                      {features[2].title}
-                    </h3>
-                    {activeImage === "panels" && (
-                      <p className="text-white/80 text-sm">
-                        {features[2].description}
-                      </p>
-                    )}
-                  </motion.div>
-                </div>
-                
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* View all button */}
-        <div className="mt-8 md:mt-12 text-center">
+        {/* Improved CTA button with better responsive styling */}
+        <motion.div 
+          className="mt-6 sm:mt-8 lg:mt-12 text-center"
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
           <a
             href="#view-more-features"
-            className="group inline-flex items-center text-sm font-medium text-primary-700 tracking-wider uppercase hover:text-primary-900 transition-colors duration-300"
+            className="group inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-medium text-primary-700 hover:text-white border border-primary-700 hover:bg-primary-700 rounded transition-all duration-300 tracking-wider uppercase"
           >
             VIEW ALL FEATURES
             <ArrowRight
               size={16}
-              className="ml-2 group-hover:ml-3 transition-all duration-300"
+              className="ml-2 group-hover:translate-x-1 transition-all duration-300"
             />
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
