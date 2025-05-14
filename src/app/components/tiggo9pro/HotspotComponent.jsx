@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 const cheryHotspots = [
   {
     position: { top: '45%', left: '80%' },
-    mobilePosition: { top: '45%', left: '75%' }, // Adjusted for mobile
+    mobilePosition: { top: '45%', left: '75%' },
     title: 'Matrix LED Headlights',
     subtitle: 'INTELLIGENT LIGHTING',
     description: 'Advanced Matrix LED technology provides exceptional illumination while automatically adjusting beam patterns to avoid dazzling other drivers.',
@@ -37,35 +37,35 @@ const cheryHotspots = [
   },
   {
     position: { top: '35%', left: '60%' },
-    mobilePosition: { top: '30%', left: '55%' }, // Adjusted for mobile
-    title: 'Retractable panoramic sunroof with electric sunshade',
-    subtitle: 'LUXURIOUS DESIGN',
-    description: 'Experience the freedom of open-air driving with our expansive panoramic sunroof featuring electric operation and automatic sunshade.',
+    mobilePosition: { top: '30%', left: '55%' },
+    title: '1.5 TGDI Engine',
+    subtitle: 'POWERFUL PERFORMANCE',
+    description: 'Advanced 1.5 Turbo Gasoline Direct Injection (TGDI) engine delivering exceptional power and efficiency.',
     features: [
       {
-        title: 'One-Touch Operation',
-        description: 'Effortless control with anti-pinch safety technology'
+        title: 'Turbo Technology',
+        description: 'Enhanced power through turbocharging'
       },
       {
-        title: 'Solar Protection',
-        description: 'UV-filtering glass blocks 99% of harmful rays'
+        title: 'Direct Injection',
+        description: 'Precise fuel delivery for optimal combustion'
       },
       {
-        title: 'Rain Sensing',
-        description: 'Automatically closes when precipitation is detected'
+        title: 'Fuel Efficiency',
+        description: 'Balanced performance and economy'
       }
     ],
     specifications: [
-      { label: 'Opening Size', value: '1.2m x 0.8m' },
-      { label: 'Glass Type', value: 'Laminated safety glass' },
-      { label: 'UV Protection', value: '99.9%' }
+      { label: 'Engine Type', value: '1.5 TGDI' },
+      { label: 'Max Power', value: '156 PS' },
+      { label: 'Max Torque', value: '230 Nm' }
     ],
-    detailImageSrc: '/images/sunroof-detail.jpg',
-    detailImageAlt: 'Panoramic sunroof'
+    detailImageSrc: '/images/engine-detail.jpg',
+    detailImageAlt: '1.5 TGDI Engine'
   },
   {
     position: { top: '55%', left: '75%' },
-    mobilePosition: { top: '55%', left: '65%' }, // Adjusted for mobile
+    mobilePosition: { top: '55%', left: '65%' },
     title: 'LED Tail Lights',
     subtitle: 'DISTINCTIVE SIGNATURE',
     description: 'Full-width LED light bar creates a striking visual signature while providing superior visibility and safety in all conditions.',
@@ -93,7 +93,7 @@ const cheryHotspots = [
   },
   {
     position: { top: '50%', left: '90%' },
-    mobilePosition: { top: '50%', left: '85%' }, // Adjusted for mobile
+    mobilePosition: { top: '50%', left: '85%' },
     title: 'Side Mirror Tech',
     subtitle: 'SMART VISIBILITY',
     description: 'Intelligent side mirrors with integrated technology ensure safe driving with blind spot monitoring, auto-dimming, and camera integration.',
