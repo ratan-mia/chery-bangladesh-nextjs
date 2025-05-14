@@ -16,11 +16,14 @@ const ComfortableSeatsSlider = () => {
     const slides = [
         {
             id: 1,
-            type: 'image',
-            src: '/images/tiggo9pro/seats/1.jpg',
-            alt: 'Scenic nature view with camping tents',
-            caption: 'Extra large space'
+            type: 'video',
+            src: '/videos/seats.mp4',
+            thumbSrc: '/images/tiggo9pro/seats/thumb.jpg',
+            alt: 'Video showing seat adjustments',
+            caption: 'Passenger comfort'
         },
+        
+    
         {
             id: 2,
             type: 'image',
@@ -37,16 +40,16 @@ const ComfortableSeatsSlider = () => {
         },
         {
             id: 4,
-            type: 'video',
-            src: '/videos/tiggo9pro/seats/4.mp4',
-            thumbSrc: '/images/tiggo9pro/seats/4.jpg',
-            alt: 'Video showing seat adjustments',
-            caption: 'Passenger comfort'
+            type: 'image',
+            src: '/images/tiggo9pro/seats/1.jpg',
+            alt: 'Scenic nature view with camping tents',
+            caption: 'Extra large space'
         },
+   
         {
             id: 5,
             type: 'image',
-            src: '/images/tiggo9pro/seats/5.jpg',
+            src: '/images/tiggo9pro/seats/4.jpg',
             alt: 'Diamond stitched leather seats',
             caption: 'Premium materials'
         }
@@ -64,10 +67,10 @@ const ComfortableSeatsSlider = () => {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
         };
-        
+
         handleResize(); // Set initial state
         window.addEventListener('resize', handleResize);
-        
+
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -91,7 +94,7 @@ const ComfortableSeatsSlider = () => {
         const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
         setCurrentIndex(prevIndex);
         setActiveSlide(slides[prevIndex]);
-        
+
         if (isPlaying && videoRef.current) {
             videoRef.current.pause();
             setIsPlaying(false);
@@ -102,7 +105,7 @@ const ComfortableSeatsSlider = () => {
         const nextIndex = (currentIndex + 1) % slides.length;
         setCurrentIndex(nextIndex);
         setActiveSlide(slides[nextIndex]);
-        
+
         if (isPlaying && videoRef.current) {
             videoRef.current.pause();
             setIsPlaying(false);
@@ -180,11 +183,11 @@ const ComfortableSeatsSlider = () => {
 
     // Button hover animation
     const buttonHoverVariants = {
-        rest: { 
+        rest: {
             backgroundColor: "rgba(255, 255, 255, 0.3)",
             transition: { duration: 0.2 }
         },
-        hover: { 
+        hover: {
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             transition: { duration: 0.2 }
         }
@@ -194,7 +197,7 @@ const ComfortableSeatsSlider = () => {
         <section className="w-full bg-gray-50">
             <div className="max-w-[1920px] mx-auto">
                 {/* Title - Using Primary 900 for headings as per guidelines */}
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-primary-900 tracking-wider py-6 px-4 sm:px-6 md:px-12 lg:px-16">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 tracking-wider py-10 px-4 sm:px-6 md:px-12 lg:px-16">
                     SPA GRADE COMFORTABLE SEATS
                 </h2>
 
@@ -304,9 +307,9 @@ const ComfortableSeatsSlider = () => {
                         </div>
 
                         {/* Thumbnails - Positioned at the bottom right edge as in the reference image */}
-                        <div 
+                        <div
                             ref={thumbnailsRef}
-                            className="hidden sm:flex justify-end space-x-1 absolute bottom-0 right-0 overflow-x-auto max-w-[calc(90px*5)] scrollbar-hide"
+                            className="hidden sm:flex justify-end space-x-1 absolute bottom-8 right-0 overflow-x-auto max-w-[calc(90px*5)] scrollbar-hide"
                         >
                             {slides.map((slide, index) => (
                                 <motion.div
@@ -314,7 +317,7 @@ const ComfortableSeatsSlider = () => {
                                     className={`relative cursor-pointer h-[60px] w-[80px] lg:h-[70px] lg:w-[90px] overflow-hidden ${activeSlide.id === slide.id
                                         ? 'outline outline-primary-700'
                                         : 'border border-white/80 hover:outline hover:outline-primary-700/50'
-                                    }`}
+                                        }`}
                                     onClick={() => handleThumbnailClick(slide, index)}
                                     whileHover={{ scale: 1.01 }}
                                     whileTap={{ scale: 0.98 }}
@@ -341,7 +344,7 @@ const ComfortableSeatsSlider = () => {
                     <AnimatePresence mode="wait">
                         <motion.p
                             key={`caption-${activeSlide.id}`}
-                            className="text-base sm:text-lg md:text-xl text-primary-900 font-medium mt-4 px-4 sm:px-6 md:px-12 lg:px-16"
+                            className="text-base sm:text-lg md:text-xl text-primary-900 font-medium mt-4 px-4 py-3 sm:px-6 md:px-12 lg:px-16"
                             initial="hidden"
                             animate="visible"
                             exit="exit"
