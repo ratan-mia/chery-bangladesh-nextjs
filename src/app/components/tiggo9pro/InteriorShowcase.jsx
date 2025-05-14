@@ -83,7 +83,7 @@ const InteriorShowcase = () => {
     }
   ];
 
-  // Enhanced animation variants
+  // Enhanced animation variants following purposeful motion principle
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -100,18 +100,18 @@ const InteriorShowcase = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
   const imageVariants = {
     hover: { 
       scale: 1.05, 
-      transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] } 
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } 
     },
     initial: { 
       scale: 1, 
-      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } 
+      transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } 
     }
   };
   
@@ -121,8 +121,8 @@ const InteriorShowcase = () => {
       opacity: 1, 
       y: 0, 
       transition: { 
-        duration: 0.4, 
-        ease: [0.25, 0.1, 0.25, 1] 
+        duration: 0.3, 
+        ease: [0.16, 1, 0.3, 1] 
       } 
     }
   };
@@ -158,25 +158,27 @@ const InteriorShowcase = () => {
   return (
     <section 
       ref={sectionRef}
-      className="w-full bg-stone-100 overflow-hidden py-8 sm:py-12 md:py-16 lg:py-20"
+      className="w-full bg-gray-100 overflow-hidden py-12 sm:py-16 md:py-20 lg:py-20"
     >
-      <div className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header section with improved responsive adjustments */}
         <motion.div 
-          className="mb-6 sm:mb-8 lg:mb-12"
+          className="mb-8 sm:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="text-xs sm:text-sm text-primary-700 font-medium uppercase mb-1 sm:mb-2 tracking-wider">
+          <div className="w-16 h-0.5 bg-[#c4b19c] mb-6 hidden md:block" />
+          <p className="text-sm md:text-base font-medium tracking-wider text-[#8c735d] mb-3 uppercase relative inline-block">
             LUXURIOUS DESIGN
+            <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#c4b19c]/50" />
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-primary-900 leading-tight tracking-tighter">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight tracking-tighter">
             EXTRA-WIDE<br className="md:block hidden" /> SURROUNDING CABIN
           </h2>
           {/* Section divider with responsive width */}
-          <div className="w-16 sm:w-20 lg:w-24 h-1 bg-primary-700 mt-4 sm:mt-5 lg:mt-6 mb-5 sm:mb-6 lg:mb-8"></div>
-          <p className="text-gray-600 text-base sm:text-lg max-w-3xl">
+          <div className="h-1.5 bg-gradient-to-r from-[#8c735d] to-[#524336] mt-4 sm:mt-6 mb-6 sm:mb-8 w-20 sm:w-24 lg:w-32"></div>
+          <p className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed">
             Every detail of our interior showcases premium craftsmanship and attention to detail, 
             creating a sophisticated driving environment designed for your comfort.
           </p>
@@ -187,11 +189,11 @@ const InteriorShowcase = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="space-y-2 sm:space-y-3 lg:space-y-4"
+          className="space-y-4 sm:space-y-6 lg:space-y-8"
         >
           {/* Main image section with adaptive height */}
           <motion.div 
-            className="relative mb-2 sm:mb-3 lg:mb-4 overflow-hidden rounded-sm group"
+            className="relative mb-4 sm:mb-6 overflow-hidden rounded group"
             variants={itemVariants}
             onHoverStart={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage("main")}
             onHoverEnd={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage(null)}
@@ -215,24 +217,32 @@ const InteriorShowcase = () => {
               </motion.div>
               
               {/* Enhanced feature label overlay with better responsiveness */}
-              <div className={`absolute bottom-0 left-0 bg-black/70 backdrop-blur-sm text-white py-2 sm:py-3 px-3 sm:px-4 lg:px-5 
-                ${activeImage === "main" || screenSize.isMobile ? 'w-full' : 'w-auto'}`}>
+              <div className={`absolute bottom-0 left-0 bg-black/80 backdrop-blur-sm text-white py-3 sm:py-4 px-4 sm:px-6 
+                ${activeImage === "main" || screenSize.isMobile ? 'w-full' : 'w-auto'} border-l-2 border-[#c4b19c]`}>
                 <motion.div
                   variants={textVariants}
                   initial="hidden"
                   animate="visible"
                   key={activeImage === "main" ? "main-active" : "main-inactive"}
                 >
-                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-wide mb-1">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-wide mb-2">
                     {features[0].title}
                   </h3>
                   {(activeImage === "main" || screenSize.isMobile) && (
-                    <motion.p 
-                      variants={fadeInVariants}
-                      className="text-white/90 text-xs sm:text-sm md:text-base max-w-xl"
-                    >
-                      {features[0].description}
-                    </motion.p>
+                    <motion.div>
+                      <motion.div 
+                        className="w-12 h-0.5 bg-[#c4b19c] mb-2"
+                        initial={{ width: 0 }}
+                        animate={{ width: 48 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                      />
+                      <motion.p 
+                        variants={fadeInVariants}
+                        className="text-white/90 text-xs sm:text-sm md:text-base max-w-xl leading-relaxed"
+                      >
+                        {features[0].description}
+                      </motion.p>
+                    </motion.div>
                   )}
                 </motion.div>
               </div>
@@ -244,12 +254,12 @@ const InteriorShowcase = () => {
           </motion.div>
 
           {/* Responsive grid layout for bottom features */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             {/* Map through the remaining features */}
             {features.slice(1).map((feature, index) => (
               <motion.div 
                 key={feature.id}
-                className="relative overflow-hidden rounded-sm group"
+                className="relative overflow-hidden rounded group"
                 variants={itemVariants}
                 onHoverStart={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage(feature.id)}
                 onHoverEnd={() => !screenSize.isMobile && !screenSize.isTablet && setActiveImage(null)}
@@ -273,24 +283,32 @@ const InteriorShowcase = () => {
                   </motion.div>
                   
                   {/* Improved responsive label overlay */}
-                  <div className={`absolute bottom-0 left-0 bg-black/70 backdrop-blur-sm text-white py-2 sm:py-3 px-3 sm:px-4 
-                    ${activeImage === feature.id || screenSize.isMobile ? 'w-full' : 'w-auto'}`}>
+                  <div className={`absolute bottom-0 left-0 bg-black/80 backdrop-blur-sm text-white py-3 sm:py-4 px-4 sm:px-6 
+                    ${activeImage === feature.id || screenSize.isMobile ? 'w-full' : 'w-auto'} border-l-2 border-[#c4b19c]`}>
                     <motion.div
                       variants={textVariants}
                       initial="hidden"
                       animate="visible"
                       key={`${feature.id}-${activeImage === feature.id ? 'active' : 'inactive'}`}
                     >
-                      <h3 className="text-sm sm:text-base md:text-lg font-bold tracking-wide mb-1">
+                      <h3 className="text-sm sm:text-base md:text-lg font-bold tracking-wide mb-2">
                         {feature.title}
                       </h3>
                       {(activeImage === feature.id || screenSize.isMobile) && (
-                        <motion.p 
-                          variants={fadeInVariants}
-                          className="text-white/90 text-xs sm:text-sm"
-                        >
-                          {feature.description}
-                        </motion.p>
+                        <motion.div>
+                          <motion.div 
+                            className="w-12 h-0.5 bg-[#c4b19c] mb-2"
+                            initial={{ width: 0 }}
+                            animate={{ width: 48 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                          />
+                          <motion.p 
+                            variants={fadeInVariants}
+                            className="text-white/90 text-xs sm:text-sm leading-relaxed"
+                          >
+                            {feature.description}
+                          </motion.p>
+                        </motion.div>
                       )}
                     </motion.div>
                   </div>
@@ -306,19 +324,19 @@ const InteriorShowcase = () => {
 
         {/* Improved CTA button with better responsive styling */}
         <motion.div 
-          className="mt-6 sm:mt-8 lg:mt-12 text-center"
+          className="mt-8 sm:mt-12 lg:mt-16 text-center"
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
           <a
             href="#view-more-features"
-            className="group inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-medium text-primary-700 hover:text-white border border-primary-700 hover:bg-primary-700 rounded transition-all duration-300 tracking-wider uppercase"
+            className="group inline-flex items-center px-10 py-4 bg-transparent border border-[#8c735d] text-[#8c735d] font-medium hover:bg-[#8c735d] hover:text-white transition-all duration-300"
           >
             VIEW ALL FEATURES
             <ArrowRight
               size={16}
-              className="ml-2 group-hover:translate-x-1 transition-all duration-300"
+              className="ml-2 group-hover:ml-3 transition-all duration-300"
             />
           </a>
         </motion.div>
