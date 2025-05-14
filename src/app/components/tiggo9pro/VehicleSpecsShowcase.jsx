@@ -71,6 +71,8 @@ const VehicleSpecsShowcase = ({
       duration: 1.5
     }
   ],
+  primaryColor = "rgb(var(--color-primary-700, 239, 68, 68))",
+  primaryLightColor = "rgb(var(--color-primary-light, 248, 180, 180))",
   className = ""
 }) => {
   const containerRef = useRef(null);
@@ -82,7 +84,7 @@ const VehicleSpecsShowcase = ({
   
   // Handle resize and set device type
   useEffect(() => {
-    const handleResize = () => {
+    const checkDeviceSize = () => {
       setWindowHeight(window.innerHeight);
       
       if (window.innerWidth < 640) {
@@ -94,11 +96,20 @@ const VehicleSpecsShowcase = ({
       }
     };
     
-    handleResize();
+    checkDeviceSize();
+    
+    // Throttled resize handler for better performance
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(checkDeviceSize, 100);
+    };
+    
     window.addEventListener('resize', handleResize);
     
     return () => {
       window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
     };
   }, []);
   
@@ -142,13 +153,13 @@ const VehicleSpecsShowcase = ({
   const specsY = scrollState >= 2 ? 0 : 60;
   
   // Background image transformations
-  const imageBlur = scrollState === 0 ? 0 : scrollState === 1 ? 1 : 3;
+  const imageBlur = scrollState === 0 ? 0 : scrollState === 1 ? 1 : 2;
   const imageScale = 1.1 - scrollState * 0.05;
   const imageY = -scrollState * 40;
   
   // Section heights for proper scrolling
   const containerStyle = {
-    height: deviceType === 'mobile' ? '300vh' : deviceType === 'tablet' ? '280vh' : '250vh'
+    height: deviceType === 'mobile' ? '320vh' : deviceType === 'tablet' ? '300vh' : '270vh'
   };
 
   return (
@@ -182,9 +193,12 @@ const VehicleSpecsShowcase = ({
             quality={95}
           />
           
-          {/* Enhanced gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
+          {/* Enhanced gradient overlays for dramatic lighting effect */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/30 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20" />
+          {/* Subtle vignette effect */}
+          <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.8)]" />
         </motion.div>
 
         {/* Main content container */}
@@ -203,17 +217,33 @@ const VehicleSpecsShowcase = ({
               staggerChildren: 0.1
             }}
           >
+            {/* Subtle decorative element */}
+            <motion.div
+              className="w-12 h-0.5 bg-primary-light/40 mb-6 hidden md:block"
+              initial={{ width: 0 }}
+              animate={{ width: titleOpacity ? 48 : 0 }}
+              transition={{ duration: 0.7, delay: 0.05 }}
+            />
+            
             <motion.p 
-              className="text-sm md:text-base font-medium tracking-wider text-primary-light mb-3 md:mb-4 uppercase"
+              className="text-sm md:text-base font-medium tracking-wider text-primary-light mb-3 md:mb-4 uppercase relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: titleOpacity, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              {overtitle}
+              <span className="relative">
+                {overtitle}
+                <motion.span 
+                  className="absolute -bottom-1 left-0 right-0 h-px bg-primary-light/30"
+                  initial={{ width: 0 }}
+                  animate={{ width: titleOpacity ? '100%' : 0 }}
+                  transition={{ duration: 0.5, delay: 0.15 }}
+                />
+              </span>
             </motion.p>
             
             <motion.h2 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tighter text-center md:text-left"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tighter text-center md:text-left"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: titleOpacity, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -222,20 +252,28 @@ const VehicleSpecsShowcase = ({
             </motion.h2>
             
             <motion.div 
-              className="h-1 bg-primary-700 mt-4 md:mt-6 mb-4 md:mb-6 mx-auto md:mx-0"
+              className="h-1.5 bg-gradient-to-r from-primary-600 to-primary-800 mt-4 md:mt-6 mb-6 md:mb-8 mx-auto md:mx-0 rounded-full"
               initial={{ width: 0 }}
-              animate={{ width: titleOpacity ? (deviceType === 'mobile' ? 80 : 120) : 0 }}
+              animate={{ width: titleOpacity ? (deviceType === 'mobile' ? 80 : 140) : 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
             />
 
             <motion.p
-              className="text-base md:text-lg text-white/90 leading-relaxed text-center md:text-left"
+              className="text-base md:text-lg text-white/80 leading-relaxed text-center md:text-left font-light"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: titleOpacity, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               {description}
             </motion.p>
+            
+            {/* Decorative corner element */}
+            <motion.div
+              className="absolute -bottom-12 -right-12 w-24 h-24 border-r-2 border-b-2 border-primary-light/20 hidden lg:block"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: titleOpacity }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            />
           </motion.div>
 
           {/* Specifications panel */}
@@ -251,13 +289,23 @@ const VehicleSpecsShowcase = ({
               ease: [0.16, 1, 0.3, 1]
             }}
           >
-            <div className="bg-primary-900/80 backdrop-blur-md">
-              <div className="max-w-[2000px] mx-auto px-4 md:px-6 lg:px-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 py-6 md:py-8 lg:py-10">
+            <div className="bg-gradient-to-b from-primary-900/90 to-black/95 backdrop-blur-md border-t border-primary-light/10 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+              <div className="max-w-[2000px] mx-auto px-4 md:px-6 lg:px-8 relative">
+                {/* Subtle decorative element */}
+                <motion.div 
+                  className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-20 h-10 md:h-12"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: specsOpacity }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  
+                </motion.div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-10 py-8 md:py-10 lg:py-12">
                   {specs.map((spec, index) => (
                     <motion.div
                       key={spec.label}
-                      className="text-center md:text-left relative"
+                      className="text-center md:text-left relative group"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: specsOpacity, y: 0 }}
                       transition={{ 
@@ -266,12 +314,18 @@ const VehicleSpecsShowcase = ({
                         ease: "easeOut"
                       }}
                     >
-                      <div className="text-xs sm:text-sm font-medium text-primary-light/90 mb-1 md:mb-2 tracking-wider uppercase">
+                      <div className="text-xs sm:text-sm font-medium text-primary-light/90 mb-2 md:mb-3 tracking-wider uppercase relative inline-block">
                         {spec.label}
+                        <motion.span 
+                          className="absolute -bottom-1 left-0 right-0 h-px bg-primary-light/30"
+                          initial={{ width: 0 }}
+                          animate={{ width: specsOpacity ? '100%' : 0 }}
+                          transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
+                        />
                       </div>
                       
-                      <div className="flex items-baseline justify-center md:justify-start gap-1">
-                        <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
+                      <div className="flex items-baseline justify-center md:justify-start gap-1 md:gap-2">
+                        <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
                           {specsOpacity > 0.5 && (
                             <AnimatedCounter
                               value={spec.value}
@@ -286,13 +340,26 @@ const VehicleSpecsShowcase = ({
                       </div>
                       
                       <motion.div 
-                        className="h-0.5 w-12 bg-primary-700/50 mt-2 md:mt-3 mx-auto md:mx-0"
+                        className="h-0.5 bg-gradient-to-r from-primary-600 to-primary-800/50 mt-3 md:mt-4 mx-auto md:mx-0 rounded-full transition-all duration-300 group-hover:w-16"
                         initial={{ width: 0 }}
                         animate={{ width: specsOpacity ? 48 : 0 }}
                         transition={{ duration: 0.7, delay: 0.3 + (index * 0.1) }}
                       />
+                      
+                      {/* Subtle hover effect */}
+                      <div className="absolute inset-0 bg-primary-800/0 group-hover:bg-primary-800/5 transition-all duration-300 rounded-lg -m-2 p-2 pointer-events-none" />
                     </motion.div>
                   ))}
+                </div>
+                
+                {/* Optional bottom decorative element */}
+                <div className="relative h-6 overflow-hidden">
+                  <motion.div 
+                    className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-primary-light/20 to-transparent" 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: specsOpacity }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  />
                 </div>
               </div>
             </div>
