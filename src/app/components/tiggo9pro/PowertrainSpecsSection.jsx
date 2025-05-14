@@ -3,8 +3,37 @@
 import { animate, motion, useInView } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 
-// Refined counter component with clean, professional animation
-const AnimatedCounter = ({ value, unit = '', duration = 2, decimal = false }) => {
+// Animation variants extracted for reuse
+const animations = {
+  fadeInUp: {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  },
+  staggerContainer: {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  },
+  lineAnimation: {
+    hidden: { width: 0 },
+    visible: {
+      width: "100%",
+      transition: { duration: 0.5, ease: "easeInOut" }
+    }
+  }
+};
+
+// Extracted AnimatedCounter as a memoized component
+const AnimatedCounter = React.memo(({ value, unit = '', duration = 2, decimal = false }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [displayValue, setDisplayValue] = useState("0");
@@ -12,14 +41,10 @@ const AnimatedCounter = ({ value, unit = '', duration = 2, decimal = false }) =>
   useEffect(() => {
     if (inView) {
       const controls = animate(0, value, {
-        duration: duration,
+        duration,
         ease: "easeOut",
         onUpdate: (latest) => {
-          if (decimal) {
-            setDisplayValue(latest.toFixed(1));
-          } else {
-            setDisplayValue(Math.round(latest).toString());
-          }
+          setDisplayValue(decimal ? latest.toFixed(1) : Math.round(latest).toString());
         }
       });
 
@@ -29,62 +54,113 @@ const AnimatedCounter = ({ value, unit = '', duration = 2, decimal = false }) =>
 
   return (
     <span ref={ref} className="tabular-nums flex items-baseline">
-      <span className="text-4xl md:text-5xl font-bold text-primary-900">
+      <span className="text-4xl md:text-5xl font-bold text-primary-900" aria-hidden="true">
         {displayValue}
       </span>
       <span className="text-2xl md:text-3xl font-medium text-primary-900/80">
         {unit}
       </span>
+      {/* Hidden element for screen readers */}
+      <span className="sr-only">{value} {unit}</span>
     </span>
+  );
+});
+
+AnimatedCounter.displayName = 'AnimatedCounter';
+
+// Extracted StatCard as a reusable component
+const StatCard = ({ value, unit, label, decimal = false, duration = 2 }) => {
+  return (
+    <motion.div variants={animations.fadeInUp}>
+      <div className="flex flex-col">
+        <div className="mb-2">
+          <AnimatedCounter value={value} unit={unit} duration={duration} decimal={decimal} />
+        </div>
+        <motion.div
+          className="w-full h-px bg-primary-700/20 mb-2"
+          variants={animations.lineAnimation}
+        />
+        <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+          {label}
+        </span>
+      </div>
+    </motion.div>
+  );
+};
+
+// Image-backed panel component for DRY code
+const SpecPanel = ({ title, children, imagePath, style = {} }) => {
+  return (
+    <motion.div
+      className="bg-white"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={animations.staggerContainer}
+      style={{
+        backgroundImage: `linear-gradient(to bottom, white 50%, transparent), url('${imagePath}')`,
+        backgroundSize: "100%, cover",
+        backgroundPosition: "top, center",
+        backgroundRepeat: "no-repeat",
+        ...style
+      }}
+    >
+      <div className={`p-8 md:p-10 ${style.padding || 'pb-56 md:pb-72'}`}>
+        <motion.h3
+          className="text-xl font-bold text-primary-700 mb-8"
+          variants={animations.fadeInUp}
+          id={title.toLowerCase().replace(/\s+/g, '-')}
+        >
+          {title}
+        </motion.h3>
+        {children}
+      </div>
+    </motion.div>
   );
 };
 
 const PowertrainSpecsSection = () => {
-  const containerRef = useRef(null);
-
-  // Clean, subtle animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  // Line animation variant
-  const lineAnimation = {
-    hidden: { width: 0 },
-    visible: {
-      width: "100%",
-      transition: { duration: 0.5, ease: "easeInOut" }
+  // Central data store for specs
+  const specs = {
+    engine: {
+      title: "2.0T GDI EFFICIENT ENGINE",
+      image: "/images/tiggo9pro/engine.jpg",
+      stats: [
+        { label: "MAXIMUM POWER", value: 187, unit: "kW", duration: 1.8 },
+        { label: "MAXIMUM OUTPUT TORQUE", value: 390, unit: "N·M", duration: 2 },
+        { label: "DRIVING EFFICIENCY", value: 44.5, unit: "%", duration: 1.6, decimal: true }
+      ]
+    },
+    transmission: {
+      title: "8AT TRANSMISSION",
+      image: "/images/tiggo9pro/transmission.jpg",
+      stats: [
+        { label: "DRIVING EFFICIENCY", value: 96, unit: "%", duration: 1.7 },
+        { label: "MAXIMUM INPUT TORQUE", value: 470, unit: "N·M", duration: 2.1 }
+      ]
+    },
+    fourWD: {
+      title: "FULL SCENE INTELLIGENT 4WD SYSTEM",
+      image: "/images/tiggo9pro/chassis.jpg",
+      modes: ["ECONOMIC", "STANDARD", "SPORTS"],
+      terrains: ["SANDY ROAD", "MUDDY GROUND", "SNOWFIELD", "OFF-ROAD"]
     }
   };
 
   return (
     <section
-      ref={containerRef}
-      className="w-full bg-stone-100 py-16 md:py-20 overflow-hidden"
+      className="w-full bg-stone-100 py-16 md:py-24 lg:py-28 overflow-hidden"
+      aria-labelledby="powertrain-title"
     >
       {/* Title Section */}
-      <div className="max-w-[2000px] mx-auto px-4 md:px-6 lg:px-8 mb-12">
+      <div className="max-w-[95%] mx-auto px-4 md:px-6 lg:px-8 mb-12">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-primary-900 tracking-tight"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
+          id="powertrain-title"
         >
           GALLOP INTO THE FUTURE<br />
           WITH BOUNDLESS POWER
@@ -95,87 +171,28 @@ const PowertrainSpecsSection = () => {
           whileInView={{ width: 80 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          aria-hidden="true"
         />
       </div>
 
       {/* Specs Grid */}
-      <div className="max-w-[2000px] mx-auto px-4 md:px-6 lg:px-8">
+      <div className="max-w-[95%] mx-auto px-4 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* LEFT PANEL - ENGINE SPECS */}
-          <motion.div
-            className="bg-white"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={staggerContainer}
-            style={{ 
-              backgroundImage: "linear-gradient(to bottom, white 50%, transparent), url('/images/tiggo9pro/engine.jpg')",
-              backgroundSize: "100%, cover",
-              backgroundPosition: "top, center",
-              backgroundRepeat: "no-repeat"
-            }}
-          >
-            <div className="p-8 md:p-10 pb-56 md:pb-72">
-              {/* Engine Type Header */}
-              <motion.h3
-                className="text-xl font-bold text-primary-700 mb-8"
-                variants={fadeInUp}
-              >
-                2.0T GDI EFFICIENT ENGINE
-              </motion.h3>
-
-              {/* Engine Specs */}
-              <div className="grid grid-cols-1 gap-8">
-                {/* Maximum Power */}
-                <motion.div variants={fadeInUp}>
-                  <div className="flex flex-col">
-                    <div className="mb-2">
-                      <AnimatedCounter value={187} unit="kW" duration={1.8} />
-                    </div>
-                    <motion.div
-                      className="w-full h-px bg-primary-700/20 mb-2"
-                      variants={lineAnimation}
-                    />
-                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MAXIMUM POWER
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Maximum Output Torque */}
-                <motion.div variants={fadeInUp}>
-                  <div className="flex flex-col">
-                    <div className="mb-2">
-                      <AnimatedCounter value={390} unit="N·M" duration={2} />
-                    </div>
-                    <motion.div
-                      className="w-full h-px bg-primary-700/20 mb-2"
-                      variants={lineAnimation}
-                    />
-                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MAXIMUM OUTPUT TORQUE
-                    </span>
-                  </div>
-                </motion.div>
-
-                {/* Driving Efficiency */}
-                <motion.div variants={fadeInUp}>
-                  <div className="flex flex-col">
-                    <div className="mb-2">
-                      <AnimatedCounter value={44.5} unit="%" duration={1.6} decimal={true} />
-                    </div>
-                    <motion.div
-                      className="w-full h-px bg-primary-700/20 mb-2"
-                      variants={lineAnimation}
-                    />
-                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      DRIVING EFFICIENCY
-                    </span>
-                  </div>
-                </motion.div>
-              </div>
+          <SpecPanel title={specs.engine.title} imagePath={specs.engine.image}>
+            <div className="grid grid-cols-1 gap-8">
+              {specs.engine.stats.map((stat, index) => (
+                <StatCard
+                  key={`engine-stat-${index}`}
+                  value={stat.value}
+                  unit={stat.unit}
+                  label={stat.label}
+                  duration={stat.duration}
+                  decimal={stat.decimal}
+                />
+              ))}
             </div>
-          </motion.div>
+          </SpecPanel>
 
           {/* RIGHT PANEL - TRANSMISSION & 4WD */}
           <motion.div
@@ -183,116 +200,71 @@ const PowertrainSpecsSection = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            variants={staggerContainer}
+            variants={animations.staggerContainer}
           >
             {/* Top Box - Transmission */}
-            <motion.div
-              className="bg-white"
-              variants={fadeInUp}
-              style={{ 
-                backgroundImage: "linear-gradient(to bottom, white 60%, transparent), url('/images/tiggo9pro/transmission.jpg')",
-                backgroundSize: "100%, cover",
-                backgroundPosition: "top, center",
-                backgroundRepeat: "no-repeat"
-              }}
+            <SpecPanel 
+              title={specs.transmission.title} 
+              imagePath={specs.transmission.image}
+              style={{ padding: 'pb-32' }}
             >
-              <div className="p-8 md:p-10 pb-32">
-                <h3 className="text-xl font-bold text-primary-700 mb-8">
-                  8AT TRANSMISSION
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Driving Efficiency */}
-                  <div className="flex flex-col">
-                    <div className="mb-2">
-                      <AnimatedCounter value={96} unit="%" duration={1.7} />
-                    </div>
-                    <motion.div
-                      className="w-full h-px bg-primary-700/20 mb-2"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "100%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.3 }}
-                    />
-                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      DRIVING EFFICIENCY
-                    </span>
-                  </div>
-
-                  {/* Maximum Input Torque */}
-                  <div className="flex flex-col">
-                    <div className="mb-2">
-                      <AnimatedCounter value={470} unit="N·M" duration={2.1} />
-                    </div>
-                    <motion.div
-                      className="w-full h-px bg-primary-700/20 mb-2"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "100%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
-                    />
-                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MAXIMUM INPUT TORQUE
-                    </span>
-                  </div>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {specs.transmission.stats.map((stat, index) => (
+                  <StatCard
+                    key={`transmission-stat-${index}`}
+                    value={stat.value}
+                    unit={stat.unit}
+                    label={stat.label}
+                    duration={stat.duration}
+                    decimal={stat.decimal}
+                  />
+                ))}
               </div>
-            </motion.div>
+            </SpecPanel>
 
             {/* Bottom Box - 4WD System */}
-            <motion.div
-              className="bg-white"
-              style={{ 
-                backgroundImage: "linear-gradient(to bottom, white 50%, transparent), url('/images/tiggo9pro/chassis.jpg')",
-                backgroundSize: "100%, cover",
-                backgroundPosition: "top, center",
-                backgroundRepeat: "no-repeat"
-              }}
-              variants={fadeInUp}
+            <SpecPanel 
+              title={specs.fourWD.title} 
+              imagePath={specs.fourWD.image}
+              style={{ padding: 'pb-40 md:pb-56' }}
             >
-              <div className="p-8 md:p-10 pb-40 md:pb-56">
-                {/* 4WD System Title */}
-                <h3 className="text-xl font-bold text-primary-700 mb-6">
-                  FULL SCENE INTELLIGENT 4WD SYSTEM
-                </h3>
+              {/* Divider Line */}
+              <motion.div
+                className="w-full h-px bg-gray-200 mb-8"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                aria-hidden="true"
+              />
 
-                {/* Divider Line */}
-                <motion.div
-                  className="w-full h-px bg-gray-200 mb-8"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                />
+              {/* Driving Modes */}
+              <motion.div
+                className="text-right mb-6"
+                initial={{ opacity: 0, x: 10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <p className="text-base text-primary-900 font-medium">
+                  {specs.fourWD.modes.join(' + ')}
+                </p>
+              </motion.div>
 
-                {/* Driving Modes */}
-                <motion.div
-                  className="text-right mb-6"
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
-                  <p className="text-base text-primary-900 font-medium">
-                    ECONOMIC + STANDARD + SPORTS
-                  </p>
-                </motion.div>
-
-                {/* Terrain Types */}
-                <motion.div
-                  className="text-right mb-8"
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                >
-                  <p className="text-base text-primary-900 font-medium">
-                    SANDY ROAD + MUDDY GROUND +<br />
-                    SNOWFIELD + OFF-ROAD
-                  </p>
-                </motion.div>
-              </div>
-            </motion.div>
+              {/* Terrain Types */}
+              <motion.div
+                className="text-right mb-8"
+                initial={{ opacity: 0, x: 10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <p className="text-base text-primary-900 font-medium">
+                  {specs.fourWD.terrains.slice(0, 2).join(' + ')}<br />
+                  {specs.fourWD.terrains.slice(2).join(' + ')}
+                </p>
+              </motion.div>
+            </SpecPanel>
           </motion.div>
         </div>
       </div>
