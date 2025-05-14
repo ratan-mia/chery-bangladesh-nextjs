@@ -89,7 +89,7 @@ const Tiggo9MainBanner = () => {
             className="mb-3"
           >
             <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold text-white tracking-tight">
-              TIGGO<span className="text-white">9</span>
+              TIGGO <span className="text-white">9PRO</span>
             </h1>
           </motion.div>
           
