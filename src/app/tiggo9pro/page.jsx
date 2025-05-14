@@ -8,6 +8,7 @@ import VehicleSpecsShowcase from '@/components/tiggo9pro/VehicleSpecsShowcase';
 import ComfortableSeatsSlider from '@components/tiggo9pro/ComfortableSeatsSlider';
 import InteriorSection from '@components/tiggo9pro/InteriorSection';
 import InteriorShowcase from '@components/tiggo9pro/InteriorShowcase';
+import SafetyScrollingSection from '@components/tiggo9pro/SafetyScrollingSection';
 
 
 
@@ -98,7 +99,9 @@ export default function Page() {
                 bulletColor="#63B3ED"
                 height={36} // Taller media containers
             />
+            
             <InteriorSection/>
+            <SafetyScrollingSection />
             <ComfortableSeatsSlider />
         </main>
     )
