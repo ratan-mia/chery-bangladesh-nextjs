@@ -5,7 +5,14 @@ import HeroBanner from '@/components/tiggo9pro/HeroBanner';
 import HotspotComponent from '@/components/tiggo9pro/HotspotComponent';
 import PowertrainSpecsSection from '@/components/tiggo9pro/PowertrainSpecsSection';
 import VehicleSpecsShowcase from '@/components/tiggo9pro/VehicleSpecsShowcase';
+import ComfortableSeatsSlider from '@components/tiggo9pro/ComfortableSeatsSlider';
+import InteriorSection from '@components/tiggo9pro/InteriorSection';
 import InteriorShowcase from '@components/tiggo9pro/InteriorShowcase';
+
+
+
+
+
 
 
 export default function Page() {
@@ -51,7 +58,7 @@ export default function Page() {
                 type: 'video',
                 src: "/videos/adas.mp4"
             },
-            contentBgColor: "#ac8975" ,// Custom background for this feature only
+            contentBgColor: "#ac8975",// Custom background for this feature only
             bulletColor: "white"
         },
         {
@@ -81,7 +88,7 @@ export default function Page() {
             <VehicleSpecsShowcase />
 
             <FeatureShowcase features={features.slice(0, 2)} />
-   
+
             <PowertrainSpecsSection />
             <FeatureShowcase
                 features={features.slice(2, 4)}
@@ -91,6 +98,8 @@ export default function Page() {
                 bulletColor="#63B3ED"
                 height={36} // Taller media containers
             />
+            <InteriorSection/>
+            <ComfortableSeatsSlider />
         </main>
     )
 }
