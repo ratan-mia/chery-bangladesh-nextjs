@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Import components
+import ContactBanner from '@/components/tiggo9pro/ContactBanner';
 import FeatureShowcase from '@/components/tiggo9pro/FeatureShowcase';
 import HeroBanner from '@/components/tiggo9pro/HeroBanner';
 import HotspotComponent from '@/components/tiggo9pro/HotspotComponent';
@@ -10,6 +11,7 @@ import PowertrainSpecsSection from '@/components/tiggo9pro/PowertrainSpecsSectio
 import SafetyScrollingSection from '@/components/tiggo9pro/SafetyScrollingSection';
 import VehicleSpecsShowcase from '@/components/tiggo9pro/VehicleSpecsShowcase';
 import ComfortableSeatsSlider from '@components/tiggo9pro/ComfortableSeatsSlider';
+
 
 // Import data
 import {
@@ -66,6 +68,14 @@ export default function Page() {
             <section id="safety">
                 <SafetyScrollingSection />
             </section>
+
+                 {/* Contact Section */}
+              <section id="contact">
+                <ContactBanner />
+            </section>
+
+            
+
         </main>
     );
 }
