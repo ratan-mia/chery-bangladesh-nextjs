@@ -9,7 +9,16 @@ const AnimatedCounter = React.memo(({ value, duration = 2, suffix = '', decimal 
   const inView = useInView(counterRef, { once: true, margin: "-20px" });
   const [displayValue, setDisplayValue] = useState("0");
 
+  // Only animate if the value is a number
+  const isNumber = typeof value === 'number';
+
   useEffect(() => {
+    if (!isNumber) {
+      // If not a number, just set the value directly without animation
+      setDisplayValue(value.toString());
+      return;
+    }
+
     if (inView) {
       const controls = animate(0, value, {
         duration: duration,
@@ -21,7 +30,7 @@ const AnimatedCounter = React.memo(({ value, duration = 2, suffix = '', decimal 
 
       return () => controls.stop();
     }
-  }, [inView, value, duration, decimal]);
+  }, [inView, value, duration, decimal, isNumber]);
 
   return (
     <span ref={counterRef} className="tabular-nums font-bold">

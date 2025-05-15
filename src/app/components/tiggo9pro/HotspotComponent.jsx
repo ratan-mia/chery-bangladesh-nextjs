@@ -7,6 +7,29 @@ import React, { useEffect, useState } from 'react';
 
 // Chery-specific hotspot data with full content from the original component
 const cheryHotspots = [
+  
+  {
+    position: { top: '60%', left: '38%' },
+    mobilePosition: { top: '55%', left: '35%' },
+    title: 'Grille with tiger-like face',
+    subtitle: 'Luxurious Design',
+    description: 'The grille design mimics the face of a tiger, symbolizing power and elegance. The intricate pattern and chrome accents enhance the vehicle\'s luxurious appearance.',
+
+    detailImageSrc: '/images/tiggo9pro/hotspot/1.jpg',
+    detailImageAlt: 'Grille with tiger-like face',
+  },
+
+  {
+    position: { top: '55%', left: '40%' },
+    mobilePosition: { top: '55%', left: '35%' },
+    title: 'Stereoscopic diamond-shaped  embossed grille',
+    subtitle: 'Luxurious Design',
+    description: 'The stereoscopic diamond-shaped embossed grille adds a touch of sophistication and modernity to the vehicle\'s front fascia. The unique design enhances aerodynamics and visual appeal.',
+
+    detailImageSrc: '/images/tiggo9pro/hotspot/2.jpg',
+    detailImageAlt: 'Stereoscopic diamond-shaped  embossed grille',
+  },
+
   {
     position: { top: '45%', left: '80%' },
     mobilePosition: { top: '45%', left: '75%' },
