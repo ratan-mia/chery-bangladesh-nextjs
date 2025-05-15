@@ -10,6 +10,7 @@ import InteriorShowcase from '@/components/tiggo9pro/InteriorShowcase';
 import PowertrainSpecsSection from '@/components/tiggo9pro/PowertrainSpecsSection';
 import SafetyHero from '@/components/tiggo9pro/SafetyHero';
 import SafetyScrollingSection from '@/components/tiggo9pro/SafetyScrollingSection';
+import TechnologyFeatureSlider from '@/components/tiggo9pro/TechnologyFeatureSlider';
 import VehicleSpecsShowcase from '@/components/tiggo9pro/VehicleSpecsShowcase';
 import ComfortableSeatsSlider from '@components/tiggo9pro/ComfortableSeatsSlider';
 
@@ -63,20 +64,21 @@ export default function Page() {
                     bulletColor="#63B3ED"
                     height={36} // Taller media containers
                 />
+                <TechnologyFeatureSlider/>
             </section>
 
             {/* Safety Section */}
             <section id="safety">
-                <SafetyHero/>
+                <SafetyHero />
                 <SafetyScrollingSection />
             </section>
 
-                 {/* Contact Section */}
-              <section id="contact">
+            {/* Contact Section */}
+            <section id="contact">
                 <ContactBanner />
             </section>
 
-            
+
 
         </main>
     );
