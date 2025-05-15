@@ -56,6 +56,7 @@ export default function Page() {
                 <section id="handling-showcase">
                     <VehicleSpecsShowcase data={cabinCarData} />
                 </section>
+                <TechnologyFeatureSlider/>
                 <FeatureShowcase
                     features={interiorFeatures}
                     bgColor="#F7FAFC"
@@ -64,7 +65,7 @@ export default function Page() {
                     bulletColor="#63B3ED"
                     height={36} // Taller media containers
                 />
-                <TechnologyFeatureSlider/>
+               
             </section>
 
             {/* Safety Section */}

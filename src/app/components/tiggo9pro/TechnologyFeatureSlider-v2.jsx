@@ -215,7 +215,7 @@ const TechnologyFeatureSlider = () => {
 
   return (
     <section 
-      className="w-full py-16 md:py-24 bg-white relative overflow-hidden"
+      className="w-full py-16 md:py-24 bg-primary-700 relative overflow-hidden"
       id="technology-features"
       aria-label="Technology Features"
     >
@@ -238,22 +238,22 @@ const TechnologyFeatureSlider = () => {
           >
             <motion.h2 
               variants={titleVariants}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight leading-tight"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight leading-tight"
             >
               LEADING
               <br />
-              <span className="text-primary-900">INTELLIGENT TECHNOLOGY</span>
+              <span className="text-primary-light">INTELLIGENT TECHNOLOGY</span>
             </motion.h2>
             
             <motion.div 
               variants={dividerVariants}
-              className="h-0.5 bg-primary-700 w-full max-w-xs mb-6 md:mb-8"
+              className="h-0.5 bg-primary-light w-full max-w-xs mb-6 md:mb-8"
             />
             
             <motion.p 
               variants={titleVariants}
               custom={1}
-              className="text-gray-600 max-w-2xl text-base md:text-lg leading-normal"
+              className="text-white/90 max-w-2xl text-base md:text-lg leading-normal"
             >
               Experience the future of driving with Chery's cutting-edge intelligent technology suite, 
               designed to enhance safety, connectivity, and convenience.
@@ -295,7 +295,7 @@ const TechnologyFeatureSlider = () => {
                   custom={index}
                 >
                   <div 
-                    className="group h-full flex flex-col bg-white shadow-sm transition-all duration-500 hover:bg-gray-100 border border-gray-200"
+                    className="group h-full flex flex-col bg-primary-800/20 backdrop-blur-sm transition-all duration-500 hover:bg-primary-800/40 border-t border-primary-light/20"
                     tabIndex={currentIndex <= index && index < currentIndex + visibleSlides ? 0 : -1}
                   >
                     {/* Feature image container with content focus */}
@@ -307,10 +307,10 @@ const TechnologyFeatureSlider = () => {
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-primary-900/20 to-transparent transition-all duration-500"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary-900/70 via-primary-900/40 to-transparent transition-all duration-500"></div>
                       
                       {/* Feature number badge - clean, premium feel */}
-                      <div className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-primary-700/80 backdrop-blur-sm text-white font-medium text-sm">
+                      <div className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-primary-light/80 backdrop-blur-sm text-primary-900 font-medium text-sm">
                         {index + 1}
                       </div>
                     </div>
@@ -318,12 +318,12 @@ const TechnologyFeatureSlider = () => {
                     {/* Feature content with improved styling */}
                     <div className="p-6 flex flex-col flex-grow">
                       {/* Feature title - following type system */}
-                      <h3 className="text-lg md:text-xl font-medium text-gray-900 mb-3 leading-tight">
+                      <h3 className="text-lg md:text-xl font-medium text-white mb-3 leading-tight">
                         {feature.title}
                       </h3>
                       
                       {/* Feature description */}
-                      <p className="text-gray-600 text-sm md:text-base mb-6 leading-normal">
+                      <p className="text-white/70 text-sm md:text-base mb-6 leading-normal">
                         {feature.description}
                       </p>
                       
@@ -331,7 +331,7 @@ const TechnologyFeatureSlider = () => {
                       <div className="mt-auto">
                         <a 
                           href={`#feature-${feature.id}`}
-                          className="inline-flex items-center text-primary-700 text-sm font-medium group-hover:text-primary-900 transition-colors duration-300"
+                          className="inline-flex items-center text-primary-light text-sm font-medium group-hover:text-white transition-colors duration-300"
                           aria-label={`Learn more about ${feature.title}`}
                         >
                           Learn more
@@ -349,8 +349,8 @@ const TechnologyFeatureSlider = () => {
                       </div>
                       
                       {/* Bottom accent line that fills on hover - premium feel */}
-                      <div className="h-0.5 w-full bg-gray-200 mt-6">
-                        <div className="h-full bg-primary-700 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                      <div className="h-0.5 w-full bg-gray-200/10 mt-6">
+                        <div className="h-full bg-primary-light w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
                       </div>
                     </div>
                   </div>
@@ -364,9 +364,9 @@ const TechnologyFeatureSlider = () => {
             {/* Progress bar and slide indicators */}
             <div className="flex flex-col w-full md:w-4/5 lg:w-3/4">
               {/* Progress bar - purposeful motion */}
-              <div className="w-full h-0.5 bg-gray-200 relative mb-4">
+              <div className="w-full h-0.5 bg-white/20 relative mb-4">
                 <motion.div 
-                  className="h-1 bg-primary-700 absolute -top-[2px]" 
+                  className="h-1 bg-primary-light absolute -top-[2px]" 
                   initial={false}
                   animate={{ 
                     width: `${((currentIndex) / (totalSlides - visibleSlides)) * 100}%`,
@@ -383,8 +383,8 @@ const TechnologyFeatureSlider = () => {
                     onClick={() => goToSlide(index)}
                     className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                       currentIndex === index 
-                        ? 'bg-primary-700 scale-125' 
-                        : 'bg-gray-300 hover:bg-gray-400'
+                        ? 'bg-primary-light scale-125' 
+                        : 'bg-white/30 hover:bg-white/50'
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                     aria-current={currentIndex === index ? 'true' : 'false'}
@@ -398,7 +398,7 @@ const TechnologyFeatureSlider = () => {
             <div className="flex gap-3">
               <button 
                 onClick={prevSlide}
-                className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-gray-200 text-gray-600 hover:bg-primary-700/10 hover:border-primary-700 hover:text-primary-900 transition-all duration-300 group"
+                className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-white/20 text-white/80 hover:bg-primary-light/20 hover:border-primary-light hover:text-white transition-all duration-300 group"
                 aria-label="Previous slide"
                 disabled={isAnimating}
               >
@@ -408,7 +408,7 @@ const TechnologyFeatureSlider = () => {
               </button>
               <button 
                 onClick={nextSlide}
-                className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-gray-200 text-gray-600 hover:bg-primary-700/10 hover:border-primary-700 hover:text-primary-900 transition-all duration-300 group"
+                className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-white/20 text-white/80 hover:bg-primary-light/20 hover:border-primary-light hover:text-white transition-all duration-300 group"
                 aria-label="Next slide"
                 disabled={isAnimating}
               >
