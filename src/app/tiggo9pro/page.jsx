@@ -8,6 +8,7 @@ import HotspotComponent from '@/components/tiggo9pro/HotspotComponent';
 import InteriorSection from '@/components/tiggo9pro/InteriorSection';
 import InteriorShowcase from '@/components/tiggo9pro/InteriorShowcase';
 import PowertrainSpecsSection from '@/components/tiggo9pro/PowertrainSpecsSection';
+import SafetyHero from '@/components/tiggo9pro/SafetyHero';
 import SafetyScrollingSection from '@/components/tiggo9pro/SafetyScrollingSection';
 import VehicleSpecsShowcase from '@/components/tiggo9pro/VehicleSpecsShowcase';
 import ComfortableSeatsSlider from '@components/tiggo9pro/ComfortableSeatsSlider';
@@ -66,6 +67,7 @@ export default function Page() {
 
             {/* Safety Section */}
             <section id="safety">
+                <SafetyHero/>
                 <SafetyScrollingSection />
             </section>
 
