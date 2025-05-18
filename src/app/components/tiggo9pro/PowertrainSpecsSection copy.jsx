@@ -1,7 +1,7 @@
 'use client';
 
 import { animate, motion, useInView } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Refined counter component with clean, professional animation
 const AnimatedCounter = ({ value, unit = '', duration = 2, decimal = false }) => {
@@ -32,7 +32,7 @@ const AnimatedCounter = ({ value, unit = '', duration = 2, decimal = false }) =>
       <span className="text-4xl md:text-5xl font-bold text-primary-900">
         {displayValue}
       </span>
-      <span className="text-2xl md:text-3xl font-medium text-primary-700">
+      <span className="text-2xl md:text-3xl font-medium text-primary-900/80">
         {unit}
       </span>
     </span>
@@ -191,8 +191,8 @@ const PowertrainSpecsSection = () => {
               variants={fadeInUp}
               style={{ 
                 backgroundImage: "linear-gradient(to bottom, white 60%, transparent), url('/images/tiggo9pro/transmission.jpg')",
-                backgroundSize: "100%, contain",
-                backgroundPosition: "top, right",
+                backgroundSize: "100%, cover",
+                backgroundPosition: "top, center",
                 backgroundRepeat: "no-repeat"
               }}
             >
@@ -201,7 +201,7 @@ const PowertrainSpecsSection = () => {
                   8AT TRANSMISSION
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Driving Efficiency */}
                   <div className="flex flex-col">
                     <div className="mb-2">

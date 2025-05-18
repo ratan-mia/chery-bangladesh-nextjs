@@ -22,8 +22,8 @@ export const tiggo9ProPowerData = {
       },
       {
         label: "Engine",
-        value: "1.5TGDI+3DHT",
-        unit: "",
+        value: "1.5",
+        unit: "TGDI",
         decimal: false,
         duration: 2.4
       },
@@ -80,7 +80,7 @@ export const tiggo9ProPowerData = {
   export const comfortShowcaseData = {
     imageSrc: "/images/tiggo9pro/comfort-banner.jpg",
     imageAlt: "Chery Tiggo 9 Pro with family at luxury beachfront residence",
-    overtitle: "COMFORT",
+    overtitle: "COMFORT AND QUIET",
     title: "COMFORT",
     description: "Experience unparalleled comfort with our spacious interior and advanced climate control technology.",
     specs: [
