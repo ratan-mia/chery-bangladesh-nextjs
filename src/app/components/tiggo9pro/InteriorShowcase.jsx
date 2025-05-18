@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * InteriorShowcase Component - Tailwind CSS Implementation
@@ -240,7 +240,7 @@ const InteriorShowcase = () => {
                     {/* CTA link - hidden on mobile */}
                     <div className="mt-4 hidden md:block">
                       <a 
-                        href="#learn-more" 
+                        href="/contact" 
                         className="inline-flex items-center text-xs text-[#c4b19c] font-medium group"
                       >
                         LEARN MORE
@@ -332,7 +332,7 @@ const InteriorShowcase = () => {
         </motion.div>
 
         {/* CTA button */}
-        <motion.div 
+        {/* <motion.div 
           className="mt-12 sm:mt-16 lg:mt-20 text-center"
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
@@ -350,10 +350,10 @@ const InteriorShowcase = () => {
               className="ml-2 group-hover:ml-3 transition-all duration-300"
             />
           </a>
-        </motion.div>
+        </motion.div> */}
         
         {/* Bottom divider */}
-        <div className="mt-16 sm:mt-20 h-px w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-[#c4b19c]/30 to-transparent"></div>
+        {/* <div className="mt-16 sm:mt-20 h-px w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-[#c4b19c]/30 to-transparent"></div> */}
       </div>
     </section>
   );
