@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Import components
 import ContactBanner from '@/components/tiggo9pro/ContactBanner';
@@ -33,6 +32,9 @@ export default function Page() {
             {/* Introduction Section */}
             <section id="introduction">
                 <HeroBanner />
+            </section>
+
+              <section id="exterior-features">
                 <HotspotComponent />
             </section>
 

@@ -119,7 +119,7 @@ const Tiggo9MainBanner = () => {
             className="mt-8"
           >
             <a 
-              href="#explore-features" 
+              href="#exterior-features" 
               className="inline-flex items-center px-8 py-3 bg-primary-700 hover:bg-primary-900 text-white text-sm uppercase tracking-wider font-medium transition-all duration-300 group"
             >
               Discover More
