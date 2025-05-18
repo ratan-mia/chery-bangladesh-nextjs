@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Tiggo9MainBanner = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -88,7 +88,7 @@ const Tiggo9MainBanner = () => {
             variants={titleVariants}
             className="mb-3"
           >
-            <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold text-white tracking-tight">
+            <h1 className="text-5xl sm:text-7xl md:text-7xl font-bold text-white tracking-tight">
               TIGGO <span className="text-white">9PRO</span>
             </h1>
           </motion.div>
