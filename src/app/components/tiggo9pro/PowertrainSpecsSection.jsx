@@ -121,7 +121,7 @@ const PowertrainSpecsSection = () => {
                 className="text-xl font-bold text-primary-700 mb-8"
                 variants={fadeInUp}
               >
-                2.0T GDI EFFICIENT ENGINE
+                1.5T GDI EFFICIENT ENGINE
               </motion.h3>
 
               {/* Engine Specs */}
@@ -130,7 +130,7 @@ const PowertrainSpecsSection = () => {
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={187} unit="kW" duration={1.8} />
+                      <AnimatedCounter value={279} unit="kW" duration={2.8} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
@@ -146,7 +146,7 @@ const PowertrainSpecsSection = () => {
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={390} unit="N·M" duration={2} />
+                      <AnimatedCounter value={220} unit="N·M" duration={2} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"

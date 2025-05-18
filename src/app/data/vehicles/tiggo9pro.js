@@ -7,16 +7,16 @@ export const tiggo9ProPowerData = {
     description: "Experience breathtaking acceleration and responsive handling with our advanced powertrain technology.",
     specs: [
       {
-        label: "Maximum power",
-        value: 145,
-        unit: "kW",
+        label: "Engine power",
+        value: '115kw',
+        unit: "/154hp",
         decimal: false,
         duration: 2
       },
       {
-        label: "Maximum torque",
-        value: 290,
-        unit: "N·m",
+        label: "Motor Rated Power",
+        value: '164kw',
+        unit: "/220hp",
         decimal: false,
         duration: 2.2
       },
@@ -28,9 +28,9 @@ export const tiggo9ProPowerData = {
         duration: 2.4
       },
       {
-        label: "0-100km acceleration",
-        value: 8.9,
-        unit: "s",
+        label: "Transmission",
+        value: "3DHT",
+        unit: "",
         decimal: true,
         duration: 1.5
       }

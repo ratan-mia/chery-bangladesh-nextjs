@@ -105,7 +105,7 @@ const HotspotComponent = ({
               DESIGN
             </h1>
             <div className="w-16 sm:w-24 h-1 bg-primary-700 mb-3 sm:mb-6"></div>
-            <h2 className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-6 text-gray-700">Family style design languages of new series</h2>
+            <h2 className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-6 font-medium text-gray-700">Family style design languages of new series</h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed max-w-xl">
               THE HOWL OF TIGER BRINGS IMPOSING APPEARANCE. THE APPEARANCE
               IMITATES THE OUTLINE OF A ROARING TIGER, WHICH APPEARS THE
@@ -164,7 +164,7 @@ const HotspotComponent = ({
                   <AnimatePresence>
                     {!activeHotspot && hoveredHotspot === hotspot && !isMobile && (
                       <motion.div
-                        className="absolute left-full ml-4 top-1/2 -translate-y-1/2 bg-primary-900/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg whitespace-nowrap z-20 shadow-md"
+                        className="absolute left-full ml-4 top-1/2 -translate-y-1/2 bg-primary-900 backdrop-blur-sm text-white px-3 py-2 rounded-lg whitespace-nowrap z-20 shadow-md"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
@@ -175,7 +175,7 @@ const HotspotComponent = ({
                     )}
                   </AnimatePresence>
                   {/* Main button - smaller on mobile */}
-                  <div className={`relative ${isMobile ? 'w-6 h-6' : 'w-8 sm:w-10 h-8 sm:h-10'} rounded-full bg-primary-light backdrop-blur-sm flex items-center justify-center shadow-lg`}>
+                  <div className={`relative ${isMobile ? 'w-6 h-6' : 'w-8 sm:w-10 h-8 sm:h-10'} rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-lg`}>
                     <Plus size={isMobile ? 14 : 20} className="text-primary-900" />
                   </div>
                 </div>
@@ -189,7 +189,7 @@ const HotspotComponent = ({
             animate={{ opacity: activeHotspot ? 0 : 1 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xl sm:text-3xl font-bold text-primary-900">CHERY</p>
+            <p className="text-xl sm:text-3xl font-bold text-primary-900">Tiggo 9 Pro</p>
           </motion.div>
         </motion.div>
 
