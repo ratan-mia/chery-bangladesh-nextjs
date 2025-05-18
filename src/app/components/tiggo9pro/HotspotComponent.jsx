@@ -4,7 +4,7 @@ import { animationVariants, cheryHotspots } from '@/data/hotspotData';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ChevronLeft, Plus, X } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const HotspotComponent = ({
   imageSrc = '/images/tiggo9pro/hotspot.jpg',
@@ -272,9 +272,27 @@ const HotspotComponent = ({
 
                 {/* Layout conditional rendering */}
                 {showSingleColumn || isTablet ? (
-                  // Single column layout with larger image
+                  // Single column layout with image at the top
                   <div className="flex-1 p-6 sm:p-8 lg:p-16 pt-16 sm:pt-20 lg:pt-24 flex flex-col h-full">
-                    {/* Text content */}
+                    {/* Prominent detail image at the top */}
+                    <motion.div
+                      variants={animationVariants.detailImage}
+                      initial="hidden"
+                      animate={contentReady ? "visible" : "hidden"}
+                      className="w-full mb-8"
+                    >
+                      <div className="relative w-full h-56 sm:h-72 lg:h-96 overflow-hidden rounded-lg group shadow-xl">
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <Image
+                          src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
+                          alt={activeHotspot.detailImageAlt || 'Feature detail'}
+                          fill
+                          className="object-cover rounded-lg transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                    </motion.div>
+                    
+                    {/* Text content after image */}
                     <motion.div
                       variants={animationVariants.content}
                       initial="hidden"
@@ -291,24 +309,6 @@ const HotspotComponent = ({
                           {activeHotspot.description}
                         </p>
                       )}
-                    </motion.div>
-
-                    {/* Prominent detail image */}
-                    <motion.div
-                      variants={animationVariants.detailImage}
-                      initial="hidden"
-                      animate={contentReady ? "visible" : "hidden"}
-                      className="w-full mb-8"
-                    >
-                      <div className="relative w-full h-56 sm:h-72 lg:h-96 overflow-hidden rounded-lg group shadow-xl">
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <Image
-                          src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
-                          alt={activeHotspot.detailImageAlt || 'Feature detail'}
-                          fill
-                          className="object-cover rounded-lg transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </div>
                     </motion.div>
 
                     {/* Features - Tablet only */}
@@ -363,121 +363,125 @@ const HotspotComponent = ({
                     )}
                   </div>
                 ) : (
-                  // Two column layout for desktop with image as the main focus
-                  <div className="flex-1 p-6 sm:p-8 lg:p-16 pt-16 sm:pt-20 lg:pt-24 flex flex-col lg:flex-row">
-                    {/* Left column - Text and features */}
-                    <div className="flex-1 lg:pr-8 mb-8 lg:mb-0 flex flex-col">
-                      <motion.div
-                        variants={animationVariants.content}
-                        initial="hidden"
-                        animate={contentReady ? "visible" : "hidden"}
-                        className="mb-6"
-                      >
-                        <p className="text-xs sm:text-sm font-medium mb-3 sm:mb-4 text-primary-700 tracking-wider uppercase">{activeHotspot.subtitle}</p>
-                        <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-3 text-gray-900 leading-tight tracking-tighter">
-                          {activeHotspot.title}
-                        </h2>
-                        <div className="w-12 sm:w-16 h-1 bg-primary-700 mb-4 sm:mb-6"></div>
-                        <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
-                          {activeHotspot.description}
-                        </p>
-                      </motion.div>
-
-                      {/* Features */}
-                      {activeHotspot.features && (
-                        <motion.div
-                          variants={animationVariants.stagger}
-                          initial="hidden"
-                          animate={contentReady ? "visible" : "hidden"}
-                          className="mt-4"
-                        >
-                          <h3 className="text-lg lg:text-xl font-semibold mb-4 lg:mb-6 text-gray-900">Features</h3>
-                          <ul className="space-y-4 lg:space-y-6">
-                            {activeHotspot.features.map((feature, index) => (
-                              <motion.li
-                                key={index}
-                                className="flex items-start"
-                                variants={animationVariants.content}
-                              >
-                                <span className="w-2 h-2 bg-primary-700 rounded-full mt-2 mr-3 lg:mr-4"></span>
-                                <div>
-                                  <h4 className="font-medium text-gray-900 text-base lg:text-lg">{feature.title}</h4>
-                                  <p className="text-sm lg:text-base text-gray-600">{feature.description}</p>
-                                </div>
-                              </motion.li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                      )}
-
-                      {/* Specifications */}
-                      {activeHotspot.specifications && (
-                        <motion.div
-                          variants={animationVariants.stagger}
-                          initial="hidden"
-                          animate={contentReady ? "visible" : "hidden"}
-                          className="mt-auto pt-6"
-                        >
-                          <h3 className="text-lg lg:text-xl font-semibold mb-4 lg:mb-6 text-gray-900">Specifications</h3>
-                          <div className="space-y-3 lg:space-y-4">
-                            {activeHotspot.specifications.map((spec, index) => (
-                              <motion.div
-                                key={index}
-                                className="flex justify-between border-b border-primary-light/50 pb-2 lg:pb-3"
-                                variants={animationVariants.content}
-                              >
-                                <span className="text-gray-600 text-sm lg:text-base">{spec.label}</span>
-                                <span className="font-medium text-gray-900 text-sm lg:text-base">{spec.value}</span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </div>
-
-                    {/* Right column - Enlarged prominent image */}
-                    <div className="w-full lg:w-1/2 lg:pl-8 flex flex-col">
-                      <motion.div
-                        variants={animationVariants.detailImage}
-                        initial="hidden"
-                        animate={contentReady ? "visible" : "hidden"}
-                        className="flex-1 min-h-[400px]"
-                      >
-                        <div className="relative w-full h-full min-h-[400px] rounded-lg group overflow-hidden shadow-xl">
-                          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          <Image
-                            src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
-                            alt={activeHotspot.detailImageAlt || 'Feature detail'}
-                            fill
-                            className="object-cover rounded-lg transition-transform duration-700 group-hover:scale-105"
-                          />
-
-                          {/* Image caption */}
-                          <div className="absolute bottom-0 left-0 right-0 bg-primary-900/80 text-white px-4 py-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                            <p className="text-sm">{activeHotspot.detailImageAlt}</p>
-                          </div>
+                  // Two column layout for desktop with image at the top
+                  <div className="flex-1 p-6 sm:p-8 lg:p-16 pt-16 sm:pt-20 lg:pt-24 flex flex-col">
+                    {/* Top image section */}
+                    <motion.div
+                      variants={animationVariants.detailImage}
+                      initial="hidden"
+                      animate={contentReady ? "visible" : "hidden"}
+                      className="w-full mb-8"
+                    >
+                      <div className="relative w-full h-56 sm:h-72 lg:h-96 overflow-hidden rounded-lg group shadow-xl">
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <Image
+                          src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
+                          alt={activeHotspot.detailImageAlt || 'Feature detail'}
+                          fill
+                          className="object-cover rounded-lg transition-transform duration-700 group-hover:scale-105"
+                        />
+                        
+                        {/* Image caption */}
+                        <div className="absolute bottom-0 left-0 right-0 bg-primary-900/80 text-white px-4 py-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                          <p className="text-sm">{activeHotspot.detailImageAlt}</p>
                         </div>
-                      </motion.div>
+                      </div>
+                    </motion.div>
 
-                      {/* View all features button */}
-                      <motion.div
-                        variants={animationVariants.content}
-                        initial="hidden"
-                        animate={contentReady ? "visible" : "hidden"}
-                        transition={{ delay: 0.3 }}
-                        className="mt-6 lg:mt-8"
-                      >
-                        <a
-                          href="#explore-more"
-                          className="group inline-flex items-center text-xs sm:text-sm font-medium text-primary-700 tracking-wider uppercase hover:text-primary-900 transition-colors duration-300"
+                    {/* Two column content below the image */}
+                    <div className="flex flex-col lg:flex-row">
+                      {/* Left column - Text and features */}
+                      <div className="flex-1 lg:pr-8 mb-8 lg:mb-0 flex flex-col">
+                        <motion.div
+                          variants={animationVariants.content}
+                          initial="hidden"
+                          animate={contentReady ? "visible" : "hidden"}
+                          className="mb-6"
                         >
-                          EXPLORE MORE FEATURES
-                          <ArrowRight
-                            size={14}
-                            className="ml-2 group-hover:ml-3 transition-all duration-300"
-                          />
-                        </a>
-                      </motion.div>
+                          <p className="text-xs sm:text-sm font-medium mb-3 sm:mb-4 text-primary-700 tracking-wider uppercase">{activeHotspot.subtitle}</p>
+                          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-3 text-gray-900 leading-tight tracking-tighter">
+                            {activeHotspot.title}
+                          </h2>
+                          <div className="w-12 sm:w-16 h-1 bg-primary-700 mb-4 sm:mb-6"></div>
+                          <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
+                            {activeHotspot.description}
+                          </p>
+                        </motion.div>
+
+                        {/* Features */}
+                        {activeHotspot.features && (
+                          <motion.div
+                            variants={animationVariants.stagger}
+                            initial="hidden"
+                            animate={contentReady ? "visible" : "hidden"}
+                            className="mt-4"
+                          >
+                            <h3 className="text-lg lg:text-xl font-semibold mb-4 lg:mb-6 text-gray-900">Features</h3>
+                            <ul className="space-y-4 lg:space-y-6">
+                              {activeHotspot.features.map((feature, index) => (
+                                <motion.li
+                                  key={index}
+                                  className="flex items-start"
+                                  variants={animationVariants.content}
+                                >
+                                  <span className="w-2 h-2 bg-primary-700 rounded-full mt-2 mr-3 lg:mr-4"></span>
+                                  <div>
+                                    <h4 className="font-medium text-gray-900 text-base lg:text-lg">{feature.title}</h4>
+                                    <p className="text-sm lg:text-base text-gray-600">{feature.description}</p>
+                                  </div>
+                                </motion.li>
+                              ))}
+                            </ul>
+                          </motion.div>
+                        )}
+
+                        {/* Specifications */}
+                        {activeHotspot.specifications && (
+                          <motion.div
+                            variants={animationVariants.stagger}
+                            initial="hidden"
+                            animate={contentReady ? "visible" : "hidden"}
+                            className="mt-auto pt-6"
+                          >
+                            <h3 className="text-lg lg:text-xl font-semibold mb-4 lg:mb-6 text-gray-900">Specifications</h3>
+                            <div className="space-y-3 lg:space-y-4">
+                              {activeHotspot.specifications.map((spec, index) => (
+                                <motion.div
+                                  key={index}
+                                  className="flex justify-between border-b border-primary-light/50 pb-2 lg:pb-3"
+                                  variants={animationVariants.content}
+                                >
+                                  <span className="text-gray-600 text-sm lg:text-base">{spec.label}</span>
+                                  <span className="font-medium text-gray-900 text-sm lg:text-base">{spec.value}</span>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </div>
+
+                      {/* Right column - Changed to additional content or CTA */}
+                      <div className="w-full lg:w-1/3 flex flex-col">
+                        {/* View all features button */}
+                        <motion.div
+                          variants={animationVariants.content}
+                          initial="hidden"
+                          animate={contentReady ? "visible" : "hidden"}
+                          transition={{ delay: 0.3 }}
+                          className="mt-6 lg:mt-8"
+                        >
+                          <a
+                            href="#explore-more"
+                            className="group inline-flex items-center text-xs sm:text-sm font-medium text-primary-700 tracking-wider uppercase hover:text-primary-900 transition-colors duration-300"
+                          >
+                            EXPLORE MORE FEATURES
+                            <ArrowRight
+                              size={14}
+                              className="ml-2 group-hover:ml-3 transition-all duration-300"
+                            />
+                          </a>
+                        </motion.div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -504,9 +508,9 @@ const HotspotComponent = ({
                 </div>
               </div>
 
-              {/* Mobile content area - scrollable with larger image */}
+              {/* Mobile content area - scrollable with image at top */}
               <div className="p-4">
-                {/* Prominent detail image on mobile */}
+                {/* Prominent detail image on mobile - at the top */}
                 <div className="relative w-full h-60 mb-6 overflow-hidden rounded-lg shadow-lg">
                   <Image
                     src={activeHotspot.detailImageSrc || '/images/sunroof-detail.jpg'}
@@ -585,34 +589,6 @@ const HotspotComponent = ({
         {activeHotspot && !isMobile && (
           <motion.div
             className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-1 sm:space-x-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            {hotspots.map((hotspot, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (activeHotspot !== hotspot) {
-                    closeHotspot();
-                    setTimeout(() => openHotspot(hotspot), 500);
-                  }
-                }}
-                className={`h-2 sm:h-3 rounded-full transition-all duration-300 ${activeHotspot === hotspot ? 'bg-primary-700 w-4 sm:w-6' : 'bg-gray-300 w-2 sm:w-3 hover:bg-primary-700/50'
-                  }`}
-                aria-label={`View ${hotspot.title}`}
-              />
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Mobile feature navigation dots */}
-      <AnimatePresence>
-        {activeHotspot && isMobile && (
-          <motion.div
-            className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
