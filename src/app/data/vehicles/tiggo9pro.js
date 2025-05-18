@@ -60,7 +60,7 @@ export const tiggo9ProPowerData = {
         duration: 2
       },
       {
-        label: "Loudspeakers",
+        label: "Loudspeakers (Sony)",
         value: 14,
         unit: "",
         decimal: false,
