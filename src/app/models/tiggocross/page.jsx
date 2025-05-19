@@ -1,5 +1,6 @@
 "use client";
 
+import ContactBanner from "@/components/tiggo-cross/ContactBanner";
 import tiggoCrossData from "@/data/vehicles/tiggocross";
 import CarFeaturesSlider from "@components/CarFeaturesSlider";
 import SimpleBanner from "@components/SimpleBanner";
@@ -135,6 +136,8 @@ export default function TiggoCrossPage() {
         subtitle={gallery.config.subtitle}
         aspectRatio={gallery.config.aspectRatio}
       /> */}
+      
+      <ContactBanner/>
     </main>
   );
 }
