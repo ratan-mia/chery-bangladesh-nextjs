@@ -1,4 +1,5 @@
 // app/api/send-brochure-request/route.js
+import { sendToZohoCRM } from '@/utils/zoho-crm';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -433,6 +434,31 @@ export async function POST(request) {
         { status: 500 }
       );
     }
+
+
+    // Send data to Zoho CRM
+try {
+  await sendToZohoCRM({
+    name,
+    email,
+    phone,
+    company,
+    carModel,
+    documentType,
+    ipAddress,
+    userAgent
+  });
+  console.log('Lead sent to Zoho CRM successfully');
+} catch (error) {
+  console.error('Error sending lead to Zoho CRM:', error);
+  // Don't fail if Zoho integration fails
+}
+
+// Return success response as before
+return NextResponse.json({ 
+  success: true,
+  message: 'Document request submitted successfully. Please check your email.'
+});
 
     // Log download request for analytics
     try {
