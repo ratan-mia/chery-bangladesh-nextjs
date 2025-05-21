@@ -59,6 +59,7 @@ export async function createZohoLead(leadData) {
       data: [
         {
           Last_Name: leadData.name,
+          Business_Unit: 'Chery Bangladesh',
           Email: leadData.email,
           Phone: leadData.phone,
           Company: leadData.company || 'Individual',
