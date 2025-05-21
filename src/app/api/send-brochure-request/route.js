@@ -1,5 +1,5 @@
 // app/api/send-brochure-request/route.js
-import { sendToZohoCRM } from '@/utils/zoho-crm';
+import { sendToZohoCRM } from '@/utils/zohoCRM'; // Import the Zoho CRM utility function
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 

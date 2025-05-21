@@ -1,0 +1,16 @@
+curl -X POST "https://accounts.zoho.com/oauth/v2/token" \
+  -d "code=1000.2b72bcd811e5f17048248a9197890f88.362501996e16fcf3f3b35a8bdfe1de53" \
+  -d "client_id=1000.CWBS2SV3ZD7MVUXPSD5TNZIZ6NJQPO" \
+  -d "client_secret=66343526584df083705a4e4f9d35d92d6e30ba908c" \
+  -d "grant_type=authorization_code"
+
+
+
+{
+    "access_token": "1000.c91ca3fa45160ed79ecefc349067deb1.e150ae9123958c43fea72cf83901aa0b",
+    "refresh_token": "1000.9850229f67f1727fe1f06e927f3f4a90.a94d885677605766f487a14cee67bce1",
+    "scope": "ZohoCRM.modules.ALL",
+    "api_domain": "https://www.zohoapis.com",
+    "token_type": "Bearer",
+    "expires_in": 3600
+}

@@ -1,0 +1,7 @@
+Your Postman Vault Key (ratanmia.chery@gmail.com)
+
+9449b6628da2c6d0abdead3d87e7149ec14169c0a5950d8dd3e3126a49f8c188
+
+• Keep this key somewhere safe but accessible.
+• Need more information? Visit https://go.pstmn.io/vault
+• This key was generated on: May 21 2025.
