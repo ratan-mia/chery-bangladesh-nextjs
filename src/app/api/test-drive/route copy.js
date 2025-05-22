@@ -1,4 +1,4 @@
-import sendTestDriveToZoho from '@/utils/test-drive-to-zoho';
+// app/api/test-drive-booking/route.js
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { adminEmailTemplate, customerEmailTemplate } from './emails/email-templates';
@@ -89,35 +89,21 @@ export async function POST(req) {
       }),
     };
 
-    // Get client IP and user agent for tracking
-    const ipAddress = req.headers.get('x-forwarded-for') || 'Not available';
-    const userAgent = req.headers.get('user-agent') || 'Not available';
+    // Send email to admin (dealership)
+    await transporter.sendMail({
+      from: `"${emailConfig.sender.name}" <${emailConfig.sender.email}>`,
+      to: emailConfig.adminRecipients,
+      subject: `${emailConfig.subjects.testDriveAdmin} - ${vehicleModelName}`,
+      html: adminEmailTemplate(bookingData),
+    });
 
-    // Process in parallel for better performance
-    await Promise.all([
-      // 1. Send email to admin (dealership)
-      transporter.sendMail({
-        from: `"${emailConfig.sender.name}" <${emailConfig.sender.email}>`,
-        to: emailConfig.adminRecipients,
-        subject: `${emailConfig.subjects.testDriveAdmin} - ${vehicleModelName}`,
-        html: adminEmailTemplate(bookingData),
-      }),
-      
-      // 2. Send confirmation email to customer
-      transporter.sendMail({
-        from: `"${emailConfig.sender.name}" <${emailConfig.sender.email}>`,
-        to: email,
-        subject: emailConfig.subjects.testDriveCustomer,
-        html: customerEmailTemplate(bookingData),
-      }),
-      
-      // 3. Send data to Zoho CRM
-      sendTestDriveToZoho(bookingData, ipAddress, userAgent)
-        .catch(error => {
-          // Log error but don't fail the whole request
-          console.error('Error sending to Zoho CRM:', error);
-        })
-    ]);
+    // Send confirmation email to customer
+    await transporter.sendMail({
+      from: `"${emailConfig.sender.name}" <${emailConfig.sender.email}>`,
+      to: email,
+      subject: emailConfig.subjects.testDriveCustomer,
+      html: customerEmailTemplate(bookingData),
+    });
 
     // Return success response
     return NextResponse.json({ 
