@@ -70,6 +70,7 @@ export async function createZohoLead(leadData) {
           Description: `Requested ${leadData.documentType} for ${leadData.carModel}`,
           Lead_Source: 'Website',
           Lead_Status: 'New',
+          Submitted_By: 'Chery Website',
           // Additional custom fields can be added here
           // Make sure they exist in your Zoho CRM setup
           Vehicle_Model: leadData.carModel || '',

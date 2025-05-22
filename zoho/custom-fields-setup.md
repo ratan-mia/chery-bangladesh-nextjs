@@ -1,169 +1,282 @@
-# Zoho CRM Custom Fields Setup Guide
+# Complete Setup Guide for Chery Bangladesh Integrations
 
-This guide provides detailed instructions for setting up the required custom fields in Zoho CRM for your Chery Bangladesh lead management.
+This comprehensive guide covers setting up email, WhatsApp, and Zoho CRM integrations for all your customer touchpoints: document requests, test drive bookings, and contact forms.
 
-## Accessing Field Setup
+## Prerequisites
 
-1. Log in to [Zoho CRM](https://crm.zoho.com)
-2. Click on the gear icon (⚙️) in the top-right corner
-3. Select **Setup** from the dropdown menu
-4. In the Setup menu, click on **Customization**
-5. Click on **Modules and Fields**
-6. Select the **Leads** module
+### Required Environment Variables
 
-## Creating Custom Fields
+Add these to your `.env.local` file:
 
-For each field below, click the **+ Create Field** button and configure as specified.
+```env
+# Email Configuration
+GMAIL_USER=your_gmail_email@gmail.com
+GMAIL_APP_PASSWORD=your_gmail_app_password
 
-### Vehicle Model Field
+# Zoho CRM Configuration
+ZOHO_CLIENT_ID=1000.CWBS2SV3ZD7MVUXPSD5TNZIZ6NJQPO
+ZOHO_CLIENT_SECRET=66343526584df083705a4e4f9d35d92d6e30ba908c
+ZOHO_REFRESH_TOKEN=your_refresh_token_here
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Dropdown (Picklist) |
-| Field Label | Vehicle Model |
-| API Name | Vehicle_Model |
-| Field Values | • Tiggo 4 Pro<br>• Tiggo 7 Pro<br>• Tiggo 8 Pro<br>• Arrizo 6<br>• Omoda<br>• Jaccoo<br>• Tiggo Cross |
-| Required | No |
-| Visible To | All profiles |
+# WhatsApp Configuration (Choose one option)
+# Option 1: Twilio WhatsApp API
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
 
-### Document Type Field
+# Option 2: Meta WhatsApp Business API
+META_ACCESS_TOKEN=your_meta_access_token
+META_PHONE_NUMBER_ID=your_phone_number_id
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Dropdown (Picklist) |
-| Field Label | Document Type |
-| API Name | Document_Type |
-| Field Values | • Brochure<br>• User Manual<br>• Test Drive Request |
-| Required | No |
-| Visible To | All profiles |
+# Admin WhatsApp Numbers for Notifications
+ADMIN_WHATSAPP_1=8801xxxxxxxxx
+ADMIN_WHATSAPP_2=8801xxxxxxxxx
+```
 
-### IP Address Field
+### Required NPM Packages
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Single-line text |
-| Field Label | IP Address |
-| API Name | IP_Address |
-| Max Length | 50 |
-| Required | No |
-| Visible To | All profiles |
+```bash
+npm install axios nodemailer
+```
 
-### User Agent Field
+## File Structure
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Multi-line text |
-| Field Label | User Agent |
-| API Name | User_Agent |
-| Max Length | 500 |
-| Required | No |
-| Visible To | All profiles |
+```
+project-root/
+├── app/
+│   └── api/
+│       ├── contact/
+│       │   ├── emails/
+│       │   │   ├── admin-template.js
+│       │   │   └── customer-template.js
+│       │   └── route.js
+│       ├── send-brochure-request/
+│       │   └── route.js
+│       └── test-drive-booking/
+│           ├── emails/
+│           │   └── email-templates.js
+│           └── route.js
+└── utils/
+    ├── zoho-crm.js
+    ├── document-request-to-zoho.js
+    ├── test-drive-to-zoho.js
+    ├── contact-form-to-zoho.js
+    └── whatsapp-service.js
+```
 
-### Test Drive Date Field
+## Zoho CRM Setup
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Date |
-| Field Label | Test Drive Date |
-| API Name | Test_Drive_Date |
-| Required | No |
-| Visible To | All profiles |
+### Step 1: Create Custom Fields
 
-### Test Drive Time Field
+In your Zoho CRM Leads module, create these custom fields:
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Dropdown (Picklist) |
-| Field Label | Test Drive Time |
-| API Name | Test_Drive_Time |
-| Field Values | • Morning (9 AM - 12 PM)<br>• Afternoon (12 PM - 3 PM)<br>• Evening (3 PM - 6 PM) |
-| Required | No |
-| Visible To | All profiles |
+#### General Fields (for all lead types)
 
-### Test Drive Location Field
+| Field Name    | Field Type       | Description                |
+| ------------- | ---------------- | -------------------------- |
+| Vehicle_Model | Dropdown         | Vehicle model of interest  |
+| IP_Address    | Single-line text | Customer's IP address      |
+| User_Agent    | Multi-line text  | Browser/device information |
+| Document_Type | Dropdown         | Type of interaction        |
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Dropdown (Picklist) |
-| Field Label | Test Drive Location |
-| API Name | Test_Drive_Location |
-| Field Values | • Showroom - Tejgaon<br>• Customer's Location<br>• Other |
-| Required | No |
-| Visible To | All profiles |
+#### Document Request Fields
 
-### Booking ID Field
+| Field Name              | Field Type       | Description          |
+| ----------------------- | ---------------- | -------------------- |
+| Last_Document_Requested | Single-line text | Most recent document |
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Single-line text |
-| Field Label | Booking ID |
-| API Name | Booking_ID |
-| Max Length | 20 |
-| Required | No |
-| Visible To | All profiles |
+#### Test Drive Fields
 
-### Driving Experience Field
+| Field Name          | Field Type       | Description                   |
+| ------------------- | ---------------- | ----------------------------- |
+| Test_Drive_Date     | Date             | Preferred test drive date     |
+| Test_Drive_Time     | Single-line text | Preferred time slot           |
+| Test_Drive_Location | Dropdown         | Test drive location           |
+| Booking_ID          | Single-line text | Unique booking ID             |
+| Driving_Experience  | Multi-line text  | Customer's driving experience |
+| Special_Requests    | Multi-line text  | Special requests              |
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Multi-line text |
-| Field Label | Driving Experience |
-| API Name | Driving_Experience |
-| Max Length | 1000 |
-| Required | No |
-| Visible To | All profiles |
+#### Contact Form Fields
 
-### Special Requests Field
+| Field Name       | Field Type       | Description              |
+| ---------------- | ---------------- | ------------------------ |
+| Contact_Subject  | Single-line text | Contact form subject     |
+| Contact_Message  | Multi-line text  | Contact form message     |
+| Reference_Number | Single-line text | Inquiry reference number |
 
-| Setting | Value |
-|---------|-------|
-| Field Type | Multi-line text |
-| Field Label | Special Requests |
-| API Name | Special_Requests |
-| Max Length | 1000 |
-| Required | No |
-| Visible To | All profiles |
+### Step 2: Update Lead Source Values
 
-## Modifying Lead Status Picklist
+Add these values to your Lead Source picklist:
 
-You might also want to customize the Lead Status picklist to reflect your sales process:
+- Website - Contact Form
+- Website - Document Request
+- Website - Test Drive Request
 
-1. In the Leads module customization, click on **Fields**
-2. Find the **Lead Status** field and click Edit
-3. Add these values (if not already present):
-   - New
-   - Contacted
-   - Test Drive Scheduled
-   - Test Drive Completed
-   - Quotation Sent
-   - Negotiation
-   - Converted to Sales
-   - Lost
+### Step 3: Create Custom Views
 
-## Updating Page Layouts
+Set up these views for better lead management:
 
-After creating custom fields, add them to your page layout:
+1. **Recent Document Requests**
 
-1. In the Leads module customization, click on **Page Layouts**
-2. Click on the standard layout (or create a new one)
-3. Drag and drop your new fields into appropriate sections
-4. Consider creating these sections:
-   - Document Request Info (for document-related fields)
-   - Test Drive Info (for test drive-related fields)
-   - Tracking Info (for IP address and User Agent)
-5. Save the layout
+   - Criteria: Document_Type contains "brochure" OR "manual"
+   - Time filter: This week
 
-## Creating Custom Views
+2. **Upcoming Test Drives**
 
-Create these custom views for better lead management:
+   - Criteria: Document_Type equals "Test Drive Request"
+   - Date filter: Test_Drive_Date >= Today
 
-1. Go to the Leads module
-2. Click on **Create View** button
-3. Create a view named "Document Requests" with criteria:
-   - Document_Type equals Brochure OR Document_Type equals User Manual
-4. Create a view named "Test Drive Bookings" with criteria:
-   - Document_Type equals Test Drive Request
-5. Create a view named "Upcoming Test Drives" with criteria:
-   - Document_Type equals Test Drive Request AND Test_Drive_Date greater than or equal to Today
+3. **Unresponded Contact Forms**
+   - Criteria: Document_Type equals "Contact Form" AND Lead_Status equals "New"
 
-These custom views will help your sales team quickly find and follow up on different types of leads.
+## WhatsApp API Setup
+
+### Option 1: Twilio WhatsApp API
+
+1. Sign up for a Twilio account at [twilio.com](https://www.twilio.com)
+2. Enable WhatsApp sandbox for testing
+3. For production, request WhatsApp Business API approval
+4. Get your Account SID, Auth Token, and WhatsApp-enabled phone number
+
+### Option 2: Meta WhatsApp Business API
+
+1. Create a Meta Business account
+2. Set up WhatsApp Business API
+3. Get your access token and phone number ID
+4. Create and get approval for message templates
+
+### WhatsApp Templates (for Meta API)
+
+You'll need to create and get approval for these templates:
+
+1. **Document Request Confirmation**
+2. **Test Drive Confirmation**
+3. **Contact Form Acknowledgment**
+
+## Implementation Steps
+
+### Step 1: Set Up Utility Files
+
+1. Create `utils/zoho-crm.js` - Core Zoho CRM integration
+2. Create `utils/whatsapp-service.js` - WhatsApp messaging service
+3. Create specific integration files:
+   - `utils/document-request-to-zoho.js`
+   - `utils/test-drive-to-zoho.js`
+   - `utils/contact-form-to-zoho.js`
+
+### Step 2: Update API Routes
+
+Update your existing API routes to include the new integrations:
+
+1. **Document Request Route** (`app/api/send-brochure-request/route.js`)
+
+   - Add Zoho CRM integration
+   - Add WhatsApp notifications
+   - Maintain existing email functionality
+
+2. **Test Drive Route** (`app/api/test-drive-booking/route.js`)
+
+   - Add Zoho CRM integration
+   - Add WhatsApp confirmations
+   - Maintain existing email functionality
+
+3. **Contact Form Route** (`app/api/contact/route.js`)
+   - Add Zoho CRM integration
+   - Add WhatsApp notifications
+   - Maintain existing email functionality
+
+### Step 3: Test All Integrations
+
+#### Test Document Requests
+
+1. Submit a document request form
+2. Verify email is sent to customer and admin
+3. Check that lead is created/updated in Zoho CRM
+4. Confirm WhatsApp messages are sent
+
+#### Test Test Drive Bookings
+
+1. Submit a test drive booking
+2. Verify confirmation emails are sent
+3. Check that lead is created/updated in Zoho CRM
+4. Confirm WhatsApp confirmations are sent
+
+#### Test Contact Forms
+
+1. Submit a contact form
+2. Verify acknowledgment and admin emails are sent
+3. Check that lead is created/updated in Zoho CRM
+4. Confirm WhatsApp notifications are sent
+
+## Error Handling and Monitoring
+
+### Logging Strategy
+
+All integrations include comprehensive logging:
+
+- Success/failure of each operation
+- Error details for troubleshooting
+- Performance metrics
+- Customer interaction tracking
+
+### Graceful Degradation
+
+The system is designed to continue working even if some services fail:
+
+- If Zoho CRM is down, emails and WhatsApp still work
+- If WhatsApp fails, emails and CRM integration continue
+- Critical functions (like admin email notifications) are prioritized
+
+### Monitoring Checklist
+
+Regularly monitor:
+
+- [ ] Email delivery rates
+- [ ] WhatsApp message success rates
+- [ ] Zoho CRM API limits and usage
+- [ ] Error logs for pattern identification
+- [ ] Customer feedback on communication quality
+
+## Maintenance Tasks
+
+### Weekly
+
+- Review failed operations in logs
+- Check Zoho CRM for duplicate leads
+- Verify WhatsApp message templates are approved
+
+### Monthly
+
+- Analyze integration performance metrics
+- Update lead scoring and routing rules
+- Review and optimize email templates
+- Check API usage limits
+
+### Quarterly
+
+- Review and update custom fields in Zoho CRM
+- Optimize workflow automation rules
+- Conduct end-to-end testing of all integrations
+- Update documentation and training materials
+
+## Troubleshooting Common Issues
+
+### Email Issues
+
+- Verify Gmail app passwords are current
+- Check SMTP connection settings
+- Monitor email delivery rates
+
+### WhatsApp Issues
+
+- Verify API credentials are valid
+- Check message template approval status
+- Monitor rate limits and quotas
+
+### Zoho CRM Issues
+
+- Refresh access tokens as needed
+- Verify custom field API names match code
+- Check CRM storage limits
+
+This comprehensive setup will provide a robust, multi-channel communication system that captures leads, nurtures prospects, and helps convert visitors into customers.
