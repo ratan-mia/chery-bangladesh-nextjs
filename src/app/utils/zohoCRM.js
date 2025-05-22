@@ -53,11 +53,15 @@ export async function createZohoLead(leadData) {
   try {
     // Get access token
     const accessToken = await getZohoAccessToken();
+    // Generate a random 6 digit string starting with WEB if trackingId is not provided
+    const Tracking_ID = leadData.trackingId || `CHERY${Math.floor(100000 + Math.random() * 900000)}`;
 
     // Prepare the data for Zoho CRM
     const zohoLeadData = {
       data: [
         {
+          Tracking_ID: Tracking_ID,
+          First_Name: leadData.firstName,
           Last_Name: leadData.name,
           Business_Unit: 'Chery Bangladesh',
           Email: leadData.email,
