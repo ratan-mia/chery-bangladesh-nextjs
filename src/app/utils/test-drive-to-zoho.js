@@ -1,4 +1,4 @@
-import { sendToZohoCRM } from './zoho-crm';
+import { sendToZohoCRM } from '@/utils/zohoCRM';
 
 /**
  * Send test drive booking data to Zoho CRM
