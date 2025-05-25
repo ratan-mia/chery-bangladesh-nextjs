@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * TechnologyFeatureSlider Component - Updated with Tiggo 9 Pro Features
+ * TechnologyFeatureSlider Component - Updated with Tiggo 9 Pro Features from Brochure
  * A premium responsive slider showcasing Chery's intelligent technology features
  * Following the Chery Bangladesh design system guidelines
  */
@@ -18,35 +18,35 @@ const TechnologyFeatureSlider = () => {
   const sliderRef = useRef(null);
   const autoplayRef = useRef(null);
 
-  // Updated Tiggo 9 Pro technology features data
+  // Updated Tiggo 9 Pro technology features data based on brochure
   const features = [
     {
       id: 1,
-      title: '15.6" 2.5K HD Screen + W-HUD Display',
+      title: '15.6" 2.5K HD Screen (90% Screen-to-Body)',
       image: '/images/tiggo9pro/technology/1.jpg',
       alt: 'Chery Tiggo 9 Pro 15.6 inch 2.5K HD screen with 90% screen-to-body ratio',
-      description: 'Immersive 15.6" 2.5K HD screen with 90% screen-to-body ratio plus W-HUD Virtual Reality Heads Up Display for enhanced driving experience and safety.'
+      description: 'Super wide body surround intelligent cabin featuring an immersive 15.6" 2.5K HD screen with 90% screen-to-body ratio and 3D mesh suede dash with multi-function center console.'
     },
     {
       id: 2,
-      title: 'Qualcomm 8155 Chip+ High Performance',
+      title: 'W-HUD Virtual Reality Heads Up Display',
       image: '/images/tiggo9pro/technology/2.jpg',
-      alt: 'Qualcomm 8155 processor chip powering Tiggo 9 Pro intelligent systems',
-      description: 'Advanced Qualcomm 8155 chip+ ensures lightning-fast response times, seamless multi-tasking, and superior performance for all intelligent vehicle systems.'
+      alt: 'W-HUD Virtual Reality Heads Up Display system in Tiggo 9 Pro',
+      description: 'Advanced W-HUD Virtual Reality Heads Up Display projects essential driving information directly onto the windshield for enhanced safety and convenience without taking eyes off the road.'
     },
     {
       id: 3,
-      title: 'Lion LionSmartCloud & IoV Functions',
+      title: 'Qualcomm 8155 Chip+ High Performance',
       image: '/images/tiggo9pro/technology/3.jpg',
-      alt: 'Lion LionSmartCloud connectivity and Internet of Vehicles features',
-      description: 'Comprehensive Internet of Vehicles platform with Lion LionSmartCloud system, online navigation, remote vehicle control, and FOTA upgrade capabilities.'
+      alt: 'Qualcomm 8155 processor chip powering Tiggo 9 Pro intelligent systems',
+      description: 'Powerful Qualcomm 8155 chip+ ensures lightning-fast response times, seamless multi-tasking, and superior performance for all intelligent vehicle systems and entertainment features.'
     },
     {
       id: 4,
-      title: 'Intelligent Voice Assistant (IVA)',
+      title: 'Lion LionSmartCloud & Intelligent Voice Assistant',
       image: '/images/tiggo9pro/technology/4.jpg',
-      alt: 'Intelligent voice assistant interface in Tiggo 9 Pro',
-      description: 'Advanced Intelligent Voice Assistant with natural language processing for hands-free control of vehicle functions, climate, navigation, and entertainment.'
+      alt: 'Lion LionSmartCloud connectivity and Intelligent Voice Assistant features',
+      description: 'Comprehensive Lion LionSmartCloud system with Intelligent Voice Assistant (IVA) for hands-free control, online navigation, remote vehicle control, and FOTA updates.'
     }
   ];
 
@@ -227,7 +227,7 @@ const TechnologyFeatureSlider = () => {
         </>
       )}
       
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-16 relative">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-20 2xl:px-24 relative">
         {/* Section header - following design system typography */}
         <div className="max-w-full mx-auto mb-12 md:mb-16 lg:mb-20">
           <motion.div
@@ -310,7 +310,7 @@ const TechnologyFeatureSlider = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-primary-900/20 to-transparent transition-all duration-500"></div>
                       
                       {/* Feature number badge - clean, premium feel */}
-                      <div className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-primary-700/80 backdrop-blur-sm text-white font-medium text-sm">
+                      <div className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-primary-700/80 backdrop-blur-sm text-white font-medium text-sm">
                         {index + 1}
                       </div>
                     </div>
@@ -338,23 +338,23 @@ const TechnologyFeatureSlider = () => {
                         )}
                         {feature.id === 2 && (
                           <div className="text-xs text-primary-700 font-medium space-y-1">
+                            <div>• Virtual Reality Display Technology</div>
+                            <div>• Enhanced Safety Information</div>
+                            <div>• Windshield Projection System</div>
+                          </div>
+                        )}
+                        {feature.id === 3 && (
+                          <div className="text-xs text-primary-700 font-medium space-y-1">
                             <div>• High Performance Processing</div>
                             <div>• Lightning-Fast Response</div>
                             <div>• Seamless Multi-tasking</div>
                           </div>
                         )}
-                        {feature.id === 3 && (
-                          <div className="text-xs text-primary-700 font-medium space-y-1">
-                            <div>• Remote Vehicle Control</div>
-                            <div>• Online Navigation & Entertainment</div>
-                            <div>• FOTA Upgrade Capability</div>
-                          </div>
-                        )}
                         {feature.id === 4 && (
                           <div className="text-xs text-primary-700 font-medium space-y-1">
                             <div>• Natural Language Processing</div>
-                            <div>• Hands-free Vehicle Control</div>
-                            <div>• WiFi Hotspot Integration</div>
+                            <div>• FOTA Upgrade Capability</div>
+                            <div>• Remote Vehicle Control</div>
                           </div>
                         )}
                       </div>
@@ -413,11 +413,12 @@ const TechnologyFeatureSlider = () => {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    className={`w-2.5 h-2.5 transition-all duration-300 ${
                       currentIndex === index 
                         ? 'bg-primary-700 scale-125' 
                         : 'bg-gray-300 hover:bg-gray-400'
                     }`}
+                    style={{ borderRadius: '50%' }}
                     aria-label={`Go to slide ${index + 1}`}
                     aria-current={currentIndex === index ? 'true' : 'false'}
                     disabled={isAnimating}
@@ -463,40 +464,40 @@ const TechnologyFeatureSlider = () => {
         >
           {/* Connectivity Features */}
           <motion.div 
-            className="bg-gray-50 p-6 rounded-lg border border-gray-200"
+            className="bg-gray-50 p-6 border border-gray-200"
             variants={slideVariants}
           >
-            <h4 className="font-semibold text-gray-900 mb-3">Connectivity</h4>
+            <h4 className="font-medium text-gray-900 mb-3">Connectivity & Entertainment</h4>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Wireless/Wired CarPlay + Android Auto</li>
-              <li>• WiFi Hotspot</li>
-              <li>• Bluetooth 5.0</li>
-              <li>• Mobile APP Remote Control</li>
+              <li>• Wireless/Wired CarPlay + Android Auto with HiCar</li>
+              <li>• WiFi Hotspot Capability</li>
+              <li>• Bluetooth Connectivity</li>
+              <li>• Online Navigation System</li>
             </ul>
           </motion.div>
 
           {/* Audio System */}
           <motion.div 
-            className="bg-gray-50 p-6 rounded-lg border border-gray-200"
+            className="bg-gray-50 p-6 border border-gray-200"
             variants={slideVariants}
           >
-            <h4 className="font-semibold text-gray-900 mb-3">Premium Audio</h4>
+            <h4 className="font-medium text-gray-900 mb-3">Premium Audio System</h4>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 14 Loudspeakers System</li>
-              <li>• Headrest Audio Integration</li>
-              <li>• Premium Sound Quality</li>
+              <li>• 14 Loudspeakers Premium Audio</li>
+              <li>• Headrest Audio System Integration</li>
               <li>• Multiple Audio Sources</li>
+              <li>• High-Quality Sound Experience</li>
             </ul>
           </motion.div>
 
           {/* Charging & Ports */}
           <motion.div 
-            className="bg-gray-50 p-6 rounded-lg border border-gray-200"
+            className="bg-gray-50 p-6 border border-gray-200"
             variants={slideVariants}
           >
-            <h4 className="font-semibold text-gray-900 mb-3">Charging Solutions</h4>
+            <h4 className="font-medium text-gray-900 mb-3">Charging & Connectivity</h4>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Wireless Phone Charging</li>
+              <li>• Wireless Phone Charging with Ventilation Cooling</li>
               <li>• USB Type-A + Type-C Ports</li>
               <li>• Fast Charging Support</li>
               <li>• Multiple Charging Zones</li>
@@ -505,15 +506,15 @@ const TechnologyFeatureSlider = () => {
 
           {/* Remote Features */}
           <motion.div 
-            className="bg-gray-50 p-6 rounded-lg border border-gray-200"
+            className="bg-gray-50 p-6 border border-gray-200"
             variants={slideVariants}
           >
-            <h4 className="font-semibold text-gray-900 mb-3">Remote Control</h4>
+            <h4 className="font-medium text-gray-900 mb-3">Remote Control Features</h4>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Remote Engine Start</li>
-              <li>• Remote AC Control</li>
-              <li>• Remote Seat Heating/Ventilation</li>
-              <li>• Vehicle Status Monitoring</li>
+              <li>• Remote Network Engine Start</li>
+              <li>• Remote Network Start Air Conditioning</li>
+              <li>• Mobile APP Remote Control</li>
+              <li>• FOTA (Firmware Over-The-Air) Updates</li>
             </ul>
           </motion.div>
         </motion.div>
