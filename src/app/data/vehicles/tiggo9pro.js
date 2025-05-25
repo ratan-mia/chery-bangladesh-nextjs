@@ -33,20 +33,6 @@ export const tiggo9ProPowerData = {
         unit: "Nm",
         decimal: false,
         duration: 1.8
-      },
-      {
-        label: "0-100 Acceleration",
-        value: "5.7",
-        unit: "sec",
-        decimal: true,
-        duration: 1.5
-      },
-      {
-        label: "Engine Displacement",
-        value: "1499",
-        unit: "cc",
-        decimal: false,
-        duration: 1.6
       }
     ]
   };
