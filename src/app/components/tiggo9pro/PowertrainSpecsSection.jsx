@@ -121,28 +121,28 @@ const PowertrainSpecsSection = () => {
                 className="text-xl font-bold text-primary-700 mb-8"
                 variants={fadeInUp}
               >
-                1.5T GDI EFFICIENT ENGINE
+                1.5TGDI HYBRID ENGINE
               </motion.h3>
 
               {/* Engine Specs */}
               <div className="grid grid-cols-1 gap-8">
-                {/* Maximum Power */}
+                {/* Engine Power */}
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={279} unit="kW" duration={2.8} />
+                      <AnimatedCounter value={115} unit="kW" duration={2.2} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
                       variants={lineAnimation}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MAXIMUM POWER
+                      ENGINE POWER
                     </span>
                   </div>
                 </motion.div>
 
-                {/* Maximum Output Torque */}
+                {/* Engine Torque */}
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
                     <div className="mb-2">
@@ -153,23 +153,23 @@ const PowertrainSpecsSection = () => {
                       variants={lineAnimation}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MAXIMUM OUTPUT TORQUE
+                      ENGINE TORQUE
                     </span>
                   </div>
                 </motion.div>
 
-                {/* Driving Efficiency */}
+                {/* Engine Displacement */}
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={44.5} unit="%" duration={1.6} decimal={true} />
+                      <AnimatedCounter value={1.5} unit="L" duration={1.6} decimal={true} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
                       variants={lineAnimation}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      DRIVING EFFICIENCY
+                      ENGINE DISPLACEMENT
                     </span>
                   </div>
                 </motion.div>
@@ -177,7 +177,7 @@ const PowertrainSpecsSection = () => {
             </div>
           </motion.div>
 
-          {/* RIGHT PANEL - TRANSMISSION & 4WD */}
+          {/* RIGHT PANEL - MOTOR & PERFORMANCE */}
           <motion.div
             className="flex flex-col gap-6"
             initial="hidden"
@@ -185,12 +185,12 @@ const PowertrainSpecsSection = () => {
             viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
           >
-            {/* Top Box - Transmission */}
+            {/* Top Box - Motor Specs */}
             <motion.div
               className="bg-white"
               variants={fadeInUp}
               style={{ 
-                backgroundImage: "linear-gradient(to bottom, white 60%, transparent), url('/images/tiggo9pro/transmission.jpg')",
+                backgroundImage: "linear-gradient(to bottom, white 60%, transparent), url('/images/tiggo9pro/motor.jpg')",
                 backgroundSize: "100%, contain",
                 backgroundPosition: "top, right",
                 backgroundRepeat: "no-repeat"
@@ -198,14 +198,14 @@ const PowertrainSpecsSection = () => {
             >
               <div className="p-8 md:p-10 pb-32">
                 <h3 className="text-xl font-bold text-primary-700 mb-8">
-                  8AT TRANSMISSION
+                  ELECTRIC MOTOR SYSTEM
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-                  {/* Driving Efficiency */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Motor Comprehensive Power */}
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={96} unit="%" duration={1.7} />
+                      <AnimatedCounter value={455} unit="kW" duration={2.5} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
@@ -215,14 +215,14 @@ const PowertrainSpecsSection = () => {
                       transition={{ duration: 0.5, delay: 0.3 }}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      DRIVING EFFICIENCY
+                      MOTOR COMPREHENSIVE POWER
                     </span>
                   </div>
 
-                  {/* Maximum Input Torque */}
+                  {/* Motor Comprehensive Torque */}
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={470} unit="N·M" duration={2.1} />
+                      <AnimatedCounter value={920} unit="N·M" duration={2.8} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
@@ -232,18 +232,18 @@ const PowertrainSpecsSection = () => {
                       transition={{ duration: 0.5, delay: 0.4 }}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MAXIMUM INPUT TORQUE
+                      MOTOR COMPREHENSIVE TORQUE
                     </span>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Bottom Box - 4WD System */}
+            {/* Bottom Box - Performance & Range */}
             <motion.div
               className="bg-white"
               style={{ 
-                backgroundImage: "linear-gradient(to bottom, white 50%, transparent), url('/images/tiggo9pro/chassis.jpg')",
+                backgroundImage: "linear-gradient(to bottom, white 50%, transparent), url('/images/tiggo9pro/performance.jpg')",
                 backgroundSize: "100%, cover",
                 backgroundPosition: "top, center",
                 backgroundRepeat: "no-repeat"
@@ -251,50 +251,162 @@ const PowertrainSpecsSection = () => {
               variants={fadeInUp}
             >
               <div className="p-8 md:p-10 pb-40 md:pb-56">
-                {/* 4WD System Title */}
+                {/* Performance Title */}
                 <h3 className="text-xl font-bold text-primary-700 mb-6">
-                  FULL SCENE INTELLIGENT 4WD SYSTEM
+                  PERFORMANCE & EFFICIENCY
                 </h3>
 
-                {/* Divider Line */}
-                <motion.div
-                  className="w-full h-px bg-gray-200 mb-8"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                />
+                {/* Performance Specs Grid */}
+                <div className="grid grid-cols-2 gap-6 mb-6">
+                  {/* 0-100 Acceleration */}
+                  <div className="flex flex-col">
+                    <div className="mb-2">
+                      <AnimatedCounter value={5.7} unit="s" duration={1.8} decimal={true} />
+                    </div>
+                    <motion.div
+                      className="w-full h-px bg-primary-700/20 mb-2"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "100%" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                    />
+                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                      0-100 KM/H
+                    </span>
+                  </div>
 
-                {/* Driving Modes */}
-                <motion.div
-                  className="text-right mb-6"
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
-                  <p className="text-base text-primary-900 font-medium">
-                    ECONOMIC + STANDARD + SPORTS
-                  </p>
-                </motion.div>
+                  {/* Fuel Consumption */}
+                  <div className="flex flex-col">
+                    <div className="mb-2">
+                      <AnimatedCounter value={6.2} unit="" duration={1.5} decimal={true} />
+                      <span className="text-2xl md:text-3xl font-medium text-primary-700">KM/L</span>
+                    </div>
+                    <motion.div
+                      className="w-full h-px bg-primary-700/20 mb-2"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "100%" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                    />
+                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                      NEDC FUEL CONSUMPTION
+                    </span>
+                  </div>
+                </div>
 
-                {/* Terrain Types */}
+                {/* Range Information */}
                 <motion.div
-                  className="text-right mb-8"
+                  className="text-right mb-4"
                   initial={{ opacity: 0, x: 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.5 }}
                 >
                   <p className="text-base text-primary-900 font-medium">
-                    SANDY ROAD + MUDDY GROUND +<br />
-                    SNOWFIELD + OFF-ROAD
+                    RANGE: 1300KM (FUEL) + 170KM (BATTERY)
+                  </p>
+                </motion.div>
+
+                {/* Battery Capacity */}
+                <motion.div
+                  className="text-right"
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                  <p className="text-base text-primary-900 font-medium">
+                    BATTERY CAPACITY: 33.46kWh
                   </p>
                 </motion.div>
               </div>
             </motion.div>
           </motion.div>
         </div>
+
+        {/* Additional Specs Row */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+        >
+          {/* 3DHT Transmission */}
+          <motion.div
+            className="bg-white p-8"
+            variants={fadeInUp}
+          >
+            <h3 className="text-xl font-bold text-primary-700 mb-6">
+              3DHT TRANSMISSION
+            </h3>
+            <div className="flex flex-col">
+              <div className="mb-2">
+                <span className="text-4xl md:text-5xl font-bold text-primary-900">3DHT</span>
+              </div>
+              <motion.div
+                className="w-full h-px bg-primary-700/20 mb-2"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              />
+              <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                HYBRID TRANSMISSION
+              </span>
+            </div>
+          </motion.div>
+
+          {/* 4WD System */}
+          <motion.div
+            className="bg-white p-8"
+            variants={fadeInUp}
+          >
+            <h3 className="text-xl font-bold text-primary-700 mb-6">
+              INTELLIGENT 4WD
+            </h3>
+            <div className="text-base text-primary-900 font-medium space-y-2">
+              <p>ECO + NORMAL + SPORT + OFFROAD</p>
+              <motion.div
+                className="w-full h-px bg-primary-700/20 my-4"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              />
+              <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                FULL SCENE INTELLIGENT 4WD SYSTEM
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Vehicle Weight */}
+          <motion.div
+            className="bg-white p-8"
+            variants={fadeInUp}
+          >
+            <h3 className="text-xl font-bold text-primary-700 mb-6">
+              VEHICLE SPECIFICATIONS
+            </h3>
+            <div className="space-y-4">
+              <div className="flex flex-col">
+                <div className="mb-2">
+                  <AnimatedCounter value={2233} unit="kg" duration={2.2} />
+                </div>
+                <motion.div
+                  className="w-full h-px bg-primary-700/20 mb-2"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                />
+                <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                  GROSS VEHICLE MASS (GVW)
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-// Tiggo 9 Pro power showcase data for 1.5TGDI variant
+// Tiggo 9 Pro power showcase data for 1.5TGDI variant - UPDATED WITH CORRECT SPECIFICATIONS
 export const tiggo9ProPowerData = {
     imageSrc: "/images/tiggo9pro/power.jpg",
     imageAlt: "Chery Tiggo 9 Pro with couple",
@@ -8,36 +8,50 @@ export const tiggo9ProPowerData = {
     specs: [
       {
         label: "Engine power",
-        value: '115kw',
-        unit: "/154hp",
+        value: '115',
+        unit: "kW",
         decimal: false,
         duration: 2
       },
       {
-        label: "Motor Rated Power",
-        value: '164kw',
-        unit: "/220hp",
+        label: "Motor Comprehensive Power",
+        value: '455',
+        unit: "kW",
         decimal: false,
         duration: 2.2
       },
       {
-        label: "Engine",
-        value: "1.5",
-        unit: "TGDI",
+        label: "Engine Torque",
+        value: "220",
+        unit: "Nm",
         decimal: false,
         duration: 2.4
       },
       {
-        label: "Transmission",
-        value: "3DHT",
-        unit: "",
+        label: "Motor Comprehensive Torque",
+        value: "920",
+        unit: "Nm",
+        decimal: false,
+        duration: 1.8
+      },
+      {
+        label: "0-100 Acceleration",
+        value: "5.7",
+        unit: "sec",
         decimal: true,
         duration: 1.5
+      },
+      {
+        label: "Engine Displacement",
+        value: "1499",
+        unit: "cc",
+        decimal: false,
+        duration: 1.6
       }
     ]
   };
   
-  // Cabin data
+  // Cabin data - UPDATED VALUES
   export const cabinCarData = {
     imageSrc: "/images/tiggo9pro/cabin-banner.jpg",
     imageAlt: "Tiggo 9 Pro intelligent cabin interior",
@@ -48,7 +62,7 @@ export const tiggo9ProPowerData = {
       {
         label: "HD screen",
         value: 15.6,
-        unit: "inch",
+        unit: "inch 2.5K",
         decimal: true,
         duration: 1.8
       },
@@ -60,23 +74,23 @@ export const tiggo9ProPowerData = {
         duration: 2
       },
       {
-        label: "Loudspeakers (Sony)",
+        label: "Loudspeakers",
         value: 14,
-        unit: "",
+        unit: "speakers",
         decimal: false,
         duration: 2.2
       },
       {
-        label: "Seat adjustment",
-        value: "6-way",
-        unit: "",
+        label: "Qualcomm Chip",
+        value: "8155",
+        unit: "chip+",
         decimal: false,
         duration: 2.4
       }
     ]
   };
   
-  // Comfort Data
+  // Comfort Data - UPDATED VALUES
   export const comfortShowcaseData = {
     imageSrc: "/images/tiggo9pro/comfort-banner.jpg",
     imageAlt: "Chery Tiggo 9 Pro with family at luxury beachfront residence",
@@ -85,43 +99,183 @@ export const tiggo9ProPowerData = {
     description: "Experience unparalleled comfort with our spacious interior and advanced climate control technology.",
     specs: [
       {
-        label: "Cargo space",
-        value: 2.08,
-        unit: "m²",
-        decimal: true,
+        label: "Seating capacity",
+        value: 7,
+        unit: "seats (2+3+2)",
+        decimal: false,
         duration: 2
       },
       {
-        label: "Seat features",
-        value: "Zero gravity",
-        unit: "",
-        decimal: false,
+        label: "Battery Capacity",
+        value: "33.46",
+        unit: "kWh",
+        decimal: true,
         duration: 2.2
       },
       {
-        label: "Headrest",
-        value: "Audio system",
-        unit: "",
+        label: "Range on Battery",
+        value: "170",
+        unit: "KM",
         decimal: false,
         duration: 2.4
       },
       {
-        label: "Seat material",
-        value: "Full leather",
-        unit: "",
+        label: "Range on Fuel",
+        value: "1300",
+        unit: "KM",
         decimal: false,
         duration: 1.5
       }
     ]
   };
   
+  // Updated vehicle specifications with exact provided values
+  export const vehicleSpecs = {
+    dimensions: {
+      length: 4810, // mm
+      width: 1925, // mm
+      height: 1741, // mm
+      wheelbase: 2800, // mm
+      groundClearance: 147 // mm
+    },
+    powertrain: {
+      engineDisplacement: 1499, // cc
+      enginePower: 115, // kW
+      engineTorque: 220, // Nm
+      motorComprehensivePower: 455, // kW
+      motorComprehensiveTorque: 920, // Nm
+      acceleration0to100: 5.7, // seconds
+      fuelConsumptionNEDC: 6.2, // KM/L
+      rangeOnFuel: 1300, // KM
+      rangeOnBatteryNEDC: 170, // KM
+      batteryCapacity: 33.46, // kWh
+      grossVehicleMass: 2233, // kg (GVW)
+      fuelTankCapacity: 70 // L
+    },
+    exteriorFeatures: [
+      "Tiger-eye and diamond-embedded grille",
+      "Stereoscopic diamond-shaped embossed grille",
+      "High-recognition through tail lights",
+      "Simple and tough body lines combined with domineering front face design",
+      "Tiger Pattern Loop-fog Lamp Area Decor",
+      "Shield Shaped Protective Grille",
+      "20-inch Alloy Rims",
+      "LED headlights with automatic control",
+      "LED daytime running lights",
+      "Front and rear dynamic turn signals"
+    ],
+    interiorFeatures: [
+      "15.6\" 2.5K HD Screen (90% Screen-to-Body)",
+      "3D mesh suede dash + Multi-function center console",
+      "TOM wood grain decorative panel",
+      "W-HUD Virtual Reality Heads Up Display",
+      "Driver seats with memory, ventilation, heating and massage",
+      "One Click Zero Gravity Seat",
+      "14 Loudspeakers audio system",
+      "Qualcomm 8155 chip+",
+      "Full leather coverage on contact areas",
+      "Dual-zone automatic climate control",
+      "Panoramic sunroof with motorized sunshade"
+    ],
+    colors: {
+      exterior: ["Aurora Green", "White", "Black", "Matte Gray", "Gray"],
+      interior: ["Black Brown", "Black"]
+    },
+    technology: {
+      engine: "1.5TGDI+3DHT",
+      driveSystem: "Full scene intelligent 4WD system",
+      transmissionType: "3DHT (3-speed DHT)",
+      drivingModes: ["ECO", "NORMAL", "SPORT", "OFFROAD"],
+      remoteFeatures: [
+        "Remote vehicle searching",
+        "Remote engine start via mobile app",
+        "Remote air conditioning control",
+        "Remote seat heating/ventilation",
+        "One click heating",
+        "Mobile APP remote control",
+        "FOTA (Firmware Over-The-Air) updates"
+      ],
+      connectivity: [
+        "Lion LionSmartCloud system",
+        "WiFi hotspot capability",
+        "Online navigation",
+        "Wireless/wired CarPlay + Android Auto with HiCar",
+        "Bluetooth connectivity",
+        "Intelligent voice assistant (IVA)"
+      ],
+      adasFunctions: [
+        "Lane departure warning (LDW)",
+        "Blind spot detection (BSD)",
+        "Rear cross traffic alert (RCTA)",
+        "Rear cross traffic braking",
+        "Emergency lane keeping (ELK)",
+        "Traffic jam assist (TJA)",
+        "Adaptive cruise control (ACC)",
+        "Automatic parking assistant (APA)",
+        "Intelligent cruise assist (ICA)",
+        "Autonomous emergency braking (AEB)",
+        "Front collision warning (FCW)",
+        "Door opening warning (DOW)",
+        "Speed limit assist",
+        "Intelligent headlamp control (IHC)",
+        "360° HD panoramic camera system",
+        "Reversing camera with dynamic auxiliary lines",
+        "Front and rear parking radar",
+        "Driver monitoring system (DMS)",
+        "Tire pressure monitoring system (TPMS)"
+      ]
+    },
+    safety: {
+      airbags: 10,
+      airbagsDetails: [
+        "Dual front airbags",
+        "Front side airbags", 
+        "Side curtain airbags",
+        "Knee airbags for main driver",
+        "Second row side airbags",
+        "Far-end airbags"
+      ],
+      structuralSafety: {
+        highStrengthSteel: "85%",
+        hotFormedSteel: "21%",
+        frontAntiCollisionBeam: "140mm height with 85% coverage",
+        sideCurtains: "2060mm traverse side air curtains"
+      },
+      brakingSystem: "Newest IPB drive-by-wire of Bosch",
+      safetyStandard: "Global five-star security standard",
+      additionalSafety: [
+        "ABS anti-lock braking system",
+        "EBD Electronic Brakeforce Distribution",
+        "ESP brake force control system",
+        "TCS Traction Control",
+        "EBA Emergency Brake Assist",
+        "HAC Hill Assist System",
+        "HDC Downhill Assist System",
+        "Electronic immobilizer",
+        "Vehicle anti-theft alarm"
+      ]
+    },
+    convenience: [
+      "PEPS remote control key",
+      "Touch keyless entry",
+      "Sensorized power tailgate",
+      "Motorized fuel filler cap",
+      "Four-door window one-touch up with anti-pinch",
+      "Power folding exterior mirrors",
+      "Heated exterior mirrors",
+      "Automatic anti-glare interior rearview mirror",
+      "Inductive windshield wipers",
+      "Steering wheel electric heating"
+    ]
+  };
+
   export const tiggo9ProFeatures = [
     {
       title: "Global five-star security standard",
       points: [
-        "85% high-strength steel",
-        "21% hot-formed steel",
-        "140mm height of front anti-collision beam with 85% coverage"
+        "85% high-strength steel construction for maximum protection",
+        "21% hot-formed steel for enhanced structural integrity",
+        "140mm height front anti-collision beam with 85% coverage"
       ],
       media: {
         type: 'image',
@@ -133,24 +287,24 @@ export const tiggo9ProPowerData = {
       bulletColor: "white"
     },
     {
-      title: "10 safety airbags",
+      title: "Advanced 10 airbags safety system",
       points: [
-        "With far-end airbags",
-        "2060mm traverse side air curtains",
-        "Newest IPB drive-by-wire of Bosch"
+        "Comprehensive protection with far-end airbags",
+        "2060mm traverse side air curtains for maximum coverage",
+        "Newest IPB drive-by-wire braking system from Bosch"
       ],
       media: {
         type: 'image',
         src: "/images/tiggo9pro/safety/airbag-system.jpg",
-        alt: "Car with deployed airbags showing safety system"
+        alt: "Car with deployed airbags showing comprehensive safety system"
       }
     },
     {
-      title: "19 ADAS functions",
+      title: "19 ADAS functions for intelligent driving",
       points: [
-        "Lane departure warning & prevention",
-        "Adaptive cruise control",
-        "Automatic parking assistant (APA)"
+        "Lane departure warning & emergency lane keeping",
+        "Adaptive cruise control with traffic jam assist",
+        "Automatic parking assistant with 360° panoramic view"
       ],
       media: {
         type: 'video',
@@ -160,77 +314,64 @@ export const tiggo9ProPowerData = {
       bulletColor: "white"
     },
     {
-      title: "Internet of Vehicles (IoV) function",
+      title: "Advanced Internet of Vehicles (IoV)",
       points: [
-        "Remote vehicle control",
-        "On-line navigation",
-        "On-line recreation",
-        "OTA upgrade"
+        "Remote vehicle control via mobile app",
+        "Online navigation with real-time traffic updates",
+        "Over-the-air (FOTA) firmware updates",
+        "Lion LionSmartCloud connectivity platform"
       ],
       media: {
         type: 'image',
         src: "/images/tiggo9pro/safety/adas.jpg",
-        alt: "ADAS system visualization"
+        alt: "IoV system and connectivity features visualization"
       },
       contentBgColor: "#ac8975",
       bulletColor: "white"
     }
   ];
-  
-  // Additional vehicle specifications
-  export const vehicleSpecs = {
-    dimensions: {
-      length: 4810,
-      width: 1890,
-      height: 1671,
-      wheelbase: 2820
+
+  // Service and warranty information from Asian MotorspeX
+  export const serviceInfo = {
+    warranty: {
+      duration: "5 years",
+      mileage: "100,000 KM",
+      buyBackOption: "Available"
     },
-    exteriorFeatures: [
-      "Tiger-eye and diamond-embedded grille",
-      "Stereoscopic diamond-shaped embossed grille",
-      "High-recognition through tail lights",
-      "Simple and tough body lines combined with domineering front face design"
+    serviceLocations: [
+      {
+        city: "Dhaka (Main)",
+        address: "277, Tejgaon I/A, Dhaka, Bangladesh"
+      },
+      {
+        city: "Chittagong",
+        address: "Service center available"
+      },
+      {
+        city: "Khulna", 
+        address: "Service center available"
+      }
     ],
-    interiorFeatures: [
-      "3D mesh suede dash + Multi-function center console",
-      "TOM wood grain decorative panel",
-      "HUD (Heads-Up Display)",
-      "Driver seats with memory, ventilation, heating and massage",
-      "2-3 row backseats fold in seconds for a 2.08 m² bed"
-    ],
-    colors: {
-      exterior: ["Aurora Green", "White", "Black", "Gray"],
-      interior: ["Black Brown", "Black"]
+    contact: {
+      phone: "09639-119977",
+      whatsapp: "014099-60306",
+      email: "info@cherybd.com",
+      website: "www.cherybd.com",
+      facebook: "fb.com/CheryBDofficial"
     },
-    technology: {
-      engine: "1.5TGDI+3DHT",
-      driveSystem: "Full scene intelligent 4WD system",
-      remoteFeatures: [
-        "Remote vehicle searching",
-        "Remotely turn on/off the air conditioning",
-        "Remote seat heating/ventilation",
-        "One click heating"
-      ],
-      adasFunctions: [
-        "Lane departure warning",
-        "Blind spot detection",
-        "Rear cross traffic alert",
-        "Rear cross traffic braking",
-        "Following path guided assistance",
-        "Rear collision warning",
-        "Emergency lane keeping",
-        "Traffic jam assist",
-        "Adaptive cruise control",
-        "Automatic parking assistant",
-        "Lane changing assistance",
-        "Intelligent evasion system",
-        "Intelligent headlamp control",
-        "Front collision warning",
-        "Integrated steering assist",
-        "Speed Limit Assist",
-        "Autonomous emergency braking",
-        "Door opening warning",
-        "Departure ahead inform"
+    distributor: {
+      name: "Asian MotorspeX Limited",
+      parentCompany: "Asian Holdings",
+      address: "206/1-207/1 Bir Uttam Mir Shawkat Sarak, Tejgaon Gulshan Link Road, Dhaka 1208, Bangladesh",
+      experience: "Over 10 years in automobile industry of Bangladesh",
+      expertise: [
+        "Foreign experts available",
+        "Reliable maintenance service", 
+        "Latest diagnostic technologies",
+        "Skilled technicians with rigorous training",
+        "Emergency roadside assistance",
+        "Genuine spare parts availability"
       ]
-    }
+    },
+    tagline: "ONE STEP AHEAD"
   };

@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
- * SafetyHero Component
+ * SafetyHero Component - Updated with Tiggo 9 Pro Safety Features
  * A full-width hero section highlighting Chery's commitment to safety
  * Following the Chery Bangladesh design system guidelines
  */
@@ -157,7 +157,7 @@ const SafetyHero = () => {
           >
             <Image
               src="/images/tiggo9pro/chery-safety-family.jpg" 
-              alt="Family enjoying a picnic by the lake with their Chery SUV"
+              alt="Family enjoying a picnic by the lake with their Chery Tiggo 9 Pro SUV"
               fill
               priority
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
@@ -169,7 +169,7 @@ const SafetyHero = () => {
           <div className="w-full h-full">
             <Image
               src="/images/tiggo9pro/chery-safety-family.jpg" 
-              alt="Family enjoying a picnic by the lake with their Chery SUV"
+              alt="Family enjoying a picnic by the lake with their Chery Tiggo 9 Pro SUV"
               fill
               priority
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
@@ -196,7 +196,7 @@ const SafetyHero = () => {
             variants={textVariants}
           >
             <span className="text-white text-xs sm:text-sm md:text-base font-medium tracking-wider uppercase px-3 py-1.5 sm:px-6 sm:py-2 bg-primary-900/60 backdrop-blur-sm border-l-2 border-primary-light">
-              SAFETY
+              TIGGO 9 PRO SAFETY
             </span>
           </motion.div>
           
@@ -206,9 +206,9 @@ const SafetyHero = () => {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tighter"
               variants={textVariants}
             >
-              <span className="text-white block sm:inline md:block lg:inline">SAFETY IS A </span>
-              <span className="text-primary-light block sm:inline md:block lg:inline">CORE VALUE </span>
-              <span className="text-white block sm:inline md:block lg:inline">AT CHERY.</span>
+              <span className="text-white block sm:inline md:block lg:inline">GLOBAL </span>
+              <span className="text-primary-light block sm:inline md:block lg:inline">FIVE-STAR </span>
+              <span className="text-white block sm:inline md:block lg:inline">SECURITY STANDARD.</span>
             </motion.h1>
           </div>
 
@@ -224,22 +224,43 @@ const SafetyHero = () => {
             className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl leading-relaxed mb-6 md:mb-8"
             variants={textVariants}
           >
-            EACH JOURNEY IS NOT JUST ABOUT GETTING TO A DESTINATION, BUT ALSO ABOUT 
-            A SENSE OF SAFETY FOR OUR LOVED ONES. EVERY STEP REFLECTS OUR DEDICATION 
-            TO CREATING A REASSURING VEHICLE AND PROVIDING USERS WITH THE STRONGEST 
-            MOBILE GUARD.
+            EACH JOURNEY WITH TIGGO 9 PRO IS PROTECTED BY 85% HIGH-STRENGTH STEEL CONSTRUCTION, 
+            10 ADVANCED AIRBAGS, AND 19 ADAS FUNCTIONS. EXPERIENCE ULTIMATE PEACE OF MIND 
+            WITH OUR COMPREHENSIVE SAFETY TECHNOLOGY DESIGNED FOR YOUR FAMILY'S PROTECTION.
           </motion.p>
+          
+          {/* Safety feature badges */}
+          <motion.div
+            className="flex flex-wrap gap-4 mt-6"
+            variants={textVariants}
+          >
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 border border-white/20 rounded">
+              <div className="text-white text-xs sm:text-sm">
+                <span className="text-primary-light font-bold">85%</span> High-Strength Steel
+              </div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 border border-white/20 rounded">
+              <div className="text-white text-xs sm:text-sm">
+                <span className="text-primary-light font-bold">10</span> Safety Airbags
+              </div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 border border-white/20 rounded">
+              <div className="text-white text-xs sm:text-sm">
+                <span className="text-primary-light font-bold">19</span> ADAS Functions
+              </div>
+            </div>
+          </motion.div>
           
           {/* Call to action buttons - primary and secondary */}
           {/* <motion.div
-            className="flex flex-col sm:flex-row gap-4 mt-2 sm:mt-4"
+            className="flex flex-col sm:flex-row gap-4 mt-8"
             variants={textVariants}
           >
             <a 
               href="#explore-safety" 
               className="group inline-flex items-center justify-center sm:justify-start px-6 sm:px-10 py-3 sm:py-4 bg-primary-700 text-white text-sm sm:text-base font-medium hover:bg-primary-900 transition-all duration-300"
             >
-              EXPLORE SAFETY FEATURES
+              EXPLORE TIGGO 9 PRO SAFETY
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 className="h-4 w-4 sm:h-5 sm:w-5 ml-2 group-hover:ml-3 transition-all duration-300" 
@@ -254,20 +275,37 @@ const SafetyHero = () => {
               href="#find-dealership" 
               className="inline-flex items-center justify-center sm:justify-start px-6 sm:px-10 py-3 sm:py-4 bg-transparent border border-primary-700 text-white text-sm sm:text-base font-medium hover:border-primary-light transition-all duration-300"
             >
-              FIND DEALERSHIP
+              SCHEDULE TEST DRIVE
             </a>
           </motion.div> */}
           
           {/* Safety features badge - mobile only */}
           <motion.div 
-            className="absolute top-4 right-4 bg-white/10 backdrop-blur-md p-2 border-l border-primary-light rounded-r-sm hidden sm:block lg:hidden"
+            className="absolute top-4 right-4 bg-white/10 backdrop-blur-md p-3 border-l-2 border-primary-light rounded-r-sm hidden sm:block lg:hidden"
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.5, delay: 1.2 }}
           >
-            <div className="text-white text-xs tracking-wider">
-              <span className="text-primary-light font-medium">5★</span> SAFETY
+            <div className="text-white text-xs tracking-wider text-center">
+              <div className="text-primary-light font-bold text-lg">5★</div>
+              <div className="text-xs">GLOBAL SAFETY</div>
             </div>
+          </motion.div>
+          
+          {/* Advanced safety tech highlight - desktop only */}
+          <motion.div 
+            className="absolute top-1/4 right-8 bg-white/10 backdrop-blur-md p-4 border border-white/20 rounded-lg hidden lg:block max-w-xs"
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.6, delay: 1.5 }}
+          >
+            <h4 className="text-white font-semibold text-sm mb-2">Advanced Safety Technology</h4>
+            <ul className="text-white/80 text-xs space-y-1">
+              <li>• Bosch IPB drive-by-wire braking</li>
+              <li>• 2060mm traverse side air curtains</li>
+              <li>• 140mm front anti-collision beam</li>
+              <li>• Emergency lane keeping assist</li>
+            </ul>
           </motion.div>
           
           {/* Floating particles with enhanced effect - more on larger screens */}
@@ -319,8 +357,8 @@ const SafetyHero = () => {
 
       {/* Accessibility features */}
       <div className="sr-only">
-        <h1>SAFETY IS A CORE VALUE AT CHERY</h1>
-        <p>Learn about Chery's commitment to safety features and design</p>
+        <h1>GLOBAL FIVE-STAR SECURITY STANDARD - TIGGO 9 PRO</h1>
+        <p>Learn about Tiggo 9 Pro's comprehensive safety features including 85% high-strength steel, 10 airbags, and 19 ADAS functions</p>
       </div>
     </section>
   );

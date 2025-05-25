@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SafetyFeatureShowcase = () => {
   const [isInView, setIsInView] = useState(false);
@@ -121,9 +121,9 @@ const SafetyFeatureShowcase = () => {
               </motion.h3>
               <ul className="space-y-3 md:space-y-4 text-white">
                 {[
-                  "85% high-strength steel",
-                  "21% hot-formed steel",
-                  "140mm height of front anti-collision beam with 85% coverage"
+                  "85% high-strength steel construction for maximum protection",
+                  "21% hot-formed steel for enhanced structural integrity",
+                  "140mm height front anti-collision beam with 85% coverage"
                 ].map((text, index) => (
                   <motion.li 
                     key={`chassis-${index}`}
@@ -157,13 +157,13 @@ const SafetyFeatureShowcase = () => {
                 variants={textItemVariants}
                 className="text-2xl sm:text-3xl md:text-4xl text-white font-normal mb-6 md:mb-8"
               >
-                10 safety airbags
+                Advanced 10 airbags safety system
               </motion.h3>
               <ul className="space-y-3 md:space-y-4 text-white">
                 {[
-                  "With far-end airbags",
-                  "2060mm traverse side air curtains",
-                  "Newest IPB drive-by-wire of Bosch"
+                  "Comprehensive protection with far-end airbags",
+                  "2060mm traverse side air curtains for maximum coverage",
+                  "Newest IPB drive-by-wire braking system from Bosch"
                 ].map((text, index) => (
                   <motion.li 
                     key={`airbag-${index}`}
@@ -192,7 +192,125 @@ const SafetyFeatureShowcase = () => {
               >
                 <Image
                   src="/images/tiggo9pro/safety/airbag-system.jpg"
-                  alt="Car with deployed airbags showing safety system"
+                  alt="Car with deployed airbags showing comprehensive safety system"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  quality={90}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Third row - ADAS Functions */}
+          <motion.div 
+            variants={itemVariants}
+            className="grid grid-cols-1 md:grid-cols-2"
+          >
+            {/* Image Container */}
+            <div className="relative h-64 sm:h-80 md:h-[28rem] lg:h-[32rem] w-full overflow-hidden">
+              <motion.div
+                initial={{ scale: 1.1 }}
+                animate={isInView ? { scale: 1 } : { scale: 1.1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="h-full w-full"
+              >
+                <Image
+                  src="/images/tiggo9pro/safety/adas.jpg"
+                  alt="ADAS system visualization and advanced driver assistance features"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  quality={90}
+                />
+              </motion.div>
+            </div>
+            
+            {/* Content Container */}
+            <motion.div 
+              variants={textContainerVariants}
+              className="bg-[#ac8975] p-6 sm:p-8 md:p-12 lg:p-16 flex flex-col justify-center h-auto md:h-[28rem] lg:h-[32rem]"
+            >
+              <motion.h3 
+                variants={textItemVariants}
+                className="text-2xl sm:text-3xl md:text-4xl text-white font-normal mb-6 md:mb-8"
+              >
+                19 ADAS functions for intelligent driving
+              </motion.h3>
+              <ul className="space-y-3 md:space-y-4 text-white">
+                {[
+                  "Lane departure warning & emergency lane keeping",
+                  "Adaptive cruise control with traffic jam assist",
+                  "Automatic parking assistant with 360° panoramic view"
+                ].map((text, index) => (
+                  <motion.li 
+                    key={`adas-${index}`}
+                    variants={textItemVariants}
+                    className="text-lg sm:text-xl md:text-2xl font-light flex items-start"
+                  >
+                    <motion.span 
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                      transition={{ duration: 0.3, delay: 0.4 + (index * 0.1) }}
+                      className="inline-block w-2 h-2 bg-white rounded-full mt-3 mr-3 flex-shrink-0"
+                    />
+                    {text}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </motion.div>
+
+          {/* Fourth row - Internet of Vehicles (IoV) */}
+          <motion.div 
+            variants={itemVariants}
+            className="grid grid-cols-1 md:grid-cols-2"
+          >
+            {/* Content Container */}
+            <motion.div 
+              variants={textContainerVariants}
+              className="bg-[#ac8975] p-6 sm:p-8 md:p-12 lg:p-16 flex flex-col justify-center order-2 md:order-1 h-auto md:h-[28rem] lg:h-[32rem]"
+            >
+              <motion.h3 
+                variants={textItemVariants}
+                className="text-2xl sm:text-3xl md:text-4xl text-white font-normal mb-6 md:mb-8"
+              >
+                Advanced Internet of Vehicles (IoV)
+              </motion.h3>
+              <ul className="space-y-3 md:space-y-4 text-white">
+                {[
+                  "Remote vehicle control via mobile app",
+                  "Online navigation with real-time traffic updates",
+                  "Over-the-air (FOTA) firmware updates & entertainment"
+                ].map((text, index) => (
+                  <motion.li 
+                    key={`iov-${index}`}
+                    variants={textItemVariants}
+                    className="text-lg sm:text-xl md:text-2xl font-light flex items-start"
+                  >
+                    <motion.span 
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                      transition={{ duration: 0.3, delay: 0.4 + (index * 0.1) }}
+                      className="inline-block w-2 h-2 bg-white rounded-full mt-3 mr-3 flex-shrink-0"
+                    />
+                    {text}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+            
+            {/* Image Container */}
+            <div className="relative h-64 sm:h-80 md:h-[28rem] lg:h-[32rem] w-full order-1 md:order-2 overflow-hidden">
+              <motion.div
+                initial={{ scale: 1.1 }}
+                animate={isInView ? { scale: 1 } : { scale: 1.1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="h-full w-full"
+              >
+                <Image
+                  src="/images/tiggo9pro/safety/adas.jpg"
+                  alt="IoV system and connectivity features visualization"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"

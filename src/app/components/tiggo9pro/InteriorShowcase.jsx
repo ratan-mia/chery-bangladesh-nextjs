@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * InteriorShowcase Component - Tailwind CSS Implementation
+ * InteriorShowcase Component - Updated with Tiggo 9 Pro Interior Features
  * Following Chery Bangladesh Design System Guidelines
  */
 const InteriorShowcase = () => {
@@ -17,28 +17,28 @@ const InteriorShowcase = () => {
   const [isTablet, setIsTablet] = useState(false);
   const sectionRef = useRef(null);
   
-  // Features data
+  // Updated Tiggo 9 Pro interior features data
   const interiorFeatures = [
     {
       id: "main",
-      title: "INSTRUMENT CLUSTER WITH SUEDETTE",
-      description: "Premium suedette materials combine luxurious comfort with cutting-edge technology for an elevated driving experience",
+      title: "15.6\" 2.5K HD SCREEN & INTELLIGENT CABIN",
+      description: "Super wide body surround intelligent cabin with 15.6\" 2.5K HD screen featuring 90% screen-to-body ratio, 3D mesh suede dash and multi-function center console",
       imageSrc: "/images/tiggo9pro/interior-main.jpg",
-      alt: "Chery interior cabin with suedette instrument cluster"
+      alt: "Chery Tiggo 9 Pro intelligent cabin with 15.6 inch 2.5K HD screen"
     },
     {
       id: "knob",
-      title: "EMBOSSED KNOB WITH DIAMOND-SHAPED ARGYLE",
-      description: "Meticulously crafted control surfaces with elegant diamond patterning that reflects superior attention to detail",
+      title: "W-HUD VIRTUAL REALITY HEADS UP DISPLAY",
+      description: "Advanced W-HUD Virtual Reality Heads Up Display system with Qualcomm 8155 chip+ for enhanced driving experience and seamless connectivity",
       imageSrc: "/images/tiggo9pro/knob.jpg",
-      alt: "Embossed knob with diamond-shaped argyle"
+      alt: "W-HUD Virtual Reality Heads Up Display system"
     },
     {
       id: "panels",
-      title: "PANELS WITH WOOD GRAIN",
-      description: "Natural wood grain textures create a warm, sophisticated cabin atmosphere that balances luxury with comfort",
+      title: "ONE CLICK ZERO GRAVITY SEATS & AUDIO SYSTEM",
+      description: "Premium leather seats with one-click zero gravity function, 3D seat stitching, fine punch detailing, and integrated headrest audio system with 14 loudspeakers",
       imageSrc: "/images/tiggo9pro/panels.jpg",
-      alt: "Panels with wood grain"
+      alt: "Zero gravity seats with headrest audio system"
     }
   ];
 
@@ -145,7 +145,7 @@ const InteriorShowcase = () => {
             variants={fadeIn}
           >
             <span className="relative">
-              LUXURIOUS DESIGN
+              INTELLIGENT CABIN
               <motion.span 
                 className="absolute -bottom-1 left-0 right-0 h-px bg-[#c4b19c]/50 w-0"
                 initial={{ width: 0 }}
@@ -160,7 +160,7 @@ const InteriorShowcase = () => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#524336] leading-tight tracking-tighter"
             variants={fadeIn}
           >
-            EXTRA-WIDE<br className="hidden md:block" /> SURROUNDING CABIN
+            SUPER WIDE BODY<br className="hidden md:block" /> SURROUND INTELLIGENT CABIN
           </motion.h2>
           
           {/* Accent divider */}
@@ -176,8 +176,8 @@ const InteriorShowcase = () => {
             className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed"
             variants={fadeIn}
           >
-            Every detail of our interior showcases premium craftsmanship and attention to detail, 
-            creating a sophisticated driving environment designed for your comfort.
+            Super wide body, super comfortable, super quiet, super healthy. Experience the future of automotive luxury 
+            with advanced technology, premium materials, and intelligent design crafted for your comfort.
           </motion.p>
         </motion.div>
 
@@ -236,6 +236,11 @@ const InteriorShowcase = () => {
                     <p className="text-white/90 text-sm sm:text-base max-w-xl leading-relaxed">
                       {interiorFeatures[0].description}
                     </p>
+                    
+                    {/* Technical specs highlight */}
+                    <div className="mt-3 text-[#c4b19c] text-xs sm:text-sm font-medium">
+                      ✓ 90% Screen-to-Body Ratio ✓ Qualcomm 8155 Chip+ ✓ 3D Mesh Suede Dash
+                    </div>
                     
                     {/* CTA link - hidden on mobile */}
                     <div className="mt-4 hidden md:block">
@@ -315,6 +320,18 @@ const InteriorShowcase = () => {
                         <p className="text-white/90 text-xs sm:text-sm leading-relaxed">
                           {feature.description}
                         </p>
+                        
+                        {/* Additional tech specs for each feature */}
+                        {feature.id === "knob" && (
+                          <div className="mt-2 text-[#c4b19c] text-xs font-medium">
+                            ✓ Intelligent Voice Assistant (IVA) ✓ WiFi Hotspot ✓ Online Navigation
+                          </div>
+                        )}
+                        {feature.id === "panels" && (
+                          <div className="mt-2 text-[#c4b19c] text-xs font-medium">
+                            ✓ Full Leather Coverage ✓ Memory & Massage ✓ Heating & Ventilation
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -329,31 +346,75 @@ const InteriorShowcase = () => {
               </motion.div>
             ))}
           </div>
+          
+          {/* Additional features highlight section */}
+          <motion.div
+            className="bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10"
+            variants={fadeIn}
+          >
+            <h3 className="text-xl sm:text-2xl font-bold text-[#524336] mb-6">
+              Premium Interior Features
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="space-y-3">
+                <h4 className="font-semibold text-[#8c735d]">Advanced Technology</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Lion LionSmartCloud system</li>
+                  <li>• Wireless/wired CarPlay + Android Auto</li>
+                  <li>• FOTA updates capability</li>
+                  <li>• Mobile APP remote control</li>
+                </ul>
+              </div>
+              
+              <div className="space-y-3">
+                <h4 className="font-semibold text-[#8c735d]">Comfort & Luxury</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• TOM wood grain decorative panel</li>
+                  <li>• Dual-zone automatic climate control</li>
+                  <li>• Panoramic sunroof with motorized sunshade</li>
+                  <li>• Multi-color ambient lighting</li>
+                </ul>
+              </div>
+              
+              <div className="space-y-3">
+                <h4 className="font-semibold text-[#8c735d]">Audio & Entertainment</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• 14 loudspeakers premium audio</li>
+                  <li>• Wireless charging for cell phones</li>
+                  <li>• Multiple USB ports (Type-A + Type-C)</li>
+                  <li>• Intelligent voice assistant</li>
+                </ul>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* CTA button */}
-        {/* <motion.div 
-          className="mt-12 sm:mt-16 lg:mt-20 text-center"
-          initial={{ opacity: 0, y: 10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+        {/* Seating configuration highlight */}
+        <motion.div
+          className="mt-12 sm:mt-16 bg-gradient-to-r from-[#8c735d]/10 to-[#524336]/10 rounded-lg p-6 sm:p-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
         >
-          <a
-            href="#view-more-features"
-            className="group inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 
-              border border-[#8c735d] text-[#8c735d] font-medium hover:bg-[#8c735d] 
-              hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
-          >
-            VIEW ALL FEATURES
-            <ArrowRight
-              size={16}
-              className="ml-2 group-hover:ml-3 transition-all duration-300"
-            />
-          </a>
-        </motion.div> */}
+          <div className="text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#524336] mb-4">
+              7-Seat Configuration (2+3+2)
+            </h3>
+            <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Spacious seating for the whole family with premium leather upholstery, 
+              individual headrests, and flexible folding options for maximum versatility.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm font-medium text-[#8c735d]">
+              <span>• Second row electric easy entry</span>
+              <span>• Third row seats fold flat manually</span>
+              <span>• Second row seat heating available</span>
+            </div>
+          </div>
+        </motion.div>
         
         {/* Bottom divider */}
-        {/* <div className="mt-16 sm:mt-20 h-px w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-[#c4b19c]/30 to-transparent"></div> */}
+        <div className="mt-16 sm:mt-20 h-px w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-[#c4b19c]/30 to-transparent"></div>
       </div>
     </section>
   );
