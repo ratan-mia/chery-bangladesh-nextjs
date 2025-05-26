@@ -13,8 +13,63 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 // Vehicle data with enhanced content structure
 const vehicleData = [
-  {
+    {
     id: 1,
+    images: [
+      {
+        src: '/images/masonary/3/1.jpg',
+        alt: 'TIGGO 9 PRO - Hybrid SUV Power',
+      },
+      {
+        src: '/images/masonary/3/2.jpg',
+        alt: 'Intelligent Cabin with 15.6" 2.5K Screen',
+      },
+      {
+        src: '/images/masonary/3/3.jpg',
+        alt: 'Luxury 7-Seater Interior Comfort',
+      },
+      {
+        src: '/images/masonary/3/4.jpg',
+        alt: 'Five-Star Safety Structure',
+      },
+      {
+        src: '/images/tiggo9pro/safety/airbag-system.jpg',
+        alt: '10 Airbags Safety System',
+      },
+      {
+        src: '/images/tiggo9pro/safety/adas.jpg',
+        alt: '19 ADAS Functions',
+      },
+      {
+        src: '/images/tiggo9pro/power.jpg',
+        alt: 'Tiger-Eye Diamond Grille Design',
+      },
+      {
+        src: '/images/tiggo9pro/cabin-banner.jpg',
+        alt: '20-inch Alloy Rims',
+      },
+    ],
+    content: {
+      title: 'TIGGO 9 PRO',
+      subtitle: 'HYBRID INTELLIGENT SUV',
+      description: 'Experience breathtaking acceleration and responsive handling with our advanced hybrid powertrain technology. The Tiggo 9 Pro combines massive power with intelligent features for the ultimate driving experience.',
+      highlights: [
+        '1.5TGDI+3DHT Hybrid System with 455kW Power',
+        '15.6" 2.5K HD Screen with 90% Screen-to-Body Ratio',
+        '19 ADAS Functions for Intelligent Driving',
+        'Global Five-Star Security Standard with 10 Airbags'
+      ],
+      specs: [
+        { name: 'Engine', value: '1.5L TGDI' },
+        { name: 'Total Power', value: '455kW' },
+        { name: 'Total Torque', value: '920Nm' },
+        { name: 'Acceleration', value: '5.7s (0-100)' }
+      ],
+      ctaLink: '/models/tiggo9pro'
+    }
+  },
+  {
+    id: 2,
     images: [
       {
         src: '/images/masonary/1/001-2.png',
@@ -69,7 +124,7 @@ const vehicleData = [
     }
   },
   {
-    id: 2,
+    id: 3,
     images: [
       {
         src: '/images/masonary/2/0081.png',
@@ -102,7 +157,7 @@ const vehicleData = [
       {
         src: '/images/masonary/2/0084.png',
         alt: 'Advanced Technology Suite',
-      },
+      }
     ],
     content: {
       title: 'TIGGO CROSS',
@@ -123,61 +178,7 @@ const vehicleData = [
       ctaLink: '/models/tiggocross'
     }
   },
-  {
-    id: 3,
-    images: [
-      {
-        src: '/images/masonary/3/1.jpg',
-        alt: 'TIGGO 9 PRO - Hybrid SUV Power',
-      },
-      {
-        src: '/images/masonary/3/2.jpg',
-        alt: 'Intelligent Cabin with 15.6" 2.5K Screen',
-      },
-      {
-        src: '/images/masonary/3/3.jpg',
-        alt: 'Luxury 7-Seater Interior Comfort',
-      },
-      {
-        src: '/images/masonary/3/4.jpg',
-        alt: 'Five-Star Safety Structure',
-      },
-      {
-        src: '/images/tiggo9pro/safety/airbag-system.jpg',
-        alt: '10 Airbags Safety System',
-      },
-      {
-        src: '/images/tiggo9pro/safety/adas.jpg',
-        alt: '19 ADAS Functions',
-      },
-      {
-        src: '/images/tiggo9pro/power.jpg',
-        alt: 'Tiger-Eye Diamond Grille Design',
-      },
-      {
-        src: '/images/tiggo9pro/cabin-banner.jpg',
-        alt: '20-inch Alloy Rims',
-      },
-    ],
-    content: {
-      title: 'TIGGO 9 PRO',
-      subtitle: 'HYBRID INTELLIGENT SUV',
-      description: 'Experience breathtaking acceleration and responsive handling with our advanced hybrid powertrain technology. The Tiggo 9 Pro combines massive power with intelligent features for the ultimate driving experience.',
-      highlights: [
-        '1.5TGDI+3DHT Hybrid System with 455kW Power',
-        '15.6" 2.5K HD Screen with 90% Screen-to-Body Ratio',
-        '19 ADAS Functions for Intelligent Driving',
-        'Global Five-Star Security Standard with 10 Airbags'
-      ],
-      specs: [
-        { name: 'Engine', value: '1.5L TGDI' },
-        { name: 'Total Power', value: '455kW' },
-        { name: 'Total Torque', value: '920Nm' },
-        { name: 'Acceleration', value: '5.7s (0-100)' }
-      ],
-      ctaLink: '/models/tiggo9pro'
-    }
-  }
+
 ];
 
 // Design system compliant animation variants
