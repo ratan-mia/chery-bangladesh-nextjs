@@ -16,7 +16,7 @@ const InteriorShowcase = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const sectionRef = useRef(null);
-  
+
   // Updated Tiggo 9 Pro interior features data - aligned with design system
   const interiorFeatures = [
     {
@@ -83,23 +83,23 @@ const InteriorShowcase = () => {
       setIsMobile(width < 640);
       setIsTablet(width >= 640 && width < 1024);
     };
-    
+
     handleResize();
-    
+
     let resizeTimer;
     const debouncedResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(handleResize, 100);
     };
-    
+
     window.addEventListener('resize', debouncedResize);
-    
+
     return () => {
       window.removeEventListener('resize', debouncedResize);
       clearTimeout(resizeTimer);
     };
   }, []);
-  
+
   // Intersection observer following design system guidelines
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -110,11 +110,11 @@ const InteriorShowcase = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
@@ -152,44 +152,44 @@ const InteriorShowcase = () => {
 
   const dividerVariants = {
     hidden: { width: 0 },
-    visible: { 
-      width: '100%', 
-      transition: { 
-        duration: 1.2, 
-        ease: [0.16, 1, 0.3, 1] 
-      } 
+    visible: {
+      width: '100%',
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1]
+      }
     }
   };
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="w-full bg-gray-100 overflow-hidden py-12 md:py-16 lg:py-24"
     >
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-20 2xl:px-24">
         {/* Section Header - Following design system typography */}
-        <motion.div 
+        <motion.div
           className="mb-12 md:mb-16 lg:mb-20"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
         >
           {/* Decorative accent line */}
-          <motion.div 
+          <motion.div
             className="w-0 h-0.5 bg-primary-light mb-6 hidden md:block"
             initial={{ width: 0 }}
             animate={isInView ? { width: 48 } : { width: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
           />
-          
+
           {/* Subtitle with proper color usage */}
-          <motion.p 
+          <motion.p
             className="text-sm md:text-base font-medium tracking-wider text-primary-700 mb-4 uppercase relative inline-block"
             variants={fadeInVariants}
           >
             <span className="relative">
               INTELLIGENT CABIN
-              <motion.span 
+              <motion.span
                 className="absolute -bottom-1 left-0 right-0 h-px bg-primary-light w-0"
                 variants={dividerVariants}
                 initial="hidden"
@@ -197,30 +197,30 @@ const InteriorShowcase = () => {
               />
             </span>
           </motion.p>
-          
+
           {/* Main heading - Design system typography */}
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight tracking-tight mb-4 md:mb-6"
             variants={fadeInVariants}
           >
-            SUPER WIDE BODY<br className="hidden md:block" /> 
+            SUPER WIDE BODY<br className="hidden md:block" />
             <span className="text-primary-900">SURROUND INTELLIGENT CABIN</span>
           </motion.h2>
-          
+
           {/* Accent divider following design system */}
-          <motion.div 
+          <motion.div
             className="h-1 w-0 bg-primary-700 mb-6 md:mb-8"
             initial={{ width: 0 }}
             animate={isInView ? { width: isMobile ? 80 : isTablet ? 120 : 140 } : { width: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           />
-          
+
           {/* Description text with proper typography */}
           <motion.p
             className="text-gray-600 text-base md:text-lg max-w-3xl leading-normal"
             variants={fadeInVariants}
           >
-            Super wide body, super comfortable, super quiet, super healthy. Experience the future of automotive luxury 
+            Super wide body, super comfortable, super quiet, super healthy. Experience the future of automotive luxury
             with advanced technology, premium materials, and intelligent design crafted for your comfort.
           </motion.p>
         </motion.div>
@@ -233,7 +233,7 @@ const InteriorShowcase = () => {
           variants={staggerContainer}
         >
           {/* Main feature image */}
-          <motion.div 
+          <motion.div
             className="relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-500 group"
             variants={fadeInVariants}
             onHoverStart={() => !isMobile && !isTablet && setActiveImage("main")}
@@ -243,9 +243,9 @@ const InteriorShowcase = () => {
             <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[75vh]">
               <motion.div
                 className="w-full h-full"
-                animate={activeImage === "main" ? 
-                  { scale: 1.05, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }} : 
-                  { scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                animate={activeImage === "main" ?
+                  { scale: 1.05, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } :
+                  { scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
                 }
               >
                 <Image
@@ -258,9 +258,9 @@ const InteriorShowcase = () => {
                   quality={95}
                 />
               </motion.div>
-              
+
               {/* Feature label overlay with design system colors */}
-              <div 
+              <div
                 className={`absolute bottom-0 left-0 bg-white/90 backdrop-blur-sm text-gray-900 py-4 md:py-6 px-6 md:px-8 
                 border-l-2 border-primary-700 transition-all duration-300 ease-in-out shadow-sm
                 ${activeImage === "main" || isMobile ? 'w-full md:w-3/4 lg:w-1/2' : 'w-auto max-w-sm'}`}
@@ -268,10 +268,10 @@ const InteriorShowcase = () => {
                 <h3 className="text-lg md:text-xl lg:text-2xl font-bold tracking-tight mb-3">
                   {interiorFeatures[0].title}
                 </h3>
-                
+
                 {(activeImage === "main" || isMobile) && (
                   <div>
-                    <motion.div 
+                    <motion.div
                       className="w-0 h-0.5 bg-primary-700 mb-4"
                       initial={{ width: 0 }}
                       animate={{ width: 48 }}
@@ -280,18 +280,18 @@ const InteriorShowcase = () => {
                     <p className="text-gray-600 text-sm md:text-base max-w-xl leading-normal mb-4">
                       {interiorFeatures[0].description}
                     </p>
-                    
+
                     {/* Technical specs highlight */}
                     <div className="mb-4 text-primary-700 text-xs md:text-sm font-medium space-y-1">
                       {interiorFeatures[0].specs.map((spec, index) => (
                         <div key={index}>• {spec}</div>
                       ))}
                     </div>
-                    
+
                     {/* CTA link - design system tertiary button */}
                     <div className="hidden md:block">
-                      <a 
-                        href="/contact" 
+                      <a
+                        href="/contact"
                         className="group inline-flex items-center text-sm font-medium text-primary-700 tracking-wider hover:text-primary-900 transition-colors duration-300"
                       >
                         LEARN MORE
@@ -304,7 +304,7 @@ const InteriorShowcase = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Gradient overlay - subtle */}
               <div className="absolute inset-0 bg-gradient-to-t from-primary-900/20 via-transparent to-transparent 
                 pointer-events-none opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
@@ -314,7 +314,7 @@ const InteriorShowcase = () => {
           {/* Secondary features grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
             {interiorFeatures.slice(1).map((feature, index) => (
-              <motion.div 
+              <motion.div
                 key={feature.id}
                 className="relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-500 group border border-gray-200 hover:border-primary-700"
                 variants={fadeInVariants}
@@ -325,9 +325,9 @@ const InteriorShowcase = () => {
                 <div className="relative w-full h-52 md:h-64 lg:h-80">
                   <motion.div
                     className="w-full h-full"
-                    animate={activeImage === feature.id ? 
-                      { scale: 1.05, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }} : 
-                      { scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    animate={activeImage === feature.id ?
+                      { scale: 1.05, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } :
+                      { scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
                     }
                   >
                     <Image
@@ -340,9 +340,9 @@ const InteriorShowcase = () => {
                       quality={90}
                     />
                   </motion.div>
-                  
+
                   {/* Feature label overlay */}
-                  <div 
+                  <div
                     className={`absolute bottom-0 left-0 bg-white/90 backdrop-blur-sm text-gray-900 
                     py-4 md:py-5 px-5 md:px-6 border-l-2 border-primary-700 transition-all duration-300 shadow-sm
                     ${activeImage === feature.id || isMobile ? 'w-full' : 'w-auto max-w-xs'}`}
@@ -350,10 +350,10 @@ const InteriorShowcase = () => {
                     <h3 className="text-base md:text-lg lg:text-xl font-bold tracking-tight mb-2">
                       {feature.title}
                     </h3>
-                    
+
                     {(activeImage === feature.id || isMobile) && (
                       <div>
-                        <motion.div 
+                        <motion.div
                           className="w-0 h-0.5 bg-primary-700 mb-3"
                           initial={{ width: 0 }}
                           animate={{ width: 48 }}
@@ -362,7 +362,7 @@ const InteriorShowcase = () => {
                         <p className="text-gray-600 text-sm leading-normal mb-3">
                           {feature.description}
                         </p>
-                        
+
                         {/* Additional tech specs */}
                         <div className="text-primary-700 text-xs font-medium space-y-1">
                           {feature.specs.map((spec, specIndex) => (
@@ -372,7 +372,7 @@ const InteriorShowcase = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary-900/20 via-transparent to-transparent 
                     pointer-events-none opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>

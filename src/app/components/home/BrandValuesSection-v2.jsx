@@ -437,6 +437,51 @@ const CheryFeaturesGrid = () => {
             </div>
           </motion.div>
         </div>
+               {/* Bottom CTA section */}
+        <motion.div
+          className="bg-primary-900 text-white p-8 lg:p-12 relative overflow-hidden"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="relative z-10 text-center lg:text-left lg:flex lg:items-center lg:justify-between">
+            <div className="mb-6 lg:mb-0">
+              <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                Ready to Experience Excellence?
+              </h3>
+              <p className="text-primary-light text-lg">
+                Schedule a test drive and discover what sets Chery apart
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 lg:flex-shrink-0">
+              <a 
+                href="#test-drive"
+                className="group inline-flex items-center px-8 py-4 bg-white text-primary-900 font-medium hover:bg-primary-light transition-colors duration-300"
+              >
+                Schedule Test Drive
+                <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+              </a>
+              <a 
+                href="#brochure"
+                className="inline-flex items-center justify-center border border-white px-8 py-4 text-white font-medium hover:bg-white hover:text-primary-900 transition-colors duration-300"
+              >
+                Download Brochure
+              </a>
+            </div>
+          </div>
+          
+          {/* Background pattern */}
+          <div className="absolute top-0 right-0 w-64 h-64 opacity-10">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <pattern id="cta-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="2" fill="currentColor" />
+              </pattern>
+              <rect width="100" height="100" fill="url(#cta-pattern)" />
+            </svg>
+          </div>
+        </motion.div>
       </div>
       
       {/* Decorative bottom border */}

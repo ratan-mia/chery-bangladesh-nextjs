@@ -299,7 +299,7 @@ const ComfortableSeatsSlider = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.7 }}
                 >
-                    <div className="flex items-start justify-center space-x-4 mb-6">
+                    <div className="flex items-center justify-center space-x-4 mb-6">
                         <div className="w-2 h-12 bg-primary-700 rounded-full"></div>
                         <div>
                             <p className="text-xs font-medium text-gray-500 tracking-wider uppercase mb-2">

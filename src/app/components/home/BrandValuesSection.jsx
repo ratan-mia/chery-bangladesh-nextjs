@@ -107,7 +107,7 @@ const CheryFeaturesGrid = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            Experience the perfect blend of technology, safety, and luxury that defines 
+            Experience the perfect blend of technology, safety, and luxury that defines
             every Chery vehicle - engineered for the modern driver who demands excellence.
           </motion.p>
         </div>
@@ -133,7 +133,7 @@ const CheryFeaturesGrid = () => {
                 {/* Feature card following design system */}
                 <div className="relative border border-gray-200 bg-white shadow-sm overflow-hidden group-hover:border-primary-700 hover:shadow-lg transition-all duration-300 h-full">
                   {/* Top accent */}
-                  <div 
+                  <div
                     className="h-1 w-full bg-primary-800 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                   />
 
@@ -224,7 +224,7 @@ const CheryFeaturesGrid = () => {
                 aria-label="Contact us for more information"
               >
                 Contact Us
-              
+
               </a>
             </div>
           </div>
