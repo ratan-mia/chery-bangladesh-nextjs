@@ -223,7 +223,8 @@ const CheryFeaturesGrid = () => {
                 className="inline-flex items-center justify-center bg-transparent border border-primary-700 text-white font-medium px-10 py-4 hover:bg-primary-700 transition-colors duration-300"
                 aria-label="Contact us for more information"
               >
-                Explore Models
+                Contact Us
+              
               </a>
             </div>
           </div>
