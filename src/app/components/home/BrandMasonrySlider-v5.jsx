@@ -6,12 +6,12 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
- * Responsive Chery Brand Masonry Slider
+ * Enhanced Chery Brand Masonry Slider
  * Strictly follows Chery Bangladesh Design System Guidelines
  * Features elegant minimalism, warm neutral palette, and premium interactions
  */
 
-// Vehicle data with enhanced content structure
+// Vehicle data with enhanced content structure and more images
 const vehicleData = [
   {
     id: 1,
@@ -505,12 +505,21 @@ export default function CheryBrandMasonrySlider({
                   <AnimatePresence>
                     {hoveredSection === `image-${index}` && (
                       <motion.div
-                        className="absolute inset-0 bg-primary-900/20"
+                        className="absolute inset-0 bg-primary-900/60 flex items-end"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                      />
+                      >
+                        <motion.p
+                          className="text-white text-sm font-medium p-4"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.1 }}
+                        >
+                          {image.alt}
+                        </motion.p>
+                      </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
