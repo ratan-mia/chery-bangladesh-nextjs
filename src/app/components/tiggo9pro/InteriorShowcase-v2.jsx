@@ -380,6 +380,71 @@ const InteriorShowcase = () => {
               </motion.div>
             ))}
           </div>
+          
+          {/* Additional features highlight section - Design system card */}
+          <motion.div
+            className="bg-white border border-gray-200 shadow-sm p-6 md:p-8 lg:p-10"
+            variants={fadeInVariants}
+          >
+            {/* Top accent */}
+            <div className="h-1 w-full bg-primary-800 opacity-40 mb-6"></div>
+            
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-8">
+              Premium Interior Features
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {premiumFeatures.map((category, index) => (
+                <div key={index} className="space-y-4">
+                  <h4 className="font-bold text-primary-900">{category.category}</h4>
+                  <ul className="text-sm text-gray-600 space-y-2">
+                    {category.items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-start">
+                        <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              
+              {/* Seating configuration as fourth column */}
+              <div className="space-y-4">
+                <h4 className="font-bold text-primary-900">7-Seat Configuration (2+3+2)</h4>
+                <ul className="text-sm text-gray-600 space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                    <span>Second row electric easy entry</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                    <span>Third row seats fold flat manually</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                    <span>Second row seat heating available</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                    <span>Premium leather upholstery</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                    <span>Individual headrests for all seats</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary-700 mr-2 flex-shrink-0">•</span>
+                    <span>Flexible folding options</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom accent line that fills on hover */}
+            <div className="h-0.5 w-full bg-gray-200 mt-8">
+              <div className="h-full bg-primary-700 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

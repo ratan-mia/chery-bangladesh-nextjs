@@ -137,54 +137,98 @@ export default function CheryTiggoSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
 
   // Models data
-  const models = [
-    {
-      name: 'Tiggo 8 Pro',
-      subtitle: 'Premium 7-Seater Luxury SUV',
-      badge: 'FLAGSHIP',
-      link: '/models/tiggo8pro',
-      image: '/images/tiggo8pro/colors/chery-green.png',
-      specs: [
-        { label: 'Engine', value: '1.6T Turbocharged', icon: Zap },
-        { label: 'Power', value: '195 BHP', icon: Sparkles },
-        { label: 'Torque', value: '290 Nm', icon: Car },
-        { label: 'Transmission', value: '7-Speed Dual Clutch', icon: Cpu }
-      ],
-      features: [
-        'Premium Luxury 7-seat SUV',
-        'Panoramic Sunroof',
-        'Multi-color Ambient System with Music Rhythm',
-        '12.3" Dual Curve Screen',
-        'Ventilated and Heated Front Seats',
-        'Wireless Phone Charging',
-        '360° Panoramic Camera'
-      ],
-      description: 'The epitome of luxury that transcends the bounds of a mere vehicle; a masterpiece that commands centre stage presence with a diamond-shaped front grille and illuminated logo that radiates elegance.'
-    },
-    {
-      name: 'Tiggo Cross',
-      subtitle: 'Modern Crossover SUV',
-      badge: 'NEW',
-      link: '/models/tiggocross',
-      image: '/images/models/tiggo-cross.png',
-      specs: [
-        { label: 'Engine', value: '1.5L Turbocharged', icon: Zap },
-        { label: 'Power', value: '145 BHP', icon: Sparkles },
-        { label: 'Torque', value: '210 Nm', icon: Car },
-        { label: 'Transmission', value: '6-Speed Dual Clutch', icon: Cpu }
-      ],
-      features: [
-        'Biomimetic Tiger Face Design',
-        '10.25" Ultra-Clear LCD Screen',
-        'Voice-Activated Panoramic Sunroof',
-        '360° Panoramic Camera View',
-        'LED Matrix Headlights',
-        'Intelligent Cruise Control',
-        'Lane Departure Warning'
-      ],
-      description: 'Sleek and aerodynamic - ready for adventure with its biomimetic tiger face design. Features a distinctive diamond-shaped grille pattern, tiger claw style headlight trim, and vertical crystal-edged marker lamps.'
+const models = [
+  {
+    name: 'Tiggo 9 Pro',
+    subtitle: 'Hybrid Electric Premium SUV',
+    badge: 'UPCOMING',
+    link: '/models/tiggo9pro',
+    image: '/images/models/tiggo9pro.png',
+    specs: [
+      { label: 'Engine', value: '1.5TGDI+3DHT Hybrid', icon: Zap },
+      { label: 'Total Power', value: '455 kW', icon: Sparkles },
+      { label: 'Total Torque', value: '920 Nm', icon: Car },
+      { label: 'Transmission', value: '3-Speed DHT', icon: Cpu }
+    ],
+    features: [
+      'Super Wide Body Intelligent Cabin',
+      '15.6" 2.5K HD Screen (90% Screen-to-Body)',
+      'Qualcomm 8155 Chip+ Processor',
+      '14 Loudspeakers Audio System',
+      'W-HUD Virtual Reality Heads Up Display',
+      'One Click Zero Gravity Seat',
+      '19 ADAS Functions',
+      'Global Five-Star Security Standard',
+      '10 Airbags Safety System',
+      '360° HD Panoramic Camera',
+      'Lion LionSmartCloud System',
+      'Remote Control via Mobile App'
+    ],
+    description: 'Experience breathtaking power and intelligence with the Tiggo 9 Pro. This hybrid electric SUV combines massive 455kW power output with advanced 3DHT technology, delivering exceptional performance and efficiency. Features tiger-eye diamond-embedded grille and cutting-edge intelligent cabin technology.',
+    additionalSpecs: {
+      seating: '7 Seats (2+3+2)',
+      batteryCapacity: '33.46 kWh',
+      electricRange: '170 KM (NEDC)',
+      fuelRange: '1300 KM',
+      acceleration: '5.7s (0-100 km/h)',
+      fuelConsumption: '6.2 KM/L (NEDC)',
+      dimensions: {
+        length: '4810 mm',
+        width: '1925 mm',
+        height: '1741 mm',
+        wheelbase: '2800 mm'
+      }
     }
-  ]
+  },
+  {
+    name: 'Tiggo 8 Pro',
+    subtitle: 'Premium 7-Seater Luxury SUV',
+    badge: 'FLAGSHIP',
+    link: '/models/tiggo8pro',
+    image: '/images/tiggo8pro/colors/chery-green.png',
+    specs: [
+      { label: 'Engine', value: '1.6T Turbocharged', icon: Zap },
+      { label: 'Power', value: '195 BHP', icon: Sparkles },
+      { label: 'Torque', value: '290 Nm', icon: Car },
+      { label: 'Transmission', value: '7-Speed Dual Clutch', icon: Cpu }
+    ],
+    features: [
+      'Premium Luxury 7-seat SUV',
+      'Panoramic Sunroof',
+      'Multi-color Ambient System with Music Rhythm',
+      '12.3" Dual Curve Screen',
+      'Ventilated and Heated Front Seats',
+      'Wireless Phone Charging',
+      '360° Panoramic Camera'
+    ],
+    description: 'The epitome of luxury that transcends the bounds of a mere vehicle; a masterpiece that commands centre stage presence with a diamond-shaped front grille and illuminated logo that radiates elegance.'
+  },
+  {
+    name: 'Tiggo Cross',
+    subtitle: 'Modern Crossover SUV',
+    badge: 'NEW',
+    link: '/models/tiggocross',
+    image: '/images/models/tiggo-cross.png',
+    specs: [
+      { label: 'Engine', value: '1.5L Turbocharged', icon: Zap },
+      { label: 'Power', value: '145 BHP', icon: Sparkles },
+      { label: 'Torque', value: '210 Nm', icon: Car },
+      { label: 'Transmission', value: '6-Speed Dual Clutch', icon: Cpu }
+    ],
+    features: [
+      'Biomimetic Tiger Face Design',
+      '10.25" Ultra-Clear LCD Screen',
+      'Voice-Activated Panoramic Sunroof',
+      '360° Panoramic Camera View',
+      'LED Matrix Headlights',
+      'Intelligent Cruise Control',
+      'Lane Departure Warning'
+    ],
+    description: 'Sleek and aerodynamic - ready for adventure with its biomimetic tiger face design. Features a distinctive diamond-shaped grille pattern, tiger claw style headlight trim, and vertical crystal-edged marker lamps.'
+  }
+]
+
+
 
   // Animation variants following design system
   const containerVariants = {

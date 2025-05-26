@@ -12,9 +12,15 @@ const CAR_DATA = {
       id: 'tiggo',
       name: 'Tiggo',
       // Default model to show when the series is selected
-      defaultModel: 'tiggo8pro',
+      defaultModel: 'tiggo9pro',
       // Series categories
       categories: [
+        {
+          id: 'tiggo9pro',
+          name: 'TIGGO 9 PRO',
+          models: [],
+          defaultExpanded: false
+        },
         {
           id: 'tiggo8pro',
           name: 'TIGGO 8 PRO',
@@ -45,7 +51,7 @@ const CAR_DATA = {
   ],
   // Car specifications data
   specs: {
-    'tiggo9': { engine: '2.0', length: '4810', wheelbase: '2800', power: '254', torque: '390' },
+    'tiggo9pro': { engine: '1.5TGDI+3DHT', length: '4810', wheelbase: '2800', power: '455', torque: '920' },
     'tiggo8': { engine: '1.8', length: '4700', wheelbase: '2710', power: '187', torque: '300' },
     'tiggo8pro': { engine: '1.6', length: '4722', wheelbase: '2710', power: '195', torque: '290' },
     'tiggo7': { engine: '1.5', length: '4500', wheelbase: '2670', power: '156', torque: '230' },
@@ -57,7 +63,7 @@ const CAR_DATA = {
   },
   // Car image paths
   imagePaths: {
-    'tiggo9': '/images/cars/tiggo9.png',
+    'tiggo9pro': '/images/cars/tiggo9pro.png',
     'tiggo8': '/images/cars/tiggo8.png',
     'tiggo8pro': '/images/cars/tiggo8pro.webp',
     'tiggo7': '/images/cars/tiggo7.png',
@@ -74,9 +80,18 @@ const AnimatedCounter = ({ value, suffix, duration = 1000 }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const counterRef = useRef(null);
   const initialValue = useRef(0);
-  const targetValue = parseFloat(value);
+  
+  // Check if value is a string or contains non-numeric characters
+  const isString = isNaN(parseFloat(value)) || typeof value === 'string' && !/^\d*\.?\d+$/.test(value.trim());
+  const targetValue = isString ? value : parseFloat(value);
 
   useEffect(() => {
+    // If it's a string, just set the display value directly
+    if (isString) {
+      setDisplayValue(value);
+      return;
+    }
+
     let startTime;
     let frameId;
 
@@ -97,8 +112,8 @@ const AnimatedCounter = ({ value, suffix, duration = 1000 }) => {
       }
     };
 
-    // Start the animation
-    initialValue.current = displayValue;
+    // Start the animation for numeric values
+    initialValue.current = typeof displayValue === 'number' ? displayValue : 0;
     frameId = requestAnimationFrame(animateValue);
 
     return () => {
@@ -106,7 +121,7 @@ const AnimatedCounter = ({ value, suffix, duration = 1000 }) => {
         cancelAnimationFrame(frameId);
       }
     };
-  }, [targetValue, duration]);
+  }, [targetValue, duration, isString, value]);
 
   return (
     <div className="text-4xl font-bold flex items-baseline mt-2 text-neutral-800">
@@ -268,7 +283,7 @@ export default function ModelsMegaMenu({
 
   const handleModelClick = (model, shouldNavigate = false) => {
     setActiveModel(model);
-    
+
     // If shouldNavigate is true, navigate to the model page instead of closing the menu
     if (!shouldNavigate) {
       // Close the menu after selecting a model

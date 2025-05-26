@@ -1,3 +1,4 @@
+
 // Tiggo 9 Pro power showcase data for 1.5TGDI variant - UPDATED WITH CORRECT SPECIFICATIONS
 export const tiggo9ProPowerData = {
     imageSrc: "/images/tiggo9pro/power.jpg",
@@ -258,6 +259,7 @@ export const tiggo9ProPowerData = {
   export const tiggo9ProFeatures = [
     {
       title: "Global five-star security standard",
+      subtitle: "Safety and Security",
       points: [
         "85% high-strength steel construction for maximum protection",
         "21% hot-formed steel for enhanced structural integrity",
@@ -274,6 +276,7 @@ export const tiggo9ProPowerData = {
     },
     {
       title: "Advanced 10 airbags safety system",
+      subtitle: "Comprehensive Airbag Protection",
       points: [
         "Comprehensive protection with far-end airbags",
         "2060mm traverse side air curtains for maximum coverage",
@@ -301,6 +304,7 @@ export const tiggo9ProPowerData = {
     },
     {
       title: "Advanced Internet of Vehicles (IoV)",
+      subtitle: "Connectivity and Remote Control",
       points: [
         "Remote vehicle control via mobile app",
         "Online navigation with real-time traffic updates",
