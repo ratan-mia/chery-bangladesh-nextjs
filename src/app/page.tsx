@@ -1,6 +1,7 @@
 "use client";
 
 import BrandValuesSection from "@components/home/BrandValuesSection";
+import BrandCoreGrid from "./components/about/BrandCoreGrid";
 import CheryBanner from "./components/CheryBanner";
 import CheryTiggoSection from "./components/CheryTiggoSection";
 import ContactSection from "./components/ContactSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <BrandValuesSection />
       <GlobalPresenceBanner />
       {/* <CheryFeaturesAccordion /> */}
+      <BrandCoreGrid />
       <CheryBanner />
 
       {/* <MasonryImageSlider /> */}
