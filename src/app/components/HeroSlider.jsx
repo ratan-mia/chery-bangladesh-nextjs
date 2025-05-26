@@ -23,15 +23,26 @@ export default function HeroSlider() {
 
   // Hero slides data - enhanced with information from the brochures
   const heroSlides = [
+
+    {
+      id: 'tiggo9pro',
+      title: 'TIGGO 9 PRO',
+      subtitle: 'MASSIVE POWER',
+      description: 'Experience breathtaking acceleration with 455kW motor power and 920Nm torque',
+      image: '/images/tiggo9pro/hero-slider/tiggo9pro.jpg',
+      color: '#918678',
+      link: '/models/tiggo9pro'
+    },
     {
       id: 'tiggo8pro',
       title: 'TIGGO 8 PRO',
       subtitle: 'Enjoy Your First Class',
       description: 'The epitome of luxury with 195 BHP and premium 7-seat configuration',
       image: '/images/tiggo8pro/hero-slider/tiggo-8pro-banner.jpg',
-      color: '#b7a99a', 
+      color: '#b7a99a',
       link: '/models/tiggo8pro'
     },
+
     {
       id: 'tiggocross',
       title: 'TIGGO CROSS',
@@ -41,6 +52,15 @@ export default function HeroSlider() {
       color: '#b7a99a',
       link: '/models/tiggocross'
     },
+    // {
+    //   id: 'tiggo9pro2',
+    //   title: 'TIGGO 9 PRO',
+    //   subtitle: 'INTELLIGENT CABIN',
+    //   description: 'Super wide body surround with 15.6" 2.5K HD screen and Qualcomm 8155 chip',
+    //   image: '/images/tiggo9pro/cabin-banner.jpg',
+    //   color: '#ac8975',
+    //   link: '/models/tiggo9pro'
+    // },
     {
       id: 'tiggocross2',
       title: 'TIGGO CROSS',
@@ -50,13 +70,22 @@ export default function HeroSlider() {
       color: '#b7a99a',
       link: '/models/tiggocross'
     },
+    // {
+    //   id: 'tiggo9pro3',
+    //   title: 'TIGGO 9 PRO',
+    //   subtitle: 'COMFORT AND QUIET',
+    //   description: 'Unparalleled comfort with 7-seat configuration and 1300KM range on fuel',
+    //   image: '/images/tiggo9pro/comfort-banner.jpg',
+    //   color: '#b7a99a',
+    //   link: '/models/tiggo9pro'
+    // },
     {
       id: 'tiggo8pro2',
       title: 'TIGGO 8 PRO',
       subtitle: 'First Class Cabin',
       description: 'Luxurious leather interior with dual 12.3" screens and panoramic sunroof',
       image: '/images/tiggo8pro/hero-slider/tiggo-8-pro.jpg',
-      color: '#b7a99a', 
+      color: '#b7a99a',
       link: '/models/tiggo8pro'
     }
   ]
@@ -76,12 +105,12 @@ export default function HeroSlider() {
       swiperRef.current.swiper.slideTo(index)
     }
   }
-  
+
   // Progress bar animation
   const resetProgress = () => {
     setSlideProgress(0)
     clearInterval(progressIntervalRef.current)
-    
+
     if (!isPaused) {
       progressIntervalRef.current = setInterval(() => {
         setSlideProgress(prev => {
@@ -91,7 +120,7 @@ export default function HeroSlider() {
       }, 100)
     }
   }
-  
+
   // Handle autoplay pause/resume
   const toggleAutoplay = () => {
     if (swiperRef.current && swiperRef.current.swiper) {
@@ -105,7 +134,7 @@ export default function HeroSlider() {
       setIsPaused(!isPaused)
     }
   }
-  
+
   // Set up navigation refs when the component mounts
   useEffect(() => {
     if (swiperRef.current && navigationPrevRef.current && navigationNextRef.current) {
@@ -113,16 +142,16 @@ export default function HeroSlider() {
       swiperRef.current.swiper.navigation.update()
     }
   }, [])
-  
+
   // Cleanup interval on unmount
   useEffect(() => {
     resetProgress()
-    
+
     return () => {
       clearInterval(progressIntervalRef.current)
     }
   }, [])
-  
+
   return (
     <div className="relative w-full h-[calc(100vh-64px)] min-h-[500px]">
       {/* Main Slider */}
@@ -152,7 +181,7 @@ export default function HeroSlider() {
           <SwiperSlide key={slide.id} className="relative w-full h-full">
             {/* Clean flat gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-10"></div>
-            
+
             {/* Background image */}
             <div className="absolute inset-0 w-full h-full">
               <Image
@@ -164,13 +193,13 @@ export default function HeroSlider() {
                 className="object-cover object-center"
               />
             </div>
-            
+
             {/* Content - positioned higher up in the slider */}
             <div className="absolute inset-0 flex flex-col justify-center z-20 p-4 sm:p-6 md:p-10 lg:p-16 pb-20 sm:pb-24">
               <div className="max-w-xl">
                 {/* Model name with top accent line */}
                 <div className="mb-2 sm:mb-4">
-                  <div 
+                  <div
                     className="w-8 sm:w-12 h-1 mb-2 sm:mb-4"
                     style={{ backgroundColor: slide.color }}
                   ></div>
@@ -178,23 +207,23 @@ export default function HeroSlider() {
                     {slide.title}
                   </h2>
                 </div>
-                
+
                 {/* Subtitle and description */}
                 <p className="text-lg sm:text-xl md:text-2xl text-white font-light mb-1 sm:mb-2">{slide.subtitle}</p>
                 <p className="text-sm sm:text-base text-gray-200 mb-4 sm:mb-6 md:mb-8 max-w-md">{slide.description}</p>
-                
+
                 {/* CTA button with accent color */}
                 <Link href={slide.link}>
-                  <button 
+                  <button
                     className="group px-6 sm:px-8 md:px-10 py-2 sm:py-3 cursor-pointer text-white uppercase tracking-wider text-xs sm:text-sm font-medium transition-all duration-300 flex items-center"
                     style={{ backgroundColor: slide.color }}
                   >
                     Explore
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className="h-3 w-3 sm:h-4 sm:w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-3 w-3 sm:h-4 sm:w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
                       stroke="currentColor"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -206,7 +235,7 @@ export default function HeroSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
-      
+
       {/* Fixed bottom controls bar */}
       <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col sm:flex-row justify-between items-center border-t border-white/10 bg-black/20 backdrop-blur-sm h-auto sm:h-16">
         {/* Progress indicators */}
@@ -217,7 +246,7 @@ export default function HeroSlider() {
               {heroSlides.map((_, index) => {
                 const realIndex = index % heroSlides.length
                 const isCurrent = realIndex === activeIndex % heroSlides.length
-                
+
                 return (
                   <button
                     key={index}
@@ -225,22 +254,21 @@ export default function HeroSlider() {
                     className="group relative h-full flex items-center cursor-pointer"
                     aria-label={`Go to slide ${index + 1}`}
                   >
-                    <span 
-                      className={`block w-5 sm:w-6 md:w-8 h-[2px] transition-all ${
-                        isCurrent ? 'bg-white' : 'bg-white/30 group-hover:bg-white/50'
-                      }`}
+                    <span
+                      className={`block w-5 sm:w-6 md:w-8 h-[2px] transition-all ${isCurrent ? 'bg-white' : 'bg-white/30 group-hover:bg-white/50'
+                        }`}
                     ></span>
-                    
+
                     {/* Progress overlay for current slide */}
                     {isCurrent && (
-                      <span 
+                      <span
                         className="absolute left-0 top-0 h-full flex items-center pointer-events-none"
                         style={{
                           width: `${slideProgress}%`,
                           maxWidth: '100%'
                         }}
                       >
-                        <span 
+                        <span
                           className="block w-full h-[2px]"
                           style={{ backgroundColor: heroSlides[realIndex].color }}
                         ></span>
@@ -250,9 +278,9 @@ export default function HeroSlider() {
                 )
               })}
             </div>
-            
+
             {/* Pause/Play button */}
-            <button 
+            <button
               onClick={toggleAutoplay}
               className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors"
               aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
@@ -269,7 +297,7 @@ export default function HeroSlider() {
             </button>
           </div>
         </div>
-        
+
         {/* Navigation and counter */}
         <div className="flex items-center h-10 sm:h-full w-full sm:w-auto border-t sm:border-t-0 border-white/10">
           {/* Slide counter */}
@@ -280,10 +308,10 @@ export default function HeroSlider() {
               <span className="text-xs sm:text-sm opacity-50">{heroSlides.length}</span>
             </span>
           </div>
-          
+
           {/* Navigation buttons */}
           <div className="flex h-full flex-1 sm:flex-auto">
-            <button 
+            <button
               ref={navigationPrevRef}
               className="flex-1 sm:flex-auto w-12 sm:w-16 h-full flex items-center justify-center border-r border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
             >
@@ -291,7 +319,7 @@ export default function HeroSlider() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button 
+            <button
               ref={navigationNextRef}
               className="flex-1 sm:flex-auto w-12 sm:w-16 h-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/5 transition-colors"
             >
@@ -302,7 +330,7 @@ export default function HeroSlider() {
           </div>
         </div>
       </div>
-      
+
       {/* Model name indicator */}
       {/* <div className="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-10 lg:left-16 z-30">
         <div 
