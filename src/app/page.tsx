@@ -16,13 +16,11 @@ export default function Home() {
 
       <HeroSlider />
       <CheryTiggoSection />
-      <BrandValuesSection />
       <BrandCoreGrid />
+      <BrandValuesSection />
       <GlobalPresenceBanner />
       {/* <CheryFeaturesAccordion /> */}
-
       <CheryBanner />
-
       {/* <MasonryImageSlider /> */}
       <BrandMasonrySlider />
       <NewsSection />
