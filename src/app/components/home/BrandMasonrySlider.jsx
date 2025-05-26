@@ -1,26 +1,25 @@
-'use client'
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion"
-import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import Image from 'next/image';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/effect-fade'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+/**
+ * Enhanced Chery Brand Masonry Slider
+ * Strictly follows Chery Bangladesh Design System Guidelines
+ * Features elegant minimalism, warm neutral palette, and premium interactions
+ */
 
-// Vehicle data - moved outside component for better organization
+// Vehicle data with enhanced content structure and more images
 const vehicleData = [
   {
     id: 1,
-    hero: {
-      src: '/images/masonary/1/001-2.png', 
-      alt: 'TIGGO 8 PRO - Premium 7-Seater SUV',
-    },
     images: [
+      {
+        src: '/images/masonary/1/001-2.png',
+        alt: 'TIGGO 8 PRO - Premium 7-Seater SUV',
+      },
       {
         src: '/images/masonary/1/002-2.png',
         alt: 'Illuminating Chery Front Logo',
@@ -31,54 +30,54 @@ const vehicleData = [
       },
       {
         src: '/images/masonary/1/004-2.png',
-        alt: 'LED Headlights',
+        alt: 'LED Headlights with DRL',
       },
       {
         src: '/images/masonary/1/001-2.png',
         alt: 'Panoramic Power Sunroof',
       },
+      {
+        src: '/images/masonary/1/002-2.png',
+        alt: 'Premium Interior Design',
+      },
+      {
+        src: '/images/masonary/1/003-2.png',
+        alt: 'Advanced Safety Features',
+      },
+      {
+        src: '/images/masonary/1/004-2.png',
+        alt: 'Sporty Exterior Profile',
+      },
     ],
     content: {
       title: 'TIGGO 8 PRO',
-      subtitle: 'FIRST CLASS',
-      description: 'The Tiggo 8 Pro is the epitome of luxury that transcends the bounds of a mere vehicle; a masterpiece that commands centre stage presence. Its diamond-shaped front grille gleams like a finely cut jewel, while the illuminated logo radiates an aura of refinement.',
+      subtitle: 'PREMIUM 7-SEATER SUV',
+      description: 'The Tiggo 8 Pro represents the pinnacle of luxury and sophistication. Its diamond-shaped front grille and illuminated logo create an unmistakable presence that commands attention on every journey.',
       highlights: [
-        'Turbocharged 1600cc high compression engine',
-        'State-of-the-art 195 BHP and 290Nm of torque',
-        '207mm ground clearance for all terrains',
-        'Elegant LED daytime running lamps'
+        '1.6L Turbocharged Engine with 195 BHP',
+        'Advanced CVT Transmission',
+        '207mm Ground Clearance',
+        'Premium LED Lighting System'
       ],
       specs: [
-        {
-          name: 'Engine',
-          value: '1.6L Turbocharged'
-        },
-        {
-          name: 'Power',
-          value: '195 BHP'
-        },
-        {
-          name: 'Torque',
-          value: '290Nm'
-        },
-        {
-          name: 'Ground Clearance',
-          value: '207mm'
-        }
+        { name: 'Engine', value: '1.6L Turbo' },
+        { name: 'Power', value: '195 BHP' },
+        { name: 'Torque', value: '290Nm' },
+        { name: 'Seats', value: '7 Seater' }
       ],
       ctaLink: '/models/tiggo8pro'
     }
   },
   {
     id: 2,
-    hero: {
-      src: '/images/masonary/2/0081.png',
-      alt: 'TIGGO CROSS - Ultimate Crossover',
-    },
     images: [
       {
+        src: '/images/masonary/2/0081.png',
+        alt: 'TIGGO CROSS - Ultimate Crossover',
+      },
+      {
         src: '/images/masonary/2/0082.png',
-        alt: 'Starry Diamond-Shaped Grille Pattern',
+        alt: 'Starry Diamond-Shaped Grille',
       },
       {
         src: '/images/masonary/2/0083.png',
@@ -86,56 +85,74 @@ const vehicleData = [
       },
       {
         src: '/images/masonary/2/0084.png',
-        alt: 'Panoramic Sunroof',
+        alt: 'Panoramic Sunroof Interior',
       },
       {
         src: '/images/masonary/2/0081.png',
-        alt: 'Tiggo Cross Exterior',
+        alt: 'Tiggo Cross Profile View',
+      },
+      {
+        src: '/images/masonary/2/0082.png',
+        alt: 'Sophisticated Dashboard',
+      },
+      {
+        src: '/images/masonary/2/0083.png',
+        alt: 'Premium Leather Seats',
+      },
+      {
+        src: '/images/masonary/2/0084.png',
+        alt: 'Advanced Technology Suite',
       },
     ],
     content: {
       title: 'TIGGO CROSS',
-      subtitle: 'FIRST CLASS CROSSOVER',
-      description: 'Enveloping you in absolute luxury and comfort is the plush leather upholstery that\'s hand-stitched to perfection on the seats, steering wheel, and other key touchpoints. Elevating that first class feeling further is the ambient lighting.',
+      subtitle: 'DYNAMIC CROSSOVER',
+      description: 'Experience absolute luxury with hand-stitched leather upholstery and sophisticated ambient lighting. The Tiggo Cross delivers first-class comfort with distinctive biomimetic design elements.',
       highlights: [
-        'Distinctive biomimetic tiger face design',
-        'Aggressive tiger claw style headlight trim',
-        'Sleek and aerodynamic silhouette',
-        'Comprehensive 7 airbag configuration'
+        'Biomimetic Tiger Face Design',
+        'Tiger Claw Style Headlights',
+        'Comprehensive 7 Airbag System',
+        '6-Speaker Sony Audio System'
       ],
       specs: [
-        {
-          name: 'Display',
-          value: '10.25-inch LCD'
-        },
-        {
-          name: 'Audio',
-          value: '6-speaker Sony'
-        },
-        {
-          name: 'Safety',
-          value: '7 Airbags'
-        },
-        {
-          name: 'Colors',
-          value: '4 Options'
-        }
+        { name: 'Display', value: '10.25" LCD' },
+        { name: 'Audio', value: '6-Speaker' },
+        { name: 'Safety', value: '7 Airbags' },
+        { name: 'Colors', value: '4 Options' }
       ],
       ctaLink: '/models/tiggocross'
     }
   }
-]
+];
 
-// Animation variants defined outside component for better organization
+// Design system compliant animation variants
 const animations = {
+  container: {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        duration: 0.7,
+      },
+    },
+  },
+  item: {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 },
+    },
+  },
   image: {
     hidden: { opacity: 0, scale: 0.95 },
     visible: (i) => ({
       opacity: 1,
       scale: 1,
       transition: {
-        delay: i * 0.15,
-        duration: 0.6,
+        delay: i * 0.1,
+        duration: 0.5,
         ease: "easeOut"
       },
     }),
@@ -147,610 +164,414 @@ const animations = {
       y: 0,
       transition: {
         delay: 0.2 + (i * 0.1),
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    })
-  },
-  highlight: {
-    hidden: { opacity: 0, x: -10 },
-    visible: (i) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: 0.6 + (i * 0.1),
-        duration: 0.4
+        duration: 0.5
       }
     })
   }
-}
+};
 
-export default function CheryBrandMasonrySlider({ 
+export default function CheryBrandMasonrySlider({
   showNavigation = true,
-  autoplayDuration = 5000,
-  primaryLight = "#c4b19c",
-  primary700 = "#8c735d",
-  primary800 = "#b7a99a",
-  primary900 = "#524336"
+  autoplayDuration = 6000,
+  className = ''
 }) {
   // State management
-  const [isMounted, setIsMounted] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [slideProgress, setSlideProgress] = useState(0)
-  const [hoveredSection, setHoveredSection] = useState(null)
-  const [isPaused, setIsPaused] = useState(false)
-  const [breakpoint, setBreakpoint] = useState("desktop")
-  const [orientation, setOrientation] = useState("landscape")
-  
-  // Refs
-  const swiperRef = useRef(null)
-  const progressIntervalRef = useRef(null)
+  const [isMounted, setIsMounted] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [slideProgress, setSlideProgress] = useState(0);
+  const [hoveredSection, setHoveredSection] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Reset and start progress animation with improved implementation
+  // Refs
+  const progressIntervalRef = useRef(null);
+  const autoplayTimeoutRef = useRef(null);
+
+  // Progress and autoplay management
   const resetProgress = useCallback(() => {
-    setSlideProgress(0)
-    clearInterval(progressIntervalRef.current)
-    
+    setSlideProgress(0);
+    clearInterval(progressIntervalRef.current);
+    clearTimeout(autoplayTimeoutRef.current);
+
     if (!isPaused) {
+      // Start progress animation
       progressIntervalRef.current = setInterval(() => {
         setSlideProgress(prev => {
-          const newProgress = prev + (100 / (autoplayDuration / 100))
-          return newProgress >= 100 ? 100 : newProgress
-        })
-      }, 100)
+          const increment = 100 / (autoplayDuration / 100);
+          const newProgress = prev + increment;
+          return newProgress >= 100 ? 100 : newProgress;
+        });
+      }, 100);
+
+      // Set autoplay timeout
+      autoplayTimeoutRef.current = setTimeout(() => {
+        if (!isPaused) {
+          nextSlide();
+        }
+      }, autoplayDuration);
     }
-  }, [autoplayDuration, isPaused])
-  
-  // Memoized slide change handler
-  const handleSlideChange = useCallback((swiper) => {
-    setActiveIndex(swiper.realIndex)
-    resetProgress()
-  }, [resetProgress])
-  
+  }, [autoplayDuration, isPaused]);
+
+  // Navigation functions
+  const goToSlide = useCallback((index) => {
+    if (isTransitioning || index === activeIndex) return;
+    
+    setIsTransitioning(true);
+    setActiveIndex(index);
+    resetProgress();
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 600);
+  }, [activeIndex, isTransitioning, resetProgress]);
+
+  const nextSlide = useCallback(() => {
+    const nextIndex = (activeIndex + 1) % vehicleData.length;
+    goToSlide(nextIndex);
+  }, [activeIndex, goToSlide]);
+
+  const prevSlide = useCallback(() => {
+    const prevIndex = activeIndex === 0 ? vehicleData.length - 1 : activeIndex - 1;
+    goToSlide(prevIndex);
+  }, [activeIndex, goToSlide]);
+
   // Pause/resume autoplay
   const togglePause = useCallback(() => {
     setIsPaused(prev => {
-      const newState = !prev
+      const newState = !prev;
       if (newState) {
-        // Pause
-        clearInterval(progressIntervalRef.current)
-        swiperRef.current?.autoplay.stop()
+        clearInterval(progressIntervalRef.current);
+        clearTimeout(autoplayTimeoutRef.current);
       } else {
-        // Resume
-        resetProgress()
-        swiperRef.current?.autoplay.start()
+        resetProgress();
       }
-      return newState
-    })
-  }, [resetProgress])
-  
-  // Enhanced responsive breakpoint detection
-  const updateBreakpoints = useCallback(() => {
-    const width = window.innerWidth
-    const height = window.innerHeight
-    setOrientation(width > height ? "landscape" : "portrait")
-    
-    if (width < 640) {
-      setBreakpoint("mobile")
-    } else if (width < 1024) {
-      setBreakpoint("tablet")
-    } else if (width < 1280) {
-      setBreakpoint("desktop")
-    } else {
-      setBreakpoint("large")
-    }
-  }, [])
-  
-  // Navigate to a specific slide with animation reset
-  const goToSlide = useCallback((index) => {
-    if (swiperRef.current) {
-      swiperRef.current.slideTo(index + 1)
-      resetProgress()
-    }
-  }, [resetProgress])
-  
-  // Navigate to previous slide
-  const prevSlide = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev()
-      resetProgress()
-    }
-  }, [resetProgress])
-  
-  // Navigate to next slide
-  const nextSlide = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext()
-      resetProgress()
-    }
-  }, [resetProgress])
-  
-  // Handle keyboard navigation
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'ArrowLeft') {
-      prevSlide()
-    } else if (e.key === 'ArrowRight') {
-      nextSlide()
-    } else if (e.key === ' ' || e.key === 'Spacebar') {
-      togglePause()
-      e.preventDefault()
-    }
-  }, [prevSlide, nextSlide, togglePause])
-  
-  // Mount effect with cleanup
-  useEffect(() => {
-    setIsMounted(true)
-    updateBreakpoints()
-    resetProgress()
-    
-    // Add event listeners
-    window.addEventListener('resize', updateBreakpoints)
-    window.addEventListener('orientationchange', updateBreakpoints)
-    window.addEventListener('keydown', handleKeyDown)
-    
-    // Cleanup function
-    return () => {
-      clearInterval(progressIntervalRef.current)
-      window.removeEventListener('resize', updateBreakpoints)
-      window.removeEventListener('orientationchange', updateBreakpoints)
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [resetProgress, updateBreakpoints, handleKeyDown])
-  
-  // Reset progress when autoplay duration changes
-  useEffect(() => {
-    resetProgress()
-  }, [autoplayDuration, resetProgress])
-  
-  // Helper functions for responsive design
-  const getSlideHeight = () => {
-    switch (breakpoint) {
-      case "mobile":
-        return { 
-          hero: "45vh",
-          grid: "35vh"
-        }
-      case "tablet":
-        return orientation === "portrait" 
-          ? { hero: "40vh", grid: "40vh" } 
-          : { hero: "55vh", grid: "45vh" }
-      case "desktop":
-        return { hero: "70vh", grid: "70vh" }
-      case "large":
-        return { hero: "80vh", grid: "80vh" }
-      default:
-        return { hero: "60vh", grid: "60vh" }
-    }
-  }
-  
-  const getHighlightCount = () => {
-    switch (breakpoint) {
-      case "mobile": return 2
-      case "tablet": return 3
-      default: return 4
-    }
-  }
-  
-  // Skip client-side rendering for SSR compatibility
-  if (!isMounted) {
-    return null
-  }
-  
-  // Get responsive dimensions
-  const heights = getSlideHeight()
-  const highlightCount = getHighlightCount()
-  const isMobile = breakpoint === "mobile"
-  const isTablet = breakpoint === "tablet"
+      return newState;
+    });
+  }, [resetProgress]);
 
-  // Custom overlay colors - deeper and more prominent for better text visibility
-  const overlayColors = {
-    base: "#8c735d", // Deeper brown color
-    text: "#ffffff", // White text for contrast
-    accent: "#e8d5bf" // Light accent for highlights
+  // Keyboard navigation
+  const handleKeyDown = useCallback((e) => {
+    switch (e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        prevSlide();
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        nextSlide();
+        break;
+      case ' ':
+      case 'Spacebar':
+        e.preventDefault();
+        togglePause();
+        break;
+    }
+  }, [prevSlide, nextSlide, togglePause]);
+
+  // Mount and cleanup effects
+  useEffect(() => {
+    setIsMounted(true);
+    resetProgress();
+
+    // Add keyboard listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearInterval(progressIntervalRef.current);
+      clearTimeout(autoplayTimeoutRef.current);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [resetProgress, handleKeyDown]);
+
+  // Reset progress when dependencies change
+  useEffect(() => {
+    if (isMounted) {
+      resetProgress();
+    }
+  }, [activeIndex, isPaused, autoplayDuration, resetProgress, isMounted]);
+
+  if (!isMounted) {
+    return null; // Prevent hydration mismatch
   }
-  
+
+  const currentVehicle = vehicleData[activeIndex];
+
   return (
-    <div 
-      className="relative w-full overflow-hidden bg-gray-100"
+    <section 
+      className={`relative w-full bg-gray-100 overflow-hidden ${className}`}
       role="region"
       aria-label="Vehicle Showcase"
       aria-roledescription="carousel"
-      data-breakpoint={breakpoint}
-      data-orientation={orientation}
     >
-      {/* Enhanced background texture */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-5 mix-blend-soft-light">
-        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <pattern id="grid-pattern" width="16" height="16" patternUnits="userSpaceOnUse">
-            <path d="M 16 0 L 0 0 0 16" fill="none" stroke={primary800} strokeWidth="0.5" opacity="0.3" />
-          </pattern>
-          <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-        </svg>
+      {/* Enhanced Controls */}
+      <div className="absolute top-6 right-6 z-30 flex items-center space-x-3">
+        {/* Autoplay toggle */}
+        <motion.button
+          onClick={togglePause}
+          className="bg-white/90 backdrop-blur-sm border border-gray-200 p-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-700"
+          aria-label={isPaused ? "Resume slideshow" : "Pause slideshow"}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isPaused ? (
+            <Play size={16} className="text-primary-900" />
+          ) : (
+            <Pause size={16} className="text-primary-900" />
+          )}
+        </motion.button>
+
+        {/* Progress indicator */}
+        <div className="flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-gray-200 px-3 py-2 rounded-full shadow-sm">
+          <span className="text-xs font-medium text-gray-900">
+            {String(activeIndex + 1).padStart(2, '0')} / {String(vehicleData.length).padStart(2, '0')}
+          </span>
+        </div>
       </div>
-      
-      {/* Pause/Play button */}
-      <button
-        onClick={togglePause}
-        className="absolute top-4 right-4 z-30 bg-white/80 hover:bg-white p-2 rounded-full shadow-md backdrop-blur-sm transition-all duration-200"
-        aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
-      >
-        {isPaused ? <Play size={16} /> : <Pause size={16} />}
-      </button>
-      
-      <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        modules={[Navigation, Pagination, EffectFade, Autoplay]}
-        navigation={false}
-        pagination={false}
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
-        autoplay={{
-          delay: autoplayDuration,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        speed={800}
-        onSlideChange={handleSlideChange}
-        className="w-full h-auto"
-        a11y={{
-          enabled: true,
-          prevSlideMessage: 'Previous slide',
-          nextSlideMessage: 'Next slide',
-        }}
-      >
-        {vehicleData.map((vehicle, slideIndex) => (
-          <SwiperSlide 
-            key={vehicle.id} 
-            className="w-full"
-            role="group"
-            aria-label={`${slideIndex + 1} of ${vehicleData.length}: ${vehicle.content.title}`}
-            aria-roledescription="slide"
+
+      {/* Main Content */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentVehicle.id}
+          className="grid lg:grid-cols-12 min-h-[70vh] lg:min-h-[80vh]"
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={animations.container}
+        >
+          {/* Content Section - 4 columns (Left) */}
+          <motion.div
+            className="lg:col-span-4 bg-primary-600 p-8 md:p-12 lg:p-16 flex flex-col justify-center order-1 lg:order-1"
+            variants={animations.item}
           >
-            {/* Responsive layout container - Customized grid with 1/3 text and 2/3 image grid */}
-            <div className={`grid ${breakpoint === "mobile" || (breakpoint === "tablet" && orientation === "portrait") 
-              ? "grid-cols-1" 
-              : "lg:grid-cols-3"}`}>
-              
-              {/* Left column - Hero image */}
-              <div 
-                className={`${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:col-span-1" : ""} relative overflow-hidden`} 
-                style={{ height: heights.hero }}
-              >
-                {/* Main background image */}
-                <motion.div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${vehicle.hero.src})`,
-                  }}
-                  initial={{ scale: 1.1 }}
-                  animate={{ 
-                    scale: hoveredSection === 'hero' ? 1.05 : 1,
-                  }}
-                  transition={{ duration: 0.7 }}
-                  role="presentation"
-                />
-                
-                {/* Improved overlay for hero image */}
-                <motion.div 
-                  className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.6 }}
-                  transition={{ duration: 0.5 }}
-                  style={{ 
-                    background: `linear-gradient(to top, 
-                      ${overlayColors.base}ee 0%, 
-                      ${overlayColors.base}cc 50%, 
-                      ${overlayColors.base}88 75%,
-                      transparent 100%)`,
-                  }}
-                />
-                
-                <div 
-                  className="absolute inset-0 flex items-center justify-center"
-                  onMouseEnter={() => !isMobile && setHoveredSection('hero')}
-                  onMouseLeave={() => !isMobile && setHoveredSection(null)}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center"
+            <motion.div variants={animations.text} custom={0}>
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 rounded">
+                <span className="text-white font-bold text-lg">
+                  {String(activeIndex + 1).padStart(2, '0')}
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.h2
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight"
+              variants={animations.text}
+              custom={1}
+            >
+              {currentVehicle.content.title}
+            </motion.h2>
+
+            <motion.p
+              className="text-lg md:text-xl text-primary-light font-medium mb-6"
+              variants={animations.text}
+              custom={2}
+            >
+              {currentVehicle.content.subtitle}
+            </motion.p>
+
+            <motion.div
+              className="w-24 h-1 bg-white mb-8"
+              variants={animations.text}
+              custom={3}
+            />
+
+            <motion.p
+              className="text-white/90 mb-8 leading-normal"
+              variants={animations.text}
+              custom={4}
+            >
+              {currentVehicle.content.description}
+            </motion.p>
+
+            {/* Feature highlights */}
+            <motion.div className="mb-8" variants={animations.text} custom={5}>
+              <ul className="space-y-3">
+                {currentVehicle.content.highlights.map((highlight, index) => (
+                  <motion.li
+                    key={index}
+                    className="flex items-start text-white/80"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.8 + (index * 0.1), duration: 0.3 }}
                   >
-                    <img 
-                      src="/images/logo.png" 
-                      alt="Chery Logo" 
-                      className="w-16 h-16 md:w-20 md:h-20 object-contain"
-                    />
-                  </motion.div>
-                </div>
-                
-              {/* Middle column - Text content */}
-              <div 
-                className={`${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:col-span-1" : ""} relative overflow-hidden flex flex-col justify-center`}
-                style={{ 
-                  height: breakpoint === "mobile" ? "auto" : heights.hero,
-                  backgroundColor: overlayColors.base,
-                  padding: isMobile ? "1.5rem" : isTablet ? "2rem" : "3rem"
-                }}
+                    <div className="w-2 h-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0" />
+                    <span>{highlight}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.a
+              href={currentVehicle.content.ctaLink}
+              className="group inline-flex items-center px-8 py-4 bg-white text-primary-900 font-medium hover:bg-primary-light hover:text-primary-900 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-800"
+              variants={animations.text}
+              custom={6}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              LEARN MORE
+              <svg 
+                className="ml-2 group-hover:ml-3 transition-all duration-300" 
+                width="16" 
+                height="16" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
               >
-                <div className="relative z-10">
-                  {/* Accent bar */}
-                  <motion.div 
-                    className="h-1 mb-3 md:mb-6"
-                    style={{ backgroundColor: overlayColors.accent }}
-                    initial={{ width: 0 }}
-                    animate={{ width: isMobile ? '40px' : isTablet ? '60px' : '80px' }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </motion.a>
+          </motion.div>
+
+          {/* Image Grid - 8 columns (Right) - 2×2 Grid */}
+          <motion.div
+            className="lg:col-span-8 grid grid-cols-2 grid-rows-2 order-2 lg:order-2"
+            variants={animations.item}
+          >
+            {currentVehicle.images.slice(0, 4).map((image, index) => (
+              <motion.div
+                key={index}
+                className="relative overflow-hidden group"
+                variants={animations.image}
+                custom={index}
+                onMouseEnter={() => setHoveredSection(`image-${index}`)}
+                onMouseLeave={() => setHoveredSection(null)}
+              >
+                <div className="relative w-full h-full min-h-[35vh] lg:min-h-[40vh]">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 40vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   
-                  {/* Vehicle title */}
-                  <motion.h2
-                    custom={0}
-                    variants={animations.text}
-                    initial="hidden"
-                    animate="visible"
-                    className={`${isMobile ? "text-xl" : isTablet ? "text-2xl md:text-3xl" : "text-3xl md:text-4xl lg:text-5xl"} font-bold mb-1 md:mb-2`}
-                    style={{ color: overlayColors.text }}
-                  >
-                    {vehicle.content.title}
-                  </motion.h2>
-                  
-                  {/* Vehicle subtitle */}
-                  <motion.p
-                    custom={1}
-                    variants={animations.text}
-                    initial="hidden"
-                    animate="visible"
-                    className={`${isMobile ? "text-sm" : isTablet ? "text-base md:text-lg" : "text-lg md:text-xl lg:text-2xl"} font-light mb-2 md:mb-4`}
-                    style={{ color: overlayColors.text }}
-                  >
-                    {vehicle.content.subtitle}
-                  </motion.p>
-                  
-                  {/* Vehicle description - now visible on all devices */}
-                  <motion.p
-                    custom={2}
-                    variants={animations.text}
-                    initial="hidden"
-                    animate="visible"
-                    className={`${isMobile ? "text-xs" : isTablet ? "text-sm" : "text-sm md:text-base"} mb-4 md:mb-6`}
-                    style={{ color: overlayColors.text }}
-                  >
-                    {vehicle.content.description}
-                  </motion.p>
-                  
-                  {/* Feature highlights */}
-                  <div className="space-y-1 md:space-y-2 mb-3 md:mb-6">
-                    {vehicle.content.highlights.slice(0, highlightCount).map((item, idx) => (
-                      <motion.div 
-                        key={idx}
-                        custom={idx}
-                        variants={animations.highlight}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex items-center"
+                  {/* Hover overlay */}
+                  <AnimatePresence>
+                    {hoveredSection === `image-${index}` && (
+                      <motion.div
+                        className="absolute inset-0 bg-primary-900/60 flex items-end"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <div 
-                          className={`${isMobile ? "w-1 h-1" : "w-1.5 h-1.5"} rounded-full mr-2`} 
-                          style={{ backgroundColor: overlayColors.accent }}
-                          aria-hidden="true"
-                        ></div>
-                        <p 
-                          className={`${isMobile ? "text-xs" : isTablet ? "text-xs md:text-sm" : "text-sm md:text-base"}`}
-                          style={{ color: overlayColors.text }}
+                        <motion.p
+                          className="text-white text-sm font-medium p-4"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.1 }}
                         >
-                          {item}
-                        </p>
+                          {image.alt}
+                        </motion.p>
                       </motion.div>
-                    ))}
-                  </div>
-                  
-                  {/* CTA button - improved contrast */}
-                  <motion.a
-                    href={vehicle.content.ctaLink}
-                    className={`group inline-flex items-center ${isMobile ? "px-4 py-2 text-xs" : isTablet ? "px-5 py-2.5 text-sm" : "px-8 py-3 text-base"} font-medium transition-all duration-300 tracking-wide shadow-md`}
-                    style={{ 
-                      backgroundColor: primary900,
-                      color: overlayColors.text 
-                    }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1, duration: 0.5 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    aria-label={`Learn more about ${vehicle.content.title}`}
-                  >
-                    LEARN MORE
-                    <ArrowRight
-                      size={isMobile ? 12 : 16}
-                      className="ml-2 group-hover:ml-3 transition-all duration-300"
-                      aria-hidden="true"
-                    />
-                  </motion.a>
-                </div>
-              </div>
-              </div>
-              
-              {/* Right column - Grid images (2/3 width) */}
-              <div 
-                className={`${breakpoint !== "mobile" && breakpoint !== "tablet" ? "lg:col-span-2" : ""}`}
-                style={{ height: breakpoint === "mobile" ? "auto" : heights.grid }}
-              >
-                {/* Full 2x2 grid */}
-                <div className="grid grid-cols-2 grid-rows-2 h-full">
-                  {vehicle.images.map((image, idx) => (
-                    <motion.div
-                      key={idx}
-                      className="relative overflow-hidden"
-                      custom={idx}
-                      variants={animations.image}
-                      initial="hidden"
-                      animate="visible"
-                      onMouseEnter={() => !isMobile && setHoveredSection(`image-${idx}`)}
-                      onMouseLeave={() => !isMobile && setHoveredSection(null)}
-                      tabIndex={0}
-                      role="img"
-                      aria-label={image.alt}
-                      style={{ 
-                        height: '100%',
-                        minHeight: isMobile ? '25vh' : isTablet ? '30vh' : '35vh'
-                      }}
-                    >
-                      {/* Image */}
-                      <div 
-                        className="absolute inset-0 bg-cover bg-center transition-all duration-700"
-                        style={{
-                          backgroundImage: `url(${image.src})`,
-                          transform: hoveredSection === `image-${idx}` ? 'scale(1.08)' : 'scale(1)',
-                        }}
-                      />
-                      
-                      {/* Improved overlay with deeper gradient fade effect */}
-                      <AnimatePresence>
-                        {hoveredSection === `image-${idx}` && (
-                          <motion.div 
-                            className="absolute inset-0"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.8 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            style={{ 
-                              background: `linear-gradient(to top, 
-                                ${overlayColors.base}ff 0%, 
-                                ${overlayColors.base}ee 40%, 
-                                ${overlayColors.base}dd 65%, 
-                                ${overlayColors.base}aa 85%,
-                                transparent 100%)`,
-                            }}
-                          />
-                        )}
-                      </AnimatePresence>
-                      
-                      {/* Caption overlay - responsive visibility */}
-                      {/* <AnimatePresence>
-                        {(hoveredSection === `image-${idx}`) && (
-                          <motion.div 
-                            className={`absolute inset-0 flex items-end justify-start ${isMobile ? "p-2" : "p-4"}`}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <p 
-                              className={`${isMobile ? "text-xs" : isTablet ? "text-xs sm:text-sm" : "text-sm"} font-medium bg-transparent px-2 py-1`}
-                              style={{ color: overlayColors.text }}
-                            >
-                              {isMobile ? image.alt.split(' ')[0] : image.alt}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence> */}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      
-      {/* Navigation bar - responsive */}
-      {showNavigation && (
-        <div className="w-full bg-white border-t border-gray-200 py-2 md:py-4">
-          <div className={`container mx-auto px-3 md:px-6 flex flex-wrap ${isMobile ? "flex-col space-y-3" : "items-center justify-between"} gap-4`}>
-            {/* Model tabs - always visible */}
-            <div className={`flex ${isMobile ? "justify-between" : "space-x-4 md:space-x-8"}`}>
-              {vehicleData.map((vehicle, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`flex flex-col relative ${activeIndex === index ? 'opacity-100' : 'opacity-50'} 
-                  transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-primary-700
-                  ${isMobile ? "flex-1" : ""}`}
-                  aria-label={`Show ${vehicle.content.title}`}
-                  aria-current={activeIndex === index ? "true" : "false"}
-                >
-                  <span className={`${isMobile ? "text-xs" : "text-sm md:text-base"} text-gray-900 font-medium`}>
-                    {vehicle.content.title}
-                  </span>
-                  
-                  {/* Progress bar */}
-                  <div className="w-full h-0.5 mt-1.5 bg-gray-200">
-                    {activeIndex === index && (
-                      <motion.div 
-                        className="h-full transition-all duration-100 ease-linear"
-                        style={{ 
-                          width: `${slideProgress}%`,
-                          backgroundColor: primary700
-                        }}
-                        animate={{ width: `${slideProgress}%` }}
-                      />
                     )}
-                  </div>
-                </button>
-              ))}
-            </div>
-            
-            {/* Middle row for mobile - specs */}
-            {isMobile && (
-              <div className="flex justify-between">
-                {vehicleData[activeIndex].content.specs
-                  .slice(0, 2)
-                  .map((spec, index) => (
-                    <div key={index} className="text-center flex-1">
-                      <p className="text-xs text-gray-500 uppercase tracking-wider">{spec.name}</p>
-                      <p className="text-xs font-medium text-gray-900">{spec.value}</p>
-                    </div>
-                  ))}
-              </div>
-            )}
-            
-            {/* Bottom row - nav buttons for mobile, specs + nav for larger screens */}
-            <div className={`flex ${isMobile ? "justify-center" : "items-center justify-between"}`}>
-              {/* Specs - hidden on mobile */}
-              {!isMobile && (
-                <div className="hidden md:flex space-x-4 lg:space-x-6">
-                  {vehicleData[activeIndex].content.specs
-                    .slice(0, isTablet ? 2 : 4)
-                    .map((spec, index) => (
-                      <div key={index} className="text-center">
-                        <p className="text-xs text-gray-500 uppercase tracking-wider">{spec.name}</p>
-                        <p className="text-sm font-medium text-gray-900">{spec.value}</p>
-                      </div>
-                    ))}
+                  </AnimatePresence>
                 </div>
-              )}
-              
-              {/* Navigation buttons */}
-              <div className="flex space-x-2 sm:space-x-4">
-                <button 
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Navigation Bar */}
+      {showNavigation && (
+        <motion.div
+          className="bg-white border-t border-gray-200 py-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+              {/* Model tabs */}
+              <div className="flex space-x-8">
+                {vehicleData.map((vehicle, index) => (
+                  <button
+                    key={vehicle.id}
+                    onClick={() => goToSlide(index)}
+                    className={`group relative flex flex-col items-start transition-all duration-300 ${
+                      activeIndex === index ? 'opacity-100' : 'opacity-60 hover:opacity-80'
+                    }`}
+                    disabled={isTransitioning}
+                    aria-label={`View ${vehicle.content.title}`}
+                    aria-current={activeIndex === index ? "true" : "false"}
+                  >
+                    <span className="text-lg font-bold text-gray-900 mb-1">
+                      {vehicle.content.title}
+                    </span>
+                    <span className="text-sm text-gray-600 mb-3">
+                      {vehicle.content.subtitle}
+                    </span>
+                    
+                    {/* Progress bar */}
+                    <div className="w-full h-1 bg-gray-200 rounded-full">
+                      {activeIndex === index && (
+                        <motion.div
+                          className="h-full bg-primary-700 rounded-full"
+                          initial={{ width: '0%' }}
+                          animate={{ width: `${slideProgress}%` }}
+                          transition={{ duration: 0.1, ease: "linear" }}
+                        />
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Specifications */}
+              <div className="hidden md:flex items-center space-x-8">
+                {currentVehicle.content.specs.map((spec, index) => (
+                  <motion.div
+                    key={index}
+                    className="text-center"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + (index * 0.1) }}
+                  >
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                      {spec.name}
+                    </p>
+                    <p className="text-sm font-bold text-gray-900">
+                      {spec.value}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Navigation arrows */}
+              <div className="flex items-center space-x-3">
+                <motion.button
                   onClick={prevSlide}
-                  className={`${isMobile ? "w-7 h-7" : "w-8 h-8 sm:w-10 sm:h-10"} flex items-center justify-center border hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-700`}
-                  style={{ borderColor: primary700 }}
-                  aria-label="Previous slide"
+                  className="w-12 h-12 border-2 border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:border-primary-700 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-700"
+                  disabled={isTransitioning}
+                  aria-label="Previous vehicle"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ChevronLeft size={isMobile ? 14 : 16} />
-                </button>
-                <button 
+                  <ChevronLeft size={18} />
+                </motion.button>
+                
+                <motion.button
                   onClick={nextSlide}
-                  className={`${isMobile ? "w-7 h-7" : "w-8 h-8 sm:w-10 sm:h-10"} flex items-center justify-center border hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-700`}
-                  style={{ borderColor: primary700 }}
-                  aria-label="Next slide"
+                  className="w-12 h-12 border-2 border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:border-primary-700 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-700"
+                  disabled={isTransitioning}
+                  aria-label="Next vehicle"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ChevronRight size={isMobile ? 14 : 16} />
-                </button>
+                  <ChevronRight size={18} />
+                </motion.button>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
-      
-      {/* Screen reader helper */}
+
+      {/* Screen reader announcements */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {`Slide ${activeIndex + 1} of ${vehicleData.length}: ${vehicleData[activeIndex].content.title}`}
+        {`Slide ${activeIndex + 1} of ${vehicleData.length}: ${currentVehicle.content.title}`}
       </div>
-    </div>
-  )
+    </section>
+  );
 }
