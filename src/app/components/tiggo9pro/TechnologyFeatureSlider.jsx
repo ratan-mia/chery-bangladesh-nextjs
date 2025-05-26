@@ -23,7 +23,7 @@ const TechnologyFeatureSlider = () => {
     {
       id: 1,
       title: '15.6" 2.5K HD Screen (90% Screen-to-Body)',
-      image: '/images/tiggo9pro/technology/1.jpg',
+      image: '/images/tiggo9pro/technology/display.jpg',
       alt: 'Chery Tiggo 9 Pro 15.6 inch 2.5K HD screen with 90% screen-to-body ratio',
       description: 'Super wide body surround intelligent cabin featuring an immersive 15.6" 2.5K HD screen with 90% screen-to-body ratio and 3D mesh suede dash with multi-function center console.',
       specifications: [
@@ -35,7 +35,7 @@ const TechnologyFeatureSlider = () => {
     {
       id: 2,
       title: 'W-HUD Virtual Reality Heads Up Display',
-      image: '/images/tiggo9pro/technology/2.jpg',
+      image: '/images/tiggo9pro/technology/hud.jpg',
       alt: 'W-HUD Virtual Reality Heads Up Display system in Tiggo 9 Pro',
       description: 'Advanced W-HUD Virtual Reality Heads Up Display projects essential driving information directly onto the windshield for enhanced safety and convenience without taking eyes off the road.',
       specifications: [
@@ -47,7 +47,7 @@ const TechnologyFeatureSlider = () => {
     {
       id: 3,
       title: 'Qualcomm 8155 Chip+ High Performance',
-      image: '/images/tiggo9pro/technology/3.jpg',
+      image: '/images/tiggo9pro/technology/qualcomm.jpg',
       alt: 'Qualcomm 8155 processor chip powering Tiggo 9 Pro intelligent systems',
       description: 'Powerful Qualcomm 8155 chip+ ensures lightning-fast response times, seamless multi-tasking, and superior performance for all intelligent vehicle systems and entertainment features.',
       specifications: [
@@ -59,7 +59,7 @@ const TechnologyFeatureSlider = () => {
     {
       id: 4,
       title: 'Lion LionSmartCloud & Intelligent Voice Assistant',
-      image: '/images/tiggo9pro/technology/4.jpg',
+      image: '/images/tiggo9pro/technology/wireless-charger.jpg',
       alt: 'Lion LionSmartCloud connectivity and Intelligent Voice Assistant features',
       description: 'Comprehensive Lion LionSmartCloud system with Intelligent Voice Assistant (IVA) for hands-free control, online navigation, remote vehicle control, and FOTA updates.',
       specifications: [
@@ -68,58 +68,58 @@ const TechnologyFeatureSlider = () => {
         'Remote Vehicle Control'
       ]
     },
-    // {
-    //   id: 5,
-    //   title: 'Connectivity & Entertainment Suite',
-    //   image: '/images/tiggo9pro/technology/5.jpg',
-    //   alt: 'Wireless CarPlay and Android Auto connectivity in Tiggo 9 Pro',
-    //   description: 'Complete connectivity solution featuring wireless/wired CarPlay + Android Auto with HiCar, WiFi hotspot capability, Bluetooth connectivity, and online navigation system.',
-    //   specifications: [
-    //     'Wireless/Wired CarPlay + Android Auto with HiCar',
-    //     'WiFi Hotspot Capability',
-    //     'Bluetooth Connectivity',
-    //     'Online Navigation System'
-    //   ]
-    // },
-    // {
-    //   id: 6,
-    //   title: 'Premium 14-Speaker Audio System',
-    //   image: '/images/tiggo9pro/technology/6.jpg',
-    //   alt: '14 loudspeakers premium audio system with headrest integration',
-    //   description: 'Immersive 14 loudspeakers premium audio system with headrest audio system integration, multiple audio sources, and high-quality sound experience throughout the cabin.',
-    //   specifications: [
-    //     '14 Loudspeakers Premium Audio',
-    //     'Headrest Audio System Integration',
-    //     'Multiple Audio Sources',
-    //     'High-Quality Sound Experience'
-    //   ]
-    // },
-    // {
-    //   id: 7,
-    //   title: 'Advanced Charging & Connectivity Ports',
-    //   image: '/images/tiggo9pro/technology/7.jpg',
-    //   alt: 'Wireless phone charging with ventilation cooling and USB ports',
-    //   description: 'Wireless phone charging with ventilation cooling, USB Type-A + Type-C ports, fast charging support, and multiple charging zones for all passengers.',
-    //   specifications: [
-    //     'Wireless Phone Charging with Ventilation Cooling',
-    //     'USB Type-A + Type-C Ports',
-    //     'Fast Charging Support',
-    //     'Multiple Charging Zones'
-    //   ]
-    // },
-    // {
-    //   id: 8,
-    //   title: 'Remote Control & Smart Features',
-    //   image: '/images/tiggo9pro/technology/8.jpg',
-    //   alt: 'Remote network engine start and mobile app control features',
-    //   description: 'Remote network engine start, remote network start air conditioning, mobile APP remote control, and FOTA (Firmware Over-The-Air) updates for continuous improvement.',
-    //   specifications: [
-    //     'Remote Network Engine Start',
-    //     'Remote Network Start Air Conditioning',
-    //     'Mobile APP Remote Control',
-    //     'FOTA (Firmware Over-The-Air) Updates'
-    //   ]
-    // }
+    {
+      id: 5,
+      title: 'Connectivity & Entertainment Suite',
+      image: '/images/tiggo9pro/technology/display.jpg',
+      alt: 'Wireless CarPlay and Android Auto connectivity in Tiggo 9 Pro',
+      description: 'Complete connectivity solution featuring wireless/wired CarPlay + Android Auto with HiCar, WiFi hotspot capability, Bluetooth connectivity, and online navigation system.',
+      specifications: [
+        'Wireless/Wired CarPlay + Android Auto with HiCar',
+        'WiFi Hotspot Capability',
+        'Bluetooth Connectivity',
+        'Online Navigation System'
+      ]
+    },
+    {
+      id: 6,
+      title: 'Premium 14-Speaker Audio System',
+      image: '/images/tiggo9pro/technology/audio-system.jpg',
+      alt: '14 loudspeakers premium audio system with headrest integration',
+      description: 'Immersive 14 loudspeakers premium audio system with headrest audio system integration, multiple audio sources, and high-quality sound experience throughout the cabin.',
+      specifications: [
+        '14 Loudspeakers Premium Audio',
+        'Headrest Audio System Integration',
+        'Multiple Audio Sources',
+        'High-Quality Sound Experience'
+      ]
+    },
+    {
+      id: 7,
+      title: 'Advanced Charging & Connectivity Ports',
+      image: '/images/tiggo9pro/technology/wireless-charger.jpg',
+      alt: 'Wireless phone charging with ventilation cooling and USB ports',
+      description: 'Wireless phone charging with ventilation cooling, USB Type-A + Type-C ports, fast charging support, and multiple charging zones for all passengers.',
+      specifications: [
+        'Wireless Phone Charging with Ventilation Cooling',
+        'USB Type-A + Type-C Ports',
+        'Fast Charging Support',
+        'Multiple Charging Zones'
+      ]
+    },
+    {
+      id: 8,
+      title: 'Remote Control & Smart Features',
+      image: '/images/tiggo9pro/technology/smart-features.jpg',
+      alt: 'Remote network engine start and mobile app control features',
+      description: 'Remote network engine start, remote network start air conditioning, mobile APP remote control, and FOTA (Firmware Over-The-Air) updates for continuous improvement.',
+      specifications: [
+        'Remote Network Engine Start',
+        'Remote Network Start Air Conditioning',
+        'Mobile APP Remote Control',
+        'FOTA (Firmware Over-The-Air) Updates'
+      ]
+    }
   ];
 
   // Calculate total slides and visible slides based on screen width
