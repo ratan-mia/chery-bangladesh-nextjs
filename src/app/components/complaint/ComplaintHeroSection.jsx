@@ -10,15 +10,15 @@ const ComplaintHeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/services/service-center.jpg"
-          alt="Chery Bangladesh Customer Service Center"
+          src="/images/services/workshop.webp"
+          alt="Chery Bangladesh Service Workshop"
           fill
           sizes="100vw"
           className="object-cover"
           priority
         />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-900/70 to-primary-800/60" />
+        {/* Enhanced Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-primary-900/85 to-black/75" />
       </div>
 
       {/* Content */}

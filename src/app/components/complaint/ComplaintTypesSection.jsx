@@ -179,14 +179,17 @@ const ComplaintTypesSection = () => {
                     </ul>
                   </div>
 
-                  {/* Hover CTA */}
-                  <div className="flex items-center text-primary-700 font-medium text-sm opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <span>File this complaint</span>
+                  {/* Enhanced CTA Button */}
+                  <a
+                    href="#file-complaint"
+                    className="inline-flex items-center justify-center w-full bg-primary-700 hover:bg-primary-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg group/btn"
+                  >
+                    <span>File This Complaint</span>
                     <ArrowRight
                       size={16}
-                      className="ml-2 group-hover:ml-3 transition-all duration-300"
+                      className="ml-2 group-hover/btn:ml-3 transition-all duration-300"
                     />
-                  </div>
+                  </a>
                 </div>
                 
                 {/* Bottom accent line that fills on hover */}
