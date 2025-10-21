@@ -93,7 +93,7 @@ const ComplaintHeroSection = () => {
             >
               <a
                 href="#file-complaint"
-                className="group inline-flex items-center justify-center px-8 py-4 bg-primary-700 text-white font-medium hover:bg-primary-800 transition-all duration-300 text-center"
+                className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300"
               >
                 File a Complaint
                 <ArrowRight

@@ -2,13 +2,13 @@
 
 import { motion } from "framer-motion";
 import {
-    ArrowRight,
-    Car,
-    CreditCard,
-    FileText,
-    Shield,
-    Users,
-    Wrench
+  ArrowRight,
+  Car,
+  CreditCard,
+  FileText,
+  Shield,
+  Users,
+  Wrench
 } from "lucide-react";
 
 const ComplaintTypesSection = () => {
@@ -152,48 +152,13 @@ const ComplaintTypesSection = () => {
                     {type.title}
                   </h3>
                   
-                  <p className="text-gray-600 leading-normal mb-8">
-                    {type.description}
-                  </p>
-
-                  {/* Priority and Timeline */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${getPriorityColor(type.priority)}`}>
-                      {type.priority} Priority
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {type.timeline}
-                    </span>
-                  </div>
-
-                  {/* Examples */}
-                  <div className="mb-8">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Common Examples:</h4>
-                    <ul className="text-xs text-gray-600 space-y-1">
-                      {type.examples.map((example, idx) => (
-                        <li key={idx} className="flex items-center">
-                          <div className="w-1 h-1 bg-primary-700 rounded-full mr-2"></div>
-                          {example}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* CTA following design system */}
-                  <a
-                    href="#file-complaint"
-                    className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300 w-full justify-center"
-                  >
-                    File This Complaint
+                  <p className="text-gray-600 leading-normal mb-8">{type.description}</p>
+                  <div className="flex items-center text-primary-700 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span>File this complaint</span>
                     <ArrowRight
-                      size={20}
+                      size={16}
                       className="ml-2 group-hover:ml-3 transition-all duration-300"
                     />
-                  </a>
-                  
-                  {/* Hover state reveal */}
-                  <div className="flex items-center text-primary-700 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 justify-center">
-                    <span>Quick resolution process</span>
                   </div>
                 </div>
                 
