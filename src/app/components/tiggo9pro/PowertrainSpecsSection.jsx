@@ -108,7 +108,7 @@ const PowertrainSpecsSection = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
-            style={{ 
+            style={{
               backgroundImage: "linear-gradient(to bottom, white 50%, transparent), url('/images/tiggo9pro/engine.jpg')",
               backgroundSize: "100%, cover",
               backgroundPosition: "top, center",
@@ -118,10 +118,10 @@ const PowertrainSpecsSection = () => {
             <div className="p-8 md:p-10 pb-56 md:pb-72">
               {/* Engine Type Header */}
               <motion.h3
-                className="text-xl font-bold text-primary-700 mb-8"
+                className="text-xl uppercase font-bold text-primary-700 mb-8"
                 variants={fadeInUp}
               >
-                1.5TGDI HYBRID ENGINE
+                1500cc Direct-Injection Turbo 4-Cylinder
               </motion.h3>
 
               {/* Engine Specs */}
@@ -129,15 +129,28 @@ const PowertrainSpecsSection = () => {
                 {/* Engine Power */}
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
-                    <div className="mb-2">
-                      <AnimatedCounter value={115} unit="kW" duration={2.2} />
+                    <div className="flex flex-row space-x-4">
+                      <div className="mb-2">
+                        <AnimatedCounter value={375} unit="kW" duration={2.2} />
+                      </div>
+                     
+                      <div className="flex items-center">
+                        <div className="w-1 h-4 bg-primary-700 mx-2" />
+                      </div>
+
+                      <div className="mb-2">
+                        <AnimatedCounter value={502} unit="BHP" duration={2.2} />
+                      </div>
+
                     </div>
+
+
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
                       variants={lineAnimation}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      ENGINE POWER
+                      COMBINED ENGINE POWER
                     </span>
                   </div>
                 </motion.div>
@@ -146,14 +159,14 @@ const PowertrainSpecsSection = () => {
                 <motion.div variants={fadeInUp}>
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={220} unit="N·M" duration={2} />
+                      <AnimatedCounter value={750} unit="N·M" duration={2} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
                       variants={lineAnimation}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      ENGINE TORQUE
+                      Combined Torque
                     </span>
                   </div>
                 </motion.div>
@@ -189,7 +202,7 @@ const PowertrainSpecsSection = () => {
             <motion.div
               className="bg-white"
               variants={fadeInUp}
-              style={{ 
+              style={{
                 backgroundImage: "linear-gradient(to bottom, white 60%, transparent), url('/images/tiggo9pro/motor.jpg')",
                 backgroundSize: "100%, contain",
                 backgroundPosition: "top, right",
@@ -242,7 +255,7 @@ const PowertrainSpecsSection = () => {
             {/* Bottom Box - Performance & Range */}
             <motion.div
               className="bg-white"
-              style={{ 
+              style={{
                 backgroundImage: "linear-gradient(to bottom, white 50%, transparent), url('/images/tiggo9pro/performance.jpg')",
                 backgroundSize: "100%, cover",
                 backgroundPosition: "top, center",
