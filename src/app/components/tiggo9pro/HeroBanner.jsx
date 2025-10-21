@@ -101,15 +101,24 @@ const Tiggo9MainBanner = () => {
             className="h-0.5 bg-primary-light mx-auto mb-4"
           />
           
-          {/* Tagline */}
+      
           <motion.p
             initial="hidden"
             animate="visible"
             variants={taglineVariants}
-            className="text-white text-lg sm:text-xl md:text-2xl tracking-[0.3em] uppercase font-light"
+            className="text-white text-lg sm:text-xl md:text-2xl tracking-[0.3em] uppercase font-light mb-5"
+          >
+           PLUG-IN HYBRID ELECTRIC VEHICLE (PHEV)
+          </motion.p>
+              {/* Tagline */}
+          <motion.h2
+            initial="hidden"
+            animate="visible"
+            variants={taglineVariants}
+            className="text-white font-bold text-lg sm:text-xl md:text-2xl tracking-[0.3em] uppercase text-italic mt-2"
           >
             ONE STEP AHEAD
-          </motion.p>
+          </motion.h2>
           
           {/* CTA Button */}
           <motion.div
