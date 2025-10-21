@@ -619,6 +619,15 @@ export default function MobileMenu({
                   Service
                 </Link>
               </li>
+              <li className="border-b border-gray-100">
+                <Link 
+                  href="/complaint" 
+                  className="text-gray-800 no-underline text-base px-5 py-4 block uppercase hover:bg-gray-100 transition-colors" 
+                  onClick={closeMenu}
+                >
+                  Complaint
+                </Link>
+              </li>
             </ul>
           </nav>
           

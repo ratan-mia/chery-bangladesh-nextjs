@@ -149,6 +149,11 @@ export default function Footer() {
                  Book an Appointment
                 </Link>
               </li>
+              <li>
+                <Link href="/complaint" className="text-gray-600 hover:text-primary transition-colors text-sm">
+                  File Complaint
+                </Link>
+              </li>
             </ul>
           </div>
 

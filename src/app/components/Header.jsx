@@ -343,6 +343,14 @@ export default function Header() {
               </li>
               <li className="mr-5">
                 <Link
+                  href="/complaint"
+                  className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
+                >
+                  COMPLAINT
+                </Link>
+              </li>
+              <li className="mr-5">
+                <Link
                   href="/contact"
                   className="text-gray-800 text-sm font-medium uppercase py-2 px-3 block hover:text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
                 >
