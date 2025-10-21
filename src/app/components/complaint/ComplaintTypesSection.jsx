@@ -137,22 +137,22 @@ const ComplaintTypesSection = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="group relative border border-gray-200 bg-white shadow-sm overflow-hidden hover:border-primary-700 transition-all duration-300 rounded-lg"
+                className="relative border border-gray-200 bg-white shadow-sm overflow-hidden group hover:border-primary-700 transition-all duration-300"
               >
                 {/* Top accent */}
                 <div className="h-1 w-full bg-primary-800 opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="w-16 h-16 bg-primary-light bg-opacity-40 flex items-center justify-center mb-6 rounded-lg">
+                <div className="p-8">
+                  <div className="w-16 h-16 bg-primary-light bg-opacity-40 flex items-center justify-center mb-6">
                     <IconComponent className="text-primary-900" size={28} />
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-900 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary-900 transition-colors duration-300">
                     {type.title}
                   </h3>
                   
-                  <p className="text-gray-600 leading-normal mb-4 text-sm">
+                  <p className="text-gray-600 leading-normal mb-8">
                     {type.description}
                   </p>
 
@@ -167,7 +167,7 @@ const ComplaintTypesSection = () => {
                   </div>
 
                   {/* Examples */}
-                  <div className="mb-6">
+                  <div className="mb-8">
                     <h4 className="text-sm font-semibold text-gray-700 mb-2">Common Examples:</h4>
                     <ul className="text-xs text-gray-600 space-y-1">
                       {type.examples.map((example, idx) => (
@@ -179,17 +179,22 @@ const ComplaintTypesSection = () => {
                     </ul>
                   </div>
 
-                  {/* Enhanced CTA Button */}
+                  {/* CTA following design system */}
                   <a
                     href="#file-complaint"
-                    className="inline-flex items-center justify-center w-full bg-primary-700 hover:bg-primary-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg group/btn"
+                    className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300 w-full justify-center"
                   >
-                    <span>File This Complaint</span>
+                    File This Complaint
                     <ArrowRight
-                      size={16}
-                      className="ml-2 group-hover/btn:ml-3 transition-all duration-300"
+                      size={20}
+                      className="ml-2 group-hover:ml-3 transition-all duration-300"
                     />
                   </a>
+                  
+                  {/* Hover state reveal */}
+                  <div className="flex items-center text-primary-700 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 justify-center">
+                    <span>Quick resolution process</span>
+                  </div>
                 </div>
                 
                 {/* Bottom accent line that fills on hover */}
@@ -201,7 +206,7 @@ const ComplaintTypesSection = () => {
           })}
         </motion.div>
 
-        {/* Call to Action */}
+        {/* Call to Action following design system */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -209,17 +214,21 @@ const ComplaintTypesSection = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="text-center mt-16"
         >
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-white/90 backdrop-blur-sm border-l-2 border-primary-700 p-8 shadow-sm max-w-4xl mx-auto">
+            <div className="flex items-center justify-center mb-4">
+              <FileText className="h-6 w-6 text-primary-700 mr-2" />
+              <span className="text-gray-900 font-medium">Custom Complaint</span>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
               Don't see your issue listed?
             </h3>
-            <p className="text-gray-600 mb-6">
-              No problem! You can still file a complaint and our team will categorize it appropriately 
-              to ensure you get the right support.
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+              No problem! You can still file a complaint and our expert team will categorize it appropriately 
+              to ensure you get the most effective support and resolution.
             </p>
             <a
               href="#file-complaint"
-              className="group inline-flex items-center px-8 py-3 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300 rounded-md"
+              className="group inline-flex items-center px-10 py-4 bg-primary-700 text-white font-medium hover:bg-primary-900 transition-colors duration-300"
             >
               File Your Complaint
               <ArrowRight
