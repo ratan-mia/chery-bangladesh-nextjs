@@ -599,7 +599,7 @@ const ServicePage = () => {
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 mr-3 flex-shrink-0 mt-1">
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
-                      <span>Courtesy vehicle wash with every service</span>
+                     
                     </li>
                     <li className="flex">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 mr-3 flex-shrink-0 mt-1">

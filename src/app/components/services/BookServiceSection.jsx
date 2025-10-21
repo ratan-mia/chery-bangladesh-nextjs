@@ -411,7 +411,7 @@ const BookServiceSection = () => {
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
                     </div>
-                    <span>Courtesy vehicle wash with every service</span>
+                   
                   </li>
                   <li className="flex">
                     <div className="h-6 w-6 bg-primary-700 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
