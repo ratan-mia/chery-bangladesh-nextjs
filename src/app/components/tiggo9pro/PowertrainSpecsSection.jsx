@@ -365,7 +365,7 @@ const PowertrainSpecsSection = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
               />
               <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                HYBRID TRANSMISSION
+               8-Speed Aisin Dedicated Hybrid Transmission
               </span>
             </div>
           </motion.div>
@@ -376,7 +376,7 @@ const PowertrainSpecsSection = () => {
             variants={fadeInUp}
           >
             <h3 className="text-xl font-bold text-primary-700 mb-6">
-              INTELLIGENT 4WD
+              INTELLIGENT AWD
             </h3>
             <div className="text-base text-primary-900 font-medium space-y-2">
               <p>ECO + NORMAL + SPORT + OFFROAD</p>
@@ -388,7 +388,7 @@ const PowertrainSpecsSection = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
               />
               <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                FULL SCENE INTELLIGENT 4WD SYSTEM
+                FULL SCENE INTELLIGENT AWD SYSTEM
               </p>
             </div>
           </motion.div>
