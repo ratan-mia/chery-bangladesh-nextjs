@@ -211,14 +211,14 @@ const PowertrainSpecsSection = () => {
             >
               <div className="p-8 md:p-10 pb-32">
                 <h3 className="text-xl font-bold text-primary-700 mb-8">
-                  ELECTRIC MOTOR SYSTEM
+                  ELECTRIC DRIVE RANGE
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Motor Comprehensive Power */}
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={455} unit="kW" duration={2.5} />
+                      <AnimatedCounter value={170} unit="KM" duration={2.5} />
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
@@ -228,12 +228,12 @@ const PowertrainSpecsSection = () => {
                       transition={{ duration: 0.5, delay: 0.3 }}
                     />
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      MOTOR COMPREHENSIVE POWER
+                   
                     </span>
                   </div>
 
                   {/* Motor Comprehensive Torque */}
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <div className="mb-2">
                       <AnimatedCounter value={920} unit="N·M" duration={2.8} />
                     </div>
@@ -247,7 +247,7 @@ const PowertrainSpecsSection = () => {
                     <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
                       MOTOR COMPREHENSIVE TORQUE
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </motion.div>
@@ -291,8 +291,8 @@ const PowertrainSpecsSection = () => {
                   {/* Fuel Consumption */}
                   <div className="flex flex-col">
                     <div className="mb-2">
-                      <AnimatedCounter value={6.2} unit="" duration={1.5} decimal={true} />
-                      <span className="text-2xl md:text-3xl font-medium text-primary-700">KM/L</span>
+                      <AnimatedCounter value={70} unit="L" duration={1.5} decimal={true} />
+                      <span className="text-2xl md:text-3xl font-medium text-primary-700">Fuel Tank Capacity</span>
                     </div>
                     <motion.div
                       className="w-full h-px bg-primary-700/20 mb-2"
@@ -301,14 +301,14 @@ const PowertrainSpecsSection = () => {
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: 0.4 }}
                     />
-                    <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                    {/* <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
                       NEDC FUEL CONSUMPTION
-                    </span>
+                    </span> */}
                   </div>
                 </div>
 
                 {/* Range Information */}
-                <motion.div
+                {/* <motion.div
                   className="text-right mb-4"
                   initial={{ opacity: 0, x: 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -318,10 +318,10 @@ const PowertrainSpecsSection = () => {
                   <p className="text-base text-primary-900 font-medium">
                     RANGE: 1300KM (FUEL) + 170KM (BATTERY)
                   </p>
-                </motion.div>
+                </motion.div> */}
 
                 {/* Battery Capacity */}
-                <motion.div
+                {/* <motion.div
                   className="text-right"
                   initial={{ opacity: 0, x: 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -331,7 +331,7 @@ const PowertrainSpecsSection = () => {
                   <p className="text-base text-primary-900 font-medium">
                     BATTERY CAPACITY: 33.46kWh
                   </p>
-                </motion.div>
+                </motion.div> */}
               </div>
             </motion.div>
           </motion.div>
@@ -404,7 +404,7 @@ const PowertrainSpecsSection = () => {
             <div className="space-y-4">
               <div className="flex flex-col">
                 <div className="mb-2">
-                  <AnimatedCounter value={2233} unit="kg" duration={2.2} />
+                  <AnimatedCounter value={2430} unit="kg" duration={2.2} />
                 </div>
                 <motion.div
                   className="w-full h-px bg-primary-700/20 mb-2"
