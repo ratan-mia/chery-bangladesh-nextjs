@@ -55,8 +55,18 @@ const ComplaintFAQs = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 md:px-6">
+    <section className="py-20 bg-gray-50 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-3">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{
+            backgroundImage: `url('/images/banners/sfsfsf.jpg')`
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-50/98 via-gray-50/95 to-gray-50/98"></div>
+      </div>
+      <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

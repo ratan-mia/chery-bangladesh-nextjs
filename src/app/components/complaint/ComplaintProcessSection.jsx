@@ -99,9 +99,15 @@ const ComplaintProcessSection = () => {
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/10 to-primary-700/5"></div>
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 opacity-8">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{
+            backgroundImage: `url('/images/services/service-working.jpg')`
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/97 to-white/95"></div>
       </div>
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
