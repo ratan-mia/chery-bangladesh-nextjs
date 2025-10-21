@@ -94,24 +94,24 @@ export const comfortShowcaseData = {
       duration: 2
     },
     {
-      label: "Electric Range",
-      value: "170",
-      unit: "KM",
+      label: "Dual Zone Climate Control",
+      value: "Automatic",
+      unit: "",
       decimal: false,
       duration: 2.2
     },
     {
-      label: "Combined Range",
-      value: "1380",
-      unit: "KM",
+      label: "Massaging Front Seats",
+      value: "Yes",
+      unit: "",
       decimal: false,
       duration: 2.4
     },
     {
-      label: "Acceleration 0-100",
-      value: "5.7",
-      unit: "seconds",
-      decimal: true,
+      label: "Panoramic Sunroof",
+      value: "Yes",
+      unit: "",
+      decimal: false,
       duration: 1.5
     }
   ]
