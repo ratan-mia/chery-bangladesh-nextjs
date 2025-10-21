@@ -98,8 +98,12 @@ const ComplaintProcessSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section className="py-20 bg-white relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/10 to-primary-700/5"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

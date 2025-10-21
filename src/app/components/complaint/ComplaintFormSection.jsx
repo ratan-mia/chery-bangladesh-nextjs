@@ -182,8 +182,20 @@ const ComplaintFormSection = () => {
 
   if (submitStatus === 'success') {
     return (
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 md:px-6">
+      <section className="py-20 bg-gray-50 relative">
+        {/* Success Background */}
+        <div className="absolute inset-0 opacity-5">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/images/services/service-working.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-50/95 to-gray-50"></div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -260,8 +272,20 @@ const ComplaintFormSection = () => {
   }
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 md:px-6">
+    <section className="py-20 bg-gray-50 relative">
+      {/* Form Background */}
+      <div className="absolute inset-0 opacity-3">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/images/chery-features-bg.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/98 to-gray-50"></div>
+      </div>
+      <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -314,7 +338,7 @@ const ComplaintFormSection = () => {
                     name="complaintType"
                     value={formData.complaintType}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 ${
                       errors.complaintType ? 'border-red-500' : 'border-gray-300'
                     }`}
                   >
@@ -336,7 +360,7 @@ const ComplaintFormSection = () => {
                     name="priority"
                     value={formData.priority}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 ${
                       errors.priority ? 'border-red-500' : 'border-gray-300'
                     }`}
                   >
@@ -361,7 +385,7 @@ const ComplaintFormSection = () => {
                   value={formData.complaintTitle}
                   onChange={handleInputChange}
                   placeholder="Brief summary of your complaint"
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500 ${
                     errors.complaintTitle ? 'border-red-500' : 'border-gray-300'
                   }`}
                 />
@@ -380,7 +404,7 @@ const ComplaintFormSection = () => {
                   onChange={handleInputChange}
                   rows={5}
                   placeholder="Please provide detailed information about your complaint including dates, circumstances, and any relevant details..."
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500 ${
                     errors.complaintDescription ? 'border-red-500' : 'border-gray-300'
                   }`}
                 />
@@ -399,7 +423,7 @@ const ComplaintFormSection = () => {
                   onChange={handleInputChange}
                   rows={3}
                   placeholder="What outcome are you hoping for? (e.g., repair, replacement, refund, etc.)"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500"
                 />
               </div>
             </div>
@@ -420,7 +444,7 @@ const ComplaintFormSection = () => {
                     name="vehicleModel"
                     value={formData.vehicleModel}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 ${
                       errors.vehicleModel ? 'border-red-500' : 'border-gray-300'
                     }`}
                   >
@@ -442,7 +466,7 @@ const ComplaintFormSection = () => {
                     name="vehicleYear"
                     value={formData.vehicleYear}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900"
                   >
                     <option value="">Select year</option>
                     {years.map(year => (
@@ -461,7 +485,7 @@ const ComplaintFormSection = () => {
                     value={formData.vinNumber}
                     onChange={handleInputChange}
                     placeholder="Vehicle Identification Number"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500"
                   />
                 </div>
 
@@ -474,7 +498,7 @@ const ComplaintFormSection = () => {
                     name="purchaseDate"
                     value={formData.purchaseDate}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900"
                   />
                 </div>
 
@@ -486,7 +510,7 @@ const ComplaintFormSection = () => {
                     name="dealerName"
                     value={formData.dealerName}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900"
                   >
                     <option value="">Select dealer/service center</option>
                     {dealers.map(dealer => (
@@ -505,7 +529,7 @@ const ComplaintFormSection = () => {
                     onChange={handleInputChange}
                     rows={3}
                     placeholder="Any previous service history, repairs, or related issues..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500"
                   />
                 </div>
               </div>
@@ -529,7 +553,7 @@ const ComplaintFormSection = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your full name"
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500 ${
                       errors.name ? 'border-red-500' : 'border-gray-300'
                     }`}
                   />
@@ -548,7 +572,7 @@ const ComplaintFormSection = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="your.email@example.com"
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500 ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                   />
@@ -567,7 +591,7 @@ const ComplaintFormSection = () => {
                     value={formData.contactNumber}
                     onChange={handleInputChange}
                     placeholder="01XXXXXXXXX"
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500 ${
                       errors.contactNumber ? 'border-red-500' : 'border-gray-300'
                     }`}
                   />
@@ -586,7 +610,7 @@ const ComplaintFormSection = () => {
                     value={formData.alternateNumber}
                     onChange={handleInputChange}
                     placeholder="01XXXXXXXXX (Optional)"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500"
                   />
                 </div>
 
@@ -600,7 +624,7 @@ const ComplaintFormSection = () => {
                     onChange={handleInputChange}
                     rows={3}
                     placeholder="Your complete address"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700 bg-white text-gray-900 placeholder-gray-500"
                   />
                 </div>
               </div>

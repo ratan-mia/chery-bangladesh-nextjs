@@ -48,8 +48,20 @@ const ComplaintResolutionSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section className="py-20 bg-gray-50 relative">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/images/services/workshop.webp')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/90 via-gray-50/95 to-gray-50"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

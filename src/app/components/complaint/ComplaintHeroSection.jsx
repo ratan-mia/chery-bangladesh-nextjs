@@ -10,8 +10,8 @@ const ComplaintHeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/services/hero-bg.jpg"
-          alt="Chery Bangladesh Customer Service"
+          src="/images/services/service-center.jpg"
+          alt="Chery Bangladesh Customer Service Center"
           fill
           sizes="100vw"
           className="object-cover"

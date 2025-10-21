@@ -55,8 +55,20 @@ const ComplaintContactInfo = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section className="py-20 bg-white relative">
+      {/* Background Image */}
+      <div className="absolute inset-0 opacity-5">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/images/contact/contact-hero.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/60"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
