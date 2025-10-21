@@ -1,5 +1,4 @@
-
-// Tiggo 9 Pro power showcase data for 1.5TGDI variant - UPDATED WITH CORRECT SPECIFICATIONS
+// Tiggo 9 Pro power showcase data for 1.5TGDI variant - UPDATED WITH CORRECT BROCHURE SPECIFICATIONS
 export const tiggo9ProPowerData = {
     imageSrc: "/images/tiggo9pro/power.jpg",
     imageAlt: "Chery Tiggo 9 Pro with couple",
@@ -15,9 +14,9 @@ export const tiggo9ProPowerData = {
         duration: 2
       },
       {
-        label: "Motor Comprehensive Power",
-        value: '455',
-        unit: "kW",
+        label: "Combined Maximum Power",
+        value: '375',
+        unit: "kW (502 BHP)",
         decimal: false,
         duration: 2.2
       },
@@ -29,8 +28,8 @@ export const tiggo9ProPowerData = {
         duration: 2.4
       },
       {
-        label: "Motor Comprehensive Torque",
-        value: "920",
+        label: "Combined Maximum Torque",
+        value: "750",
         unit: "Nm",
         decimal: false,
         duration: 1.8
@@ -38,18 +37,18 @@ export const tiggo9ProPowerData = {
     ]
   };
   
-  // Cabin data - UPDATED VALUES
+  // Cabin data - UPDATED VALUES FROM BROCHURE
   export const cabinCarData = {
     imageSrc: "/images/tiggo9pro/cabin-banner.jpg",
     imageAlt: "Tiggo 9 Pro intelligent cabin interior",
     overtitle: "INTELLIGENT CABIN",
-    title: "INTELLIGENT CABIN",
-    description: "Super wide body surround intelligent cabin. Super wide body, super comfortable, super quiet, super healthy.",
+    title: "CRAFTED FOR THE EXTRAORDINARY",
+    description: "Super Wide & Intelligent Cabin Design with premium features for an extraordinary driving experience.",
     specs: [
       {
         label: "HD screen",
         value: 15.6,
-        unit: "inch 2.5K",
+        unit: "inch 2.5K (90% Screen-to-Body)",
         decimal: true,
         duration: 1.8
       },
@@ -61,82 +60,80 @@ export const tiggo9ProPowerData = {
         duration: 2
       },
       {
-        label: "Loudspeakers",
-        value: 14,
-        unit: "speakers",
+        label: "Audio System",
+        value: "SONY",
+        unit: "14-Speaker High Fidelity",
         decimal: false,
         duration: 2.2
       },
       {
-        label: "Qualcomm Chip",
-        value: "8155",
-        unit: "chip+",
+        label: "Interior Design",
+        value: "3D Mesh",
+        unit: "Suede Dash + Multi-Function",
         decimal: false,
         duration: 2.4
       }
     ]
   };
   
-  // Comfort Data - UPDATED VALUES
+  // Comfort Data - UPDATED VALUES FROM BROCHURE
   export const comfortShowcaseData = {
     imageSrc: "/images/tiggo9pro/comfort-banner.jpg",
     imageAlt: "Chery Tiggo 9 Pro with family at luxury beachfront residence",
     overtitle: "COMFORT AND QUIET",
     title: "COMFORT",
-    description: "Experience unparalleled comfort with our spacious interior and advanced climate control technology.",
+    description: "Experience unparalleled comfort with our spacious 7-seater interior and advanced hybrid technology.",
     specs: [
       {
         label: "Seating capacity",
         value: 7,
-        unit: "seats (2+3+2)",
+        unit: "seats",
         decimal: false,
         duration: 2
       },
       {
-        label: "Battery Capacity",
-        value: "33.46",
-        unit: "kWh",
-        decimal: true,
+        label: "Electric Range",
+        value: "170",
+        unit: "KM",
+        decimal: false,
         duration: 2.2
       },
       {
-        label: "Range on Battery",
-        value: "170",
+        label: "Combined Range",
+        value: "1380",
         unit: "KM",
         decimal: false,
         duration: 2.4
       },
       {
-        label: "Range on Fuel",
-        value: "1300",
-        unit: "KM",
-        decimal: false,
+        label: "Acceleration 0-100",
+        value: "5.7",
+        unit: "seconds",
+        decimal: true,
         duration: 1.5
       }
     ]
   };
   
-  // Updated vehicle specifications with exact provided values
+  // Updated vehicle specifications with CORRECT brochure values
   export const vehicleSpecs = {
     dimensions: {
-      length: 4810, // mm
-      width: 1925, // mm
-      height: 1741, // mm
-      wheelbase: 2800, // mm
-      groundClearance: 147 // mm
+      length: 4820, // mm - CORRECTED from brochure
+      width: 1930, // mm - CORRECTED from brochure  
+      height: 1742, // mm - CORRECTED from brochure
+      wheelbase: 2820, // mm - CORRECTED from brochure
+      groundClearance: 205 // mm - CORRECTED from brochure
     },
     powertrain: {
       engineDisplacement: 1499, // cc
       enginePower: 115, // kW
       engineTorque: 220, // Nm
-      motorComprehensivePower: 455, // kW
-      motorComprehensiveTorque: 920, // Nm
+      combinedMaximumPower: 375, // kW (502 BHP) - CORRECTED from brochure
+      combinedMaximumTorque: 750, // Nm - CORRECTED from brochure
       acceleration0to100: 5.7, // seconds
-      fuelConsumptionNEDC: 6.2, // KM/L
-      rangeOnFuel: 1300, // KM
-      rangeOnBatteryNEDC: 170, // KM
-      batteryCapacity: 33.46, // kWh
-      grossVehicleMass: 2233, // kg (GVW)
+      electricRange: 170, // KM
+      combinedSystemRange: 1380, // KM - CORRECTED from brochure
+      grossVehicleMass: 2430, // kg - CORRECTED from brochure
       fuelTankCapacity: 70 // L
     },
     exteriorFeatures: [
@@ -149,28 +146,31 @@ export const tiggo9ProPowerData = {
       "20-inch Alloy Rims",
       "LED headlights with automatic control",
       "LED daytime running lights",
-      "Front and rear dynamic turn signals"
+      "Front and rear dynamic turn signals",
+      "High stance LED taillamps"
     ],
     interiorFeatures: [
-      "15.6\" 2.5K HD Screen (90% Screen-to-Body)",
-      "3D mesh suede dash + Multi-function center console",
+      "15.6\" 2.5K HD Screen (90% Screen-to-Body)", // CORRECTED from brochure
+      "3D mesh suede dash + Multi-function center console", // CORRECTED from brochure
       "TOM wood grain decorative panel",
       "W-HUD Virtual Reality Heads Up Display",
       "Driver seats with memory, ventilation, heating and massage",
       "One Click Zero Gravity Seat",
-      "14 Loudspeakers audio system",
+      "SONY 14-Speaker High Fidelity Surround Sound System", // CORRECTED from brochure
       "Qualcomm 8155 chip+",
       "Full leather coverage on contact areas",
       "Dual-zone automatic climate control",
-      "Panoramic sunroof with motorized sunshade"
+      "Panoramic sunroof with motorized sunshade",
+      "Headrest-embedded audio system",
+      "Sustainable TOM ash wood garnishing"
     ],
     colors: {
-      exterior: ["Aurora Green", "White", "Black", "Matte Gray", "Gray"],
+      exterior: ["Aurora Green", "Pearl White", "Carbon Crystal Black", "Satin Grey", "Phantom Grey"],
       interior: ["Black Brown", "Black"]
     },
     technology: {
       engine: "1.5TGDI+3DHT",
-      driveSystem: "Full scene intelligent 4WD system",
+      driveSystem: "Full scene intelligent AWD system", // CORRECTED from brochure
       transmissionType: "3DHT (3-speed DHT)",
       drivingModes: ["ECO", "NORMAL", "SPORT", "OFFROAD"],
       remoteFeatures: [
@@ -213,7 +213,7 @@ export const tiggo9ProPowerData = {
       ]
     },
     safety: {
-      airbags: 10,
+      airbags: 10, // CORRECTED from brochure
       airbagsDetails: [
         "Dual front airbags",
         "Front side airbags", 
@@ -223,7 +223,7 @@ export const tiggo9ProPowerData = {
         "Far-end airbags"
       ],
       structuralSafety: {
-        highStrengthSteel: "85%",
+        highStrengthSteel: "85%", // CONFIRMED from brochure
         hotFormedSteel: "21%",
         frontAntiCollisionBeam: "140mm height with 85% coverage",
         sideCurtains: "2060mm traverse side air curtains"
@@ -253,6 +253,12 @@ export const tiggo9ProPowerData = {
       "Automatic anti-glare interior rearview mirror",
       "Inductive windshield wipers",
       "Steering wheel electric heating"
+    ],
+    additionalFeatures: [
+      "Free home fast charger (22KW) with every purchase", // NEW from brochure
+      "Interactive heads-up display (HUD)",
+      "7 luxury Nappa leather w/ one-click zero gravity seat",
+      "Sustainable TOM ash wood garnishing"
     ]
   };
 
